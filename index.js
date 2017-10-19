@@ -10,6 +10,9 @@ module.exports = {
 
         const getInfo = new Promise((resolve, error) => {
 
+            // Turns increase into a number automatically
+            increase = parseInt(increase);
+
             // Check if increase is a number
             if (isNaN(increase)) {
                 console.log('INCREASE VALUE is NOT A NUMBER');

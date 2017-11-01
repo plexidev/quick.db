@@ -1,7 +1,7 @@
 {
   "name": "quick.db",
-  "version": "1.0.5",
-  "description": "An easy asynchronous sqlite3 database for storing values",
+  "version": "1.0.10",
+  "description": "An easy asynchronous sqlite3 database for persistently and safely storing values",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

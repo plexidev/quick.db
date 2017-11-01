@@ -1,5 +1,15 @@
+
+
 Quick.db
 ========
+
+
+<div align="center">
+    <p>
+        <a href="https://discord.gg/6mcmDu4"><img src="https://discordapp.com/api/guilds/343572980351107077/embed.png" alt="Discord Server" /></a>
+        <a href="http://www.youtube.com/subscription_center?add_user=TrueXPixels"><img src="https://img.shields.io/badge/Subscribe-YouTube-red.svg" alt="YouTube Channel" /></a>       
+    </p>
+</div>
 
 **Note:** This package is under development and will be updated frequently.
 
@@ -32,7 +42,7 @@ database.fetchValue('ID').then((i) => {
 Value must be an integer. If you want to subtract from the value make it a negative number.
 
 ```js
-database.updateBalance('ID', 'value').then((i) => {
+database.updateValue('ID', 'value').then((i) => {
 	// Code goes here...
     console.log(i) // Returns the updated result. Example: If 'value' is 250, it would return { ID: 'ID', value: 250 }
 });

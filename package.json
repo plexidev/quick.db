@@ -1,6 +1,6 @@
 {
   "name": "quick.db",
-  "version": "1.0.10",
+  "version": "2.0.3",
   "description": "An easy asynchronous sqlite3 database for persistently and safely storing values",
   "main": "index.js",
   "scripts": {

@@ -1,29 +1,62 @@
 {
-  "name": "quick.db",
-  "version": "2.0.3",
+  "_from": "quick.db",
+  "_id": "quick.db@2.0.13",
+  "_inBundle": false,
+  "_integrity": "sha512-Igt1MA/Nhm9QUIximuigIFfKOJNVkXxQsu7a1JRS5yFOQtBm+JJdcqgoDQcUHJkA5F7kwiLTeVx6MxPoKjLjOg==",
+  "_location": "/quick.db",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "quick.db",
+    "name": "quick.db",
+    "escapedName": "quick.db",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/quick.db/-/quick.db-2.0.13.tgz",
+  "_shasum": "b6869a5223402cb0167752e5ff1f7e22905b5dc2",
+  "_spec": "quick.db",
+  "_where": "/home/ubuntu/workspace",
+  "author": {
+    "name": "TrueXPixels"
+  },
+  "bugs": {
+    "url": "https://github.com/TrueXPixels/quick.db/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "sqlite3": "^3.1.13"
+  },
+  "deprecated": false,
   "description": "An easy asynchronous sqlite3 database for persistently and safely storing values",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TrueXPixels/quick.db.git"
-  },
+  "homepage": "https://github.com/TrueXPixels/quick.db#readme",
   "keywords": [
     "database",
     "values",
     "storing",
     "easy",
-    "quick"
+    "quick",
+    "discord.js",
+    "sqlite",
+    "sqlite3",
+    "create database",
+    "discord"
   ],
-  "author": "TrueXPixels",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/TrueXPixels/quick.db/issues"
+  "main": "index.js",
+  "name": "quick.db",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TrueXPixels/quick.db.git"
   },
-  "homepage": "https://github.com/TrueXPixels/quick.db#readme",
-  "dependencies": {
-    "sqlite3": "^3.1.13"
-  }
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "2.1.3"
 }

@@ -12,7 +12,7 @@ Quick.db
 
 **Note:** This package is under development and will be updated frequently.
 
-This package is meant to provide an easy way to create and use a database, **all data is stored persistently**, comes with a **queue system to prevent database locking**.
+This package is meant to provide an easy way to create and use a database, **all data is stored persistently**, and comes with a **queue system to prevent database locking**.
 
 ---
 

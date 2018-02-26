@@ -1,444 +1,175 @@
-// Dependencies
-const sqlite3 = require('sqlite3').verbose();
-
-/* 
- * Thank you for using quick.db!
- * Author: TrueXPixels (youtube.com/c/TrueXPixels)
- */
-
-module.exports = {
-
-    setArray: function(ID, array) {
-        const getInfo = new Promise((resolve, error) => {
-
-            // Check if array is an object
-            if (typeof array !== 'object') {
-                console.log('ARRAY is NOT AN ARRAY');
-                return error('ERROR: ARRAY is NOT AN ARRAY')
-            }
-
-            let db;
-            let response;
-            let arrayKey;
-
-            function createDb() { // Create Database Chain
-                db = new sqlite3.Database('./arrays.sqlite', createTable);
-            }
-
-            function createTable() { // Create table if it doesn't exist
-                db.run("CREATE TABLE IF NOT EXISTS arrays (ID TEXT, array TEXT)", checkForKey());
-            }
-
-            function checkForKey() { // Check if row exists w/ ID
-
-                db.get(`SELECT * FROM arrays WHERE ID = (?)`, 'SECRET_ARRAYKEY_DONOTDELETE', function(err, row) {
-                    if (!row || row.array === 'none') { // Run if row not found...
-                        insertKey()
-                    }
-                    else { // Run if row found...
-                        arrayKey = row.array
-                        checkIfCreated()
-                    }
-                })
-
-            }
-
-            function insertKey() { // Create an empty row w/ ID
-
-                let key = ''
-                let possible = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρςστυφχψωϑϒϖ–—‚""„†‡•…‰‾€Π™←↑→↓↔↵⇐⇑⇒⇓⇔∀∂∃∅∇∈∉∋∏∑−∗√∝∞∠∧∨∩∪∫∴∼≅≈≠≡≤≥⊂⊃⊄⊆⊇⊕⊗⊥⋅⌈⌉⌊⌋〈〉◊♠♣♥♦ŒœŠšŸƒ'
-                for (var i = 0; i < 15; i++) key += possible.charAt(Math.floor(Math.random() * possible.length));
-
-                db.run("INSERT INTO arrays (ID,array) VALUES (?,?)", 'SECRET_ARRAYKEY_DONOTDELETE', key, checkForKey())
-            }
-
-            function checkIfCreated() { // Check if row exists w/ ID
-
-                db.get(`SELECT * FROM arrays WHERE ID = (?)`, ID, function(err, row) {
-                    if (!row) {
-                        insertRows()
-                    }
-                    else {
-                        
-                        let newArray = array.join(arrayKey)
-                        
-                        db.run(`UPDATE arrays SET array = (?) WHERE ID = (?)`, newArray, ID);
-                        db.get(`SELECT * FROM arrays WHERE ID = (?)`, ID, function(err, row) {
-                            response = row.array.split(arrayKey);
-                            returnDb()
-                        })
-                    }
-                })
-
-            }
-
-            function insertRows() { // Create an empty row w/ ID
-                db.run("INSERT INTO arrays (ID,array) VALUES (?,?)", ID, "", checkIfCreated)
-            }
-
-            function returnDb() { // Returns Row
-                db.close();
-                return resolve(response)
-            }
-
-            createDb()
-
-        });
-
-        return getInfo;
-
-    },
-
-    fetchArray: function(ID) {
-        const getInfo = new Promise((resolve) => {
-
-            let db;
-            let response;
-            let arrayKey;
-
-            function createDb() { // Create Database Chain
-                db = new sqlite3.Database('./arrays.sqlite', createTable)
-            }
-
-            function createTable() { // Create table if it doesn't exist
-                db.run("CREATE TABLE IF NOT EXISTS arrays (ID TEXT, array TEXT)", checkForKey)
-            }
-
-            function checkForKey() { // Check if row exists w/ ID
-
-                db.get(`SELECT * FROM arrays WHERE ID = (?)`, 'SECRET_ARRAYKEY_DONOTDELETE', function(err, row) {
-                    if (!row || row.array === 'none') { // Run if row not found...
-                        insertKey()
-                    }
-                    else { // Run if row found...
-                        arrayKey = row.array
-                        checkIfCreated()
-                    }
-                })
-
-            }
-
-            function insertKey() { // Create an empty row w/ ID
-
-                let key = ''
-                let possible = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρςστυφχψωϑϒϖ–—‚""„†‡•…‰‾€Π™←↑→↓↔↵⇐⇑⇒⇓⇔∀∂∃∅∇∈∉∋∏∑−∗√∝∞∠∧∨∩∪∫∴∼≅≈≠≡≤≥⊂⊃⊄⊆⊇⊕⊗⊥⋅⌈⌉⌊⌋〈〉◊♠♣♥♦ŒœŠšŸƒ'
-                for (var i = 0; i < 15; i++) key += possible.charAt(Math.floor(Math.random() * possible.length));
-
-                db.run("INSERT INTO arrays (ID,array) VALUES (?,?)", 'SECRET_ARRAYKEY_DONOTDELETE', key, checkForKey())
-            }
-
-            function checkIfCreated() { // Check if row exists w/ ID
-
-                db.get(`SELECT * FROM arrays WHERE ID = (?)`, ID, function(err, row) {
-                    if (!row) { // Run if row not found...
-                        insertRows()
-                    }
-                    else { // Run if row found...
-                        response = row.array.split(arrayKey);
-                        returnDb()
-                    }
-                })
-
-            }
-
-            function insertRows() { // Create an empty row w/ ID
-                db.run("INSERT INTO arrays (ID,array) VALUES (?,?)", ID, "", checkIfCreated)
-            }
-
-            function returnDb() { // Return Row
-                db.close();
-                return resolve(response)
-            }
-
-            createDb()
-
-        });
-
-        return getInfo
-
-    },
-
-    updateValue: function(ID, increase) {
-
-        const getInfo = new Promise((resolve, error) => {
-
-            // Turns increase into a number automatically
-            increase = parseInt(increase);
-
-            // Check if increase is a number
-            if (isNaN(increase)) {
-                console.log('INCREASE VALUE is NOT A NUMBER');
-                return error('ERROR: INCREASE VALUE is NOT A NUMBER')
-            }
-
-            let db;
-            let response;
-
-            function createDb() { // Create Database Chain
-                db = new sqlite3.Database('./database.sqlite', createTable)
-            }
-
-            function createTable() { // Create table if it doesn't exist
-                db.run("CREATE TABLE IF NOT EXISTS database (ID TEXT, value INTEGER, text TEXT)")
-                checkIfCreated()
-            }
-
-            function checkIfCreated() { // Check if row exists w/ ID
-                db.get(`SELECT * FROM database WHERE ID = (?)`, ID, function(err, row) {
-
-                    if (!row) { // Run if it doesn't exist...
-                        insertRows()
-                    }
-                    else { // Run if it does exist...
-                        db.run(`UPDATE database SET value = (?) WHERE ID = (?)`, row.value + increase, ID);
-                        db.get(`SELECT * FROM database WHERE ID = (?)`, ID, function(err, row) {
-                            response = row;
-                            returnDb()
-                        })
-                    }
-
-                })
-            }
-
-            function insertRows() { // Create an empty row w/ ID
-                db.run("INSERT INTO database (ID,value,text) VALUES (?,?,?)", ID, 0, "", checkIfCreated)
-            }
-
-            function returnDb() { // Return Row
-                db.close();
-                return resolve(response)
-            }
-
-            createDb()
-
-        });
-
-        return getInfo
-
-    },
-
-    fetchObject: function(ID) {
-        const getInfo = new Promise((resolve) => {
-
-            let db;
-            let response;
-
-            function createDb() { // Create Database Chain
-                db = new sqlite3.Database('./database.sqlite', createTable)
-            }
-
-            function createTable() { // Create table if it doesn't exist
-                db.run("CREATE TABLE IF NOT EXISTS database (ID TEXT, value INTEGER, text TEXT)", checkIfCreated)
-            }
-
-            function checkIfCreated() { // Check if row exists w/ ID
-
-                db.get(`SELECT * FROM database WHERE ID = (?)`, ID, function(err, row) {
-                    if (!row) { // Run if row not found...
-                        insertRows()
-                    }
-                    else { // Run if row found...
-                        response = row;
-                        returnDb()
-                    }
-                })
-
-            }
-
-            function insertRows() { // Create an empty row w/ ID
-                db.run("INSERT INTO database (ID,value,text) VALUES (?,?,?)", ID, 0, "", checkIfCreated)
-            }
-
-            function returnDb() { // Return Row
-                db.close();
-                return resolve(response)
-            }
-
-            createDb()
-
-        });
-
-        return getInfo
-
-    },
-
-    updateText: function(ID, text) {
-        const getInfo = new Promise((resolve, error) => {
-
-            // Check if text is a string
-            if (typeof text !== 'string') {
-                console.log('TEXT is NOT A STRING');
-                return error('ERROR: TEXT is NOT A STRING')
-            }
-
-            let db;
-            let response;
-
-            function createDb() { // Create Database Chain
-                db = new sqlite3.Database('./database.sqlite', createTable);
-            }
-
-            function createTable() { // Create table if it doesn't exist
-                db.run("CREATE TABLE IF NOT EXISTS database (ID TEXT, value INTEGER, text TEXT)", checkIfCreated);
-            }
-
-            function checkIfCreated() { // Check if row exists w/ ID
-
-                db.get(`SELECT * FROM database WHERE ID = (?)`, ID, function(err, row) {
-                    if (!row) {
-                        insertRows()
-                    }
-                    else {
-                        db.run(`UPDATE database SET text = (?) WHERE ID = (?)`, text, ID);
-                        db.get(`SELECT * FROM database WHERE ID = (?)`, ID, function(err, row) {
-                            response = row;
-                            returnDb()
-                        })
-                    }
-                })
-
-            }
-
-            function insertRows() { // Create an empty row w/ ID
-                db.run("INSERT INTO database (ID,value,text) VALUES (?,?,?)", ID, 0, "", checkIfCreated)
-            }
-
-            function returnDb() { // Returns Row
-                db.close();
-                return resolve(response)
-            }
-
-            createDb()
-
-        });
-
-        return getInfo;
-
-    },
-
-    fetchValue: function(ID) {
-
-        console.log("\nQUICK.DB WARNING: 'fetchValue(ID).then(i => {})' is deprecated. Please use 'fetchObject(ID).then(i => {})")
-        console.log("QUICK.DB WARNING: 'fetchValue(ID).then(i => {})' is deprecated. Please use 'fetchObject(ID).then(i => {})\n")
-
-        const getInfo = new Promise((resolve) => {
-
-            let db;
-            let response;
-
-            function createDb() { // Create Database Chain
-                db = new sqlite3.Database('./database.sqlite', createTable)
-            }
-
-            function createTable() { // Create table if it doesn't exist
-                db.run("CREATE TABLE IF NOT EXISTS database (ID TEXT, value INTEGER, text TEXT)", checkIfCreated)
-            }
-
-            function checkIfCreated() { // Check if row exists w/ ID
-
-                db.get(`SELECT * FROM database WHERE ID = (?)`, ID, function(err, row) {
-                    if (!row) { // Run if row not found...
-                        insertRows()
-                    }
-                    else { // Run if row found...
-                        response = row;
-                        returnDb()
-                    }
-                })
-
-            }
-
-            function insertRows() { // Create an empty row w/ ID
-                db.run("INSERT INTO database (ID,value,text) VALUES (?,?,?)", ID, 0, "", checkIfCreated)
-            }
-
-            function returnDb() { // Return Row
-                db.close();
-                return resolve(response)
-            }
-
-            createDb()
-
-        });
-
-        return getInfo
-
+const sqlite3 = require('sqlite3');
+const util = require('util');
+
+let queue = [];
+
+function executeQueue(object, queue) {
+    if (object) {
+        queue.push(object);
+        if (queue.length > 1) return;
     }
-    /* Disabled
-        fetchTop: function(column, amount) { // Column == value, or text
+    switch (queue.length) {
+        case 0:
 
-            const getInfo = new Promise((resolve) => {
-
-                // Return Statements
-                if (column.toUpperCase() !== 'VALUE'.toUpperCase() || column.toUpperCase() !== 'TEXT'.toUpperCase()) {
-                    console.log('Quick.db Error w/ fetchTop: Column can only be (VALUE, TEXT).')
-                    return error('Quick.db Error w/ fetchTop: Column can only be (VALUE, TEXT).')
-                }
-
-                if (isNaN(amount)) {
-                    console.log('Quick.db Error w/ fetchTop: amount is not an integer.')
-                    return error('Quick.db Error w/ fetchTop: amount is not an integer.')
-                }
-
-
-                let db;
-                let response;
-
-                function createDb() { // Create Database Chain
-                    db = new sqlite3.Database('./database.sqlite', createTable)
-                }
-
-                function createTable() { // Create table if it doesn't exist
-                    db.run("CREATE TABLE IF NOT EXISTS database (ID TEXT, value INTEGER, text TEXT)", checkIfCreated)
-                }
-
-                function checkIfCreated() { // Check if row exists w/ ID
-
-                    db.get(`SELECT * FROM database ORDER BY (?) DESC LIMIT (?)`, column, amount, function(err, rows) {
-                        if (!rows) { // Run if row not found...
-                            insertRows()
-                        }
-                        else { // Run if row found...
-
-                            function asyncFunction(item, callback) {
-                                setTimeout(() => {
-                                    console.log(`Parsed: ${item}`)
-                                    callback();
-                                }, 100)
-                            }
-
-                            let requests = rows.forEach(item => {
-                                return new Promise((resolve) => {
-                                    asyncFunction(item, resolve);
-                                });
-                            })
-
-                            requests.then(() => {
-                                response = rows
-                                returnDb()
-                            })
-
-                        }
-                    })
-
-                }
-
-                function insertRows() { // Create an empty row w/ ID
-                    db.run("INSERT INTO database (ID,value,text) VALUES (?,?,?)", ID, 0, "", checkIfCreated)
-                }
-
-                function returnDb() { // Return Row
-                    db.close();
-                    return resolve(response)
-                }
-
-                createDb()
-
+            break;
+        default:
+            let realObj = object ? object : queue[0];
+            tools[realObj.fun](...realObj.args).then((...result) => {
+                realObj.innerFunc[0](...result);
+                queue.shift();
+                executeQueue(null, queue);
+            }).catch((...err) => {
+                realObj.innerFunc[1](...err);
+                queue.shift();
+                executeQueue(null, queue);
             });
+    }
+}
 
-            return getInfo
+var tools = module.exports = {
+  
+    fetch: function(ID) {
+        return new Promise((resolve, error) => {
+            executeQueue({
+                "fun": "fetchDebug",
+                "args": [ID],
+                "innerFunc": [resolve, error]
+            }, queue);
+        });
+    },
+    set: function(ID, data) {
+        return new Promise((resolve, error) => {
+            executeQueue({
+                "fun": "setDebug",
+                "args": [ID, data],
+                "innerFunc": [resolve, error]
+            }, queue);
+        });
+    },
+    delete: function(ID) {
+        return new Promise((resolve, error) => {
+            executeQueue({
+                "fun": "deleteDebug",
+                "args": [ID],
+                "innerFunc": [resolve, error]
+            }, queue);
+        });
+    },
+    fetchDebug: function(ID) {
+        const getInfo = new Promise((resolve) => {
+            let db;
+            let response;
 
-        }
-    */
+            function createDb() {
+                db = new sqlite3.Database('./json.sqlite', createTable);
+            }
 
+            function createTable() {
+                db.run("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)", checkIfCreated);
+            }
+
+            function checkIfCreated() {
+                db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
+                    if (!row) {
+                        insertRows();
+                    } else {
+                        if (row.json === '{}') response = null;
+                        else response = JSON.parse(row.json);
+                        returnDb();
+                    }
+                });
+            }
+
+            function insertRows() {
+                db.run("INSERT INTO json (ID,json) VALUES (?,?)", ID, "{}", checkIfCreated);
+            }
+
+            function returnDb() {
+                db.close();
+                return resolve(response);
+            }
+            createDb();
+        });
+        return getInfo;
+    },
+    setDebug: function(ID, data) {
+        const getInfo = new Promise((resolve, error) => {
+
+            try {
+                var test;
+                util.inspect(data)
+                test = JSON.stringify(data);
+            } catch (e) {
+                return console.log(`PLEASE SUPPLY AN OBJECT/JSON FOR ID: ${ID}\nProper Error: ${e.message}`);
+            }
+            let db;
+            let response;
+
+            function createDb() {
+                db = new sqlite3.Database('./json.sqlite', createTable);
+            }
+
+            function createTable() {
+                db.run("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)", checkIfCreated);
+            }
+
+            function checkIfCreated() {
+                db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
+                    if (!row) {
+                        insertRows();
+                    } else {
+                        db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, test, ID);
+                        db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
+                            if (row.json === '{}') response = null;
+                            else response = JSON.parse(row.json);
+                            returnDb();
+                        });
+                    }
+                });
+            }
+          
+            function insertRows() {
+                db.run("INSERT INTO json (ID,json) VALUES (?,?)", ID, "{}", checkIfCreated);
+            }
+
+            function returnDb() {
+                db.close();
+                return resolve(response);
+            }
+            createDb();
+        });
+        return getInfo;
+    },
+    deleteDebug: function(ID) {
+  const getInfo = new Promise((resolve, error) => {
+
+            let db;
+            let response;
+
+            function createDb() {
+                db = new sqlite3.Database('./json.sqlite', createTable);
+            }
+
+            function createTable() {
+                db.run("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)", deleteRow);
+            }
+
+    
+            function deleteRow() {
+                db.run(`DELETE FROM json WHERE ID = (?)`, ID, function(err) {
+                  if (err) response = false;
+                  else response = true;
+                  returnDb();
+                });
+            }
+
+            function returnDb() {
+                db.close();
+                return resolve(response);
+            }
+            createDb();
+        });
+      return getInfo;
+    }
+  
 };

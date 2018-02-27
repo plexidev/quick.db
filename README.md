@@ -31,6 +31,8 @@ npm install quick.db
 var db = require('quick.db')
 ```
 
+*[v3.x/v4.x to v5.x Migration Guide](https://github.com/TrueXPixels/quick.db/blob/master/MIGRATION.md)*
+
 ---
 
 ## Table Of Contents
@@ -152,7 +154,7 @@ db.fetch('uniqueID').then(i => {
 
 <a name="add"></a>**.add(ID, number)** - *Adds the specified amount to a pre-defined number*
 
-*> Returns the new number, if either supply/target is not a number, it supplies a non-breaking error.*
+*> Returns the new number, if either supply/target is not a number, it supplies a non-breaking error.* **If target was not defined previously, it automatically turns it in a number, and adds the specified amount.**
 
 ```js
 db.set('uniqueID', 100)
@@ -171,7 +173,7 @@ db.fetch('uniqueID').then(i => {
 
 <a name="subtract"></a>**.subtract(ID, number)** - *Subtracts the specified amount to a pre-defined number*
 
-*> Returns the new number, if either supply/target is not a number, it supplies a non-breaking error.*
+*> Returns the new number, if either supply/target is not a number, it supplies a non-breaking error.* **If target was not defined previously, it automatically turns it in a number, and subtracts the specified amount.**
 
 ```js
 db.set('uniqueID', 500)

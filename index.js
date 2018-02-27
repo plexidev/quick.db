@@ -269,8 +269,11 @@ var tools = module.exports = {
                     if (!row) {
                         insertRows();
                     } else {
-                        if (typeof JSON.parse(row.json) === 'number') {
-                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (JSON.parse(row.json) + data), ID);
+                      let json = JSON.parse(row.json);
+                        if (typeof json === 'number' || row.json === '{}') {
+                        
+                            if (row.json === '{}') json = 0;
+                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json + data), ID);
                             db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
                                 if (row.json === '{}') response = null;
                                 else response = JSON.parse(row.json);
@@ -316,8 +319,10 @@ var tools = module.exports = {
                     if (!row) {
                         insertRows();
                     } else {
-                        if (typeof JSON.parse(row.json) === 'number') {
-                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (JSON.parse(row.json) - data), ID);
+                        let json = JSON.parse(row.json);
+                        if (typeof json === 'number' || row.json === '{}') {
+                          if (row.json === '{}') json = 0;
+                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json - data), ID);
                             db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
                                 if (row.json === '{}') response = null;
                                 else response = JSON.parse(row.json);

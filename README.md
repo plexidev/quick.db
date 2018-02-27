@@ -14,7 +14,9 @@ Quick.db
 
 This package is meant to provide an easy way to create and use a database, **all data is stored persistently**, and comes with a **queue system to prevent database locking**.
 
-*Over **132** public programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)
+*Over **133** public programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)
+
+**Want to provide feedback to help improve *Quick.db*?** [Click Here!](https://goo.gl/forms/KgjhQdWrztUfwHLB2)
 
 ---
 
@@ -29,9 +31,20 @@ npm install quick.db
 var db = require('quick.db')
 ```
 
-## Usage
+---
 
-**.set(ID, data)** - *Assigns the given data to the given ID*
+## Table Of Contents
+**[.set(uniqueID, data)](#set)** - *Sets data to the uniqueID you supply, data can be anything: objects, arrays, strings, numbers, etc.*
+
+**[.fetch(uniqueID)](#fetch)** - *Fetches the data using the uniqueID you assigned earlier*
+
+**[.delete(uniqueID)](#delete)** - *Deletes an object using the uniqueID you assigned earlier*
+
+**[.push(uniqueID, data)](#push)** - *Pushes a new item to an __ARRAY__, if target is not an array, it supplys a non-breaking error*
+
+## Documentation
+
+<a name="set"></a>**.set(ID, data)** - *Assigns the given data to the given ID*
 
 *> Optionally returns the set data*
 ```js
@@ -58,7 +71,7 @@ db.set('uniqueID', ['Hello World!', 10, ['What?', 'Another Array!']]).then(i => 
 })
 ```
 
-**.fetch(ID)** - *Fetches the data from the given ID*
+<a name="fetch"></a>**.fetch(ID)** - *Fetches the data from the given ID*
 
 *> Returns NULL if no data*
 ```js
@@ -92,7 +105,7 @@ db.fetch('ExtasyID').then(i => {
 })
 ```
 
-**.delete(ID)** - *Deletes the specified ID & data from the database*
+<a name="delete"></a>**.delete(ID)** - *Deletes the specified ID & data from the database*
 
 *> Returns a boolean, based on if it deleted the object or not*
 ```js
@@ -106,7 +119,7 @@ db.fetch('uniqueID').then(i => {
 })
 ```
 
-**.push(ID, data)** - *Pushes data to an array within the database*
+<a name="push"></a>**.push(ID, data)** - *Pushes data to an array within the database*
 
 *> Returns new data, or a non-breaking error message if you aren't pushing to an array.*
 

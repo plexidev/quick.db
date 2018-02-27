@@ -28,6 +28,8 @@ db.fetch(`uniqueID`).then(i => {
 })
 ```
 
+---
+
 **Old** - *Adding $100 to a user*
 ```js
 db.updateValue(`userID`, 100)

@@ -42,6 +42,10 @@ var db = require('quick.db')
 
 **[.push(uniqueID, data)](#push)** - *Pushes a new item to an __ARRAY__, if target is not an array, it supplys a non-breaking error*
 
+**[Frequently Asked Questions](#FAQ)** - *Some common questions, errors, etc.*
+
+**[Projects Using Quick.db](#projects)** - *Lists a few projects that use quick.db*
+
 ## Documentation
 
 <a name="set"></a>**.set(ID, data)** - *Assigns the given data to the given ID*
@@ -70,6 +74,8 @@ db.set('uniqueID', ['Hello World!', 10, ['What?', 'Another Array!']]).then(i => 
   console.log(i[2]) // ['What?', 'Another Array!']
 })
 ```
+
+---
 
 <a name="fetch"></a>**.fetch(ID)** - *Fetches the data from the given ID*
 
@@ -105,6 +111,8 @@ db.fetch('ExtasyID').then(i => {
 })
 ```
 
+---
+
 <a name="delete"></a>**.delete(ID)** - *Deletes the specified ID & data from the database*
 
 *> Returns a boolean, based on if it deleted the object or not*
@@ -118,6 +126,8 @@ db.fetch('uniqueID').then(i => {
   console.log(i) // NULL
 })
 ```
+
+---
 
 <a name="push"></a>**.push(ID, data)** - *Pushes data to an array within the database*
 
@@ -133,3 +143,41 @@ db.fetch('uniqueID').then(i => {
   console.log(i) // ['Hello', 100, 'World!']
 })
 ```
+
+---
+
+## <a name="FAQ"></a>Frequently Asked Questions
+
+> How do I submit feedback, or suggest new features?
+
+You can find a form [here](https://goo.gl/forms/KgjhQdWrztUfwHLB2).
+
+> What happens if I fetch an ID without assigning any data to it.
+
+It will return `NULL`.
+
+> Where can I get support for Quick.db?
+
+You can check out our [Discord](https://discord.io/plexidev)! In addition to support we have a great community.
+
+> Is there a tutorial on Quick.db?
+
+Not yet, although it was designed to be easy to learn, most can be found through the support Discord or documentation.
+
+> Do you have a YouTube channel?
+
+Okay, well it wasn't really frequently asked but I wanted to plug it anyways. Yes! I do have one here: https://www.youtube.com/c/TrueXPixels
+
+---
+
+## <a name="projects"></a>Projects Using Quick.db
+
+*[How do I get here?](https://goo.gl/forms/KgjhQdWrztUfwHLB2)*
+
+**[Plexi Development](https://discord.io/plexidev)** - *A majority of the server features on Plexi Development's Discord use Quick.db to store data.*
+
+*Over **133** public programs also use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)
+
+---
+
+*You've reached the end!*

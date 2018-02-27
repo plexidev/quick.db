@@ -26,6 +26,7 @@ db.fetchObject(`userID`).then(i => {
 ```js
 db.add(`userID`, 100)
 db.fetch(`userID`).then(i => {
+  console.log(typeof i) // 'number'
   console.log(i) // 100
 })
 ```
@@ -44,5 +45,25 @@ db.fetchObject(`guildID`).then(i => {
 ```js
 db.set(`guildID`, '!')
 db.fetch(`guildID`).then(i => {
+  console.log(typeof i) // 'string'
   console.log(i) // '!'
+})
+
+---
+
+**Old** - Setting an array of users
+```js
+db.setArray(`guildID`, ['user1', 'user2', 'user3', 'user4', 'user5'])
+db.fetchArray(`guildID`).then(i => {
+  console.log(i) // ['user1', 'user2', 'user3', 'user4', 'user5'] 
+  // Note: Old version doesn't support multi-level arrays
+})
+```
+
+**New**
+```js
+db.set(`guildID`, ['user1', 'user2', 'user3', 'user4', ['item1', 'item2', 'item3']])
+db.fetch(`guildID`).then(i => {
+  console.log(typeof i) // 'object'
+  console.log(i) // ['user1', 'user2', 'user3', 'user4', ['item1', 'item2', 'item3']]
 })

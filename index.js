@@ -27,7 +27,7 @@ function executeQueue(object, queue) {
 }
 
 var tools = module.exports = {
-  
+
     fetch: function(ID) {
         return new Promise((resolve, error) => {
             executeQueue({
@@ -64,7 +64,25 @@ var tools = module.exports = {
             }, queue);
         });
     },
-  
+    add: function(ID, data) {
+        return new Promise((resolve, error) => {
+            executeQueue({
+                "fun": "addDebug",
+                "args": [ID, data],
+                "innerFunc": [resolve, error]
+            }, queue);
+        });
+    },
+    subtract: function(ID, data) {
+        return new Promise((resolve, error) => {
+            executeQueue({
+                "fun": "subtractDebug",
+                "args": [ID, data],
+                "innerFunc": [resolve, error]
+            }, queue);
+        });
+    },
+
     fetchDebug: function(ID) {
         const getInfo = new Promise((resolve) => {
             let db;
@@ -137,7 +155,7 @@ var tools = module.exports = {
                     }
                 });
             }
-          
+
             function insertRows() {
                 db.run("INSERT INTO json (ID,json) VALUES (?,?)", ID, "{}", checkIfCreated);
             }
@@ -151,7 +169,7 @@ var tools = module.exports = {
         return getInfo;
     },
     deleteDebug: function(ID) {
-  const getInfo = new Promise((resolve, error) => {
+        const getInfo = new Promise((resolve, error) => {
 
             let db;
             let response;
@@ -164,12 +182,11 @@ var tools = module.exports = {
                 db.run("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)", deleteRow);
             }
 
-    
             function deleteRow() {
                 db.run(`DELETE FROM json WHERE ID = (?)`, ID, function(err) {
-                  if (err) response = false;
-                  else response = true;
-                  returnDb();
+                    if (err) response = false;
+                    else response = true;
+                    returnDb();
                 });
             }
 
@@ -179,11 +196,11 @@ var tools = module.exports = {
             }
             createDb();
         });
-      return getInfo;
+        return getInfo;
     },
     pushDebug: function(ID, data) {
         const getInfo = new Promise((resolve, error) => {
-          
+
             let db;
             let response;
 
@@ -200,25 +217,119 @@ var tools = module.exports = {
                     if (!row) {
                         insertRows();
                     } else {
-                            try {
-                              var array = JSON.parse(row.json)
-                              array.push(data)
-                              var test;
-                              util.inspect(array)
-                              test = JSON.stringify(array);
-                              db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, test, ID);
-                              db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
+                        try {
+                            var array = JSON.parse(row.json)
+                            array.push(data)
+                            var test;
+                            util.inspect(array)
+                            test = JSON.stringify(array);
+                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, test, ID);
+                            db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
                                 response = JSON.parse(row.json)
                                 returnDb();
-                              })
-                            } catch (e) {
-                              response = `Unable to push, may not be pushing to an array. \nError: ${e.message}`;
-                              returnDb();
-                            }
+                            })
+                        } catch (e) {
+                            response = `Unable to push, may not be pushing to an array. \nError: ${e.message}`;
+                            returnDb();
+                        }
                     }
                 });
             }
-          
+
+            function insertRows() {
+                db.run("INSERT INTO json (ID,json) VALUES (?,?)", ID, "{}", checkIfCreated);
+            }
+
+            function returnDb() {
+                db.close();
+                return resolve(response);
+            }
+            createDb();
+        });
+        return getInfo;
+    },
+    addDebug: function(ID, data) {
+        const getInfo = new Promise((resolve, error) => {
+
+            if (typeof data !== 'number') return console.log('Error: .add() data is not a number.');
+
+            let db;
+            let response;
+
+            function createDb() {
+                db = new sqlite3.Database('./json.sqlite', createTable);
+            }
+
+            function createTable() {
+                db.run("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)", checkIfCreated);
+            }
+
+            function checkIfCreated() {
+                db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
+                    if (!row) {
+                        insertRows();
+                    } else {
+                        if (typeof JSON.parse(row.json) === 'number') {
+                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (JSON.parse(row.json) + data), ID);
+                            db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
+                                if (row.json === '{}') response = null;
+                                else response = JSON.parse(row.json);
+                                returnDb();
+                            });
+                        } else {
+                            console.log('Error: .add() target is not a number.')
+                        }
+                    }
+                });
+            }
+
+            function insertRows() {
+                db.run("INSERT INTO json (ID,json) VALUES (?,?)", ID, "{}", checkIfCreated);
+            }
+
+            function returnDb() {
+                db.close();
+                return resolve(response);
+            }
+            createDb();
+        });
+        return getInfo;
+    },
+    subtractDebug: function(ID, data) {
+        const getInfo = new Promise((resolve, error) => {
+
+            if (typeof data !== 'number') return console.log('Error: .subtract() data is not a number.');
+
+            let db;
+            let response;
+
+            function createDb() {
+                db = new sqlite3.Database('./json.sqlite', createTable);
+            }
+
+            function createTable() {
+                db.run("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)", checkIfCreated);
+            }
+
+            function checkIfCreated() {
+                db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
+                    if (!row) {
+                        insertRows();
+                    } else {
+                        if (typeof JSON.parse(row.json) === 'number') {
+                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (JSON.parse(row.json) - data), ID);
+                            db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
+                                if (row.json === '{}') response = null;
+                                else response = JSON.parse(row.json);
+                                returnDb();
+                            });
+                        } else {
+                            console.log('Error: .subtract() target is not a number.')
+                        }
+                    }
+                });
+            }
+
             function insertRows() {
                 db.run("INSERT INTO json (ID,json) VALUES (?,?)", ID, "{}", checkIfCreated);
             }
@@ -231,5 +342,5 @@ var tools = module.exports = {
         });
         return getInfo;
     }
-  
+
 };

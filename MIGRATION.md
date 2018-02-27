@@ -14,6 +14,20 @@
 
 ## Examples
 
+**Old** - *Storing an object into the database*
+```js
+impossible
+```
+
+**New**
+```js
+db.set(`uniqueID`, { username: 'TrueXPixels', balance: 100 })
+db.fetch(`uniqueID`).then(i => {
+  console.log(typeof i) // 'object'
+  console.log(i) // { username: 'TrueXPixels', balance: 100 }
+})
+```
+
 **Old** - *Adding $100 to a user*
 ```js
 db.updateValue(`userID`, 100)

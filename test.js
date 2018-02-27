@@ -1,23 +1,15 @@
 const db = require('./index.js');
-/*
-// Define Array
-let array1 = [1,2]
-let newData = 'Hello World!';
+ 
+let number = 100;
 
-// Set initial array to database
-db.set('test', array1)
+db.set('uniqueID', number)
+db.fetch('uniqueID').then(i => console.log(i))
 
- // Fetch array, console.log it
-db.fetch('test').then(i => {
-  console.log(typeof i)
+db.add('uniqueID', 'cheese')
+db.fetch('uniqueID').then(i => console.log(i))
+
+db.subtract('uniqueID', 1000.10)
+db.fetch('uniqueID').then(i => {
   console.log(i)
+  console.log(typeof i)
 })
-
- // Push new item(s) into array
-db.push('test', newData)
-
-// Fetch new array, console.log it
-db.fetch('test').then(i => {
-  console.log(typeof i)
-  console.log(i)
-})*/

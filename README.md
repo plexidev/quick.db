@@ -42,6 +42,10 @@ var db = require('quick.db')
 
 **[.push(uniqueID, data)](#push)** - *Pushes a new item to an __ARRAY__, if target is not an array, it supplys a non-breaking error*
 
+**[.add(uniqueID, number)](#add)** - *Adds the specified amount to a __NUMBER__, if target is not a number, it supplys a non-breaking error*
+
+**[.subtract(uniqueID, number)](#subtract)** - *Subtracts the specified amount to a __NUMBER__, if target is not a number, it supplys a non-breaking error*
+
 **[Frequently Asked Questions](#FAQ)** - *Some common questions, errors, etc.*
 
 **[Projects Using Quick.db](#projects)** - *Lists a few projects that use quick.db*
@@ -141,6 +145,44 @@ db.fetch('uniqueID').then(i => {
 db.push('uniqueID', 'World!')
 db.fetch('uniqueID').then(i => {
   console.log(i) // ['Hello', 100, 'World!']
+})
+```
+
+---
+
+<a name="add"></a>**.add(ID, number)** - *Adds the specified amount to a pre-defined number*
+
+*> Returns the new number, if either supply/target is not a number, it supplies a non-breaking error.*
+
+```js
+db.set('uniqueID', 100)
+db.fetch('uniqueID').then(i => {
+  console.log(i) // 100
+})
+
+db.add('uniqueID', 400)
+db.fetch('uniqueID').then(i => {
+  console.log(i) // 500
+  console.log(typeof i) // 'number'
+})
+```
+
+---
+
+<a name="subtract"></a>**.subtract(ID, number)** - *Subtracts the specified amount to a pre-defined number*
+
+*> Returns the new number, if either supply/target is not a number, it supplies a non-breaking error.*
+
+```js
+db.set('uniqueID', 500)
+db.fetch('uniqueID').then(i => {
+  console.log(i) // 500
+})
+
+db.subtract('uniqueID', 400)
+db.fetch('uniqueID').then(i => {
+  console.log(i) // 100
+  console.log(typeof i) // 'number'
 })
 ```
 

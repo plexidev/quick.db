@@ -48,6 +48,7 @@ db.fetch(`guildID`).then(i => {
   console.log(typeof i) // 'string'
   console.log(i) // '!'
 })
+```
 
 ---
 

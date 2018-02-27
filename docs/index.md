@@ -1,1 +1,1 @@
-## Quick.db Documentation
+## Documentation

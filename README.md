@@ -105,3 +105,18 @@ db.fetch('uniqueID').then(i => {
   console.log(i) // NULL
 })
 ```
+
+**.push(ID, data)** - *Pushes data to an array within the database*
+
+*> Returns new data, or a non-breaking error message if you aren't pushing to an array.*
+
+```js
+db.set('uniqueID', ['Hello', 100])
+db.fetch('uniqueID').then(i => {
+  console.log(i) // ['Hello', 100]
+})
+db.push('uniqueID', 'World!')
+db.fetch('uniqueID').then(i => {
+  console.log(i) // ['Hello', 100, 'World!']
+})
+```

@@ -1,4 +1,6 @@
-# Quick.db v5.x Migration Guide 
+# Quick.db v5.x Migration Guide
+
+**FULL DOCUMENTATION:** 
 
 | Old Syntax | New Syntax |
 | ------ | ------ |

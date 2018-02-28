@@ -11,7 +11,7 @@ function executeQueue(object, queue) {
     switch (queue.length) {
         case 0:
 
-            break;
+            break; 
         default:
             let realObj = object ? object : queue[0];
             tools[realObj.fun](...realObj.args).then((...result) => {

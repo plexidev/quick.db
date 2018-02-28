@@ -10,3 +10,4 @@ db.fetch(ID).then(i => {
   console.log(i)
   console.log(typeof i)
 })*/
+ 

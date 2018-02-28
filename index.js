@@ -218,12 +218,16 @@ var tools = module.exports = {
                         insertRows();
                     } else {
                         try {
-                            var array = JSON.parse(row.json)
-                            array.push(data)
-                            var test;
-                            util.inspect(array)
-                            test = JSON.stringify(array);
-                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, test, ID);
+                            var array;
+                            if (row.json === '{}') {
+                              array = [data];
+                            } else {
+                            array = JSON.parse(row.json);
+                            array.push(data);
+                            }
+                            util.inspect(array);
+                            array = JSON.stringify(array);
+                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, array, ID);
                             db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
                                 response = JSON.parse(row.json)
                                 returnDb();

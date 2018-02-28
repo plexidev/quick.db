@@ -65,35 +65,35 @@ var tools = module.exports = {
             }, queue);
         });
     },
-    add: function(ID, data) {
+    add: function(ID, data, options) {
         return new Promise((resolve, error) => {
             executeQueue({
                 "fun": "addDebug",
-                "args": [ID, data],
+                "args": [ID, data, options],
                 "innerFunc": [resolve, error]
             }, queue);
         });
     },
-    subtract: function(ID, data) {
+    subtract: function(ID, data, options) {
         return new Promise((resolve, error) => {
             executeQueue({
                 "fun": "subtractDebug",
-                "args": [ID, data],
+                "args": [ID, data, options],
                 "innerFunc": [resolve, error]
             }, queue);
         });
     },
 
-    fetchDebug: function(ID, options) {      
+    fetchDebug: function(ID, options) {
         const getInfo = new Promise((resolve) => {
-          
+
             // Configure Options
             if (options) {
-              options = {
-                  target: options.target || null
-              }
+                options = {
+                    target: options.target || null
+                }
             }
-          
+
             let db;
             let response;
 
@@ -138,12 +138,12 @@ var tools = module.exports = {
     },
     setDebug: function(ID, data, options) {
         const getInfo = new Promise((resolve, error) => {
-          
+
             // Configure Options
             if (options) {
-              options = {
-                  target: options.target || null
-              }
+                options = {
+                    target: options.target || null
+                }
             }
 
             try {
@@ -285,10 +285,17 @@ var tools = module.exports = {
         });
         return getInfo;
     },
-    addDebug: function(ID, data) {
+    addDebug: function(ID, data, options) {
         const getInfo = new Promise((resolve, error) => {
 
             if (typeof data !== 'number') return console.log('Error: .add() data is not a number.');
+
+            // Configure Options
+            if (options) {
+                options = {
+                    target: options.target || null
+                }
+            }
 
             let db;
             let response;
@@ -307,17 +314,26 @@ var tools = module.exports = {
                         insertRows();
                     } else {
                         let json = JSON.parse(row.json);
-                        if (typeof json === 'number' || row.json === '{}') {
-
+                        if (!options || (typeof JSON.parse(row.json) !== 'object') || (JSON.parse(row.json) instanceof Array)) console.log('Error: .subtract() target is not a number.');
+                        else {
                             if (row.json === '{}') json = 0;
-                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json + data), ID);
+
+                            if (typeof json === 'number') {
+                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json + data), ID);
+                            } else {
+                                let targets = options.target.split('.');
+                                if (targets[0] === '') targets.shift()
+                                targets = targets.join('.');
+                                let input = _.set(json, targets, (_.get(json, targets) + data))
+                                input = JSON.stringify(input)
+                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, input, ID)
+                            }
+
                             db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
                                 if (row.json === '{}') response = null;
                                 else response = JSON.parse(row.json);
                                 returnDb();
                             });
-                        } else {
-                            console.log('Error: .add() target is not a number.')
                         }
                     }
                 });
@@ -335,10 +351,17 @@ var tools = module.exports = {
         });
         return getInfo;
     },
-    subtractDebug: function(ID, data) {
+    subtractDebug: function(ID, data, options) {
         const getInfo = new Promise((resolve, error) => {
 
             if (typeof data !== 'number') return console.log('Error: .subtract() data is not a number.');
+
+            // Configure Options
+            if (options) {
+                options = {
+                    target: options.target || null
+                }
+            }
 
             let db;
             let response;
@@ -357,16 +380,26 @@ var tools = module.exports = {
                         insertRows();
                     } else {
                         let json = JSON.parse(row.json);
-                        if (typeof json === 'number' || row.json === '{}') {
+                        if (!options || (typeof JSON.parse(row.json) !== 'object') || (JSON.parse(row.json) instanceof Array)) console.log('Error: .subtract() target is not a number.');
+                        else {
                             if (row.json === '{}') json = 0;
-                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json - data), ID);
+
+                            if (typeof json === 'number') {
+                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json - data), ID);
+                            } else {
+                                let targets = options.target.split('.');
+                                if (targets[0] === '') targets.shift()
+                                targets = targets.join('.');
+                                let input = _.set(json, targets, (_.get(json, targets) - data))
+                                input = JSON.stringify(input)
+                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, input, ID)
+                            }
+
                             db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
                                 if (row.json === '{}') response = null;
                                 else response = JSON.parse(row.json);
                                 returnDb();
                             });
-                        } else {
-                            console.log('Error: .subtract() target is not a number.')
                         }
                     }
                 });

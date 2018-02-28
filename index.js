@@ -336,13 +336,14 @@ var tools = module.exports = {
                         insertRows();
                     } else {
                         let json = JSON.parse(row.json);
-                        if (!options || (typeof JSON.parse(row.json) !== 'object') || (JSON.parse(row.json) instanceof Array)) console.log('Error: .subtract() target is not a number.');
+                        if (!options || (typeof JSON.parse(row.json) !== 'object') || (JSON.parse(row.json) instanceof Array)) console.log('Error: .add() target is not a number.');
+                      if (typeof json === 'number') {
+                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json + data), ID);
+                            } 
                         else {
                             if (row.json === '{}') json = 0;
 
-                            if (typeof json === 'number') {
-                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json + data), ID);
-                            } else {
+                        
                                 let targets = options.target.split('.');
                                 if (targets[0] === '') targets.shift()
                                 targets = targets.join('.');
@@ -356,7 +357,7 @@ var tools = module.exports = {
                                 else response = JSON.parse(row.json);
                                 returnDb();
                             });
-                        }
+                        
                     }
                 });
             }

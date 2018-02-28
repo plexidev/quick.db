@@ -56,11 +56,11 @@ var tools = module.exports = {
             }, queue);
         });
     },
-    push: function(ID, data) {
+    push: function(ID, data, options) {
         return new Promise((resolve, error) => {
             executeQueue({
                 "fun": "pushDebug",
-                "args": [ID, data],
+                "args": [ID, data, options],
                 "innerFunc": [resolve, error]
             }, queue);
         });
@@ -231,8 +231,15 @@ var tools = module.exports = {
         });
         return getInfo;
     },
-    pushDebug: function(ID, data) {
+    pushDebug: function(ID, data, options) {
         const getInfo = new Promise((resolve, error) => {
+          
+            // Configure Options
+            if (options) {
+                options = {
+                    target: options.target || null
+                }
+            }
 
             let db;
             let response;
@@ -250,6 +257,7 @@ var tools = module.exports = {
                     if (!row) {
                         insertRows();
                     } else {
+                      if (!options || (typeof JSON.parse(row.json) !== 'object') || (JSON.parse(row.json) instanceof Array)) {
                         try {
                             var array;
                             if (row.json === '{}') {
@@ -260,16 +268,30 @@ var tools = module.exports = {
                             }
                             util.inspect(array);
                             array = JSON.stringify(array);
-                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, array, ID);
-                            db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
-                                response = JSON.parse(row.json)
-                                returnDb();
-                            })
                         } catch (e) {
                             response = `Unable to push, may not be pushing to an array. \nError: ${e.message}`;
                             returnDb();
                         }
-                    }
+                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, array, ID);
+                        } else {
+                          
+                          let targets = options.target.split('.');
+                                if (targets[0] === '') targets.shift()
+                                targets = targets.join('.');
+                                let newArray = _.get(JSON.parse(row.json), targets)
+                                if (newArray instanceof Array) newArray.push(data)
+                                else newArray = [data]
+                                let input = _.set(JSON.parse(row.json), targets, newArray)
+                                
+                                input = JSON.stringify(input)
+                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, input, ID)
+                          
+                        }
+                            db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
+                                response = JSON.parse(row.json)
+                                returnDb();
+                            })
+                        }
                 });
             }
 

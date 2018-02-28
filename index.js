@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3');
 const util = require('util');
+const _ = require('lodash/object');
 
 let queue = [];
 
@@ -11,7 +12,7 @@ function executeQueue(object, queue) {
     switch (queue.length) {
         case 0:
 
-            break; 
+            break;
         default:
             let realObj = object ? object : queue[0];
             tools[realObj.fun](...realObj.args).then((...result) => {
@@ -28,20 +29,20 @@ function executeQueue(object, queue) {
 
 var tools = module.exports = {
 
-    fetch: function(ID) {
+    fetch: function(ID, options) {
         return new Promise((resolve, error) => {
             executeQueue({
                 "fun": "fetchDebug",
-                "args": [ID],
+                "args": [ID, options],
                 "innerFunc": [resolve, error]
             }, queue);
         });
     },
-    set: function(ID, data) {
+    set: function(ID, data, options) {
         return new Promise((resolve, error) => {
             executeQueue({
                 "fun": "setDebug",
-                "args": [ID, data],
+                "args": [ID, data, options],
                 "innerFunc": [resolve, error]
             }, queue);
         });
@@ -83,8 +84,16 @@ var tools = module.exports = {
         });
     },
 
-    fetchDebug: function(ID) {
+    fetchDebug: function(ID, options) {      
         const getInfo = new Promise((resolve) => {
+          
+            // Configure Options
+            if (options) {
+              options = {
+                  target: options.target || null
+              }
+            }
+          
             let db;
             let response;
 
@@ -102,7 +111,14 @@ var tools = module.exports = {
                         insertRows();
                     } else {
                         if (row.json === '{}') response = null;
-                        else response = JSON.parse(row.json);
+                        else if (!options || (typeof JSON.parse(row.json) !== 'object') || (JSON.parse(row.json) instanceof Array)) response = JSON.parse(row.json);
+                        else {
+                            let targets = options.target.split('.');
+                            if (targets[0] === '') targets.shift()
+                            targets = targets.join('.');
+                            console.log(JSON.parse(row.json), targets)
+                            response = _.get(JSON.parse(row.json), targets)
+                        }
                         returnDb();
                     }
                 });
@@ -120,8 +136,15 @@ var tools = module.exports = {
         });
         return getInfo;
     },
-    setDebug: function(ID, data) {
+    setDebug: function(ID, data, options) {
         const getInfo = new Promise((resolve, error) => {
+          
+            // Configure Options
+            if (options) {
+              options = {
+                  target: options.target || null
+              }
+            }
 
             try {
                 var test;
@@ -130,6 +153,7 @@ var tools = module.exports = {
             } catch (e) {
                 return console.log(`PLEASE SUPPLY AN OBJECT/JSON FOR ID: ${ID}\nProper Error: ${e.message}`);
             }
+
             let db;
             let response;
 
@@ -146,7 +170,16 @@ var tools = module.exports = {
                     if (!row) {
                         insertRows();
                     } else {
-                        db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, test, ID);
+                        if (!options || (typeof JSON.parse(row.json) !== 'object') || (JSON.parse(row.json) instanceof Array)) {
+                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, test, ID);
+                        } else {
+                            let targets = options.target.split('.');
+                            if (targets[0] === '') targets.shift()
+                            targets = targets.join('.');
+                            var input = _.set(JSON.parse(row.json), targets, data)
+                            input = JSON.stringify(input)
+                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, input, ID)
+                        }
                         db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
                             if (row.json === '{}') response = null;
                             else response = JSON.parse(row.json);
@@ -220,10 +253,10 @@ var tools = module.exports = {
                         try {
                             var array;
                             if (row.json === '{}') {
-                              array = [data];
+                                array = [data];
                             } else {
-                            array = JSON.parse(row.json);
-                            array.push(data);
+                                array = JSON.parse(row.json);
+                                array.push(data);
                             }
                             util.inspect(array);
                             array = JSON.stringify(array);
@@ -273,9 +306,9 @@ var tools = module.exports = {
                     if (!row) {
                         insertRows();
                     } else {
-                      let json = JSON.parse(row.json);
+                        let json = JSON.parse(row.json);
                         if (typeof json === 'number' || row.json === '{}') {
-                        
+
                             if (row.json === '{}') json = 0;
                             db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json + data), ID);
                             db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
@@ -325,7 +358,7 @@ var tools = module.exports = {
                     } else {
                         let json = JSON.parse(row.json);
                         if (typeof json === 'number' || row.json === '{}') {
-                          if (row.json === '{}') json = 0;
+                            if (row.json === '{}') json = 0;
                             db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json - data), ID);
                             db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
                                 if (row.json === '{}') response = null;

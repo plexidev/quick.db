@@ -1,6 +1,6 @@
 # Quick.db v5.x Migration Guide
 
-**FULL DOCUMENTATION:** 
+**FULL DOCUMENTATION: [https://quickdb.js.org](https://quickdb.js.org)** 
 
 | Old Syntax | New Syntax |
 | ------ | ------ |

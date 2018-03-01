@@ -1,7 +1,6 @@
 const sqlite3 = require('sqlite3');
 const util = require('util');
 const _ = require('lodash/object');
-
 let queue = [];
 
 function executeQueue(object, queue) {
@@ -11,7 +10,6 @@ function executeQueue(object, queue) {
     }
     switch (queue.length) {
         case 0:
-
             break;
         default:
             let realObj = object ? object : queue[0];
@@ -26,9 +24,7 @@ function executeQueue(object, queue) {
             });
     }
 }
-
 var tools = module.exports = {
-
     fetch: function(ID, options) {
         return new Promise((resolve, error) => {
             executeQueue({
@@ -83,17 +79,14 @@ var tools = module.exports = {
             }, queue);
         });
     },
-
     fetchDebug: function(ID, options) {
         const getInfo = new Promise((resolve) => {
-
             // Configure Options
             if (options) {
                 options = {
                     target: options.target || null
                 }
             }
-
             let db;
             let response;
 
@@ -116,7 +109,6 @@ var tools = module.exports = {
                             let targets = options.target.split('.');
                             if (targets[0] === '') targets.shift()
                             targets = targets.join('.');
-                            console.log(JSON.parse(row.json), targets)
                             response = _.get(JSON.parse(row.json), targets)
                         }
                         returnDb();
@@ -138,14 +130,12 @@ var tools = module.exports = {
     },
     setDebug: function(ID, data, options) {
         const getInfo = new Promise((resolve, error) => {
-
             // Configure Options
             if (options) {
                 options = {
                     target: options.target || null
                 }
             }
-
             try {
                 var test;
                 util.inspect(data)
@@ -153,7 +143,6 @@ var tools = module.exports = {
             } catch (e) {
                 return console.log(`PLEASE SUPPLY AN OBJECT/JSON FOR ID: ${ID}\nProper Error: ${e.message}`);
             }
-
             let db;
             let response;
 
@@ -203,7 +192,6 @@ var tools = module.exports = {
     },
     deleteDebug: function(ID) {
         const getInfo = new Promise((resolve, error) => {
-
             let db;
             let response;
 
@@ -233,14 +221,12 @@ var tools = module.exports = {
     },
     pushDebug: function(ID, data, options) {
         const getInfo = new Promise((resolve, error) => {
-          
             // Configure Options
             if (options) {
                 options = {
                     target: options.target || null
                 }
             }
-
             let db;
             let response;
 
@@ -257,41 +243,38 @@ var tools = module.exports = {
                     if (!row) {
                         insertRows();
                     } else {
-                      if (!options || (typeof JSON.parse(row.json) !== 'object') || (JSON.parse(row.json) instanceof Array)) {
-                        try {
-                            var array;
-                            if (row.json === '{}') {
-                                array = [data];
-                            } else {
-                                array = JSON.parse(row.json);
-                                array.push(data);
+                        if (!options || (typeof JSON.parse(row.json) !== 'object') || (JSON.parse(row.json) instanceof Array)) {
+                            try {
+                                var array;
+                                if (row.json === '{}') {
+                                    array = [data];
+                                } else {
+                                    array = JSON.parse(row.json);
+                                    array.push(data);
+                                }
+                                util.inspect(array);
+                                array = JSON.stringify(array);
+                            } catch (e) {
+                                response = `Unable to push, may not be pushing to an array. \nError: ${e.message}`;
+                                returnDb();
                             }
-                            util.inspect(array);
-                            array = JSON.stringify(array);
-                        } catch (e) {
-                            response = `Unable to push, may not be pushing to an array. \nError: ${e.message}`;
-                            returnDb();
-                        }
                             db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, array, ID);
                         } else {
-                          
-                          let targets = options.target.split('.');
-                                if (targets[0] === '') targets.shift()
-                                targets = targets.join('.');
-                                let newArray = _.get(JSON.parse(row.json), targets)
-                                if (newArray instanceof Array) newArray.push(data)
-                                else newArray = [data]
-                                let input = _.set(JSON.parse(row.json), targets, newArray)
-                                
-                                input = JSON.stringify(input)
-                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, input, ID)
-                          
+                            let targets = options.target.split('.');
+                            if (targets[0] === '') targets.shift()
+                            targets = targets.join('.');
+                            let newArray = _.get(JSON.parse(row.json), targets)
+                            if (newArray instanceof Array) newArray.push(data)
+                            else newArray = [data]
+                            let input = _.set(JSON.parse(row.json), targets, newArray)
+                            input = JSON.stringify(input)
+                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, input, ID)
                         }
-                            db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
-                                response = JSON.parse(row.json)
-                                returnDb();
-                            })
-                        }
+                        db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
+                            response = JSON.parse(row.json)
+                            returnDb();
+                        })
+                    }
                 });
             }
 
@@ -309,16 +292,13 @@ var tools = module.exports = {
     },
     addDebug: function(ID, data, options) {
         const getInfo = new Promise((resolve, error) => {
-
             if (typeof data !== 'number') return console.log('Error: .add() data is not a number.');
-
             // Configure Options
             if (options) {
                 options = {
                     target: options.target || null
                 }
             }
-
             let db;
             let response;
 
@@ -334,30 +314,37 @@ var tools = module.exports = {
                 db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
                     if (!row) {
                         insertRows();
-                    } else {
-                        let json = JSON.parse(row.json);
-                        if (!options || (typeof JSON.parse(row.json) !== 'object') || (JSON.parse(row.json) instanceof Array)) console.log('Error: .add() target is not a number.');
-                      if (typeof json === 'number') {
-                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json + data), ID);
-                            } 
-                        else {
-                            if (row.json === '{}') json = 0;
-
-                        
-                                let targets = options.target.split('.');
-                                if (targets[0] === '') targets.shift()
-                                targets = targets.join('.');
-                                let input = _.set(json, targets, (_.get(json, targets) + data))
-                                input = JSON.stringify(input)
-                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, input, ID)
+                    } else { // Run when row is created, with the object {}
+                        if (typeof data !== 'number') return console.log('Level 0', `Error: Input for .add(${ID},${data}) is not a valid number.`);
+                        let json;
+                        if (row.json === '{}' && !options) json = 0;
+                        else json = JSON.parse(row.json);
+                        // Check if the target is already a number
+                        if (typeof json === 'number') {
+                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json + data), ID);
+                        } else if (typeof json === 'object' && options && options.target !== null) { // If not, check if another target in an object is a number
+                            let targets = options.target.split('.');
+                            if (targets[0] === '') targets.shift();
+                            targets = targets.join('.');
+                            let target = _.get(json, targets);
+                            if (typeof target === 'number' || target === undefined) { // Run if target is a number
+                                if (target === undefined) target = 0;
+                                let input = _.set(json, targets, (target + data));
+                                util.inspect(input);
+                                input = JSON.stringify(input);
+                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, input, ID);
+                            } else {
+                                console.log('Level 2', `Error: Target for .add(${ID},${data}) is not a valid number.`);
                             }
-
-                            db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
-                                if (row.json === '{}') response = null;
-                                else response = JSON.parse(row.json);
-                                returnDb();
-                            });
-                        
+                        } else {
+                            console.log('Level 1', `Error: Target for .add(${ID},${data}) is not a valid number.`);
+                        }
+                        // Once those are complete, run the fetch
+                        db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
+                            if (row.json === '{}') response = null;
+                            else response = JSON.parse(row.json);
+                            returnDb();
+                        });
                     }
                 });
             }
@@ -376,16 +363,13 @@ var tools = module.exports = {
     },
     subtractDebug: function(ID, data, options) {
         const getInfo = new Promise((resolve, error) => {
-
             if (typeof data !== 'number') return console.log('Error: .subtract() data is not a number.');
-
             // Configure Options
             if (options) {
                 options = {
                     target: options.target || null
                 }
             }
-
             let db;
             let response;
 
@@ -402,28 +386,36 @@ var tools = module.exports = {
                     if (!row) {
                         insertRows();
                     } else {
-                        let json = JSON.parse(row.json);
-                        if (!options || (typeof JSON.parse(row.json) !== 'object') || (JSON.parse(row.json) instanceof Array)) console.log('Error: .subtract() target is not a number.');
-                        else {
-                            if (row.json === '{}') json = 0;
-
-                            if (typeof json === 'number') {
-                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json - data), ID);
+                        if (typeof data !== 'number') return console.log('Level 0', `Error: Input for .subtract(${ID},${data}) is not a valid number.`);
+                        let json;
+                        if (row.json === '{}' && !options) json = 0;
+                        else json = JSON.parse(row.json);
+                        // Check if the target is already a number
+                        if (typeof json === 'number') {
+                            db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, (json + data), ID);
+                        } else if (typeof json === 'object' && options && options.target !== null) { // If not, check if another target in an object is a number
+                            let targets = options.target.split('.');
+                            if (targets[0] === '') targets.shift();
+                            targets = targets.join('.');
+                            let target = _.get(json, targets);
+                            if (typeof target === 'number' || target === undefined) { // Run if target is a number
+                                if (target === undefined) target = 0;
+                                let input = _.set(json, targets, (target - data));
+                                util.inspect(input);
+                                input = JSON.stringify(input);
+                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, input, ID);
                             } else {
-                                let targets = options.target.split('.');
-                                if (targets[0] === '') targets.shift()
-                                targets = targets.join('.');
-                                let input = _.set(json, targets, (_.get(json, targets) - data))
-                                input = JSON.stringify(input)
-                                db.run(`UPDATE json SET json = (?) WHERE ID = (?)`, input, ID)
+                                console.log('Level 2', `Error: Target for .subtract(${ID},${data}) is not a valid number.`);
                             }
-
-                            db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
-                                if (row.json === '{}') response = null;
-                                else response = JSON.parse(row.json);
-                                returnDb();
-                            });
+                        } else {
+                            console.log('Level 1', `Error: Target for .subtract(${ID},${data}) is not a valid number.`);
                         }
+                        // Once those are complete, run the fetch
+                        db.get(`SELECT * FROM json WHERE ID = (?)`, ID, function(err, row) {
+                            if (row.json === '{}') response = null;
+                            else response = JSON.parse(row.json);
+                            returnDb();
+                        });
                     }
                 });
             }
@@ -440,5 +432,4 @@ var tools = module.exports = {
         });
         return getInfo;
     }
-
 };

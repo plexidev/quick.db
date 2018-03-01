@@ -60,5 +60,5 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node test.js"
   },
-  "version": "5.3.3"
+  "version": "5.3.6"
 }

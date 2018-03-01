@@ -14,6 +14,7 @@
 
 **Quick.db v5.x comes with even more features, you can learn about the documentation [here](https://www.npmjs.com/package/quick.db)!**
 
+
 ## Examples
 
 **Old** - *Adding $100 to a user*

@@ -1,6 +1,6 @@
 {
   "_from": "quick.db",
-  "_id": "quick.db@5.3.2",
+  "_id": "quick.db@5.4.0",
   "_inBundle": false,
   "_integrity": "sha512-Igt1MA/Nhm9QUIximuigIFfKOJNVkXxQsu7a1JRS5yFOQtBm+JJdcqgoDQcUHJkA5F7kwiLTeVx6MxPoKjLjOg==",
   "_location": "/quick.db",
@@ -31,8 +31,8 @@
   },
   "bundleDependencies": false,
   "dependencies": {
-    "sqlite3": "^3.1.13",
-    "lodash": "^4.17.5"
+    "lodash": "^4.17.5",
+    "better-sqlite3": "^4.1.0"
   },
   "deprecated": false,
   "description": "An easy, non locking, persistent sqlite3 database for storing any type of data. No setup required, only takes a few lines to set & fetch objects.",
@@ -60,5 +60,5 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node test.js"
   },
-  "version": "5.3.8"
+  "version": "5.4.0"
 }

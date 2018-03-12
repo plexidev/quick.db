@@ -4,7 +4,7 @@ const Database = require('better-sqlite3'),
       _ = require('lodash/object');
 
 let queue = [];
--break-
+
 function executeQueue(object, queue) {
     if (object) {
         queue.push(object);
@@ -204,6 +204,7 @@ var tools = module.exports = {
             }
 
             function insertRow() {
+
               db.prepare(`INSERT INTO json (ID,json) VALUES (?,?)`).run(ID, '{}');
               checkIfCreated();
             }

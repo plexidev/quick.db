@@ -273,7 +273,7 @@ var tools = module.exports = {
                 
                 // Fetch Row
                 let fetched = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID);
-                
+
                 if (!fetched && !updated) insertRow(); 
                 else {
                     fetched = JSON.parse(fetched.json);
@@ -290,6 +290,8 @@ var tools = module.exports = {
                             
                             util.inspect(array);
                             array = JSON.stringify(array);
+                          
+                            db.prepare(`UPDATE json SET json = (?) WHERE ID = (?)`).run(array, ID);
                             
                         } catch (e) {
                             response = `Unable to push, may not be pushing to an array. \nError: ${e.message}`;

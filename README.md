@@ -14,7 +14,7 @@ Quick.db
 
 This package is meant to provide an easy way to create and use a database, **all data is stored persistently**, and comes with a **queue system to prevent database locking**.
 
-*Over **140** public programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)
+*Over **180** public programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)
 
 **Want to provide feedback to help improve *Quick.db*?** [Click Here!](https://goo.gl/forms/KgjhQdWrztUfwHLB2)
 
@@ -54,7 +54,7 @@ npm install quick.db
 var db = require('quick.db')
 ```
 
-*[v3.x/v4.x to v5.x Migration Guide](https://github.com/TrueXPixels/quick.db/blob/master/MIGRATION.md)*
+*[v3.x/v4.x to v5.x Migration Guide](https://github.com/TrueXPixels/quick.db/blob/quickdb/MIGRATION.md)*
 
 ---
 

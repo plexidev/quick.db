@@ -108,19 +108,17 @@ var tools = module.exports = {
               if (!fetched && !updated) insertRow(); // Run if undefined
               else { // Run if defined
                   fetched = fetched.json;
-               
                 if (fetched === '{}') response = null;
-                
-                fetched = JSON.parse(fetched);
-                if (!options || typeof fetched !== 'object' || fetched instanceof Array) response = fetched;
                 else {
-                   
-                  let targets = options.target;
-                  if (targets[0] === '.') targets = targets.slice(1);
-                  response = _.get(fetched, targets);
-                  
+                    fetched = JSON.parse(fetched);
+                    if (!options || typeof fetched !== 'object' || fetched instanceof Array) response = fetched;
+                    else {
+                       
+                      let targets = options.target;
+                      if (targets[0] === '.') targets = targets.slice(1);
+                      response = _.get(fetched, targets);
+                    }
                 }
-                
                 returnDb();
                 
               }

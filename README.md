@@ -10,13 +10,15 @@ Quick.db
     </p>
 </div> 
 
-**Note:** This package is under development and will be updated frequently.
+### Full Documentation: [https://quickdb.js.org](https://quickdb.js.org)
+
+---
 
 This package is meant to provide an easy way to create and use a database, **all data is stored persistently**, and comes with a **queue system to prevent database locking**.
 
-*Over **180** public programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)
-
 **Want to provide feedback to help improve *Quick.db*?** [Click Here!](https://goo.gl/forms/KgjhQdWrztUfwHLB2)
+
+---
 
 ### Example
 
@@ -43,18 +45,23 @@ db.fetch('userInfo').then( i => console.log(i))
 
 ---
 
-**Installation**
-```
-npm install quick.db
-```
+### Installation
 
+**Linux**
+- `npm i quick.db`
+
+**Windows**
+1. Open CMD as Administrator
+2. Run `npm -g install windows-build-tools node-gyp --save`
+3. `npm i quick.db`
+
+**Mac**
+- We are currently looking for a way to install quick.db for this device
 
 **Require Package**
-```
+```js
 var db = require('quick.db')
 ```
-
-*[v3.x/v4.x to v5.x Migration Guide](https://github.com/TrueXPixels/quick.db/blob/quickdb/MIGRATION.md)*
 
 ---
 
@@ -66,3 +73,7 @@ var db = require('quick.db')
 It works by storing data to a set **ID**(key), then access that persistent data anytime through a .fetch() function.
 
 > *You can think of it like a giant **persistent** JSON object, you can add new items to the object using .set(), & fetch items from the JSON object using .fetch(). The **ID** in this would be the name of the json object to fetch & set.*
+
+---
+
+*Over **187** public programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)

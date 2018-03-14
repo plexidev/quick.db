@@ -368,11 +368,11 @@ var tools = module.exports = {
                     let json;
                     if (fetched === '{}' && !options) json = 0;
                     else json = JSON.parse(fetched);
-                    
+
                     if (typeof json === 'number') db.prepare(`UPDATE json SET json = (?) WHERE ID = (?)`).run(json + data, ID);
                     else {
                         if (typeof json === 'object' && options && options.target !== null) {
-                            
+
                             let targets = options.target;
                             if (targets[0] === '.') targets = targets.slice(1);
                             
@@ -389,13 +389,14 @@ var tools = module.exports = {
                             
                         } else console.log(`Error: Target for .add(${ID}, ${data}) is not a number.`);
                     
-                        let newData = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID).json;
-                        if (newData === '{}') response = null;
-                        else response = JSON.parse(newData);
-                        returnDb();
-                    
                     }
                     
+                    let newData = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID).json;
+                    if (newData === '{}') response = null;
+                    else response = JSON.parse(newData);
+
+                    returnDb();
+                
                 }
                 
             }
@@ -468,13 +469,14 @@ var tools = module.exports = {
                             } else console.log(`Error: Target for .subtract(${ID}, ${data}) is not a number.`);
                             
                         } else console.log(`Error: Target for .subtract(${ID}, ${data}) is not a number.`);
-                    
-                        let newData = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID).json;
-                        if (newData === '{}') response = null;
-                        else response = JSON.parse(newData);
-                        returnDb();
-                    
+        
                     }
+                    
+                    let newData = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID).json;
+                    if (newData === '{}') response = null;
+                    else response = JSON.parse(newData);
+
+                    returnDb();
                     
                 }
                 

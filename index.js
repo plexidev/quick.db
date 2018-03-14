@@ -105,7 +105,7 @@ var tools = module.exports = {
               
               let fetched = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID);
               
-              if (!fetched && !updated) insertRow(); // Run if undefined
+              if (!fetched || !fetched.json && !updated) insertRow(); // Run if undefined
               else { // Run if defined
                   fetched = fetched.json;
                 if (fetched === '{}') response = null;
@@ -175,7 +175,7 @@ var tools = module.exports = {
               // Fetch Row
               let fetched = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID);
               
-              if (!fetched && !updated) insertRow(); // Run if undefined
+              if (!fetched || !fetched.json && !updated) insertRow(); // Run if undefined
               else { // Run if defined
                 fetched = JSON.parse(fetched.json);
                 
@@ -272,7 +272,7 @@ var tools = module.exports = {
                 // Fetch Row
                 let fetched = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID);
 
-                if (!fetched && !updated) insertRow(); 
+                if (!fetched || !fetched.json && !updated) insertRow(); 
                 else {
                     fetched = JSON.parse(fetched.json);
                     
@@ -361,7 +361,7 @@ var tools = module.exports = {
                 // Fetch Row
                 let fetched = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID);
                 
-                if (!fetched && !updated) insertRow();
+                if (!fetched || !fetched.json && !updated) insertRow();
                 else {
                     fetched = fetched.json;
                     

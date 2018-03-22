@@ -3,7 +3,9 @@ const Database = require('better-sqlite3'),
       util = require('util'),
       _ = require('lodash/object');
 
-let queue = [];
+let queue = [],
+    connection = false,
+    db;
 
 function executeQueue(object, queue) {
     if (object) {
@@ -12,9 +14,13 @@ function executeQueue(object, queue) {
     }
     switch (queue.length) {
         case 0:
+            db.close();
+            db = undefined;
             break;
         default:
+            if (!db) db = new Database('./json.sqlite');
             let realObj = object ? object : queue[0];
+            realObj.args.push(db)
             tools[realObj.fun](...realObj.args).then((...result) => {
                 realObj.innerFunc[0](...result);
                 queue.shift();
@@ -82,21 +88,19 @@ var tools = module.exports = {
             }, queue);
         });
     },
-    fetchDebug: function(ID, options) {
+    fetchDebug: function(ID, options, db) {
         const getInfo = new Promise((resolve) => {
           
             // Configure Options
-            if (options) {
+            if (options) { 
                 options = {
                     target: options.target || null
                 }
             }
           
-            let db,
-                response;
+            let response;
 
             function newConnection() {
-              db = new Database('./json.sqlite');
               db.prepare("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)").run();
               checkIfCreated(false);
             }
@@ -131,7 +135,6 @@ var tools = module.exports = {
             }
 
             function returnDb() {
-                db.close();
                 resolve(response);
             }
           
@@ -140,9 +143,9 @@ var tools = module.exports = {
         });
         return getInfo;
     },
-    setDebug: function(ID, data, options) {
+    setDebug: function(ID, data, options, db) {
         const getInfo = new Promise((resolve, error) => {
-            
+
             // Configure Options
             if (options) {
                 options = {
@@ -151,8 +154,7 @@ var tools = module.exports = {
             }
           
             // Define Variables
-            let db,
-                response,
+            let response,
                 input;
           
             // Test Data
@@ -165,7 +167,6 @@ var tools = module.exports = {
             
             // Statements
             function newConnection() {
-              db = new Database('./json.sqlite');
               db.prepare("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)").run();
               checkIfCreated(false);
             }
@@ -211,7 +212,6 @@ var tools = module.exports = {
             }
 
             function returnDb() {
-                db.close();
                 resolve(response);
             }
           
@@ -220,14 +220,12 @@ var tools = module.exports = {
         });
         return getInfo;
     },
-    deleteDebug: function(ID) {
+    deleteDebug: function(ID, db) {
         const getInfo = new Promise((resolve, error) => {
           
-            let db,
-            response;
+            let response;
 
             function createDb() {
-              db = new Database('./json.sqlite');
               db.prepare("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)").run();
               deleteRow();
             }
@@ -239,7 +237,6 @@ var tools = module.exports = {
             }
 
             function returnDb() {
-                db.close();
                 return resolve(response);
             }
             
@@ -258,11 +255,9 @@ var tools = module.exports = {
                 }
             }
             
-            let db,
-                response;
+            let response;
 
             function createDb() {
-                db = new Database('./json.sqlite');
                 db.prepare("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)").run();
                 checkIfCreated(false)
             }
@@ -326,7 +321,6 @@ var tools = module.exports = {
             }
 
             function returnDb() {
-                db.close();
                 return resolve(response);
             }
             
@@ -347,11 +341,9 @@ var tools = module.exports = {
                 }
             }
             
-            let db,
-                response;
+            let response;
 
             function createDb() {
-                db = new Database('./json.sqlite');
                 db.prepare("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)").run();
                 checkIfCreated(true);
             }
@@ -407,7 +399,6 @@ var tools = module.exports = {
             }
 
             function returnDb() {
-                db.close();
                 return resolve(response);
             }
             
@@ -428,11 +419,9 @@ var tools = module.exports = {
                 }
             }
             
-            let db,
-                response;
+            let response;
 
             function createDb() {
-                db = new Database('./json.sqlite');
                 db.prepare("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)").run();
                 checkIfCreated(true);
             }
@@ -488,7 +477,6 @@ var tools = module.exports = {
             }
 
             function returnDb() {
-                db.close();
                 return resolve(response);
             }
             

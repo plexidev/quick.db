@@ -17,7 +17,7 @@ Quick.db
 
 ---
 
-This package is meant to provide an easy way to create and use a database, **all data is stored persistently**, and comes with a **queue system to prevent database locking**.
+**Quick.db** is an **open-sourced** package meant to provide an easy way for beginners, and people of all levels to access & manage a database. **All data us stored persistently**, and comes with various extra features, such as a **queue system to prevent database locking**, and more.
 
 **Want to provide feedback to help improve *Quick.db*?** [Click Here!](https://goo.gl/forms/KgjhQdWrztUfwHLB2)
 
@@ -79,4 +79,4 @@ It works by storing data to a set **ID**(key), then access that persistent data 
 
 ---
 
-*Over **187** public programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)
+*Over **230** public programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)

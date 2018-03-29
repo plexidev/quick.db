@@ -1,7 +1,11 @@
 // Require Package
 const db = require('../index.js');
 
-// The target of .add() must be null (not set) or a number
+/** db.add(ID, number)
+/ This adds the specified value(number) to an existing number.
+/ @param ID = This is the target ID you are modifying
+/ @param number = This is the value you would like to add to the existing database entry
+*/
 
 let ID = 'userBalance_ID'; // This is an example of adding to a user's balance, so we can make the ID dynamic
 let amount = 500; // This is the amount we will be adding

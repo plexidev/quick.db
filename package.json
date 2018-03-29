@@ -57,8 +57,7 @@
     "url": "git+https://github.com/TrueXPixels/quick.db.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node test.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "version": "5.5.0"
 }

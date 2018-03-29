@@ -14,7 +14,7 @@ Quick.db
 | :---: | :---: | :---: |
 | [https://quickdb.js.org](https://quickdb.js.org) | [https://discord.gg/8nrEqvP](https://discord.gg/8nrEqvP) | [https://www.npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
 
-</center>
+</div>
 
 ---
 

@@ -190,7 +190,6 @@ var tools = module.exports = {
                   
                   input = JSON.parse(input)
                   let object = _.set(fetched, targets, input);
-                  console.log(object, object.Hello, typeof object)
                   util.inspect(object);
                   object = JSON.stringify(object);
 

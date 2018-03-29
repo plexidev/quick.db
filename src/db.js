@@ -187,10 +187,13 @@ var tools = module.exports = {
                   
                   let targets = options.target;
                   if (targets[0] === '.') targets = targets.slice(1);
-
-                  let object = _.set(fetched, targets, input);
-                  object = JSON.stringify(object);
                   
+                  input = JSON.parse(input)
+                  let object = _.set(fetched, targets, input);
+                  console.log(object, object.Hello, typeof object)
+                  util.inspect(object);
+                  object = JSON.stringify(object);
+
                   db.prepare(`UPDATE json SET json = (?) WHERE ID = (?)`).run(object, ID);
                   
                 }

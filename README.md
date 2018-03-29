@@ -9,11 +9,12 @@ Quick.db
         <a href="http://www.youtube.com/subscription_center?add_user=TrueXPixels"><img src="https://img.shields.io/badge/Subscribe-YouTube-red.svg" alt="YouTube Channel" /></a>
         <a href="https://npm-stat.com/charts.html?package=quick.db"><img src="https://img.shields.io/badge/Downloads-14k+-brightgreen.svg"></a>
     </p>
-</div> 
 
 | Website / Documentation | Support Discord | NPM Page |
 | :---: | :---: | :---: |
 | [https://quickdb.js.org](https://quickdb.js.org) | [https://discord.gg/8nrEqvP](https://discord.gg/8nrEqvP) | [https://www.npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
+
+</center>
 
 ---
 

@@ -13,3 +13,5 @@
 
 ---
 
+AwesomeOfficial:
+Quick.db is an amazing package with a amazing dev. I use the package for all of my Discord bots and it works flawlessly. Support replies fast (as long as you don't ping them ) and and gets the job done faster. Along with easy to use functions and examples on how to use the package on the package's docs. It was the first database related package I used and I've been using it since. It is my primary database package and it would take alot to change that. 10 / 10 stars.

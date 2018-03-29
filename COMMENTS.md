@@ -9,6 +9,7 @@
 **Guidelines:**
 - Please don't delete other user's comments
 - Follow the community guidelines
+- There is no format for comments
 
 ---
 

@@ -11,9 +11,9 @@ Quick.db
     </p>
 </div> 
 
-### Full Documentation: [https://quickdb.js.org](https://quickdb.js.org)
-### Support Discord: [https://discord.gg/8nrEqvP](https://discord.gg/8nrEqvP)
-### NPM Page: [https://www.npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
+| Website / Documentation | Support Discord | NPM Page |
+| :---: | :---: | :---: |
+| [https://quickdb.js.org](https://quickdb.js.org) | [https://discord.gg/8nrEqvP](https://discord.gg/8nrEqvP) | [https://www.npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
 
 ---
 

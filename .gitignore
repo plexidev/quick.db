@@ -1,0 +1,8 @@
+# Testing Files #
+#################
+# Most files aren't included due to workflow issues
+
+*.sqlite
+*.database
+*.logs
+watch.json

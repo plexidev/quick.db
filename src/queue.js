@@ -99,7 +99,7 @@ var tools = module.exports = {
         });
     },
     // Events
-    createWebview: require('./webviewer/createWebview.js'),
+    createWebview: require('./webviewer/createWebview.js').createWebview,
     // Functions
     fetchDebug: require('./functions/fetch.js'),
     setDebug: require('./functions/set.js'),

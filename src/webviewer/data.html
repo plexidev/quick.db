@@ -97,6 +97,7 @@
     socket.emit('requestData');
     socket.on('recievedData', function(data) {
       data.forEach(function(entry) {
+        if (entry.ID === 'WEBVIEW_ACTIVE_SOCKETS') return;
         var type = typeof entry.data,
           newData = '';
         if (type === 'object') {

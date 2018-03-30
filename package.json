@@ -32,7 +32,9 @@
   "bundleDependencies": false,
   "dependencies": {
     "lodash": "^4.17.5",
-    "better-sqlite3": "^4.1.0"
+    "better-sqlite3": "^4.1.0",
+    "express": "^4.16.3",
+    "socket.io": "^2.1.0"
   },
   "deprecated": false,
   "description": "An easy, non locking, persistent sqlite3 database for storing any type of data. No setup required, only takes a few lines to set & fetch objects.",

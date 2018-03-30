@@ -4,4 +4,4 @@
 
 // We also have an official Discord which can be found here: https://discord.io/plexidev
 
-module.exports = require('./src/db.js');
+module.exports = require('./src/queue.js');

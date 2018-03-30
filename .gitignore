@@ -6,4 +6,3 @@
 *.database
 *.logs
 watch.json
-server.js

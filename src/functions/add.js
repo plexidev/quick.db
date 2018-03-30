@@ -71,7 +71,7 @@ module.exports = function(ID, data, options, db, webview) {
         }
 
         function returnDb() {
-            if (webview) require(`./../webviewer/dataHandler.js`).emitData({ ID: ID, entry: response, action: { type: 'add', value: data } });
+            if (true) require(`./../webviewer/createWebview.js`).emitData({ ID: ID, entry: response, action: { type: 'add', value: data } });
             return resolve(response);
         }
 

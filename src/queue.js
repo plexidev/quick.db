@@ -89,6 +89,8 @@ var tools = module.exports = {
             }, queue);
         });
     },
+    // Events
+    createWebview: require('./webviewer/createWebview.js'),
     // Functions
     fetchDebug: require('./functions/fetch.js'),
     setDebug: require('./functions/set.js'),

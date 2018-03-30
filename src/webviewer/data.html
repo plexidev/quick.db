@@ -34,21 +34,7 @@
   <!-- Content -->
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4">Login</h1>
-      <!-- Login Form -->
-      <form>
-        <div class="form-group row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control form-control-sm" id="inputPassword" placeholder="">
-          </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-sm-10">
-            <button type="button" class="btn btn-primary" onclick="dataView()">Submit</button>
-          </div>
-        </div>
-      </form>
+      <span id="passwordRejected"></span>
     </div>
   </div>
 
@@ -58,14 +44,44 @@
   </nav>
 
   <!-- Script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  <!-- Functions -->
   <script>
-  
-    function dataView() {
-     
-      location.replace(`${window.location.href}data/?password=${document.getElementById("inputPassword").value}`);
-      
+    function parseURLParams(url) {
+      var queryStart = url.indexOf("?") + 1,
+        queryEnd = url.indexOf("#") + 1 || url.length + 1,
+        query = url.slice(queryStart, queryEnd - 1),
+        pairs = query.replace(/\+/g, " ").split("&"),
+        parms = {},
+        i, n, v, nv;
+
+      if (query === url || query === "") return;
+
+      for (i = 0; i < pairs.length; i++) {
+        nv = pairs[i].split("=", 2);
+        n = decodeURIComponent(nv[0]);
+        v = decodeURIComponent(nv[1]);
+
+        if (!parms.hasOwnProperty(n)) parms[n] = [];
+        parms[n].push(nv.length === 2 ? v : null);
+      }
+      return parms;
     }
+
+    function element(id) {
+      return document.getElementById(id);
+    }
+  </script>
+  <script>
+    // Variables
+    let socket = io.connect(),
+        password = parseURLParams(window.location.href).password[0];
     
+        socket.emit('emitPassword', password);
+        socket.on('respPassword', function(correct) {
+          console.log(`Password Correct: ${correct}`)
+          if (!correct) $('#passwordRejected').text('Sorry, that password is incorrect.')
+        })
   </script>
 
 </body>

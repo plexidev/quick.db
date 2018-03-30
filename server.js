@@ -17,4 +17,4 @@ function main() {
   
 }
 
-main()
+db.add(`id`, 5)

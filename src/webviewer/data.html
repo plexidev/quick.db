@@ -36,16 +36,16 @@
     <div class="container">
       <span id="passwordRejected"></span>
       <table class="table table-hover" id="database">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Entry</th>
-                            <th scope="col">Data Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Entry</th>
+            <th scope="col">Data Type</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -86,45 +86,44 @@
   <script>
     // Variables
     let socket = io.connect(),
-        password = parseURLParams(window.location.href).password[0];
-    
-        socket.emit('emitPassword', password);
-        socket.on('respPassword', function(correct) {
-          console.log(`Password Correct: ${correct}`)
-          if (!correct) $('#passwordRejected').text('Sorry, that password is incorrect.')
-        })
-        
-        socket.emit('requestData');
-        socket.on('recievedData', function(data){
-          data.forEach(function(entry){
-            var type = typeof entry.data,
-                newData = '';
-            if (type === 'object') {
-              if (entry.data instanceof Array) {
-                newData = '[ ';
-                let array = [];
-                for (var i = 0; i < entry.data.length; i++) {
-                 array.push(JSON.stringify(entry.data[i])); 
-                }
-                newData += array.join(', ');
-                newData += ' ]'
-              } else {
-              newData = '{ '
-              for ( var i in entry.data ) {
-                newData += `${i}: ${JSON.stringify(entry.data[i])}, `
-              }
-              if (newData[newData.length-2] === ',') newData = newData.slice(0, -2)
-              newData += ' }'
-              }
-            } else newData = JSON.stringify(entry.data);
-            var row = $("<tr>");
-                row.append($(`<td>${entry.ID}</td>`))
-                row.append($(`<td>${newData}</td>`))
-                row.append($(`<td>${type}</td>`))
-                $("#database tbody").prepend(row)
-          })
-        })
-        
+      password = parseURLParams(window.location.href).password[0];
+
+    socket.emit('emitPassword', password);
+    socket.on('respPassword', function(correct) {
+      console.log(`Password Correct: ${correct}`)
+      if (!correct) $('#passwordRejected').text('Sorry, that password is incorrect.')
+    })
+
+    socket.emit('requestData');
+    socket.on('recievedData', function(data) {
+      data.forEach(function(entry) {
+        var type = typeof entry.data,
+          newData = '';
+        if (type === 'object') {
+          if (entry.data instanceof Array) {
+            newData = '[ ';
+            let array = [];
+            for (var i = 0; i < entry.data.length; i++) {
+              array.push(JSON.stringify(entry.data[i]));
+            }
+            newData += array.join(', ');
+            newData += ' ]'
+          } else {
+            newData = '{ '
+            for (var i in entry.data) {
+              newData += `${i}: ${JSON.stringify(entry.data[i])}, `
+            }
+            if (newData[newData.length - 2] === ',') newData = newData.slice(0, -2)
+            newData += ' }'
+          }
+        } else newData = JSON.stringify(entry.data);
+        var row = $("<tr>");
+        row.append($(`<td>${entry.ID}</td>`))
+        row.append($(`<td>${newData}</td>`))
+        row.append($(`<td>${type}</td>`))
+        $("#database tbody").prepend(row)
+      })
+    })
   </script>
 
 </body>

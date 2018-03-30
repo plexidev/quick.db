@@ -2,7 +2,8 @@ const app = require('express')(),
       server = require('http').createServer(app),
       io = require('socket.io')(server),
       Database = require('better-sqlite3'),
-      fetchAll = require('./../functions/all.js');
+      fetchAll = require('./../functions/all.js'),
+      push = require('./../functions/push.js');
 let   activeSockets = [];
 
 /*
@@ -15,7 +16,7 @@ let   activeSockets = [];
 */
 
 module.exports = function(password, port) {
-  
+  console.log('hi');
   // Verify Data
   if (!password) return console.log('Invalid Password');
   if (isNaN(port)) return console.log('Invalid Port');
@@ -46,7 +47,11 @@ module.exports = function(password, port) {
         console.log(`Socket entered correct password: ${pass}`);
         socket.emit('respPassword', true);
         activeSockets.push(socket.id);
-        console.log(activeSockets)
+        let db = new Database('./json.sqlite');
+        push(`ACTIVE_WEBVIEW_TOKEN_SOCKETS`, activeSockets, db).then(i => {
+          
+          db.close();
+        });
       }
     })
     

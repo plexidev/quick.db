@@ -20,6 +20,7 @@ function executeQueue(object, queue) {
             if (!db) db = new Database('./json.sqlite');
             let realObj = object ? object : queue[0];
             realObj.args.push(db)
+            realObj.args.push(webview)
             tools[realObj.fun](...realObj.args).then((...result) => {
                 realObj.innerFunc[0](...result);
                 queue.shift();

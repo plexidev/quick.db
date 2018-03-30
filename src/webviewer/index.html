@@ -59,7 +59,12 @@
 
   <!-- Script -->
   <script>
-  
+    document.getElementById('inputPassword').addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            dataView();
+        }
+    });
     function dataView() {
      
       location.replace(`${window.location.href}data/?password=${document.getElementById("inputPassword").value}`);

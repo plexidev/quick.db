@@ -1,11 +1,10 @@
 // Require Packages
-const Database = require('better-sqlite3'),
-      util = require('util'),
-      _ = require('lodash/object');
+const Database = require('better-sqlite3');
 
 let queue = [],
     connection = false,
-    db;
+    db,
+    webview = false;
 
 function executeQueue(object, queue) {
     if (object) {
@@ -21,6 +20,7 @@ function executeQueue(object, queue) {
             if (!db) db = new Database('./json.sqlite');
             let realObj = object ? object : queue[0];
             realObj.args.push(db)
+            realObj.args.push(webview)
             tools[realObj.fun](...realObj.args).then((...result) => {
                 realObj.innerFunc[0](...result);
                 queue.shift();
@@ -89,6 +89,15 @@ var tools = module.exports = {
             }, queue);
         });
     },
+    all: function() {
+        return new Promise((resolve, error) => {
+            executeQueue({
+                "fun": "allDebug",
+                "args": [],
+                "innerFunc": [resolve, error]
+            }, queue);
+        });
+    },
     // Events
     createWebview: require('./webviewer/createWebview.js'),
     // Functions
@@ -97,5 +106,6 @@ var tools = module.exports = {
     deleteDebug: require('./functions/delete.js'),
     pushDebug: require('./functions/push.js'),
     addDebug: require('./functions/add.js'),
-    subtractDebug: require('./functions/subtract.js')
+    subtractDebug: require('./functions/subtract.js'),
+    allDebug: require('./functions/all.js')
 };

@@ -1,7 +1,7 @@
 const util = require('util'),
     _ = require('lodash/object');
 
-module.exports = function(ID, data, options, db) {
+module.exports = function(ID, data, options, db, webview) {
     const getInfo = new Promise((resolve, error) => {
 
         if (typeof data !== 'number') return console.log('Error: .add() data is not a number.');
@@ -71,6 +71,7 @@ module.exports = function(ID, data, options, db) {
         }
 
         function returnDb() {
+            if (webview) require(`./../webviewer/dataHandler.js`).emitData({ ID: ID, entry: response, action: { type: 'add', value: data } });
             return resolve(response);
         }
 

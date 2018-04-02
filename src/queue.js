@@ -89,11 +89,20 @@ var tools = module.exports = {
             }, queue);
         });
     },
-    all: function() {
+    fetchAll: function() {
         return new Promise((resolve, error) => {
             executeQueue({
-                "fun": "allDebug",
+                "fun": "fetchAllDebug",
                 "args": [],
+                "innerFunc": [resolve, error]
+            }, queue);
+        });
+    },
+    startsWith: function(startsWith, options) {
+      return new Promise((resolve, error) => {
+            executeQueue({
+                "fun": "startsWithDebug",
+                "args": [startsWith, options],
                 "innerFunc": [resolve, error]
             }, queue);
         });
@@ -107,5 +116,6 @@ var tools = module.exports = {
     pushDebug: require('./functions/push.js'),
     addDebug: require('./functions/add.js'),
     subtractDebug: require('./functions/subtract.js'),
-    allDebug: require('./functions/all.js')
+    fetchAllDebug: require('./functions/fetchAll.js'),
+    startsWithDebug: require('./functions/startsWith.js')
 };

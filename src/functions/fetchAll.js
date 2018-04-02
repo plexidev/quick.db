@@ -11,6 +11,7 @@ module.exports = function(db) {
         function fetchAll() {
             let resp = db.prepare(`SELECT * FROM json`).all();
             resp.forEach(function(entry){
+              if (entry.ID === 'WEBVIEW_ACTIVE_SOCKETS') return;
               response.push({ ID: entry.ID, data: JSON.parse(entry.json) })
             })
             returnDb();

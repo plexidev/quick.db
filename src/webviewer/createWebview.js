@@ -3,7 +3,7 @@ const app = require('express')(),
   io = require('socket.io')(server),
   Database = require('better-sqlite3'),
   fetch = require('./../functions/fetch.js'),
-  fetchAll = require('./../functions/all.js'),
+  fetchAll = require('./../functions/fetchAll.js'),
   push = require('./../functions/push.js');
 
 /*
@@ -16,13 +16,6 @@ const app = require('express')(),
  */
 
 module.exports = {
-  emitData: function(data) {
-    let db = new Database('./json.sqlite');
-    fetch(`WEBVIEW_ACTIVE_SOCKETS`, {}, db).then(activeSockets => {
-      if (activeSockets === null) return;
-      console.log(activeSockets, data)
-    })
-  },
   createWebview: function(password, port) {
     console.log('hi');
     // Verify Data
@@ -54,7 +47,7 @@ module.exports = {
           console.log(`Socket entered correct password: ${pass}`);
           socket.emit('respPassword', true);
           let db = new Database('./json.sqlite');
-          push(`WEBVIEW_ACTIVE_SOCKETS`, socket.id, undefined, db).then(i => console.log('Sockets', i));
+          push(`WEBVIEW_ACTIVE_SOCKETS`, socket.id, undefined, db)
         }
       })
 

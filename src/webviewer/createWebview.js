@@ -17,7 +17,6 @@ const app = require('express')(),
 
 module.exports = {
   createWebview: function(password, port) {
-    console.log('hi');
     // Verify Data
     if (!password) return console.log('Invalid Password');
     if (isNaN(port)) return console.log('Invalid Port');

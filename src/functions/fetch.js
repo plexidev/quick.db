@@ -22,7 +22,7 @@ module.exports = function(ID, options, db) {
 
             let fetched = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID);
 
-            if (!fetched || !fetched.json && !updated) insertRow(); // Run if undefined
+            if (!fetched || !fetched.json && !updated) response = null; // Run if undefined
             else { // Run if defined
                 fetched = fetched.json;
                 if (fetched === '{}') response = null;
@@ -40,11 +40,6 @@ module.exports = function(ID, options, db) {
 
             }
 
-        }
-
-        function insertRow() {
-            db.prepare(`INSERT INTO json (ID,json) VALUES (?,?)`).run(ID, '{}');
-            checkIfCreated(true);
         }
 
         function returnDb() {

@@ -7,7 +7,7 @@ Quick.db
     <p>
         <a href="https://discord.io/plexidev"><img src="https://discordapp.com/api/guilds/343572980351107077/embed.png" alt="Discord Server" /></a>
         <a href="http://www.youtube.com/subscription_center?add_user=TrueXPixels"><img src="https://img.shields.io/badge/Subscribe-YouTube-red.svg" alt="YouTube Channel" /></a>
-        <a href="https://npm-stat.com/charts.html?package=quick.db"><img src="https://img.shields.io/badge/Downloads-14k+-brightgreen.svg"></a>
+        <a href="https://npm-stat.com/charts.html?package=quick.db"><img src="https://img.shields.io/badge/Downloads-15k+-brightgreen.svg"></a>
     </p>
 
 | Website / Documentation | Support Discord | NPM Page |
@@ -80,4 +80,4 @@ It works by storing data to a set **ID**(key), then access that persistent data 
 
 ---
 
-*Over **230** public programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)
+*Over **240** public programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)

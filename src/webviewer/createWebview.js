@@ -10,7 +10,7 @@ const app = require('express')(),
  * NOTEPAD:
  *
  * - Need to call queue.js file using require
- *
+ * - ^ Don't do that it creates a circular require path (infinite loop)
  *
  *
  */

@@ -16,24 +16,47 @@ const app = require('express')(),
  */
 
 module.exports = {
-  createWebview: function(password, port) {
+  createWebview: function(password, port, suburl) {
     // Verify Data
     if (!password) return console.log('Invalid Password');
     if (isNaN(port)) return console.log('Invalid Port');
-
+    // Routing
+    // If no suburl
+    if (!suburl) {
+      app.get("/", function(request, response) {
+        response.sendFile(__dirname + '/index.html')
+      })
+    
+      app.get("/data", function(request, response) {
+        response.sendFile(__dirname + '/data.html')
+      })
+    } else {
+      // If suburl is a string
+      if (typeof suburl === 'string') {
+        app.get(`/${suburl}/`, function(request, response) {
+          response.sendFile(__dirname + '/index.html')
+        })
+    
+        app.get(`/${suburl}/data`, function(request, response) {
+          response.sendFile(__dirname + '/data.html')
+        })
+      } else {
+        // If it's not a string, convert suburl to a string
+        let suburlString = String(suburl)
+        app.get(`/${suburlString}/`, function(request, response) {
+          response.sendFile(__dirname + '/index.html')
+        })
+        
+        app.get(`/${suburl}/data`, function(request, response) {
+          response.sendFile(__dirname + '/data.html')
+        })
+      };
+    };
+    
     // Listening
     server.listen(port, function() {
       console.log(`Quick.db WebViewer: Listening to port ${port}`)
     });
-
-    // Routing  
-    app.get("/", function(request, response) {
-      response.sendFile(__dirname + '/index.html')
-    })
-
-    app.get("/data", function(request, response) {
-      response.sendFile(__dirname + '/data.html')
-    })
 
     io.on('connection', function(socket) {
       console.log('Connection Recieved...');

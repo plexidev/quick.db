@@ -67,7 +67,13 @@
     });
     function dataView() {
      
-      location.replace(`${window.location.href}data/?password=${document.getElementById("inputPassword").value}`);
+      let loc = window.location;
+      let rootUrl = loc.protocol + '//' + loc.hostname + '/';
+      if (window.location.toString() === rootUrl) {
+        location.replace(`${window.location.href}data/?password=${document.getElementById("inputPassword").value}`);
+      } else {
+        location.replace(`${window.location.href}/data/?password=${document.getElementById("inputPassword").value}`);
+      };
       
     }
     

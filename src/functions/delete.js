@@ -10,7 +10,7 @@ module.exports = function(ID, options, db) {
     let response;
 
     function createDb() {
-      db.prepare("CREATE TABLE IF NOT EXISTS " + options.table + " (ID TEXT, json TEXT)").run();
+      db.prepare(`CREATE TABLE IF NOT EXISTS ${options.table} (ID TEXT, json TEXT)`).run();
       deleteRow();
     }
 

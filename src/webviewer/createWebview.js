@@ -79,7 +79,9 @@ module.exports = function(password, port, suburl) {
         if (activeSockets === null) return;
         if (!activeSockets.includes(socket.id)) return;
         let db = new Database('./json.sqlite');
-        fetchAll({table: tableName}, db).then(i => {
+        fetchAll({
+          table: tableName
+        }, db).then(i => {
           tables(db).then(o => {
             i.unshift(o);
             console.log(i)

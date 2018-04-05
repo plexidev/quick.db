@@ -111,20 +111,20 @@
 
     socket.emit('requestData', 'json');
     socket.on('recievedData', function(data) {
-      
+
       let tables = data.shift();
-      $.each(tables, function(val,text) {
-          if (text === 'json') text = 'Main'
-          $('#tables').append($('<a></a>').val(val).text(text).addClass('dropdown-item').click(function(){
-            let tableName = this.text;
-            $('#tableName').text(tableName)
-            $('#database > tbody > tr').remove()
-            $('#tables > a').remove()
-            if (tableName === 'Main') tableName = 'json';
-            socket.emit('requestData', tableName)
-          }));
+      $.each(tables, function(val, text) {
+        if (text === 'json') text = 'Main'
+        $('#tables').append($('<a></a>').val(val).text(text).addClass('dropdown-item').click(function() {
+          let tableName = this.text;
+          $('#tableName').text(tableName)
+          $('#database > tbody > tr').remove()
+          $('#tables > a').remove()
+          if (tableName === 'Main') tableName = 'json';
+          socket.emit('requestData', tableName)
+        }));
       });
-      
+
       data.forEach(function(entry) {
         if (entry.ID === 'WEBVIEW_ACTIVE_SOCKETS') return;
         var type = typeof entry.data,

@@ -80,4 +80,4 @@ It works by storing data to a set **ID**(key), then access that persistent data 
 
 ---
 
-*Over **239** public programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)
+*Over **240** public programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)

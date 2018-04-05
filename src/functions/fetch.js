@@ -19,26 +19,25 @@ module.exports = function(ID, options, db) {
         }
 
         function checkIfCreated(updated) {
-
+            
+            // Fetch Entry
             let fetched = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID);
-
-            if (!fetched || !fetched.json && !updated) response = null; // Run if undefined
-            else { // Run if defined
-                fetched = fetched.json;
-                if (fetched === '{}') response = null;
+            if (!fetched) response = null;
+            else {
+              fetched = fetched.json;
+              if (fetched === '{}') response = null;
+              else {
+                fetched = JSON.parse(fetched);
+                if (!options || typeof fetched !== 'object' || fetched instanceof Array) response = fetched;
                 else {
-                    fetched = JSON.parse(fetched);
-                    if (!options || typeof fetched !== 'object' || fetched instanceof Array) response = fetched;
-                    else {
-
-                        let targets = options.target;
-                        if (targets[0] === '.') targets = targets.slice(1);
-                        response = _.get(fetched, targets);
-                    }
+                  let targets = options.target;
+                  if (targets[0] === '.') targets = targets.slice(1);
+                  response = _.get(fetched, targets);
                 }
-                returnDb();
-
+              }
             }
+
+            returnDb();
 
         }
 

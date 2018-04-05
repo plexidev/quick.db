@@ -5,21 +5,22 @@ module.exports = function(startsWith, options, db) {
 
     if (typeof startsWith !== 'string') return console.log('ERROR: db.startsWith(text) | text is not a string.')
 
-    if (options) {
-      options = {
-        sort: options.sort || undefined
-      }
+    // Parse Options
+    if (!options) options = {};
+    options = {
+      sort: options.sort || undefined,
+      table: options.table || 'json'
     }
-
+    
     let response = [];
 
     function createDb() {
-      db.prepare("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)").run();
+      db.prepare("CREATE TABLE IF NOT EXISTS " + options.table + " (ID TEXT, json TEXT)").run();
       fetchAll();
     }
 
     function fetchAll() {
-      let resp = db.prepare(`SELECT * FROM json`).all();
+      let resp = db.prepare(`SELECT * FROM ${options.table}`).all();
       resp.forEach(function(entry) {
         if (entry.ID === null) return;
         if (entry.ID === 'WEBVIEW_ACTIVE_SOCKETS') return;

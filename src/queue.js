@@ -205,7 +205,24 @@ var tools = module.exports = {
       }, queue);
     });
     }
+    
+    // Parse StartsWith
+    this.startsWith = function(startsWith, options) {
+    if (!options) options = {};
+    options.table = this.name;
+    return new Promise((resolve, error) => {
+      executeQueue({
+        "fun": "startsWithDebug",
+        "args": [startsWith, options],
+        "innerFunc": [resolve, error]
+      }, queue);
 
+    })
+      
+    }
+                       
+                       
+    
   },
   // Functions
   fetchDebug: require('./functions/fetch.js'),

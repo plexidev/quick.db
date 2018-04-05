@@ -78,7 +78,7 @@ module.exports = function(password, port, suburl) {
         if (activeSockets === null) return;
         if (!activeSockets.includes(socket.id)) return;
         let db = new Database('./json.sqlite');
-        fetchAll(db).then(i => {
+        fetchAll(undefined, db).then(i => {
           socket.emit('recievedData', i)
           db.close();
         });

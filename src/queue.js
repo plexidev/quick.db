@@ -111,9 +111,10 @@ var tools = module.exports = {
   createWebview: require('./webviewer/createWebview.js'),
   table: function(name) {
 
-    // Check if tablename is a string
+    // Table Name Verification
     if (typeof name !== 'string') return console.log('Sorry, please verify that name of the table is a string');
-    this.name = name;
+    if (name.includes(' ')) return console.log('Sorry, the table name cannot include spaces');
+    this.name = name; // Set Name
 
     // Parse Fetch
     this.fetch = function(ID, options) {

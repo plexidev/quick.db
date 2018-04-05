@@ -1,28 +1,31 @@
 module.exports = function(db) {
-    const getInfo = new Promise((resolve, error) => {
+  const getInfo = new Promise((resolve, error) => {
 
-        let response = [];
+    let response = [];
 
-        function createDb() {
-            db.prepare("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)").run();
-            fetchAll();
-        }
+    function createDb() {
+      db.prepare("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)").run();
+      fetchAll();
+    }
 
-        function fetchAll() {
-            let resp = db.prepare(`SELECT * FROM json`).all();
-            resp.forEach(function(entry){
-              if (entry.ID === 'WEBVIEW_ACTIVE_SOCKETS') return;
-              response.push({ ID: entry.ID, data: JSON.parse(entry.json) })
-            })
-            returnDb();
-        }
+    function fetchAll() {
+      let resp = db.prepare(`SELECT * FROM json`).all();
+      resp.forEach(function(entry) {
+        if (entry.ID === 'WEBVIEW_ACTIVE_SOCKETS') return;
+        response.push({
+          ID: entry.ID,
+          data: JSON.parse(entry.json)
+        })
+      })
+      returnDb();
+    }
 
-        function returnDb() {
-            return resolve(response);
-        }
+    function returnDb() {
+      return resolve(response);
+    }
 
-        createDb();
+    createDb();
 
-    });
-    return getInfo;
+  });
+  return getInfo;
 }

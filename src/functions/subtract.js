@@ -8,23 +8,23 @@ module.exports = function(ID, data, options, db) {
     if (typeof data !== 'number') return console.log('Error: .add() data is not a number.');
 
     // Configure Options
-    if (options) {
-      options = {
-        target: options.target || null
-      }
+    if (!options) options = {};
+    options = {
+      target: options.target || undefined,
+      table: options.table || 'json'
     }
 
     let response;
 
     function createDb() {
-      db.prepare("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)").run();
+      db.prepare("CREATE TABLE IF NOT EXISTS " + options.table + " (ID TEXT, json TEXT)").run();
       checkIfCreated(true);
     }
 
     function checkIfCreated(updated) {
 
       // Fetch Row
-      let fetched = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID);
+      let fetched = db.prepare(`SELECT * FROM ${options.table} WHERE ID = (?)`).get(ID);
 
       if (!fetched && !updated) insertRow();
       else {
@@ -34,9 +34,9 @@ module.exports = function(ID, data, options, db) {
         if (fetched === '{}' && !options) json = 0;
         else json = JSON.parse(fetched);
 
-        if (typeof json === 'number') db.prepare(`UPDATE json SET json = (?) WHERE ID = (?)`).run(json - data, ID);
+        if (typeof json === 'number') db.prepare(`UPDATE ${options.table} SET json = (?) WHERE ID = (?)`).run(json - data, ID);
         else {
-          if (typeof json === 'object' && options && options.target !== null) {
+          if (typeof json === 'object' && options && !options.target) {
 
             let targets = options.target;
             if (targets[0] === '.') targets = targets.slice(1);
@@ -48,7 +48,7 @@ module.exports = function(ID, data, options, db) {
               let input = _.set(json, targets, target - data);
               util.inspect(input);
               input = JSON.stringify(input);
-              db.prepare(`UPDATE json SET json = (?) WHERE ID = (?)`).run(input, ID);
+              db.prepare(`UPDATE ${options.table} SET json = (?) WHERE ID = (?)`).run(input, ID);
 
             } else console.log(`Error: Target for .subtract(${ID}, ${data}) is not a number.`);
 
@@ -56,7 +56,7 @@ module.exports = function(ID, data, options, db) {
 
         }
 
-        let newData = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID).json;
+        let newData = db.prepare(`SELECT * FROM ${options.table} WHERE ID = (?)`).get(ID).json;
         if (newData === '{}') response = null;
         else response = JSON.parse(newData);
 
@@ -67,7 +67,7 @@ module.exports = function(ID, data, options, db) {
     }
 
     function insertRow() {
-      db.prepare("INSERT INTO json (ID,json) VALUES (?,?)").run(ID, '{}');
+      db.prepare("INSERT INTO " + options.table + " (ID,json) VALUES (?,?)").run(ID, '{}');
       checkIfCreated(true);
     }
 

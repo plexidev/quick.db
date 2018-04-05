@@ -180,6 +180,19 @@ var tools = module.exports = {
       });
     }
 
+    // Parse Subtract
+    this.subtract = function(ID, data, options) {
+      if (!options) options = {};
+      options.table = this.name;
+      return new Promise((resolve, error) => {
+        executeQueue({
+          "fun": "subtractDebug",
+          "args": [ID, data, options],
+          "innerFunc": [resolve, error]
+        }, queue);
+      });
+    }
+
 
   },
   // Functions

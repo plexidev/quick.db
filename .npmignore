@@ -7,3 +7,4 @@
 *.logs
 watch.json
 server.js
+./docs

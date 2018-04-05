@@ -32,8 +32,8 @@
     Select Table
   </button>
       <div class="dropdown">
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Coming Soon...</a>
+        <div id="tables" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
         </div>
       </div>
     </div>
@@ -48,7 +48,9 @@
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <span id="passwordRejected"></span>
-      <table class="table table-hover" id="database">
+      <font size="-1">Currently Viewing Table: <b><span id="tableName">Main</span></b></font>
+
+      <table class="table table-hover" cellspacing="0" width="100%" id="database">
         <thead>
           <tr>
             <th scope="col">ID</th>
@@ -98,7 +100,8 @@
   <script>
     // Variables
     let socket = io.connect(),
-      password = parseURLParams(window.location.href).password[0];
+      password = parseURLParams(window.location.href).password[0],
+      dropdown = element('tables');
 
     socket.emit('emitPassword', password);
     socket.on('respPassword', function(correct) {
@@ -106,8 +109,22 @@
       if (!correct) $('#passwordRejected').text('Sorry, that password is incorrect.')
     })
 
-    socket.emit('requestData');
+    socket.emit('requestData', 'json');
     socket.on('recievedData', function(data) {
+
+      let tables = data.shift();
+      $.each(tables, function(val, text) {
+        if (text === 'json') text = 'Main'
+        $('#tables').append($('<a></a>').val(val).text(text).addClass('dropdown-item').click(function() {
+          let tableName = this.text;
+          $('#tableName').text(tableName)
+          $('#database > tbody > tr').remove()
+          $('#tables > a').remove()
+          if (tableName === 'Main') tableName = 'json';
+          socket.emit('requestData', tableName)
+        }));
+      });
+
       data.forEach(function(entry) {
         if (entry.ID === 'WEBVIEW_ACTIVE_SOCKETS') return;
         var type = typeof entry.data,

@@ -16,7 +16,7 @@ module.exports = function(ID, data, options, db, webview) {
     let response;
 
     function createDb() {
-      db.prepare("CREATE TABLE IF NOT EXISTS " + options.table + " (ID TEXT, json TEXT)").run();
+      db.prepare(`CREATE TABLE IF NOT EXISTS ${options.table} (ID TEXT, json TEXT)`).run();
       checkIfCreated(true);
     }
 
@@ -66,7 +66,7 @@ module.exports = function(ID, data, options, db, webview) {
     }
 
     function insertRow() {
-      db.prepare("INSERT INTO " + options.table + " (ID,json) VALUES (?,?)").run(ID, '{}');
+      db.prepare(`INSERT INTO ${options.table} (ID,json) VALUES (?,?)`).run(ID, '{}');
       checkIfCreated(true);
     }
 

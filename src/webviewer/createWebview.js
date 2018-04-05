@@ -4,7 +4,8 @@ const app = require('express')(),
   Database = require('better-sqlite3'),
   fetch = require('./../functions/fetch.js'),
   fetchAll = require('./../functions/fetchAll.js'),
-  push = require('./../functions/push.js');
+  push = require('./../functions/push.js'),
+  tables = require('./../functions/tables.js');
 
 /*
  * NOTEPAD:
@@ -79,6 +80,7 @@ module.exports = function(password, port, suburl) {
         if (!activeSockets.includes(socket.id)) return;
         let db = new Database('./json.sqlite');
         fetchAll(undefined, db).then(i => {
+          
           socket.emit('recievedData', i)
           db.close();
         });

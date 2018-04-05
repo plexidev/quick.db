@@ -1,15 +1,10 @@
-module.exports = function(options, db) {
+module.exports = function(db) {
   const getInfo = new Promise((resolve, error) => {
 
     let response = [];
     
-    if (!options) options = {};
-    options = {
-      table: options.table || 'json'
-    }
-
     function createDb() {
-      db.prepare(`CREATE TABLE IF NOT EXISTS ${options.table} (ID TEXT, json TEXT)`).run();
+      db.prepare(`CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)`).run();
       fetchAll();
     }
 

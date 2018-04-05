@@ -60,13 +60,14 @@
   <!-- Script -->
   <script>
     document.getElementById('inputPassword').addEventListener('keypress', function(event) {
-        if (event.keyCode == 13) {
-            event.preventDefault();
-            dataView();
-        }
+      if (event.keyCode == 13) {
+        event.preventDefault();
+        dataView();
+      }
     });
+
     function dataView() {
-     
+
       let loc = window.location;
       let rootUrl = loc.protocol + '//' + loc.hostname + '/';
       if (window.location.toString() === rootUrl) {
@@ -74,9 +75,8 @@
       } else {
         location.replace(`${window.location.href}/data/?password=${document.getElementById("inputPassword").value}`);
       };
-      
+
     }
-    
   </script>
 
 </body>

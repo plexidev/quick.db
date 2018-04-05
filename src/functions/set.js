@@ -5,16 +5,10 @@ module.exports = function(ID, data, options, db) {
   const getInfo = new Promise((resolve, error) => {
 
             // Configure Options
-            if (options) {
-                options = {
-                    target: options.target || undefined,
-                    table: options.table || 'json'
-                }
-            } else {
-              options = {
-                 target: undefined,
-                 table: 'json'
-              }
+            if (!options) options = {};
+            options = {
+                target: options.target || undefined,
+                table: options.table || 'json'
             }
           
             // Define Variables

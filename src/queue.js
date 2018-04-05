@@ -89,11 +89,11 @@ var tools = module.exports = {
       }, queue);
     });
   },
-  fetchAll: function() {
+  fetchAll: function(options) {
     return new Promise((resolve, error) => {
       executeQueue({
         "fun": "fetchAllDebug",
-        "args": [],
+        "args": [options],
         "innerFunc": [resolve, error]
       }, queue);
     });
@@ -192,7 +192,19 @@ var tools = module.exports = {
         }, queue);
       });
     }
-
+    
+    // Parse FetchAll
+    this.fetchAll = function(options) {
+      if (!options) options = {};
+      options.table = this.name;
+      return new Promise((resolve, error) => {
+      executeQueue({
+        "fun": "fetchAllDebug",
+        "args": [options],
+        "innerFunc": [resolve, error]
+      }, queue);
+    });
+    }
 
   },
   // Functions

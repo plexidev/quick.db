@@ -1,3 +1,11 @@
+/*
+# server.js & json.sqlite
+# allow for shared testing
+#
+# These files are ignored when pushing to NPM
+#
+*/
+
 // Require Package
 const db = require('./index.js');
 

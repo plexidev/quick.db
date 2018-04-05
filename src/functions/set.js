@@ -25,7 +25,7 @@ module.exports = function(ID, data, options, db) {
 
     // Statements
     function newConnection() {
-      db.prepare("CREATE TABLE IF NOT EXISTS " + options.table + " (ID TEXT, json TEXT)").run();
+      db.prepare(`CREATE TABLE IF NOT EXISTS ${options.table} (ID TEXT, json TEXT)`).run();
       checkIfCreated(false);
     }
 

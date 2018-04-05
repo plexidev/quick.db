@@ -32,8 +32,8 @@
     Select Table
   </button>
       <div class="dropdown">
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Coming Soon...</a>
+        <div id="tables" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
         </div>
       </div>
     </div>
@@ -100,7 +100,8 @@
   <script>
     // Variables
     let socket = io.connect(),
-      password = parseURLParams(window.location.href).password[0];
+      password = parseURLParams(window.location.href).password[0],
+      dropdown = element('tables');
 
     socket.emit('emitPassword', password);
     socket.on('respPassword', function(correct) {
@@ -110,6 +111,12 @@
 
     socket.emit('requestData');
     socket.on('recievedData', function(data) {
+      let tables = data.shift();
+      $.each(tables, function(val,text) {
+          if (text === 'json') text = 'Main'
+          $('#tables').append($('<a></a>').val(val).text(text).addClass('dropdown-item'));
+      });
+      
       data.forEach(function(entry) {
         if (entry.ID === 'WEBVIEW_ACTIVE_SOCKETS') return;
         var type = typeof entry.data,

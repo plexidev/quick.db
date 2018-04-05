@@ -1,31 +1,31 @@
 module.exports = function(ID, options, db) {
-    const getInfo = new Promise((resolve, error) => {
-        
-        // Configure Options
-        if (!options) options = {};
-        options = {
-           table: options.table || 'json'
-        }
-        
-        let response;
+  const getInfo = new Promise((resolve, error) => {
 
-        function createDb() {
-            db.prepare("CREATE TABLE IF NOT EXISTS " + options.table + " (ID TEXT, json TEXT)").run();
-            deleteRow();
-        }
+    // Configure Options
+    if (!options) options = {};
+    options = {
+      table: options.table || 'json'
+    }
 
-        function deleteRow() {
-            db.prepare(`DELETE FROM ${options.table} WHERE ID = (?)`).run(ID);
-            response = true;
-            returnDb();
-        }
+    let response;
 
-        function returnDb() {
-            return resolve(response);
-        }
+    function createDb() {
+      db.prepare(`CREATE TABLE IF NOT EXISTS ${options.table} (ID TEXT, json TEXT)`).run();
+      deleteRow();
+    }
 
-        createDb();
+    function deleteRow() {
+      db.prepare(`DELETE FROM ${options.table} WHERE ID = (?)`).run(ID);
+      response = true;
+      returnDb();
+    }
 
-    });
-    return getInfo;
+    function returnDb() {
+      return resolve(response);
+    }
+
+    createDb();
+
+  });
+  return getInfo;
 }

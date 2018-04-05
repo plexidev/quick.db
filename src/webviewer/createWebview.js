@@ -16,76 +16,76 @@ const app = require('express')(),
  */
 
 module.exports = function(password, port, suburl) {
-    // Verify Data
-    if (!password) return console.log('Invalid Password');
-    if (isNaN(port)) return console.log('Invalid Port');
-    // Routing
-    // If no suburl
-    if (!suburl) {
-      app.get("/", function(request, response) {
+  // Verify Data
+  if (!password) return console.log('Invalid Password');
+  if (isNaN(port)) return console.log('Invalid Port');
+  // Routing
+  // If no suburl
+  if (!suburl) {
+    app.get("/", function(request, response) {
+      response.sendFile(__dirname + '/index.html')
+    })
+
+    app.get("/data", function(request, response) {
+      response.sendFile(__dirname + '/data.html')
+    })
+  } else {
+    // If suburl is a string
+    if (typeof suburl === 'string') {
+      app.get(`/${suburl}/`, function(request, response) {
         response.sendFile(__dirname + '/index.html')
       })
-    
-      app.get("/data", function(request, response) {
+
+      app.get(`/${suburl}/data`, function(request, response) {
         response.sendFile(__dirname + '/data.html')
       })
     } else {
-      // If suburl is a string
-      if (typeof suburl === 'string') {
-        app.get(`/${suburl}/`, function(request, response) {
-          response.sendFile(__dirname + '/index.html')
-        })
-    
-        app.get(`/${suburl}/data`, function(request, response) {
-          response.sendFile(__dirname + '/data.html')
-        })
-      } else {
-        // If it's not a string, convert suburl to a string
-        let suburlString = String(suburl)
-        app.get(`/${suburlString}/`, function(request, response) {
-          response.sendFile(__dirname + '/index.html')
-        })
-        
-        app.get(`/${suburl}/data`, function(request, response) {
-          response.sendFile(__dirname + '/data.html')
-        })
-      };
+      // If it's not a string, convert suburl to a string
+      let suburlString = String(suburl)
+      app.get(`/${suburlString}/`, function(request, response) {
+        response.sendFile(__dirname + '/index.html')
+      })
+
+      app.get(`/${suburl}/data`, function(request, response) {
+        response.sendFile(__dirname + '/data.html')
+      })
     };
-    
-    // Listening
-    server.listen(port, function() {
-      console.log(`Quick.db WebViewer: Listening to port ${port}`)
-    });
+  };
 
-    io.on('connection', function(socket) {
-      console.log('Connection Recieved...');
+  // Listening
+  server.listen(port, function() {
+    console.log(`Quick.db WebViewer: Listening to port ${port}`)
+  });
 
-      socket.on('emitPassword', function(pass) {
-        if (password !== pass) {
-          console.log(`Socket entered wrong password: ${pass}`);
-          socket.emit('respPassword', false);
-        } else {
-          console.log(`Socket entered correct password: ${pass}`);
-          socket.emit('respPassword', true);
-          let db = new Database('./json.sqlite');
-          push(`WEBVIEW_ACTIVE_SOCKETS`, socket.id, undefined, db)
-        }
-      })
+  io.on('connection', function(socket) {
+    console.log('Connection Recieved...');
 
-      socket.on('requestData', function() {
+    socket.on('emitPassword', function(pass) {
+      if (password !== pass) {
+        console.log(`Socket entered wrong password: ${pass}`);
+        socket.emit('respPassword', false);
+      } else {
+        console.log(`Socket entered correct password: ${pass}`);
+        socket.emit('respPassword', true);
         let db = new Database('./json.sqlite');
-        fetch(`WEBVIEW_ACTIVE_SOCKETS`, {}, db).then(activeSockets => {
-          if (activeSockets === null) return;
-          if (!activeSockets.includes(socket.id)) return;
-          let db = new Database('./json.sqlite');
-          fetchAll(db).then(i => {
-            socket.emit('recievedData', i)
-            db.close();
-          });
-        })
-      })
-
+        push(`WEBVIEW_ACTIVE_SOCKETS`, socket.id, undefined, db)
+      }
     })
 
-  
+    socket.on('requestData', function() {
+      let db = new Database('./json.sqlite');
+      fetch(`WEBVIEW_ACTIVE_SOCKETS`, {}, db).then(activeSockets => {
+        if (activeSockets === null) return;
+        if (!activeSockets.includes(socket.id)) return;
+        let db = new Database('./json.sqlite');
+        fetchAll(undefined, db).then(i => {
+          socket.emit('recievedData', i)
+          db.close();
+        });
+      })
+    })
+
+  })
+
+
 }

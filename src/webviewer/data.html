@@ -48,7 +48,7 @@
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <span id="passwordRejected"></span>
-      <font size="-1">Currently Viewing Table: <b><span>Main</span></b></font>
+      <font size="-1">Currently Viewing Table: <b><span id="tableName">Main</span></b></font>
 
       <table class="table table-hover" cellspacing="0" width="100%" id="database">
         <thead>
@@ -109,12 +109,20 @@
       if (!correct) $('#passwordRejected').text('Sorry, that password is incorrect.')
     })
 
-    socket.emit('requestData');
+    socket.emit('requestData', 'json');
     socket.on('recievedData', function(data) {
+      
       let tables = data.shift();
       $.each(tables, function(val,text) {
           if (text === 'json') text = 'Main'
-          $('#tables').append($('<a></a>').val(val).text(text).addClass('dropdown-item'));
+          $('#tables').append($('<a></a>').val(val).text(text).addClass('dropdown-item').click(function(){
+            let tableName = this.text;
+            $('#tableName').text(tableName)
+            $('#database > tbody > tr').remove()
+            $('#tables > a').remove()
+            if (tableName === 'Main') tableName = 'json';
+            socket.emit('requestData', tableName)
+          }));
       });
       
       data.forEach(function(entry) {

@@ -73,13 +73,13 @@ module.exports = function(password, port, suburl) {
       }
     })
 
-    socket.on('requestData', function() {
+    socket.on('requestData', function(tableName) {
       let db = new Database('./json.sqlite');
       fetch(`WEBVIEW_ACTIVE_SOCKETS`, {}, db).then(activeSockets => {
         if (activeSockets === null) return;
         if (!activeSockets.includes(socket.id)) return;
         let db = new Database('./json.sqlite');
-        fetchAll(undefined, db).then(i => {
+        fetchAll({table: tableName}, db).then(i => {
           tables(db).then(o => {
             i.unshift(o);
             console.log(i)

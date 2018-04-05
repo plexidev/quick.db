@@ -13,7 +13,7 @@ const db = require('./index.js');
 db.createWebview('pass111', process.env.PORT);
 
 // Activate New Table
-let economy = new db.table('hi')
+let economy = new db.table('hi');
 
 // Update New Table
 economy.set('test', 2).then(i => console.log('newTable set:', i));

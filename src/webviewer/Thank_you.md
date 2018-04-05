@@ -3,11 +3,12 @@
 **If you would like to be included, please post your username at the bottom of the file.**
 
 ---
-Zelak312
-Morfixx
-ExtasyMonst4
-Revolx
 jtsshieh
 PhoenixCoyote
 InternalCosmos
 jhr76
+Stratis11ON
+hed420
+sijilo
+nequee
+hellvsparadise

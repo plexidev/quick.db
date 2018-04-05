@@ -7,8 +7,14 @@ module.exports = function(ID, data, options, db) {
             // Configure Options
             if (options) {
                 options = {
-                    target: options.target || null
+                    target: options.target || undefined,
+                    table: options.table || 'json'
                 }
+            } else {
+              options = {
+                 target: undefined,
+                 table: 'json'
+              }
             }
           
             // Define Variables
@@ -25,24 +31,24 @@ module.exports = function(ID, data, options, db) {
             
             // Statements
             function newConnection() {
-              db.prepare("CREATE TABLE IF NOT EXISTS json (ID TEXT, json TEXT)").run();
+              db.prepare("CREATE TABLE IF NOT EXISTS " + options.table + " (ID TEXT, json TEXT)").run();
               checkIfCreated(false);
             }
 
             function checkIfCreated(updated) {
                 
               // Fetch Row
-              let fetched = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID);
+              let fetched = db.prepare(`SELECT * FROM ${options.table} WHERE ID = (?)`).get(ID);
               
               if (!fetched || !fetched.json && !updated) insertRow(); // Run if undefined
               else { // Run if defined
                 fetched = JSON.parse(fetched.json);
                 
                 // Update Data
-                if (!options || typeof fetched !== 'object' || fetched instanceof Array) {
-                  db.prepare(`UPDATE json SET json = (?) WHERE ID = (?)`).run(input, ID);
+                if (!options || !options.target || typeof fetched !== 'object' || fetched instanceof Array) {
+                  db.prepare(`UPDATE ${options.table} SET json = (?) WHERE ID = (?)`).run(input, ID);
                 } else { // if (typeof input === 'object')
-                  
+
                   let targets = options.target;
                   if (targets[0] === '.') targets = targets.slice(1);
                   
@@ -51,12 +57,12 @@ module.exports = function(ID, data, options, db) {
                   util.inspect(object);
                   object = JSON.stringify(object);
 
-                  db.prepare(`UPDATE json SET json = (?) WHERE ID = (?)`).run(object, ID);
+                  db.prepare(`UPDATE ${options.table} SET json = (?) WHERE ID = (?)`).run(object, ID);
                   
                 }
                 
                 // Fetch New Data
-                let newData = db.prepare(`SELECT * FROM json WHERE ID = (?)`).get(ID).json;
+                let newData = db.prepare(`SELECT * FROM ${options.table} WHERE ID = (?)`).get(ID).json;
                 if (newData === '{}') response = null;
                 else response = JSON.parse(newData);
                 returnDb();
@@ -66,7 +72,7 @@ module.exports = function(ID, data, options, db) {
 
             function insertRow() {
 
-              db.prepare(`INSERT INTO json (ID,json) VALUES (?,?)`).run(ID, '{}');
+              db.prepare(`INSERT INTO ${options.table} (ID,json) VALUES (?,?)`).run(ID, '{}');
               checkIfCreated(true);
               
             }

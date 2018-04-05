@@ -53,11 +53,11 @@ var tools = module.exports = {
             }, queue);
         });
     },
-    delete: function(ID) {
+    delete: function(ID, options) {
         return new Promise((resolve, error) => {
             executeQueue({
                 "fun": "deleteDebug",
-                "args": [ID],
+                "args": [ID, options],
                 "innerFunc": [resolve, error]
             }, queue);
         });
@@ -109,6 +109,66 @@ var tools = module.exports = {
     },
     // Events
     createWebview: require('./webviewer/createWebview.js'),
+    table: function(name) {
+      
+      // Check if tablename is a string
+      if (typeof name !== 'string') return console.log('Sorry, please verify that name of the table is a string');
+      this.name = name;
+      
+      // Parse Fetch
+      this.fetch = function(ID, options) {
+        if (!options) options = {};
+        options.table = this.name;
+        return new Promise((resolve, error) => {
+            executeQueue({
+                "fun": "fetchDebug",
+                "args": [ID, options],
+                "innerFunc": [resolve, error]
+            }, queue);
+        }); 
+      }
+      
+      // Parse Set
+      this.set = function(ID, data, options) {
+        if (!options) options = {};
+        options.table = this.name;
+        return new Promise((resolve, error) => {
+            executeQueue({
+                "fun": "setDebug",
+                "args": [ID, data, options],
+                "innerFunc": [resolve, error]
+            }, queue);
+        });
+      } 
+      
+      // Parse Delete
+      this.delete = function(ID, options) {
+        if (!options) options = {};
+        options.table = this.name;
+        return new Promise((resolve, error) => {
+            executeQueue({
+                "fun": "deleteDebug",
+                "args": [ID, options],
+                "innerFunc": [resolve, error]
+            }, queue);
+        });
+      }
+      
+      // Parse Push
+      this.push = function(ID, data, options) {
+        if (!options) options = {};
+        options.table = this.name;
+        return new Promise((resolve, error) => {
+            executeQueue({
+                "fun": "pushDebug",
+                "args": [ID, data, options],
+                "innerFunc": [resolve, error]
+            }, queue);
+        });
+      }
+      
+      
+    },
     // Functions
     fetchDebug: require('./functions/fetch.js'),
     setDebug: require('./functions/set.js'),

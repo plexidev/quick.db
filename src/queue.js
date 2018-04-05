@@ -167,6 +167,19 @@ var tools = module.exports = {
         });
       }
       
+      // Parse Add
+      this.add = function(ID, data, options) {
+        if (!options) options = {};
+        options.table = this.name;
+        return new Promise((resolve, error) => {
+            executeQueue({
+                "fun": "addDebug",
+                "args": [ID, data, options],
+                "innerFunc": [resolve, error]
+            }, queue);
+        });
+      }
+      
       
     },
     // Functions

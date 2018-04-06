@@ -25,9 +25,9 @@
 ---
 
 ![Imgur](https://i.imgur.com/qDSD8ni.png)
-- List
-- List
-- List
+- Beginner Friendly
+- [Built-in Webviewer](https://quickdb-latest.glitch.me/data/?password=pass111) *(Only takes one line to create & password protected)*
+- [Discord Support Server](https://discord.io/plexidev)
 
 ---
 

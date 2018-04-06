@@ -17,3 +17,4 @@ Revolx
 lennythecat
 tysroby
 lieuwe_berg
+Zoro

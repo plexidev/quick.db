@@ -28,6 +28,7 @@
 - [Beginners Friendly](https://quickdb.js.org/examples/beginner/storing-updating-and-fetching-numbers.html)
 - [Built-in Webviewer](https://quickdb-latest.glitch.me/data/?password=pass111)
 - [Discord Support Server](https://discord.io/plexidev)
+- Built-in queue system **no database locking.**
 
 ---
 

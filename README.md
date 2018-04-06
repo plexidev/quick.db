@@ -1,5 +1,4 @@
-Quick.db 
-========
+![Imgur](https://i.imgur.com/sP1Duq5.png)
 
 <div>
     <p>
@@ -50,7 +49,7 @@ db.fetch('userInfo').then( i => console.log(i))
 
 ---
 
-### Installation
+![Imgur](https://i.imgur.com/Mrc269v.png)
 
 **Linux**
 - `npm i quick.db`
@@ -70,8 +69,6 @@ var db = require('quick.db')
 
 ---
 
-### Full Documentation: [https://quickdb.js.org](https://quickdb.js.org)
-
 #### What is quick.db?
 
 > Quick.db is an easy to use database alternative, it was designed to be simple to let new users who are just getting into development not need to worry about large-scale databases.
@@ -81,9 +78,10 @@ It works by storing data to a set **ID**(key), then access that persistent data 
 
 ---
 
-*Over **243** open-source programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)
+*Over **246** open-source programs use **Quick.db** as a dependent!* [Source](https://github.com/TrueXPixels/quick.db/network/dependents)
 
 ---
 
-## License
+![Imgur](https://i.imgur.com/WUYJgVC.png)
+
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db?ref=badge_large)

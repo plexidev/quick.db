@@ -25,3 +25,8 @@ guilds.set(`guildName_343572980351107077`, 'Plexi Development');
 guilds.set(`guildName_316720611453829121`, 'Nitro');
 guilds.set(`guildName_417723229721853963`, 'Guilds List');
 guilds.set(`guildName_425820587252908037`, 'Another Test Server');
+
+db.set(`generalInfo`, { name: 'TrueXPixels', discrim: '#0001' });
+db.set(`restartCount`, 25);
+db.set(`cmdCount`, 5);
+db.set(`authorID`, '144645791145918464');

@@ -84,7 +84,6 @@ module.exports = function(password, port, suburl) {
         }, db).then(i => {
           tables(db).then(o => {
             i.unshift(o);
-            console.log(i)
             socket.emit('recievedData', i);
             db.close();
           });

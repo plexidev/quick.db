@@ -13,7 +13,7 @@ Quick.db
 
 | Website / Documentation | Support Discord | NPM Page |
 | :---: | :---: | :---: |
-| [https://quickdb.js.org](https://quickdb.js.org) | [https://discord.gg/8nrEqvP](https://discord.gg/8nrEqvP) | [https://www.npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
+| [quickdb.js.org](https://quickdb.js.org) | [discord.gg/8nrEqvP](https://discord.gg/8nrEqvP) | [npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
 
 </div>
 

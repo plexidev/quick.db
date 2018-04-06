@@ -69,9 +69,10 @@ db.fetch('userInfo').then( i => console.log(i))
 **Mac**
 - We are currently looking for a way to install quick.db for this device
 
-**Require Package**
+**Require Package & Create Webviewer**
 ```js
-var db = require('quick.db')
+const db = require('quick.db');
+db.createWebview('password', PORT);
 ```
 
 ---

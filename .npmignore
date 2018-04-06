@@ -5,7 +5,7 @@
 *.sqlite
 *.database
 *.logs
-.glitch-assets
+*.glitch-assets
 watch.json
 server.js
 ./docs

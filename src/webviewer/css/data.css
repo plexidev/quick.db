@@ -41,3 +41,9 @@ li a:hover {
   background: #f6f6f6;
   cursor: pointer;
 }
+
+tr a:hover {
+  font-size: 30px;
+  background: #f6f6f6;
+  cursor: pointer;
+}

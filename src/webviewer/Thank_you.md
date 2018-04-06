@@ -14,3 +14,8 @@ nequee
 hellvsparadise
 Morfixx
 Revolx
+lennythecat
+tysroby
+lieuwe_berg
+Zoro
+Mio / Μισάνθρωπος.

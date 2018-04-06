@@ -23,6 +23,9 @@ module.exports = function(ID, data, options, db) {
       return console.log(`Please supply a valid input @ ID: ${ID}\nError: ${e.message}`);
     }
 
+    // Check if setting undefined
+    if (typeof data === 'undefined') return console.log(`Input cannot be undefined @ ID: ${ID}`);
+
     // Statements
     function newConnection() {
       db.prepare(`CREATE TABLE IF NOT EXISTS ${options.table} (ID TEXT, json TEXT)`).run();

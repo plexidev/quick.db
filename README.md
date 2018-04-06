@@ -56,9 +56,9 @@ db.fetch('userInfo').then( i => console.log(i))
 - `npm i quick.db`
 
 **Windows**
-1. Open CMD as Administrator
-2. Run `npm -g install windows-build-tools node-gyp --save`
-3. `npm i quick.db`
+**1. Run:** `npm -g --add-python-to-path install windows-build-tools node-gyp` in **powershell as administrator**
+**2. Restart** CMD prompt windows (*Close & Reopen*)
+**3. Run:** `npm i quick.db`
 
 **Mac**
 - We are currently looking for a way to install quick.db for this device

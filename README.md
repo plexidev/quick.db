@@ -1,13 +1,13 @@
 ![Imgur](https://i.imgur.com/sP1Duq5.png)
 
 <div>
-    <p>
-        <a href="https://discord.io/plexidev"><img src="https://discordapp.com/api/guilds/343572980351107077/embed.png" alt="Discord Server" /></a>
-        <a href="http://www.youtube.com/subscription_center?add_user=TrueXPixels"><img src="https://img.shields.io/badge/Subscribe-YouTube-red.svg" alt="YouTube Channel" /></a>
-<a href="https://app.fossa.io/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db.svg?type=shield"/></a>
-        <a href="https://npm-stat.com/charts.html?package=quick.db"><img src="https://img.shields.io/badge/Downloads-17.1k+-brightgreen.svg"></a>
-        <a href="https://GitHub.com/truexpixels/quick.db/stargazers/"><img src="https://img.shields.io/github/stars/truexpixels/quick.db.svg?style=social&label=Star&maxAge=2592000"></a>
-    </p>
+  <p>
+    <a href="https://discord.io/plexidev"><img src="https://discordapp.com/api/guilds/343572980351107077/embed.png" alt="Discord Server" /></a>
+    <a href="http://www.youtube.com/subscription_center?add_user=TrueXPixels"><img src="https://img.shields.io/badge/Subscribe-YouTube-red.svg" alt="YouTube Channel" /></a>
+    <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db.svg?type=shield"/></a>
+    <a href="https://npm-stat.com/charts.html?package=quick.db"><img src="https://img.shields.io/badge/Downloads-17.1k+-brightgreen.svg"></a>
+    <a href="https://GitHub.com/truexpixels/quick.db/stargazers/"><img src="https://img.shields.io/github/stars/truexpixels/quick.db.svg?style=social&label=Star&maxAge=2592000"></a>
+  </p>
     
 
 | Website / Documentation | Discord Support | NPM Page |
@@ -80,7 +80,7 @@ db.createWebview('password', PORT);
 
 ---
 
-#### What is quick.db?
+![Imgur](https://i.imgur.com/cFIeOmI.png)
 
 > Quick.db is an easy to use database alternative, it was designed to be simple to let new users who are just getting into development not need to worry about large-scale databases.
 It works by storing data to a set **ID**(key), then access that persistent data anytime through a .fetch() function.

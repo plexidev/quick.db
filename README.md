@@ -24,7 +24,14 @@
 
 ---
 
-### Example
+![Imgur](https://i.imgur.com/qDSD8ni.png)
+- List
+- List
+- List
+
+---
+
+![Imgur](https://i.imgur.com/nmROfQr.png)
 
 > *All data in quick.db is stored **persistently** in a database. Here is an example of setting an object in the database, then fetching parts & the full object.*
 
@@ -49,7 +56,7 @@ db.fetch('userInfo').then( i => console.log(i))
 
 ---
 
-![Imgur](https://i.imgur.com/Mrc269v.png)
+![Imgur](https://i.imgur.com/t7rqmM7.png)
 
 **Linux**
 - `npm i quick.db`
@@ -82,6 +89,6 @@ It works by storing data to a set **ID**(key), then access that persistent data 
 
 ---
 
-![Imgur](https://i.imgur.com/WUYJgVC.png)
+![Imgur](https://i.imgur.com/ATgaVo4.png)
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db?ref=badge_large)

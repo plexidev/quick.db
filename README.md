@@ -10,7 +10,7 @@
   </p>
     
 
-| Website / Documentation | Discord Support *(1275+ Users)* | NPM Page |
+| Website / Documentation | Discord Support *(1285+ Users)* | NPM Page |
 | :---: | :---: | :---: |
 | [quickdb.js.org](https://quickdb.js.org) | [discord.gg/8nrEqvP](https://discord.gg/8nrEqvP) | [npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
 

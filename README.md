@@ -6,7 +6,7 @@
     <a href="http://www.youtube.com/subscription_center?add_user=TrueXPixels"><img src="https://img.shields.io/badge/Subscribe-YouTube-red.svg" alt="YouTube Channel" /></a>
     <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db.svg?type=shield"/></a>
     <a href="https://npm-stat.com/charts.html?package=quick.db"><img src="https://img.shields.io/badge/Downloads-17.1k+-brightgreen.svg"></a>
-    <a href="https://GitHub.com/truexpixels/quick.db/stargazers/"><img src="https://img.shields.io/github/stars/truexpixels/quick.db.svg?style=social&label=Star&maxAge=2592000"></a>
+    <a href="https://GitHub.com/Plexi-Development/quick.db/stargazers/"><img src="https://img.shields.io/github/stars/Plexi-Development/quick.db.svg?style=social&label=Star&maxAge=2592000"></a>
   </p>
     
 

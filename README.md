@@ -89,7 +89,7 @@ It works by storing data to a set **ID**(key), then access that persistent data 
 
 ---
 
-*Over **247** open-source programs use **Quick.db** as a dependent!* [Source](https://github.com/Plexi-Development/quick.db/network/dependents)
+*Over **256** open-source programs use **Quick.db** as a dependent!* [Source](https://github.com/Plexi-Development/quick.db/network/dependents)
 
 ---
 

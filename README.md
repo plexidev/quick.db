@@ -30,7 +30,7 @@
 - [Built-in Webviewer](https://quickdb-latest.glitch.me/data/?password=pass111)
 - [Discord Support](https://discord.io/plexidev)
 - Built-in queue system **no database locking.**
-- **Multiple table support**
+- **Multiple tables support**
 
 ---
 

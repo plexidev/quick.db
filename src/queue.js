@@ -1,11 +1,12 @@
-// Require Packages
+// Require Better-Sqlite3
 const Database = require('better-sqlite3');
 
-let queue = [],
-  connection = false,
-  db,
-  webview = false;
+// Declare Variables
+let queue = [], // Queue System
+    db, // Active Database
+    webview = false; // Active Webviewer
 
+// Queue Function
 function executeQueue(object, queue) {
   if (object) {
     queue.push(object);
@@ -33,6 +34,7 @@ function executeQueue(object, queue) {
   }
 }
 
+// Primary Functions
 var tools = module.exports = {
   // Queues
   fetch: function(ID, options) {
@@ -109,7 +111,7 @@ var tools = module.exports = {
   },
   // Events
   createWebview: require('./webviewer/createWebview.js'),
-  table: function(name) {
+  table: function(name) { // This function deals with tables
 
     // Table Name Verification
     if (typeof name !== 'string') return console.log('Sorry, please verify that name of the table is a string');

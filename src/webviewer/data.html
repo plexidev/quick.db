@@ -49,7 +49,7 @@
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <span id="passwordRejected"></span>
-      <font size="-1">Currently Viewing Table: <b><span id="tableName">Main</span></b></font>
+      <font size="-1">Currently Viewing Table: <b><span id="tableName">Main</span></b> with <b><span id="tableSize">0</span></b> entries</font>
 
       <table class="table table-hover" cellspacing="0" width="100%" id="database">
         <thead>
@@ -112,6 +112,8 @@
 
     socket.emit('requestData', 'json');
     socket.on('recievedData', function(data) {
+      let tableSize = data.length - 1;
+      $('#tableSize').text(tableSize);
 
       let tables = data.shift();
       $.each(tables, function(val, text) {

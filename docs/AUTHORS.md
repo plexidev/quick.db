@@ -29,6 +29,6 @@
 
 - **Name/Username:** *lieuwe_berg*
 - **Contact/Social Media:** *@lieuwe_berg#8662 on Discord* 
-- **What you contributed:** *Webviewer Suburl Feature*
+- **What you contributed:** *Minor Webviewer Features*
 
 ---

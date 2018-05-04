@@ -1,11 +1,12 @@
 const app = require('express')(),
   server = require('http').createServer(app),
-  io = require('socket.io')(server),
   Database = require('better-sqlite3'),
   fetch = require('./../functions/fetch.js'),
   fetchAll = require('./../functions/fetchAll.js'),
   push = require('./../functions/push.js'),
   tables = require('./../functions/tables.js');
+
+let io = require('socket.io');
 
 /*
  * NOTEPAD:
@@ -16,45 +17,52 @@ const app = require('express')(),
  *
  */
 
-module.exports = function(password, port, suburl) {
+module.exports = function(password, port, suburl, options = {}) {
+  //setup which server to get
+  if(options.server && !options.request || options.request && !options.server) 
+    return console.log("The options needs both server and request");
+  serverT = options.request ? options.request : app;
+  io = io(options.server ? options.server : server);
+  suburl = options.request && options.server && !suburl ? "quick" : suburl;
+
   // Verify Data
   if (!password) return console.log('Invalid Password');
   if (isNaN(port)) return console.log('Invalid Port');
   // Routing
   // If no suburl
   if (!suburl) {
-    app.get("/", function(request, response) {
+    serverT.get("/", function(request, response) {
       response.sendFile(__dirname + '/index.html')
     })
 
-    app.get("/data", function(request, response) {
+    serverT.get("/data", function(request, response) {
       response.sendFile(__dirname + '/data.html')
     })
   } else {
     // If suburl is a string
     if (typeof suburl === 'string') {
-      app.get(`/${suburl}/`, function(request, response) {
+      serverT.get(`/${suburl}/`, function(request, response) {
         response.sendFile(__dirname + '/index.html')
       })
 
-      app.get(`/${suburl}/data`, function(request, response) {
+      serverT.get(`/${suburl}/data`, function(request, response) {
         response.sendFile(__dirname + '/data.html')
       })
     } else {
       // If it's not a string, convert suburl to a string
       let suburlString = String(suburl)
-      app.get(`/${suburlString}/`, function(request, response) {
+      serverT.get(`/${suburlString}/`, function(request, response) {
         response.sendFile(__dirname + '/index.html')
       })
 
-      app.get(`/${suburl}/data`, function(request, response) {
+      serverT.get(`/${suburl}/data`, function(request, response) {
         response.sendFile(__dirname + '/data.html')
       })
     };
   };
 
   // Listening
-  server.listen(port, function() {
+  if(!options.server) serverT.listen(port, function() {
     console.log(`Quick.db WebViewer: Listening to port ${port}`)
   });
 

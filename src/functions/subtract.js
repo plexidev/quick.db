@@ -11,7 +11,7 @@ module.exports = function(ID, data, options = {}, db) {
     options = {
       target: options.target || undefined,
       table: options.table || 'json'
-    }
+    };
 
     let response;
 

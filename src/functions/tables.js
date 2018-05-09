@@ -1,5 +1,5 @@
 module.exports = function(db) {
-  const getInfo = new Promise((resolve, error) => {
+  const getInfo = new Promise(resolve => {
 
     let response = [];
     
@@ -11,8 +11,8 @@ module.exports = function(db) {
     function fetchAll() {
       let tables = db.prepare(`select name from sqlite_master where type='table'`).all();
       tables.forEach(function(table){
-        response.push(table.name) 
-      })
+        response.push(table.name);
+      });
       returnDb();
     }
 
@@ -24,4 +24,4 @@ module.exports = function(db) {
 
   });
   return getInfo;
-}
+};

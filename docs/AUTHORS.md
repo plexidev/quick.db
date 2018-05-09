@@ -32,3 +32,7 @@
 - **What you contributed:** *Minor Webviewer Features*
 
 ---
+
+- **Name/Username:** *MoordMachineYT*
+- **Contact/Social Media:** *@MoordMachineYT#1910 on Discord*
+- **What you contributed:** *Possibility to handle errors instead of logging them*

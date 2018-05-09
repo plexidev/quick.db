@@ -25,31 +25,31 @@ module.exports = function(password, port, suburl) {
   if (!suburl) {
     app.get("/", function(request, response) {
       response.sendFile(__dirname + '/index.html')
-    })
+    });
 
     app.get("/data", function(request, response) {
       response.sendFile(__dirname + '/data.html')
-    })
+    });
   } else {
     // If suburl is a string
     if (typeof suburl === 'string') {
       app.get(`/${suburl}/`, function(request, response) {
         response.sendFile(__dirname + '/index.html')
-      })
+      });
 
       app.get(`/${suburl}/data`, function(request, response) {
         response.sendFile(__dirname + '/data.html')
-      })
+      });
     } else {
       // If it's not a string, convert suburl to a string
       let suburlString = String(suburl)
       app.get(`/${suburlString}/`, function(request, response) {
         response.sendFile(__dirname + '/index.html')
-      })
+      });
 
       app.get(`/${suburl}/data`, function(request, response) {
         response.sendFile(__dirname + '/data.html')
-      })
+      });
     };
   };
 
@@ -69,9 +69,9 @@ module.exports = function(password, port, suburl) {
         console.log(`Socket entered correct password: ${pass}`);
         socket.emit('respPassword', true);
         let db = new Database('./json.sqlite');
-        push(`WEBVIEW_ACTIVE_SOCKETS`, socket.id, undefined, db)
+        push(`WEBVIEW_ACTIVE_SOCKETS`, socket.id, undefined, db);
       }
-    })
+    });
 
     socket.on('requestData', function(tableName) {
       let db = new Database('./json.sqlite');
@@ -88,10 +88,10 @@ module.exports = function(password, port, suburl) {
             db.close();
           });
         });
-      })
-    })
+      });
+    });
 
-  })
+  });
 
 
-}
+};

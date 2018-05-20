@@ -15,12 +15,12 @@ module.exports = function(options = {}, db) {
     function fetchAll() {
       let resp = db.prepare(`SELECT * FROM ${options.table}`).all();
       for (var entry of resp) {
-        if (entry.ID === null) return;
-        if (entry.ID === 'WEBVIEW_ACTIVE_SOCKETS') return;
-        response.push({
-          ID: entry.ID,
-          data: JSON.parse(entry.json)
-        });
+        if (entry.ID !== null && entry.ID !== "WEBVIEW_ACTIVE_SOCKETS") {
+          response.push({
+            ID: entry.ID,
+            data: JSON.parse(entry.json)
+          });
+        }
       }
       returnDb();
     }

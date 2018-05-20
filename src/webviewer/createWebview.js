@@ -1,12 +1,11 @@
 const app = require('express')(),
-  server = require('http').createServer(app),
   Database = require('better-sqlite3'),
   fetch = require('./../functions/fetch.js'),
   fetchAll = require('./../functions/fetchAll.js'),
   push = require('./../functions/push.js'),
   tables = require('./../functions/tables.js');
 
-let io = require('socket.io');
+let ioR = require('socket.io');
 
 /*
  * NOTEPAD:
@@ -22,7 +21,6 @@ module.exports = function(password, port, suburl, options = {}) {
   if(options.server && !options.request || options.request && !options.server) 
     return console.log("The options needs both server and request");
   serverT = options.request ? options.request : app;
-  io = io(options.server ? options.server : server);
   suburl = options.request && options.server && !suburl ? "quick" : suburl;
 
   // Verify Data
@@ -62,9 +60,14 @@ module.exports = function(password, port, suburl, options = {}) {
   };
 
   // Listening
-  if(!options.server) serverT.listen(port, function() {
+  let server;
+  if(!options.server)server = serverT.listen(port, function() {
     console.log(`Quick.db WebViewer: Listening to port ${port}`)
   });
+
+  if(!server) server = options.server;
+
+  let io = ioR.listen(server);
 
   io.on('connection', function(socket) {
     console.log('Connection Recieved...');

@@ -6,7 +6,7 @@ const app = require('express')(),
   push = require('./../functions/push.js'),
   tables = require('./../functions/tables.js');
 
-let io = require('socket.io');
+let ioR = require('socket.io');
 
 /*
  * NOTEPAD:
@@ -22,7 +22,7 @@ module.exports = function(password, port, suburl, options = {}) {
   if(options.server && !options.request || options.request && !options.server) 
     return console.log("The options needs both server and request");
   serverT = options.request ? options.request : app;
-  io = io(options.server ? options.server : server);
+  let io = ioR(options.server ? options.server : server);
   suburl = options.request && options.server && !suburl ? "quick" : suburl;
 
   // Verify Data

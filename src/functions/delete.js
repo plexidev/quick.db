@@ -1,11 +1,10 @@
-module.exports = function(ID, options, db) {
+module.exports = function(ID, options = {}, db) {
   const getInfo = new Promise((resolve, error) => {
 
     // Configure Options
-    if (!options) options = {};
     options = {
       table: options.table || 'json'
-    }
+    };
 
     let response;
 
@@ -28,4 +27,4 @@ module.exports = function(ID, options, db) {
 
   });
   return getInfo;
-}
+};

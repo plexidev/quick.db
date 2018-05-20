@@ -20,8 +20,8 @@ function executeQueue(object, queue) {
     default:
       if (!db) db = new Database('./json.sqlite');
       let realObj = object ? object : queue[0];
-      realObj.args.push(db)
-      realObj.args.push(webview)
+      realObj.args.push(db);
+      realObj.args.push(webview);
       tools[realObj.fun](...realObj.args).then((...result) => {
         realObj.innerFunc[0](...result);
         queue.shift();
@@ -114,8 +114,8 @@ var tools = module.exports = {
   table: function(name) { // This function deals with tables
 
     // Table Name Verification
-    if (typeof name !== 'string') return console.log('Sorry, please verify that name of the table is a string');
-    if (name.includes(' ')) return console.log('Sorry, the table name cannot include spaces');
+    if (typeof name !== 'string') return Promise.reject(new TypeError('Please verify that name of the table is a string'));
+    if (name.includes(' ')) return Promise.reject(new Error('Sorry, the table name cannot include spaces'));
     this.name = name; // Set Name
 
     // Parse Fetch
@@ -129,7 +129,7 @@ var tools = module.exports = {
           "innerFunc": [resolve, error]
         }, queue);
       });
-    }
+    };
 
     // Parse Set
     this.set = function(ID, data, options) {
@@ -142,7 +142,7 @@ var tools = module.exports = {
           "innerFunc": [resolve, error]
         }, queue);
       });
-    }
+    };
 
     // Parse Delete
     this.delete = function(ID, options) {
@@ -155,7 +155,7 @@ var tools = module.exports = {
           "innerFunc": [resolve, error]
         }, queue);
       });
-    }
+    };
 
     // Parse Push
     this.push = function(ID, data, options) {
@@ -168,7 +168,7 @@ var tools = module.exports = {
           "innerFunc": [resolve, error]
         }, queue);
       });
-    }
+    };
 
     // Parse Add
     this.add = function(ID, data, options) {
@@ -181,7 +181,7 @@ var tools = module.exports = {
           "innerFunc": [resolve, error]
         }, queue);
       });
-    }
+    };
 
     // Parse Subtract
     this.subtract = function(ID, data, options) {
@@ -194,7 +194,7 @@ var tools = module.exports = {
           "innerFunc": [resolve, error]
         }, queue);
       });
-    }
+    };
 
     // Parse FetchAll
     this.fetchAll = function(options) {
@@ -207,7 +207,7 @@ var tools = module.exports = {
           "innerFunc": [resolve, error]
         }, queue);
       });
-    }
+    };
 
     // Parse StartsWith
     this.startsWith = function(startsWith, options) {
@@ -219,10 +219,8 @@ var tools = module.exports = {
           "args": [startsWith, options],
           "innerFunc": [resolve, error]
         }, queue);
-
-      })
-
-    }
+      });
+    };
 
 
 

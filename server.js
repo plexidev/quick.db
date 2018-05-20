@@ -16,10 +16,12 @@ db.createWebview('pass111', process.env.PORT);
 let economy = new db.table('Economy');
 let guilds = new db.table('GuildInfo');
 
-economy.set(`userBalance_245565031490519040`, 500);
-economy.set(`userBalance_144645791145918464`, 1000);
+economy.set(`userBalance_643862142520395322`, 5500);
 economy.set(`userBalance_283862626520399872`, 1500);
 economy.set(`userBalance_258622912095846400`, 2000);
+economy.set(`userBalance_245565031490519040`, 500);
+economy.set(`userBalance_144645791145918464`, 1000);
+economy.set(`userBalance_283862520399872` , 6500);
 
 guilds.set(`guildName_343572980351107077`, 'Plexi Development');
 guilds.set(`guildName_316720611453829121`, 'Nitro');
@@ -35,4 +37,4 @@ const configDefaults = {
     modLog: 'None'
 };
 
-guilds.set(`testing`, undefined, { target: '.world'}).then(i => console.log(i))
+economy.startsWith('userBalance', { sort: '.data' }).then(i => console.log(i));

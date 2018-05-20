@@ -1,21 +1,21 @@
 const util = require('util'),
-  _ = require('lodash/object');
+      set = require('lodash.set'),
+      get = require('lodash.get');
 
-module.exports = function(ID, data, options, db) {
+module.exports = function(ID, data, options = {}, db) {
   const getInfo = new Promise((resolve, error) => {
 
     // Configure Options
-    if (!options) options = {};
     options = {
       target: options.target || undefined,
       table: options.table || 'json'
-    }
+    };
 
     let response;
 
     function createDb() {
       db.prepare(`CREATE TABLE IF NOT EXISTS ${options.table} (ID TEXT, json TEXT)`).run();
-      checkIfCreated(false)
+      checkIfCreated(false);
     }
 
     function checkIfCreated(updated) {
@@ -44,6 +44,7 @@ module.exports = function(ID, data, options, db) {
 
           } catch (e) {
             response = `Unable to push, may not be pushing to an array. \nError: ${e.message}`;
+            error(new Error(response));
             returnDb();
           }
         } else {
@@ -51,11 +52,11 @@ module.exports = function(ID, data, options, db) {
           let targets = options.target;
           if (targets[0] === '.') targets = targets.slice(1);
 
-          let newArray = _.get(fetched, targets);
+          let newArray = get(fetched, targets);
           if (newArray instanceof Array) newArray.push(data);
           else newArray = [data];
 
-          let input = _.set(fetched, targets, newArray);
+          let input = set(fetched, targets, newArray);
           util.inspect(input);
           input = JSON.stringify(input);
 
@@ -84,4 +85,4 @@ module.exports = function(ID, data, options, db) {
 
   });
   return getInfo;
-}
+};

@@ -1,5 +1,5 @@
 const util = require('util'),
-  _ = require('lodash/object');
+      set = require('lodash.set');
 
 module.exports = function(ID, data, options = {}, db) {
   const getInfo = new Promise((resolve, error) => {
@@ -49,7 +49,7 @@ module.exports = function(ID, data, options = {}, db) {
           if (targets[0] === '.') targets = targets.slice(1);
 
           input = JSON.parse(input)
-          let object = _.set(fetched, targets, input);
+          let object = set(fetched, targets, input);
           util.inspect(object);
           object = JSON.stringify(object);
 

@@ -1,4 +1,4 @@
-const sort = require('array-sort');
+const sort = require('lodash.sortby');
 
 module.exports = function(startsWith, options = {}, db) {
   const getInfo = new Promise((resolve, error) => {
@@ -31,9 +31,9 @@ module.exports = function(startsWith, options = {}, db) {
       }
       if (options && typeof options.sort === 'string') {
         if (options.sort.startsWith('.')) options.sort = options.sort.slice(1);
-        response = sort(response, options.sort, {
-          reverse: true
-        });
+        options.sort = options.sort.split('.');
+        response = sort(response, options.sort);
+        response = response.reverse();
       }
       returnDb();
     }

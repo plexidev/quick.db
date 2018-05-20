@@ -35,4 +35,4 @@ const configDefaults = {
     modLog: 'None'
 };
 
-guilds.set(`testing`, undefined, { target: '.world'}).then(i => console.log(i))
+economy.startsWith('userBalance', { sort: '.data' }).then(i => console.log(i));

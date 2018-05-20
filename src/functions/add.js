@@ -1,17 +1,17 @@
 const util = require('util'),
-  _ = require('lodash/object');
+      set = require('lodash.set'),
+      get = require('lodash.get');
 
-module.exports = function(ID, data, options, db, webview) {
+module.exports = function(ID, data, options = {}, db, webview) {
   const getInfo = new Promise((resolve, error) => {
 
     if (typeof data !== 'number') return console.log('Error: .add() data is not a number.');
 
     // Configure Options
-    if (!options) options = {};
     options = {
       target: options.target || undefined,
       table: options.table || 'json'
-    }
+    };
 
     let response;
 
@@ -40,18 +40,18 @@ module.exports = function(ID, data, options, db, webview) {
             let targets = options.target;
             if (targets[0] === '.') targets = targets.slice(1);
 
-            let target = _.get(json, targets);
+            let target = get(json, targets);
             if (typeof target === 'number' || target === undefined) {
               if (target === undefined) target = 0;
 
-              let input = _.set(json, targets, target + data);
+              let input = set(json, targets, target + data);
               util.inspect(input);
               input = JSON.stringify(input);
               db.prepare(`UPDATE ${options.table} SET json = (?) WHERE ID = (?)`).run(input, ID);
 
-            } else console.log(`Error: Target for .add(${ID}, ${data}) is not a number.`);
+            } else error(new TypeError(`Target for .add(${ID}, ${data}) is not a number.`));
 
-          } else console.log(`Error: Target for .add(${ID}, ${data}) is not a number.`);
+          } else error(new TypeError(`Error: Target for .add(${ID}, ${data}) is not a number.`));
 
         }
 
@@ -78,4 +78,4 @@ module.exports = function(ID, data, options, db, webview) {
 
   });
   return getInfo;
-}
+};

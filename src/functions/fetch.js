@@ -1,15 +1,14 @@
 const util = require('util'),
-  _ = require('lodash/object');
+  get = require('lodash.get');
 
-module.exports = function(ID, options, db) {
+module.exports = function(ID, options = {}, db) {
   const getInfo = new Promise((resolve) => {
 
     // Configure Options
-    if (!options) options = {};
     options = {
       target: options.target || undefined,
       table: options.table || 'json'
-    }
+    };
 
     let response;
 
@@ -32,7 +31,7 @@ module.exports = function(ID, options, db) {
           else {
             let targets = options.target;
             if (targets[0] === '.') targets = targets.slice(1);
-            response = _.get(fetched, targets);
+            response = get(fetched, targets);
           }
         }
       }
@@ -49,4 +48,4 @@ module.exports = function(ID, options, db) {
 
   });
   return getInfo;
-}
+};

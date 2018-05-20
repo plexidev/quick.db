@@ -1,6 +1,5 @@
 {
   "_from": "quick.db",
-  "_id": "quick.db@5.4.0",
   "_inBundle": false,
   "_integrity": "sha512-Igt1MA/Nhm9QUIximuigIFfKOJNVkXxQsu7a1JRS5yFOQtBm+JJdcqgoDQcUHJkA5F7kwiLTeVx6MxPoKjLjOg==",
   "_location": "/quick.db",
@@ -23,19 +22,18 @@
   "_shasum": "b6869a5223402cb0167752e5ff1f7e22905b5dc2",
   "_spec": "quick.db",
   "_where": "/home/ubuntu/workspace",
-  "author": {
-    "name": "TrueXPixels"
-  },
+  "author": "TrueXPixels",
   "bugs": {
     "url": "https://github.com/TrueXPixels/quick.db/issues"
   },
   "bundleDependencies": false,
   "dependencies": {
-    "lodash": "^4.17.5",
     "better-sqlite3": "^4.1.0",
     "express": "^4.16.3",
-    "socket.io": "^2.1.0",
-    "array-sort": "^1.0.0"
+    "lodash.get": "^4.4.2",
+    "lodash.set": "^4.3.2",
+    "lodash.sortby": "^4.7.0",
+    "socket.io": "^2.1.0"
   },
   "deprecated": false,
   "description": "An easy, non locking, persistent sqlite3 database for storing any type of data. No setup required, only takes a few lines to set & fetch objects.",
@@ -52,7 +50,7 @@
     "create database",
     "discord"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "main": "index.js",
   "name": "quick.db",
   "repository": {
@@ -63,5 +61,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "version": "6.1.2"
+  "version": "6.3.0",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "devDependencies": {}
 }

@@ -1,5 +1,6 @@
 const util = require('util'),
-  _ = require('lodash/object');
+      set = require('lodash.set'),
+      get = require('lodash.get');
 
 module.exports = function(ID, data, options = {}, db, webview) {
   const getInfo = new Promise((resolve, error) => {
@@ -39,11 +40,11 @@ module.exports = function(ID, data, options = {}, db, webview) {
             let targets = options.target;
             if (targets[0] === '.') targets = targets.slice(1);
 
-            let target = _.get(json, targets);
+            let target = get(json, targets);
             if (typeof target === 'number' || target === undefined) {
               if (target === undefined) target = 0;
 
-              let input = _.set(json, targets, target + data);
+              let input = set(json, targets, target + data);
               util.inspect(input);
               input = JSON.stringify(input);
               db.prepare(`UPDATE ${options.table} SET json = (?) WHERE ID = (?)`).run(input, ID);

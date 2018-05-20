@@ -1,5 +1,5 @@
 const util = require('util'),
-  _ = require('lodash/object');
+      get = require('lodash.get');
 
 module.exports = function(ID, options = {}, db) {
   const getInfo = new Promise((resolve) => {
@@ -31,7 +31,7 @@ module.exports = function(ID, options = {}, db) {
           else {
             let targets = options.target;
             if (targets[0] === '.') targets = targets.slice(1);
-            response = _.get(fetched, targets);
+            response = get(fetched, targets);
           }
         }
       }

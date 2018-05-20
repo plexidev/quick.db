@@ -70,7 +70,10 @@ db.fetch('userInfo').then( i => console.log(i))
 3. **Run:** `npm i quick.db`
 
 **Mac**
-- We are currently looking for a way to install quick.db for this device
+1. **Install:** XCode
+2. **Run:** `run npm i -g node-gyp` in terminal
+3. **Run:** `node-gyp --python /path/to/python2.7` (skip this step if you didn't install python 3.x)
+4. **Run:** `npm i quick.db`
 
 **Require Package & Create Webviewer**
 ```js

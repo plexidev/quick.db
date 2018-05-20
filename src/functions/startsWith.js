@@ -1,16 +1,15 @@
 const sort = require('array-sort');
 
-module.exports = function(startsWith, options, db) {
+module.exports = function(startsWith, options = {}, db) {
   const getInfo = new Promise((resolve, error) => {
 
-    if (typeof startsWith !== 'string') return console.log('ERROR: db.startsWith(text) | text is not a string.')
+    if (typeof startsWith !== 'string') return error(new TypeError('db.startsWith(text) | text is not a string.'));
 
     // Parse Options
-    if (!options) options = {};
     options = {
       sort: options.sort || undefined,
       table: options.table || 'json'
-    }
+    };
     
     let response = [];
 
@@ -21,20 +20,20 @@ module.exports = function(startsWith, options, db) {
 
     function fetchAll() {
       let resp = db.prepare(`SELECT * FROM ${options.table}`).all();
-      resp.forEach(function(entry) {
-        if (entry.ID === null) return;
-        if (entry.ID === 'WEBVIEW_ACTIVE_SOCKETS') return;
-        if (!entry.ID.startsWith(startsWith)) return;
+      for (var entry of resp) { // Faster than forEach
+        if (entry.ID === null) continue;
+        if (entry.ID === 'WEBVIEW_ACTIVE_SOCKETS') continue;
+        if (!entry.ID.startsWith(startsWith)) continue;
         response.push({
           ID: entry.ID,
           data: JSON.parse(entry.json)
-        })
-      })
+        });
+      }
       if (options && typeof options.sort === 'string') {
-        if (options.sort.startsWith('.')) options.sort = options.sort.slice(1)
+        if (options.sort.startsWith('.')) options.sort = options.sort.slice(1);
         response = sort(response, options.sort, {
           reverse: true
-        })
+        });
       }
       returnDb();
     }
@@ -47,4 +46,4 @@ module.exports = function(startsWith, options, db) {
 
   });
   return getInfo;
-}
+};

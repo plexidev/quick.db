@@ -2,17 +2,16 @@ const util = require('util'),
   _ = require('lodash/object');
 
 
-module.exports = function(ID, data, options, db) {
+module.exports = function(ID, data, options = {}, db) {
   const getInfo = new Promise((resolve, error) => {
 
-    if (typeof data !== 'number') return console.log('Error: .add() data is not a number.');
+    if (typeof data !== 'number') return error(new TypeError('.subtract() data is not a number.'));
 
     // Configure Options
-    if (!options) options = {};
     options = {
       target: options.target || undefined,
       table: options.table || 'json'
-    }
+    };
 
     let response;
 
@@ -50,9 +49,9 @@ module.exports = function(ID, data, options, db) {
               input = JSON.stringify(input);
               db.prepare(`UPDATE ${options.table} SET json = (?) WHERE ID = (?)`).run(input, ID);
 
-            } else console.log(`Error: Target for .subtract(${ID}, ${data}) is not a number.`);
+            } else error(new TypeError(`Target for .subtract(${ID}, ${data}) is not a number.`));
 
-          } else console.log(`Error: Target for .subtract(${ID}, ${data}) is not a number.`);
+          } else error(new TypeError(`Target for .subtract(${ID}, ${data}) is not a number.`));
 
         }
 
@@ -79,4 +78,4 @@ module.exports = function(ID, data, options, db) {
 
   });
   return getInfo;
-}
+};

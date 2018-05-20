@@ -1,15 +1,14 @@
 const util = require('util'),
   _ = require('lodash/object');
 
-module.exports = function(ID, data, options, db) {
+module.exports = function(ID, data, options = {}, db) {
   const getInfo = new Promise((resolve, error) => {
 
     // Configure Options
-    if (!options) options = {};
     options = {
       target: options.target || undefined,
       table: options.table || 'json'
-    }
+    };
 
     // Define Variables
     let response,
@@ -20,11 +19,11 @@ module.exports = function(ID, data, options, db) {
       util.inspect(data);
       input = JSON.stringify(data);
     } catch (e) {
-      return console.log(`Please supply a valid input @ ID: ${ID}\nError: ${e.message}`);
+      return error(new TypeError(`Please supply a valid input @ ID: ${ID}\nError: ${e.message}`));
     }
 
     // Check if setting undefined
-    if (typeof data === 'undefined') return console.log(`Input cannot be undefined @ ID: ${ID}`);
+    if (typeof data === 'undefined') return error(new TypeError(`Input cannot be undefined @ ID: ${ID}`));
 
     // Statements
     function newConnection() {
@@ -82,4 +81,4 @@ module.exports = function(ID, data, options, db) {
 
   });
   return getInfo;
-}
+};

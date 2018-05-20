@@ -1,15 +1,14 @@
 const util = require('util'),
   _ = require('lodash/object');
 
-module.exports = function(ID, options, db) {
+module.exports = function(ID, options = {}, db) {
   const getInfo = new Promise((resolve) => {
 
     // Configure Options
-    if (!options) options = {};
     options = {
       target: options.target || undefined,
       table: options.table || 'json'
-    }
+    };
 
     let response;
 
@@ -49,4 +48,4 @@ module.exports = function(ID, options, db) {
 
   });
   return getInfo;
-}
+};

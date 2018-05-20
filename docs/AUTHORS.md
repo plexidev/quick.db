@@ -29,6 +29,10 @@
 
 - **Name/Username:** *lieuwe_berg*
 - **Contact/Social Media:** *@lieuwe_berg#8662 on Discord* 
-- **What you contributed:** *Webviewer Suburl Feature*
+- **What you contributed:** *Minor Webviewer Features*
 
 ---
+
+- **Name/Username:** *MoordMachineYT*
+- **Contact/Social Media:** *@MoordMachineYT#1910 on Discord*
+- **What you contributed:** *Support for handling errors, mac install instructions*

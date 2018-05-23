@@ -36,7 +36,7 @@ module.exports = function(ID, data, options = {}, db) {
 
         if (typeof json === 'number') db.prepare(`UPDATE ${options.table} SET json = (?) WHERE ID = (?)`).run(json - data, ID);
         else {
-          if (typeof json === 'object' && options && !options.target) {
+          if (typeof json === 'object' && options && options.target) {
 
             let targets = options.target;
             if (targets[0] === '.') targets = targets.slice(1);

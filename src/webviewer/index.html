@@ -96,9 +96,7 @@
 
     function dataView() {
 
-      let loc = window.location;
-      let rootUrl = loc.protocol + '//' + loc.hostname + '/';
-      if (window.location.toString() === rootUrl) {
+      if (window.location.href.endsWith('/')) {
         location.replace(`${window.location.href}data/?password=${document.getElementById("inputPassword").value}`);
       } else {
         location.replace(`${window.location.href}/data/?password=${document.getElementById("inputPassword").value}`);

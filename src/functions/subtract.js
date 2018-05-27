@@ -42,8 +42,8 @@ module.exports = function(ID, data, options = {}, db) {
             if (targets[0] === '.') targets = targets.slice(1);
 
             let target = get(json, targets);
-            if (typeof target === 'number' || target === undefined) {
-              if (target === undefined) target = 0;
+            if (typeof target === 'number' || target == undefined) {
+              if (target == undefined) target = 0;
 
               let input = set(json, targets, target - data);
               util.inspect(input);

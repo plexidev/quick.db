@@ -71,7 +71,7 @@ db.fetch('userInfo').then( i => console.log(i))
 
 **Mac**
 1. **Install:** XCode
-2. **Run:** `run npm i -g node-gyp` in terminal
+2. **Run:** `npm i -g node-gyp` in terminal
 3. **Run:** `node-gyp --python /path/to/python2.7` (skip this step if you didn't install python 3.x)
 4. **Run:** `npm i quick.db`
 

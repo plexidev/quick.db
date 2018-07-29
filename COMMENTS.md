@@ -1,3 +1,4 @@
+
 ## Comments
 
 **How to submit a comment:**
@@ -21,3 +22,6 @@ Quick.db is an amazing package with a amazing dev. I use the package for all of 
 i do read sometimes:
 hi my name jeff
 (also 100/10 the best module I've used for databases)
+
+ramo:
+I recommend this package **especially** if you want to do custom prefixes. I would not recommend using this as a login form unless you can use *advanced* coding techniques because the db relies on a "per person" kind of thing, it also makes it simple because it's really 2 lines of code that you need to use it unless you use the .then(()) method. Support is really fast and lots of people in the discord use this npm package, so help is always available.

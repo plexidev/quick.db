@@ -112,6 +112,11 @@ module.exports = {
     return arbitrate('has', {id: key,  ops: ops || {}});
   },
   
+  includes: function(key, ops) {
+    if (!key) throw new TypeError('No key specified. Need Help? Check Out: discord.gg/plexidev');
+    return arbitrate('has', {id: key,  ops: ops || {}});
+  },
+  
  /**
  * This function fetches the entire active table
  * @param {options} [input={ target: null }] Any options to be added to the request.
@@ -179,6 +184,11 @@ module.exports = {
     }
     
     this.has = function(key, ops) {
+      if (!key) throw new TypeError('No key specified. Need Help? Check Out: discord.gg/plexidev');
+      return arbitrate('has', {id: key,  ops: ops || {}}, this.tableName);
+    }
+    
+    this.includes = function(key, ops) {
       if (!key) throw new TypeError('No key specified. Need Help? Check Out: discord.gg/plexidev');
       return arbitrate('has', {id: key,  ops: ops || {}}, this.tableName);
     }

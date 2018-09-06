@@ -2,7 +2,7 @@
 #################
 # Most files aren't included due to workflow issues
 
-# *.sqlite # Enabled Database Sharing
+*.sqlite # Disabled Database Sharing
 
 *.database
 *.logs

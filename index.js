@@ -1,7 +1,7 @@
-// Thank you for using Quick.db.
+// Thank you for using quick.db!
+// This is an open-sourced better-sqlite3 wrapped designed to be easy to setup & utilize.
 
-// This is an open-source better-sqlite3 database wrapper, you can submit any changes through the GitHub page.
+// We have an official verified Discord!
+// https://discord.gg/plexidev
 
-// We also have an official Discord which can be found here: https://discord.io/plexidev
-
-module.exports = require('./src/queue.js');
+module.exports = require('./bin/handler.js')

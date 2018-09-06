@@ -1,70 +1,37 @@
 {
-  "_from": "quick.db",
-  "_inBundle": false,
-  "_integrity": "sha512-Igt1MA/Nhm9QUIximuigIFfKOJNVkXxQsu7a1JRS5yFOQtBm+JJdcqgoDQcUHJkA5F7kwiLTeVx6MxPoKjLjOg==",
-  "_location": "/quick.db",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "quick.db",
-    "name": "quick.db",
-    "escapedName": "quick.db",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/quick.db/-/quick.db-2.0.13.tgz",
-  "_shasum": "b6869a5223402cb0167752e5ff1f7e22905b5dc2",
-  "_spec": "quick.db",
-  "_where": "/home/ubuntu/workspace",
-  "author": "TrueXPixels",
-  "bugs": {
-    "url": "https://github.com/TrueXPixels/quick.db/issues"
-  },
-  "bundleDependencies": false,
+  "name": "quick.db",
+  "version": "7.0.0b2",
+  "description": "An easy, non-locking, persistent better-sqlite3 wrapper designed to be easy to setup & utilize",
+  "main": "index.js",
   "dependencies": {
-    "better-sqlite3": "^4.1.0",
-    "express": "^4.16.3",
+    "better-sqlite3": "^4.1.4",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
-    "lodash.sortby": "^4.7.0",
-    "socket.io": "^2.1.0"
+    "lodash.unset": "^4.5.2"
   },
-  "deprecated": false,
-  "description": "An easy, non locking, persistent sqlite3 database for storing any type of data. No setup required, only takes a few lines to set & fetch objects.",
-  "homepage": "https://github.com/TrueXPixels/quick.db#readme",
-  "keywords": [
-    "database",
-    "values",
-    "storing",
-    "easy",
-    "quick",
-    "discord.js",
-    "sqlite",
-    "sqlite3",
-    "create database",
-    "discord"
-  ],
-  "license": "MIT",
-  "main": "index.js",
-  "name": "quick.db",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node spec/test.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TrueXPixels/quick.db.git"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+  "keywords": [
+    "database",
+    "storing",
+    "values",
+    "easy",
+    "quick",
+    "sqlite",
+    "sqlite3",
+    "db"
+  ],
+  "author": "TrueXPixels",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TrueXPixels/quick.db/issues"
   },
-  "version": "6.3.0",
-  "directories": {
-    "doc": "docs",
-    "example": "examples"
-  },
-  "devDependencies": {}
+  "homepage": "https://quickdb.js.org"
 }

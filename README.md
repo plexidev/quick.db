@@ -5,12 +5,12 @@
     <a href="https://discord.io/plexidev"><img src="https://discordapp.com/api/guilds/343572980351107077/embed.png" alt="Discord Server" /></a>
     <a href="http://www.youtube.com/subscription_center?add_user=TrueXPixels"><img src="https://img.shields.io/badge/Subscribe-YouTube-red.svg" alt="YouTube Channel" /></a>
     <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db.svg?type=shield"/></a>
-    <a href="https://npm-stat.com/charts.html?package=quick.db"><img src="https://img.shields.io/badge/Downloads-22.3k+-brightgreen.svg"></a>
+    <a href="https://npm-stat.com/charts.html?package=quick.db"><img src="https://img.shields.io/badge/Downloads-43.8k+-brightgreen.svg"></a>
     <a href="https://GitHub.com/Plexi-Development/quick.db/stargazers/"><img src="https://img.shields.io/github/stars/Plexi-Development/quick.db.svg?style=social&label=Star&maxAge=2592000"></a>
   </p>
     
 
-| Website / Documentation | Discord Support *(1650+ Users)* | NPM Page |
+| Website / Documentation | Discord Support *(3200+ Users)* | NPM Page |
 | :---: | :---: | :---: |
 | [quickdb.js.org](https://quickdb.js.org) | [discord.gg/plexidev](https://discord.gg/plexidev) | [npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
 
@@ -18,43 +18,46 @@
 
 ---
 
-**Quick.db** is an **open-sourced** package meant to provide an easy way for beginners, and people of all levels to access & manage a database. **All data is stored persistently**, and comes with various extra features, such as a **queue system to prevent database locking**, and more.
-
-**Want to provide feedback to help improve *Quick.db*?** [Click Here!](https://goo.gl/forms/KgjhQdWrztUfwHLB2)
+**Quick.db** is an **open-sourced** package meant to provide an easy way for beginners, and people of all levels to access & manage a database. **All data is stored persistently**, and comes with various extra features.
 
 ---
 
-![Imgur](https://i.imgur.com/qDSD8ni.png)
 - **Persistent storage w/ no setup** *(Data doesn't disappear through restarts)*
-- [Beginners Friendly](https://quickdb.js.org/examples/beginner/storing-updating-and-fetching-numbers.html)
-- [Built-in Webviewer](https://quickdb-latest.glitch.me/data/?password=pass111)
-- [Discord Support](https://discord.io/plexidev)
-- Built-in queue system **no database locking.**
+- Beginner Friendly
+- [Discord Support](https://discord.gg/plexidev)
 - **Multiple tables support**
+- **and more!**
 
 ---
 
 ![Imgur](https://i.imgur.com/nmROfQr.png)
 
-> *All data in quick.db is stored **persistently** in a database. Here is an example of setting an object in the database, then fetching parts & the full object.*
+> _All data in quick.db is stored **persistently** in a database. Here is an example of setting an object in the database, then fetching parts & the full object._
 
 ```js
 const db = require('quick.db');
 
-// Setting the FULL object
-db.set('userInfo', { part1: 'Hello', part2: 'World!' }).then( i => console.log(i))
-// -> { part1: 'Hello', part2: 'World!' }
+// Setting an object in the database:
+db.set('userInfo', { difficulty: 'Easy' })
+// -> { difficulty: 'Easy' }
 
-// Fetching only PARTS of the object
-db.fetch('userInfo', { target: '.part1' }).then( i => console.log(i)) 
-// -> 'Hello'
+// Pushing an element to an array (that doesn't exist yet) in an object:
+db.push('userInfo.items', 'Sword')
+// -> { difficulty: 'Easy', items: ['Sword'] }
 
-db.fetch('userInfo', { target: '.part2' }).then( i => console.log(i)) 
-// -> 'World!'
+// Adding to a number (that doesn't exist yet) in an object:
+db.add('userInfo.balance', 500)
+// -> { difficulty: 'Easy', items: ['Sword'], balance: 500 }
 
-// Fetching the FULL object
-db.fetch('userInfo').then( i => console.log(i))
-// -> { part1: 'Hello', part2: 'World!' }
+// Repeating previous examples:
+db.push('userInfo.items', 'Watch')
+// -> { difficulty: 'Easy', items: ['Sword', 'Watch'], balance: 500 }
+db.add('userInfo.balance', 500)
+// -> { difficulty: 'Easy', items: ['Sword', 'Watch'], balance: 1000 }
+
+// Fetching individual properties
+db.get('userInfo.balance') // -> 1000
+db.get('userInfo.items') // ['Sword', 'Watch']
 ```
 
 ---
@@ -70,26 +73,20 @@ db.fetch('userInfo').then( i => console.log(i))
 3. **Run:** `npm i quick.db`
 
 **Mac**
-- We are currently looking for a way to install quick.db for this device
-
-**Require Package & Create Webviewer**
-```js
-const db = require('quick.db');
-db.createWebview('password', PORT);
-```
+1. **Install:** XCode
+2. **Run:** `npm i -g node-gyp` in terminal
+3. **Run:** `node-gyp --python /path/to/python2.7` (skip this step if you didn't install python 3.x)
+4. **Run:** `npm i quick.db`
 
 ---
 
 ![Imgur](https://i.imgur.com/cFIeOmI.png)
 
-> Quick.db is an easy to use database alternative, it was designed to be simple to let new users who are just getting into development not need to worry about large-scale databases.
-It works by storing data to a set **ID**(key), then access that persistent data anytime through a .fetch() function.
-
-> *You can think of it like a giant **persistent** JSON object, you can add new items to the object using .set(), & fetch items from the JSON object using .fetch(). The **ID** in this would be the name of the json object to fetch & set.*
+> Quick.db is an easy to use database wrapper for better-sqlite3, it was designed to be simple to let new users who are just getting into development and don't want to worry about learning SQL just quite yet.
 
 ---
 
-*Over **287** open-source programs use **Quick.db** as a dependent!* [Source](https://github.com/Plexi-Development/quick.db/network/dependents)
+*Over **2854** open-source programs use **Quick.db** as a dependent!* [Source](https://github.com/Plexi-Development/quick.db/network/dependents)
 
 ---
 

@@ -2,10 +2,10 @@
 #################
 # Most files aren't included due to workflow issues
 
+/spec
 *.sqlite
 *.database
 *.logs
 *.glitch-assets
 watch.json
 server.js
-./docs

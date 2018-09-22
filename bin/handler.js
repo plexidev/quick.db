@@ -222,6 +222,7 @@ function arbitrate(method, params, tableName) {
 
   // Verify Options
   if (params.ops.target && params.ops.target[0] === '.') params.ops.target = params.ops.target.slice(1); // Remove prefix if necessary
+  if (params.data && params.data === Infinity) throw new TypeError(`You cannot set Infinity into the database @ ID: ${params.id}`)
   
   // Stringify
   if (params.stringify) {

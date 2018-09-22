@@ -45,7 +45,7 @@ module.exports = {
   
   set: function(key, value, ops) {
     if (!key) throw new TypeError('No key specified. Need Help? Check Out: discord.gg/plexidev');
-    if (!value) throw new TypeError('No value specified. Need Help? Check Out: discord.gg/plexidev');
+    if (!value && value != 0) throw new TypeError('No value specified. Need Help? Check Out: discord.gg/plexidev');
     return arbitrate('set', {stringify: true, id: key, data: value, ops: ops || {}});
   },
   
@@ -84,9 +84,14 @@ module.exports = {
   
   push: function(key, value, ops) {
     if (!key) throw new TypeError('No key specified. Need Help? Check Out: discord.gg/plexidev');
-    if (!value) throw new TypeError('Must specify value to push. Need Help? Check Out: discord.gg/plexidev');
+    if (!value && value != 0) throw new TypeError('Must specify value to push. Need Help? Check Out: discord.gg/plexidev');
     return arbitrate('push', {stringify: true, id: key, data: value, ops: ops || {}});
   },
+  
+  
+ /**
+  
+ */
   
  /**
  * This function will delete an object (or property) in the database.
@@ -156,7 +161,7 @@ module.exports = {
     
     this.set = function(key, value, ops) {
       if (!key) throw new TypeError('No key specified. Need Help? Check Out: discord.gg/plexidev');
-      if (!value) throw new TypeError('No value specified. Need Help? Check Out: discord.gg/plexidev');
+      if (!value && value != 0) throw new TypeError('No value specified. Need Help? Check Out: discord.gg/plexidev');
       return arbitrate('set', {stringify: true, id: key, data: value, ops: ops || {}}, this.tableName);
     }
     
@@ -174,7 +179,7 @@ module.exports = {
     
     this.push = function(key, value, ops) {
       if (!key) throw new TypeError('No key specified. Need Help? Check Out: discord.gg/plexidev');
-      if (!value) throw new TypeError('Must specify value to push. Need Help? Check Out: discord.gg/plexidev');
+      if (!value && value != 0) throw new TypeError('Must specify value to push. Need Help? Check Out: discord.gg/plexidev');
       return arbitrate('push', {stringify: true, id: key, data: value, ops: ops || {}}, this.tableName);
     }
     

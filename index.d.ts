@@ -28,7 +28,7 @@ declare module 'quick.db' {
         has,
         includes,
         all,
-        fetchall,
+        fetchAll,
         del as delete
     }
 

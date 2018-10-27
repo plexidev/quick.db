@@ -13,6 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node spec/test.js"
   },
+  "types": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TrueXPixels/quick.db.git"

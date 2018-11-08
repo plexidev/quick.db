@@ -1,6 +1,7 @@
 // Require Package
-const db = require('../index.js');
+console.log(require('../index.js').version);
 
+/*
 // Methods (everything should be true)
 console.log('Adding Numbers:', typeof db.add('myNumber', 100) === 'number');
 console.log('Setting Data:', typeof db.set('myData', 'This data is here') === 'string');
@@ -15,3 +16,4 @@ console.log('Deleting prop in object:', db.delete('myObj.prop'));
 console.log('Fetching deleted prop:', db.get('myObj.prop') === undefined);
 console.log('Subtracting from Numbers:', typeof db.subtract('myNumber', 50) === 'number');
 console.log('Pushing in array in object:', db.push('myObj.arr', 'myItem').arr instanceof Array);
+*/

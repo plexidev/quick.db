@@ -21,6 +21,12 @@ var methods = {
 module.exports = { 
   
  /**
+ * Package version. Community requested feature.
+ * console.log(require('quick.db').version);
+ */
+  version: '7.0.0b16',
+  
+ /**
  * This function fetches data from a key in the database. (alias: .get())
  * @param {key} input any string as a key. Also allows for dot notation following the key.
  * @param {options} [input={ target: null }] Any options to be added to the request.
@@ -136,12 +142,24 @@ module.exports = {
     return arbitrate('all', {ops: ops || {}});
   },
   
+  
+  /* 
+  * Used to get the type of the value.
+  */
+  
+  
+  type: function(key, ops) {
+    if (!key) throw new TypeError('No key specified. Need Help? Check Out: discord.gg/plexidev');
+    return arbitrate('type', {id: key, ops: ops || {}});
+  },
+  
  /**
  * Using 'new' on this function creates a new instance of a table.
  * @param {name} input any string as the name of the table.
+ * @param {options} options.
  */
   
-  table: function(tableName) {
+  table: function(tableName, options = {}) {
   
     // Set Name
     if (typeof tableName !== 'string') throw new TypeError('Table name has to be a string. Need Help? Check out: discord.gg/plexidev');

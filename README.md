@@ -5,12 +5,12 @@
     <a href="https://discord.io/plexidev"><img src="https://discordapp.com/api/guilds/343572980351107077/embed.png" alt="Discord Server" /></a>
     <a href="http://www.youtube.com/subscription_center?add_user=TrueXPixels"><img src="https://img.shields.io/badge/Subscribe-YouTube-red.svg" alt="YouTube Channel" /></a>
     <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db.svg?type=shield"/></a>
-    <a href="https://npm-stat.com/charts.html?package=quick.db"><img src="https://img.shields.io/badge/Downloads-48k+-brightgreen.svg"></a>
+    <a href="https://npm-stat.com/charts.html?package=quick.db"><img src="https://img.shields.io/badge/Downloads-67k+-brightgreen.svg"></a>
     <a href="https://GitHub.com/Plexi-Development/quick.db/stargazers/"><img src="https://img.shields.io/github/stars/Plexi-Development/quick.db.svg?style=social&label=Star&maxAge=2592000"></a>
   </p>
     
 
-| Website / Documentation | Discord Support *(3200+ Users)* | NPM Page |
+| Website / Documentation | Discord Support *(3900+ Users)* | NPM Page |
 | :---: | :---: | :---: |
 | [quickdb.js.org](https://quickdb.js.org) | [discord.gg/plexidev](https://discord.gg/plexidev) | [npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
 
@@ -86,7 +86,7 @@ db.get('userInfo.items') // ['Sword', 'Watch']
 
 ---
 
-*Over **3319** open-source programs use **Quick.db** as a dependent!* [Source](https://github.com/Plexi-Development/quick.db/network/dependents)
+*Over **5020** open-source programs use **Quick.db** as a dependent!* [Source](https://github.com/Plexi-Development/quick.db/network/dependents)
 
 ---
 

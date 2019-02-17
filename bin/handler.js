@@ -16,7 +16,7 @@ var methods = {
   delete: require('../lib/delete.js'),
   has: require('../lib/has.js'),
   all: require('../lib/all.js'),
-  type: require('../lib/type'),
+  type: require('../lib/type')
 };
 
 module.exports = { 

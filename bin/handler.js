@@ -15,8 +15,9 @@ var methods = {
   push: require('../lib/push.js'),
   delete: require('../lib/delete.js'),
   has: require('../lib/has.js'),
-  all: require('../lib/all.js')
-}
+  all: require('../lib/all.js'),
+  type: require('../lib/type')
+};
 
 module.exports = { 
   

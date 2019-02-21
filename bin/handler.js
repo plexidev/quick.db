@@ -14,7 +14,7 @@ var methods = {
   subtract: require('../lib/subtract.js'),
   push: require('../lib/push.js'),
   delete: require('../lib/delete.js'),
-  deleteAll: require('../lib.deleteAll.js'),
+  deleteAll: require('../lib/deleteAll.js'),
   has: require('../lib/has.js'),
   all: require('../lib/all.js'),
   type: require('../lib/type.js')
@@ -114,7 +114,7 @@ module.exports = {
   },
   
   deleteAll: function() {
-    return arbirate('deleteAll')
+    return arbitrate('deleteAll')
   },
   
  /**
@@ -213,7 +213,7 @@ module.exports = {
     }
     
     this.deleteAll = function() {
-      return arbirate('deleteAll', {}, this.tableName)
+      return arbitrate('deleteAll', {}, this.tableName)
     }
     
     this.has = function(key, ops) {

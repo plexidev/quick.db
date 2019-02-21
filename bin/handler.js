@@ -14,9 +14,10 @@ var methods = {
   subtract: require('../lib/subtract.js'),
   push: require('../lib/push.js'),
   delete: require('../lib/delete.js'),
+  deleteAll: require('../lib.deleteAll.js'),
   has: require('../lib/has.js'),
   all: require('../lib/all.js'),
-  type: require('../lib/type')
+  type: require('../lib/type.js')
 };
 
 module.exports = { 
@@ -25,7 +26,7 @@ module.exports = {
  * Package version. Community requested feature.
  * console.log(require('quick.db').version);
  */
-  version: '7.0.0b16',
+  version: '7.0.0b22',
   
  /**
  * This function fetches data from a key in the database. (alias: .get())
@@ -110,6 +111,10 @@ module.exports = {
   delete: function(key, ops) {
     if (!key) throw new TypeError('No key specified. Need Help? Check Out: discord.gg/plexidev');
     return arbitrate('delete', {id: key, ops: ops || {}});
+  },
+  
+  deleteAll: function() {
+    return arbirate('deleteAll')
   },
   
  /**
@@ -205,6 +210,10 @@ module.exports = {
     this.delete = function(key, ops) {
       if (!key) throw new TypeError('No key specified. Need Help? Check Out: discord.gg/plexidev');
       return arbitrate('delete', {id: key, ops: ops || {}}, this.tableName);
+    }
+    
+    this.deleteAll = function() {
+      return arbirate('deleteAll', {}, this.tableName)
     }
     
     this.has = function(key, ops) {

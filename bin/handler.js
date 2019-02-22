@@ -26,7 +26,7 @@ module.exports = {
  * Package version. Community requested feature.
  * console.log(require('quick.db').version);
  */
-  version: '7.0.0b22',
+  version: '7.0.0b16',
   
  /**
  * This function fetches data from a key in the database. (alias: .get())
@@ -113,8 +113,8 @@ module.exports = {
     return arbitrate('delete', {id: key, ops: ops || {}});
   },
   
-  deleteAll: function() {
-    return arbitrate('deleteAll')
+  deleteAll: function(ops) {
+    return arbitrate('deleteAll', {ops: ops || {}});
   },
   
  /**
@@ -146,6 +146,10 @@ module.exports = {
   
   fetchAll: function(ops) { 
     return arbitrate('all', {ops: ops || {}});
+  },
+  
+  allMap: function(ops) { 
+    return arbitrate('allMap', {ops: ops || {}});
   },
   
   
@@ -212,8 +216,8 @@ module.exports = {
       return arbitrate('delete', {id: key, ops: ops || {}}, this.tableName);
     }
     
-    this.deleteAll = function() {
-      return arbitrate('deleteAll', {}, this.tableName)
+    this.deleteAll = function(ops) {
+      return arbitrate('deleteAll', {ops: ops || {}}, this.tableName)
     }
     
     this.has = function(key, ops) {
@@ -234,6 +238,9 @@ module.exports = {
       return arbitrate('all', {ops: ops || {}}, this.tableName);
     }
     
+    this.all = function(ops) { 
+    return arbitrate('allMap', {ops: ops || {}});
+  } 
   }
   
 }

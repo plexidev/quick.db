@@ -84,7 +84,7 @@ db.get('userInfo.items') // ['Sword', 'Watch']
 
 ---
 
-*Over **5020** open-source programs use **Quick.db** as a dependent!* [Source](https://github.com/Plexi-Development/quick.db/network/dependents)
+*Over **10,000** open-source programs use **Quick.db** as a dependent!* [Source](https://github.com/Plexi-Development/quick.db/network/dependents)
 
 ---
 

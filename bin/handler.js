@@ -52,7 +52,7 @@ module.exports = {
   
   set: function(key, value, ops) {
     if (!key) throw new TypeError('No key specified. Need Help? Check Out: discord.gg/plexidev');
-    if (!value && value != 0) throw new TypeError('No value specified. Need Help? Check Out: discord.gg/plexidev');
+    if (value === undefined) throw new TypeError('No value specified. Need Help? Check Out: discord.gg/plexidev');
     return arbitrate('set', {stringify: true, id: key, data: value, ops: ops || {}});
   },
   

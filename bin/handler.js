@@ -3,9 +3,6 @@ const Database = require('better-sqlite3');
 const util = require('util');
 let db;
 
-// Create Database Under Conditions
-if (!db) db = new Database('./json.sqlite');
-
 // Declare Methods
 var methods = {
   fetch: require('../lib/fetch.js'),
@@ -26,6 +23,16 @@ module.exports = {
  * console.log(require('quick.db').version);
  */
   version: '7.0.0b22',
+ /**
+ * This function initialize the database on the sqlite file of your choice.
+ * @param {string} dbname the string of the sqlite file path
+ * @returns {boolean} if it was a success or not.
+ */
+
+ init: function(dbpath='./json.sqlite'){
+    db = new Database(dbpath);
+    return true;
+ },
   
  /**
  * This function fetches data from a key in the database. (alias: .get())
@@ -235,6 +242,9 @@ function arbitrate(method, params, tableName) {
   let options = {
     table: tableName || 'json' 
   }
+  
+  // If the database has not previously been defined by the init function
+  if(!db) db = new Database('./json.sqlite');
   
   // Access Database
   db.prepare(`CREATE TABLE IF NOT EXISTS ${options.table} (ID TEXT, json TEXT)`).run();

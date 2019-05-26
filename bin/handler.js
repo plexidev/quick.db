@@ -167,7 +167,7 @@ module.exports = {
  * @param {options} options.
  */
   
-  table: function(tableName, options = {}) {
+  Table: function(tableName, options = {}) {
   
     // Set Name
     if (typeof tableName !== 'string') throw new TypeError('Table name has to be a string. Need Help? Check out: discord.gg/plexidev');

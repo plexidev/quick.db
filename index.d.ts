@@ -61,7 +61,7 @@ declare module 'quick.db' {
      * @param {options} [input={ target: null }] Any options to be added to the request.
      * @returns {boolean} if it exists.
      */
-    function all(ops?: object): boolean;
+    function all(ops?: object): { ID: any; data: any; }[];
     function fetchAll(ops?: object): boolean;
     
     /**

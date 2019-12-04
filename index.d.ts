@@ -64,6 +64,8 @@ declare module 'quick.db' {
     function all(ops?: object): { ID: any; data: any; }[];
     function fetchAll(ops?: object): boolean;
     
+    function table(tableName: string, options: any): any
+    
     /**
      * This function will delete an object (or property) in the database.
      * @param {key} input any string as a key. Also allows for dot notation following the key, this will delete the prop in the object.

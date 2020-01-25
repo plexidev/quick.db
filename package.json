@@ -5,9 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "better-sqlite3": "^5.0.1",
-    "lodash.get": "^4.4.2",
-    "lodash.set": "^4.3.2",
-    "lodash.unset": "^4.5.2"
+    "lodash": "4.17.15"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

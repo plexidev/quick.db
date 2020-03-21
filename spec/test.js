@@ -39,3 +39,9 @@ console.log(db.add('userInfo.balance', 500));
 // Fetching individual properties
 console.log(db.get('userInfo.balance')); // -> 1000
 console.log(db.get('userInfo.items')); // -> [ 'Sword', 'Watch' ]
+
+// Fetching properties from specific tables
+const test = new db.table('test');
+test.set('data', 'hello world');
+console.log(db.get('data')); // -> null
+console.log(db.get('data', { table: 'test' })); // -> 'hello world'

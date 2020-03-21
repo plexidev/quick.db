@@ -233,7 +233,7 @@ function arbitrate(method, params, tableName) {
   
   // Configure Options
   let options = {
-    table: tableName || 'json' 
+    table: tableName || params.ops.table || 'json'
   }
   
   // Access Database

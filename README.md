@@ -62,13 +62,12 @@ db.get('userInfo.items') // ['Sword', 'Watch']
 
 ![Imgur](https://i.imgur.com/t7rqmM7.png)
 
-**Linux**
+*If you're having troubles installing, please follow [this troubleshooting guide](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).*
+
+**Linux & Windows**
 - `npm i quick.db`
 
-**Windows**
-1. **Run:** `npm -g --add-python-to-path install windows-build-tools node-gyp` in **powershell as administrator**
-2. **Restart** CMD prompt windows (*Close & Reopen*)
-3. **Run:** `npm i quick.db`
+***Note:** Windows users may need to do additional steps [listed here](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).*
 
 **Mac**
 1. **Install:** XCode

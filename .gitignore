@@ -2,8 +2,7 @@
 #################
 # Most files aren't included due to workflow issues
 
-*.sqlite # Disabled Database Sharing
-
+*.sqlite
 *.database
 *.logs
 watch.json

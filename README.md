@@ -8,7 +8,7 @@
   </p>
     
 
-| Website / Documentation | Discord Support *(13000+ Users)* | NPM Page |
+| Website / Documentation | Discord Support *(17000+ Users)* | NPM Page |
 | :---: | :---: | :---: |
 | [quickdb.js.org](https://quickdb.js.org) | [discord.gg/plexidev](https://discord.gg/plexidev) | [npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
 
@@ -84,12 +84,6 @@ db.get('userInfo.items') // ['Sword', 'Watch']
 
 ---
 
-*Over **10,000** open-source programs use **Quick.db** as a dependent!* [Source](https://github.com/Plexi-Development/quick.db/network/dependents)
-
----
-
-![Imgur](https://i.imgur.com/ATgaVo4.png)
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FTrueXPixels%2Fquick.db?ref=badge_large)
+*Over **16,000** open-source programs use **Quick.db** as a dependent!* [Source](https://github.com/Plexi-Development/quick.db/network/dependents)
 
 ---

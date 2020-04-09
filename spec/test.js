@@ -1,7 +1,6 @@
 // Require Package
 let db = require('../index.js');
 
-/*
 // Methods (everything should be true)
 console.log('Adding Numbers:', typeof db.add('myNumber', 100) === 'number');
 console.log('Setting Data:', typeof db.set('myData', 'This data is here') === 'string');
@@ -16,7 +15,6 @@ console.log('Deleting prop in object:', db.delete('myObj.prop'));
 console.log('Fetching deleted prop:', db.get('myObj.prop') === undefined);
 console.log('Subtracting from Numbers:', typeof db.subtract('myNumber', 50) === 'number');
 console.log('Pushing in array in object:', db.push('myObj.arr', 'myItem').arr instanceof Array);
-*/
 
 // Setting an object in the database:
 console.log(db.set('userInfo', { difficulty: 'Easy' }));
@@ -45,3 +43,4 @@ const test = new db.table('test');
 test.set('data', 'hello world');
 console.log(db.get('data')); // -> null
 console.log(db.get('data', { table: 'test' })); // -> 'hello world'
+console.log(test.get('data')); // -> 'hello world'

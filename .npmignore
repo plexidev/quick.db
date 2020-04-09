@@ -9,3 +9,6 @@
 *.glitch-assets
 watch.json
 server.js
+.vs/
+.github/
+.package-lock.json

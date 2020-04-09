@@ -1,6 +1,6 @@
 {
   "name": "quick.db",
-  "version": "7.0.0b22",
+  "version": "7.1.0",
   "description": "An easy, non-locking, persistent better-sqlite3 wrapper designed to be easy to setup & utilize",
   "main": "index.js",
   "dependencies": {
@@ -8,8 +8,7 @@
     "lodash": "4.17.15"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node spec/test.js"
+    "test": "node spec/test.js"
   },
   "repository": {
     "type": "git",

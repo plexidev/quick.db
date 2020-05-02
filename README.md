@@ -1,4 +1,4 @@
-![Imgur](https://i.imgur.com/sP1Duq5.png)
+![Quick.db](https://i.plexidev.org/R7rG)
 
 <div>
   <p>
@@ -28,7 +28,7 @@
 
 ---
 
-![Imgur](https://i.imgur.com/nmROfQr.png)
+![Examples](https://i.plexidev.org/Vi3L)
 
 > _All data in quick.db is stored **persistently** in a database. Here is an example of setting an object in the database, then fetching parts & the full object._
 
@@ -60,7 +60,7 @@ db.get('userInfo.items') // ['Sword', 'Watch']
 
 ---
 
-![Imgur](https://i.imgur.com/t7rqmM7.png)
+![Installation](https://i.plexidev.org/P3DV)
 
 *If you're having troubles installing, please follow [this troubleshooting guide](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).*
 
@@ -77,7 +77,7 @@ db.get('userInfo.items') // ['Sword', 'Watch']
 
 ---
 
-![Imgur](https://i.imgur.com/cFIeOmI.png)
+![What is quick.db?](https://i.plexidev.org/ced4)
 
 > Quick.db is an easy to use database wrapper for better-sqlite3, it was designed to be simple to let new users who are just getting into development and don't want to worry about learning SQL just quite yet.
 

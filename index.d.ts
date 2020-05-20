@@ -21,7 +21,7 @@ declare module 'quick.db' {
      * @param {options} [input={ target: null }] Any options to be added to the request.
      * @returns {data} the updated data.
      */
-    function set(key: string, value: string|object|Array<any>, ops?: object): any;
+    function set(key: string, value: string|object|number|Array<any>, ops?: object): any;
 
     /**
      * This function adds a number to a key in the database. (If no existing number, it will add to 0)
@@ -45,7 +45,7 @@ declare module 'quick.db' {
      * @param {options} [input={ target: null }] Any options to be added to the request.
      * @returns {data} the updated data.
      */
-    function push(key: string, value: string|object|Array<any>): Array<any>;
+    function push(key: string, value: string|object|number|Array<any>): Array<any>;
 
     /**
      * This function returns a boolean indicating whether an element with the specified key exists or not.

@@ -8,9 +8,9 @@
   </p>
     
 
-| Website / Documentation | Discord Support *(17000+ Users)* | NPM Page |
+| Website / Documentation | Discord Support *(25000+ Users)* | NPM Page |
 | :---: | :---: | :---: |
-| [quickdb.js.org](https://quickdb.js.org) | [discord.gg/plexidev](https://discord.gg/plexidev) | [npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
+| [quickdb.plexidev.org](https://quickdb.plexidev.org) | [discord.gg/plexidev](https://discord.gg/plexidev) | [npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
 
 </div>
 

@@ -4,7 +4,7 @@
 // We have an official verified Discord!
 // https://discord.gg/plexidev
 
-module.exports = require('./bin/handler.js')
+module.exports = require("./src/index.js");
 
 // Looking for tutorials?
 // We have some coming soon @ youtube.com/c/TrueXPixels, subscribe to stay notified!

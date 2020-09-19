@@ -62,9 +62,9 @@ declare module 'quick.db' {
      * @returns {boolean} if it exists.
      */
     function all(ops?: object): { ID: any; data: any; }[];
-    function fetchAll(ops?: object): boolean;
+    function fetchAll(ops?: object): { ID: any; data: any; }[];
     
-    function table(tableName: string, options: any): any
+    function table(tableName: string, options: any): any;
     
     /**
      * This function will delete an object (or property) in the database.

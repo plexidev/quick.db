@@ -8,7 +8,7 @@
   </p>
     
 
-| Website / Documentation | Discord Support *(25000+ Users)* | NPM Page |
+| Website / Documentation | Support (Discord) | NPM Page |
 | :---: | :---: | :---: |
 | [quickdb.js.org](https://quickdb.plexidev.org) | [discord.gg/plexidev](https://discord.gg/plexidev) | [npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
 
@@ -22,7 +22,6 @@
 
 - **Persistent storage w/ no setup** *(Data doesn't disappear through restarts)*
 - Beginner Friendly
-- [Discord Support](https://discord.gg/plexidev)
 - **Multiple tables support**
 - **and more!**
 
@@ -80,9 +79,5 @@ db.get('userInfo.items') // ['Sword', 'Watch']
 ![What is quick.db?](https://i.plexidev.org/ced4)
 
 > Quick.db is an easy to use database wrapper for better-sqlite3, it was designed to be simple to let new users who are just getting into development and don't want to worry about learning SQL just quite yet.
-
----
-
-*Over **16,000** open-source programs use **Quick.db** as a dependent!* [Source](https://github.com/Plexi-Development/quick.db/network/dependents)
 
 ---

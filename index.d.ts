@@ -8,7 +8,7 @@ declare module 'quick.db' {
         table?: string;
     }
 
-    export type ValueData = string | object | number | any[];
+    export type ValueData = string | object | number | null | boolean | bigint | symbol | any[];
 
     /**
      * Package version. Community requested feature.
@@ -17,7 +17,7 @@ declare module 'quick.db' {
      * ```
      */
     const version: string;
-        
+
     /**
      * This function fetches data from a key in the database.
      * @param key Any string as a key. Also allows for dot notation following the key.
@@ -89,7 +89,7 @@ declare module 'quick.db' {
      * @param ops Any options to be added to the request.
      */
     function fetchAll(ops?: Options): { ID: string; data: any; }[];
-    
+
     /**
      * This function will delete an object (or property) in the database.
      * @param key Any string as a key. Also allows for dot notation following the key, this will delete the prop in the object.

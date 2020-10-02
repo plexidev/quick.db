@@ -104,7 +104,7 @@ declare module 'quick.db' {
      */
     function dataType(key: string, ops?: Options): "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function";
 
-    class table {
+    class Table {
         tableName: string;
 
         /**
@@ -207,7 +207,7 @@ declare module 'quick.db' {
         fetchAll,
         del as delete,
         dataType as type,
-        table,
+        Table as table,
         version
     }
 

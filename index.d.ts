@@ -102,7 +102,7 @@ declare module 'quick.db' {
      * @param key Any string as a key. Also allows for dot notation following the key, this will delete the prop in the object.
      * @param ops Any options to be added to the request.
      */
-    function type(key: string, ops?: Options): "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function";
+    function dataType(key: string, ops?: Options): "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function";
 
     /**
      * Using 'new' on this function creates a new instance of a table.
@@ -124,7 +124,7 @@ declare module 'quick.db' {
         fetchAll,
         table,
         del as delete,
-        type,
+        dataType as type,
         version
     }
 

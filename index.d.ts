@@ -30,7 +30,7 @@ declare module 'quick.db' {
      * @param key Any string as a key. Also allows for dot notation following the key.
      * @param ops Any options to be added to the request.
      */
-    function get(key: string, ops?: object): any;
+    function get(key: string, ops?: Options): any;
 
     /**
      * This function sets new data based on a key in the database. 
@@ -76,7 +76,7 @@ declare module 'quick.db' {
      * @param key Any string as a key. Also allows for dot notation following the key, this will return if the prop exists or not.
      * @param ops Any options to be added to the request.
      */
-    function includes(key: string, ops?: object): boolean;
+    function includes(key: string, ops?: Options): boolean;
 
     /**
      * This function fetches the entire active table

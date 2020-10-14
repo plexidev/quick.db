@@ -57,7 +57,3 @@ db.get('userInfo.items') // ['Sword', 'Watch']
 2. **Run:** `npm i -g node-gyp` in terminal
 3. **Run:** `node-gyp --python /path/to/python2.7` (skip this step if you didn't install python 3.x)
 4. **Run:** `npm i quick.db`
-
-## What is quick.db?
-
-> Quick.db is an easy to use database wrapper for better-sqlite3, it was designed to be simple to let new users who are just getting into development and don't want to worry about learning SQL just quite yet.

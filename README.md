@@ -1,11 +1,11 @@
-![Quick.db](https://i.plexidev.org/R7rG)
+## Quick.db
 
 <div>
   <p>
-    <a href="https://www.buymeacoffee.com/lorencerri" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" height="20"></a>
-    <a href="https://discord.gg/plexidev"><img src="https://discordapp.com/api/guilds/343572980351107077/embed.png" alt="Discord Server" /></a>
+   <a href="https://www.buymeacoffee.com/lorencerri" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>  </p>
+    <a href="https://discord.gg/plexidev"><img src="https://discordapp.com/api/guilds/343572980351107077/embed.png" alt="Discord Server"/></a>
     <a href="https://GitHub.com/Plexi-Development/quick.db/stargazers/"><img src="https://img.shields.io/github/stars/Plexi-Development/quick.db.svg?style=social&label=Star"></a>
-  </p>
+
     
 
 | Website / Documentation | Support (Discord) | NPM Page |
@@ -27,7 +27,7 @@
 
 ---
 
-![Examples](https://i.plexidev.org/Vi3L)
+## Examples
 
 > _All data in quick.db is stored **persistently** in a database. Here is an example of setting an object in the database, then fetching parts & the full object._
 
@@ -59,7 +59,7 @@ db.get('userInfo.items') // ['Sword', 'Watch']
 
 ---
 
-![Installation](https://i.plexidev.org/P3DV)
+## Installation
 
 *If you're having troubles installing, please follow [this troubleshooting guide](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).*
 
@@ -76,7 +76,7 @@ db.get('userInfo.items') // ['Sword', 'Watch']
 
 ---
 
-![What is quick.db?](https://i.plexidev.org/ced4)
+## What is quick.db?
 
 > Quick.db is an easy to use database wrapper for better-sqlite3, it was designed to be simple to let new users who are just getting into development and don't want to worry about learning SQL just quite yet.
 

@@ -13,7 +13,7 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 - **Beginner Friendly** - Originally created for use in tutorials, the documentation is straightforward and jargon-free
 - & more...
 
-## Examples
+## Example
 
 > _All data in quick.db is stored **persistently** in a database. Here is an example of setting an object in the database, then fetching parts & the full object._
 

@@ -8,13 +8,10 @@
 
 Quick.db is an open-source package meant to provide an easy way for beginners and people of all levels to access & store data in a low to medium volume environment. All data is stored persistently via [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3) and comes way various other quality-of-life features.
 
-
-- **Persistent storage w/ no setup** *(Data doesn't disappear through restarts)*
-- Beginner Friendly
-- **Multiple tables support**
-- **and more!**
-
----
+- **Persistent Storage** - Data doesn't disappear through restarts
+- **Works out of the box** - No need to set up a database server, all the data is stored locally in the same project
+- **Beginner Friendly** - Originally created for use in tutorials, the documentation is straightforward and jargon-free
+- & more...
 
 ## Examples
 
@@ -46,8 +43,6 @@ db.get('userInfo.balance') // -> 1000
 db.get('userInfo.items') // ['Sword', 'Watch']
 ```
 
----
-
 ## Installation
 
 *If you're having troubles installing, please follow [this troubleshooting guide](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).*
@@ -63,10 +58,6 @@ db.get('userInfo.items') // ['Sword', 'Watch']
 3. **Run:** `node-gyp --python /path/to/python2.7` (skip this step if you didn't install python 3.x)
 4. **Run:** `npm i quick.db`
 
----
-
 ## What is quick.db?
 
 > Quick.db is an easy to use database wrapper for better-sqlite3, it was designed to be simple to let new users who are just getting into development and don't want to worry about learning SQL just quite yet.
-
----

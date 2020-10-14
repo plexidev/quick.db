@@ -15,8 +15,7 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 
 ## Example
 
-> _All data in quick.db is stored **persistently** in a database. Here is an example of setting an object in the database, then fetching parts & the full object._
-
+> [**CodeSandbox Demo**](https://codesandbox.io/s/quickdb-demo-7ti8z?file=/src/index.js)
 ```js
 const db = require('quick.db');
 

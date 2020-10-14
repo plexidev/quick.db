@@ -4,7 +4,7 @@
 
 **Documentation:** [quickdb.js.org](https://quickdb.js.org) <br>
 **Support:** [discord.gg/plexidev](https://discord.gg/plexidev) <br>
-**NPM:** [npmjs.com/package/quick.db](https://www.npmjs.com/package/quick.db)
+**NPM:** [npmjs.com/quick.db](https://www.npmjs.com/package/quick.db)
 
 Quick.db is an open-source package meant to provide an easy way for beginners and people of all levels to access & store data in a low to medium volume environment. All data is stored persistently via [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3) and comes way various other quality-of-life features.
 

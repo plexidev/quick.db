@@ -56,4 +56,4 @@ db.get('userInfo.items') // ['Sword', 'Watch']
 4. **Run:** `npm i quick.db`
 
 ## Support
-I work on this project in my spare time, if you'd like to support me, you can do so by [buying me a coffee! ❤️](https://www.buymeacoffee.com/lorencerri)
+I work on these projects in my spare time, if you'd like to support me, you can do so via [Patreon! ❤️](https://www.patreon.com/lorencerri)

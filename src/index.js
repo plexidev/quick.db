@@ -1,10 +1,6 @@
 // Require Database
 const Database = require("better-sqlite3");
 const util = require("util");
-let db;
-
-// Create Database Under Conditions
-if (!db) db = new Database("./json.sqlite");
 
 // Declare Methods
 var methods = {
@@ -25,6 +21,20 @@ module.exports = {
      * console.log(require('quick.db').version);
      */
     version: require("../package.json").version,
+    
+    /**
+     * @param {key} input any string as a key. Also allows for dot notation following the key.
+     * Create Database Under Conditions
+     * use db.create('your custom path')
+     */
+    create: async function(key){
+        let db;
+        await key;
+        if(!key) throw new TypeError("No path specified. Need Help? Check Out: discord.gg/plexidev");
+        if(key.includes('.sqlite')){
+            return db = new Database(key);
+        }else return db = new Database(key + '.sqlite');
+    },
 
     /**
      * This function fetches data from a key in the database. (alias: .get())
@@ -362,6 +372,7 @@ function arbitrate(method, params, tableName) {
     };
 
     // Access Database
+    if(!db) throw new TypeError("No db.create() found. Need Help? Check Out: discord.gg/plexidev");
     db.prepare(
         `CREATE TABLE IF NOT EXISTS ${options.table} (ID TEXT, json TEXT)`
     ).run();

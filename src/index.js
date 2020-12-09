@@ -3,8 +3,6 @@ const Database = require("better-sqlite3");
 const util = require("util");
 let db;
 
-// Create Database Under Conditions
-if (!db) db = new Database("./json.sqlite");
 
 // Declare Methods
 var methods = {

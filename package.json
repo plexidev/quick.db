@@ -3,6 +3,7 @@
     "version": "7.1.3",
     "description": "An easy, non-locking, persistent better-sqlite3 wrapper designed to be easy to setup & utilize",
     "main": "index.js",
+    "typings": "typings",
     "dependencies": {
         "better-sqlite3": "^7.1.1",
         "lodash": "^4.17.20"

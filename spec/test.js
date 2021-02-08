@@ -1,5 +1,7 @@
 // Require Package
-let db = require("../index.js");
+let quickdb = require("../index.js");
+
+let db = quickdb();
 
 // Methods (everything should be true)
 console.log("Adding Numbers:", typeof db.add("myNumber", 100) === "number");

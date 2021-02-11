@@ -27,7 +27,7 @@ module.exports = function(db, params, options) {
     else fetched.json = JSON.parse(fetched.json)
     try { fetched.json = JSON.parse(fetched) } catch (e) {}
     if (isNaN(fetched.json)) throw new Error('Target is not a number.');
-    params.data = parseInt(fetched.json, 10) - parseInt(params.data, 10);
+    params.data = parseFloat(fetched.json, 10) - parseFloat(params.data, 10);
   }
   
   // Stringify data

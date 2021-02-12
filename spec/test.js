@@ -52,6 +52,10 @@ console.log(db.add("userInfo.balance", 500));
 console.log(db.get("userInfo.balance")); // -> 1000
 console.log(db.get("userInfo.items")); // -> [ 'Sword', 'Watch' ]
 
+// All function (doesn't return only strings)
+console.log(!db.all().every(e => typeof e == "string")); // -> true
+console.log(db.all()[3].data.items); // -> [ 'Sword', 'Watch' ]
+
 // Fetching properties from specific tables
 const test = new db.table("test");
 test.set("data", "hello world");

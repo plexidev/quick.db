@@ -66,7 +66,6 @@ module.exports = function(file) {
                     "No value specified. Need Help? Check Out: discord.gg/plexidev"
                 );
             return arbitrate("set", {
-                stringify: true,
                 id: key,
                 data: value,
                 ops: ops || {},
@@ -128,7 +127,6 @@ module.exports = function(file) {
                     "Must specify value to push. Need Help? Check Out: discord.gg/plexidev"
                 );
             return arbitrate("push", {
-                stringify: true,
                 id: key,
                 data: value,
                 ops: ops || {},
@@ -257,7 +255,7 @@ module.exports = function(file) {
                     );
                 return arbitrate(
                     "set",
-                    { stringify: true, id: key, data: value, ops: ops || {} },
+                    { id: key, data: value, ops: ops || {} },
                     this.tableName
                 );
             };
@@ -305,7 +303,7 @@ module.exports = function(file) {
                     );
                 return arbitrate(
                     "push",
-                    { stringify: true, id: key, data: value, ops: ops || {} },
+                    { id: key, data: value, ops: ops || {} },
                     this.tableName
                 );
             };
@@ -376,14 +374,12 @@ module.exports = function(file) {
             );
 
         // Stringify
-        if (params.stringify) {
-            try {
-                params.data = JSON.stringify(params.data);
-            } catch (e) {
-                throw new TypeError(
-                    `Please supply a valid input @ ID: ${params.id}\nError: ${e.message}`
-                );
-            }
+        try {
+            params.data = JSON.stringify(params.data);
+        } catch (e) {
+            throw new TypeError(
+                `Please supply a valid input @ ID: ${params.id}\nError: ${e.message}`
+            );
         }
 
         // Translate dot notation from keys

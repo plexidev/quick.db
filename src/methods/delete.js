@@ -7,7 +7,6 @@ module.exports = function(db, params, options) {
   let fetched = db.prepare(`SELECT * FROM ${options.table} WHERE ID = (?)`).get(params.id);
   if (!fetched) return false; // If empty, return null
   else fetched = JSON.parse(fetched.json);
-  try { fetched = JSON.parse(fetched) } catch (e) {}
   
   // Check if the user wants to delete a prop inside an object
   if (typeof fetched === 'object' && params.ops.target) {

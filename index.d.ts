@@ -194,21 +194,23 @@ declare module 'quick.db' {
         public delete(key: string, ops?: Options): boolean;
     }
 
-    export {
-        fetch,
-        get,
-        set,
-        add,
-        subtract,
-        push,
-        has,
-        includes,
-        all,
-        fetchAll,
-        del as delete,
-        dataType as type,
-        Table as table,
-        version
+    type Database = {
+        fetch: typeof fetch;
+        get: typeof fetch;
+        set: typeof fetch;
+        add: typeof fetch;
+        subtract: typeof fetch;
+        push: typeof fetch;
+        has: typeof fetch;
+        includes: typeof fetch;
+        all: typeof fetch;
+        fetchAll: typeof fetch;
+        delete: typeof del;
+        type: typeof dataType;
+        table: typeof Table;
+        version: typeof version;
     }
+
+    export default function(dbname?: string): Database;
 
 }

@@ -2,24 +2,27 @@ const Database = require("better-sqlite3");
 const util = require("util");
 const dbcollection = new Map();
 
+// Declare Methods
+const methods = {
+    fetch: require("./methods/fetch.js"),
+    set: require("./methods/set.js"),
+    add: require("./methods/add.js"),
+    subtract: require("./methods/subtract.js"),
+    push: require("./methods/push.js"),
+    delete: require("./methods/delete.js"),
+    has: require("./methods/has.js"),
+    all: require("./methods/all.js"),
+    type: require("./methods/type"),
+};
+
 module.exports = function(file) {
     // try to get the database from collection so we dont have to instantiate it again
     let db = dbcollection.get(file || "./json.sqlite");
 
     // Create Database Under Conditions
-    if (!db) db = new Database(file || "./json.sqlite");
-
-    // Declare Methods
-    var methods = {
-        fetch: require("./methods/fetch.js"),
-        set: require("./methods/set.js"),
-        add: require("./methods/add.js"),
-        subtract: require("./methods/subtract.js"),
-        push: require("./methods/push.js"),
-        delete: require("./methods/delete.js"),
-        has: require("./methods/has.js"),
-        all: require("./methods/all.js"),
-        type: require("./methods/type"),
+    if (!db) {
+        db = new Database(file || "./json.sqlite");
+        dbcollection.set(file || "./json.sqlite", db);
     };
 
     module = {

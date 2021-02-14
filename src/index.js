@@ -1,8 +1,10 @@
+const Database = require("better-sqlite3");
+const util = require("util");
+const dbcollection = new Map();
+
 module.exports = function(file) {
-// Require Database
-    const Database = require("better-sqlite3");
-    const util = require("util");
-    let db;
+    // try to get the database from collection so we dont have to instantiate it again
+    let db = dbcollection.get(file || "./json.sqlite");
 
     // Create Database Under Conditions
     if (!db) db = new Database(file || "./json.sqlite");

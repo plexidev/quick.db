@@ -355,6 +355,7 @@ module.exports = function(file) {
     };
 
     function arbitrate(method, params, tableName) {
+        if(typeof params.id == 'number') params.id = params.id.toString()
         // Configure Options
         let options = {
             table: tableName || params.ops.table || "json",

@@ -13,6 +13,9 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 
 ## Example
 
+*Below is a demo for **v7.1.3**, which is available on NPM by doing `npm install quick.db` <br>
+The current version of this GitHub repo is v8.0.0*
+
 [**Code Sandbox Demo**](https://codesandbox.io/s/quickdb-demo-7ti8z?file=/src/index.js)
 ```js
 const db = require('quick.db');

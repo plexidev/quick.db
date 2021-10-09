@@ -18,6 +18,7 @@ module.exports = function(file) {
         has: require("./methods/has.js"),
         all: require("./methods/all.js"),
         type: require("./methods/type"),
+        raw: require("./methods/raw"),
     };
 
     module = {
@@ -199,6 +200,20 @@ module.exports = function(file) {
                     "No key specified. Need Help? Check Out: discord.gg/plexidev"
                 );
             return arbitrate("type", { id: key, ops: ops || {} });
+        },
+        
+        /**
+         * Write a RAW SQL Query to interact with the .sqlite file.
+         * @param {query} input any valid SQL query.
+         * @returns {json} returns raw response.
+        */
+        
+        raw: function (query) {
+            if (!query)
+                throw new TypeError(
+                    "No query specifed. Need Help? Check Out: discord.gg/plexidev"
+                );
+            return arbitrate("raw", { query });
         },
 
         /**

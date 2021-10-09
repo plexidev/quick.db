@@ -18,6 +18,7 @@ module.exports = function(file) {
         has: require("./methods/has.js"),
         all: require("./methods/all.js"),
         type: require("./methods/type"),
+        clear: require("./methods/clear"),
     };
 
     module = {
@@ -345,7 +346,7 @@ module.exports = function(file) {
             };
             
             this.clear = function () {
-                return arbitrate("clear", {}, this.tableName);   
+                return arbitrate("clear", { ops: {} }, this.tableName);   
             };
 
             this.fetchAll = function (ops) {

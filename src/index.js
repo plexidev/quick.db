@@ -201,20 +201,6 @@ module.exports = function(file) {
                 );
             return arbitrate("type", { id: key, ops: ops || {} });
         },
-        
-        /**
-         * Write a RAW SQL Query to interact with the .sqlite file.
-         * @param {query} input any valid SQL query.
-         * @returns {json} returns raw response.
-        */
-        
-        raw: function (query) {
-            if (!query)
-                throw new TypeError(
-                    "No query specifed. Need Help? Check Out: discord.gg/plexidev"
-                );
-            return arbitrate("raw", { query });
-        },
 
         /**
          * Using 'new' on this function creates a new instance of a table.
@@ -357,6 +343,10 @@ module.exports = function(file) {
                     { id: key, ops: ops || {} },
                     this.tableName
                 );
+            };
+            
+            this.clear = function () {
+                return arbitrate("clear", {}, this.tableName);   
             };
 
             this.fetchAll = function (ops) {

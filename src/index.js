@@ -18,7 +18,6 @@ module.exports = function(file) {
         has: require("./methods/has.js"),
         all: require("./methods/all.js"),
         type: require("./methods/type"),
-        raw: require("./methods/raw"),
     };
 
     module = {

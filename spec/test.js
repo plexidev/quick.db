@@ -62,3 +62,7 @@ test.set("data", "hello world");
 console.log(db.get("data")); // -> null
 console.log(db.get("data", { table: "test" })); // -> 'hello world'
 console.log(test.get("data")); // -> 'hello world'
+
+// Clearing rows from tables
+test.clear();
+console.log(test.get("data")) // -> null

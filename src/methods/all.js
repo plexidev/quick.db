@@ -6,16 +6,11 @@ module.exports = function(db, params, options) {
   for (var row of stmt.iterate()) {
     try {
       let data = JSON.parse(row.json)
-      if(typeof data == 'string') data = JSON.parse(data)
       resp.push({
         ID: row.ID,
         data
       })
     } catch (e) {}
   }
-  const array = [];
- for (var i = 0; i < resp.length; i++) {
-   array.push({ ID: resp[i].ID, data: resp[i].data.replace(/(^"|"$)/g, "") });
- }
-  return array;
+  return resp;
 }

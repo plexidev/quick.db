@@ -12,7 +12,5 @@ module.exports = function(db, params, options) {
       })
     } catch (e) {}
   }
-
   return resp;
-  
 }

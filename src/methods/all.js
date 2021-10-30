@@ -13,7 +13,7 @@ module.exports = function(db, params, options) {
       })
     } catch (e) {}
   }
-  resp.forEach(async (value, key) => {
+  resp = resp.forEach(async (value, key) => {
     value.data.slice(1,-1);
   });
   return resp;

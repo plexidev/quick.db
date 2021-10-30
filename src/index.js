@@ -379,15 +379,6 @@ module.exports = function(file) {
                 `You cannot set Infinity into the database @ ID: ${params.id}`
             );
 
-        // Stringify
-        try {
-            params.data = JSON.stringify(params.data);
-        } catch (e) {
-            throw new TypeError(
-                `Please supply a valid input @ ID: ${params.id}\nError: ${e.message}`
-            );
-        }
-
         // Translate dot notation from keys
         if (params.id && params.id.includes(".")) {
             let unparsed = params.id.split(".");

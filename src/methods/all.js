@@ -6,7 +6,6 @@ module.exports = function(db, params, options) {
   for (var row of stmt.iterate()) {
     try {
       let data = JSON.parse(row.json)
-      if(typeof data == 'string') data = JSON.parse(data)
       resp.push({
         ID: row.ID,
         data

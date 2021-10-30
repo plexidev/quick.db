@@ -14,7 +14,7 @@ module.exports = function(db, params, options) {
     } catch (e) {}
   }
   resp.forEach(async (value, key) => {
-    value.data.replaceAll(/"/g, "");
+    value.data.slice(1,-1);
   });
   return resp;
   

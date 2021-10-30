@@ -13,9 +13,9 @@ module.exports = function(db, params, options) {
       })
     } catch (e) {}
   }
-  resp = resp.forEach(async (value, key) => {
-    value.data.slice(1,-1);
-  });
-  return resp;
-  
+  const array = [];
+ for (var i = 0; i < resp.length; i++) {
+   array.push({ ID: resp[i].ID, data: resp[i].data.replace(/(^"|"$)/g, "") });
+ }
+  return array;
 }

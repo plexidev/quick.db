@@ -16,7 +16,6 @@ module.exports = function(db, params, options) {
   // Check if a target was supplied
   if (params.ops.target) {
     fetched = JSON.parse(fetched.json);
-    params.data = JSON.parse(params.data);
     let oldValue = get(fetched, params.ops.target);
     if (oldValue === undefined) oldValue = 0;
     else if (isNaN(oldValue)) throw new Error(`Data @ ID: "${params.id}" IS NOT A number.\nFOUND: ${fetched}\nEXPECTED: number`);
@@ -29,7 +28,7 @@ module.exports = function(db, params, options) {
   }
   // Should do the trick!
   // Stringify data
-  if (typeof params.data != "string") params.data = JSON.stringify(params.data);
+  params.data = JSON.stringify(params.data);
 
   // Update entry with new data
   db.prepare(`UPDATE ${options.table} SET json = (?) WHERE ID = (?)`).run(params.data, params.id);

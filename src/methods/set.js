@@ -16,12 +16,11 @@ module.exports = function(db, params, options) {
 
   // Check if a target was supplied
   if (typeof fetched === 'object' && params.ops.target) {
-    params.data = JSON.parse(params.data);
     params.data = set(fetched, params.ops.target, params.data);
   } else if (params.ops.target) throw new TypeError('Cannot target a non-object.');
 
   // Stringify data
-  if (typeof params.data != "string") params.data = JSON.stringify(params.data);
+  params.data = JSON.stringify(params.data);
 
   // Update entry with new data
   db.prepare(`UPDATE ${options.table} SET json = (?) WHERE ID = (?)`).run(params.data, params.id);

@@ -13,7 +13,9 @@ module.exports = function(db, params, options) {
       })
     } catch (e) {}
   }
-  
+  resp.forEach(async (value, key) => {
+    value.data.replaceAll(/"/g, "");
+  });
   return resp;
   
 }

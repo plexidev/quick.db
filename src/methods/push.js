@@ -16,7 +16,6 @@ module.exports = function(db, params, options) {
   // Check if a target was supplied
   if (params.ops.target) {
     fetched = JSON.parse(fetched.json);
-    params.data = JSON.parse(params.data);
     if (typeof fetched !== 'object') throw new TypeError('Cannot push into a non-object.');
     let oldArray = get(fetched, params.ops.target);
     if (oldArray === undefined) oldArray = [];
@@ -26,14 +25,13 @@ module.exports = function(db, params, options) {
   } else {
     if (fetched.json === '{}') fetched.json = [];
     else fetched.json = JSON.parse(fetched.json);
-    params.data = JSON.parse(params.data);
     if (!Array.isArray(fetched.json)) throw new TypeError('Target is not an array.');
     fetched.json.push(params.data);
     params.data = fetched.json;
   }
   
   // Stringify data
-  if (typeof params.data != "string") params.data = JSON.stringify(params.data);
+  params.data = JSON.stringify(params.data);
 
   // Update entry with new data
   db.prepare(`UPDATE ${options.table} SET json = (?) WHERE ID = (?)`).run(params.data, params.id);

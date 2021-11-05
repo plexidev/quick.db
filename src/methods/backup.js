@@ -1,5 +1,6 @@
 module.exports = function (db, params, options) {
-  db.backup(`backup-${Date.now()}.sqlite`)
+  const name = options.name ? options.name : Date.now();
+  db.backup(`backup-${name}.sqlite`)
     .then(() => {
       console.log("backup complete!");
     })

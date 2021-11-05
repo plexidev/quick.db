@@ -17,8 +17,9 @@ module.exports = function(file) {
         delete: require("./methods/delete.js"),
         has: require("./methods/has.js"),
         all: require("./methods/all.js"),
-        type: require("./methods/type"),
-        clear: require("./methods/clear"),
+        type: require("./methods/type.js"),
+        clear: require("./methods/clear.js"),
+        backup: require("./methods/backup.js")
     };
 
     module = {
@@ -202,6 +203,10 @@ module.exports = function(file) {
             return arbitrate("type", { id: key, ops: ops || {} });
         },
 
+        backup: function() {
+            return arbitrate("all");
+        }
+        
         /**
          * Using 'new' on this function creates a new instance of a table.
          * @param {name} input any string as the name of the table.

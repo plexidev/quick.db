@@ -203,8 +203,8 @@ module.exports = function(file) {
             return arbitrate("type", { id: key, ops: ops || {} });
         },
 
-        backup: function() {
-            return arbitrate("all");
+        backup: function(ops) {
+            return arbitrate("all", {ops: ops || {} });
         }
         
         /**

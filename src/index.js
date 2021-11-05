@@ -18,8 +18,7 @@ module.exports = function(file) {
         has: require("./methods/has.js"),
         all: require("./methods/all.js"),
         type: require("./methods/type.js"),
-        clear: require("./methods/clear.js"),
-        backup: require("./methods/backup.js")
+        clear: require("./methods/clear.js")
     };
 
     module = {
@@ -203,9 +202,16 @@ module.exports = function(file) {
             return arbitrate("type", { id: key, ops: ops || {} });
         },
 
-        backup: function(ops) {
-            return arbitrate("all", {ops: ops || {} });
-        }
+        backup: function (name) {
+            const dbname = name ? `backup-${name}` : `backup-${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear}`;
+            db.backup(`backup-${dbname}.sqlite`)
+                .then(() => {
+                    console.log("backup complete!");
+                })
+                .catch((err) => {
+                    console.log("backup failed:", err);
+                });
+        },
         
         /**
          * Using 'new' on this function creates a new instance of a table.

@@ -1,5 +1,5 @@
-module.exports = function(file) {
-// Require Database
+module.exports = function (file) {
+    // Require Database
     const Database = require("better-sqlite3");
     const util = require("util");
     let db;
@@ -205,14 +205,8 @@ module.exports = function(file) {
         backup: function (name) {
             const dbname = name ? `backup-${name}` : `backup-${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear}`;
             db.backup(`backup-${dbname}.sqlite`)
-                .then(() => {
-                    console.log("backup complete!");
-                })
-                .catch((err) => {
-                    console.log("backup failed:", err);
-                });
         },
-        
+
         /**
          * Using 'new' on this function creates a new instance of a table.
          * @param {name} input any string as the name of the table.
@@ -355,9 +349,9 @@ module.exports = function(file) {
                     this.tableName
                 );
             };
-            
+
             this.clear = function () {
-                return arbitrate("clear", { ops: {} }, this.tableName);   
+                return arbitrate("clear", { ops: {} }, this.tableName);
             };
 
             this.fetchAll = function (ops) {
@@ -367,11 +361,15 @@ module.exports = function(file) {
             this.all = function (ops) {
                 return arbitrate("all", { ops: ops || {} }, this.tableName);
             };
+            this.backup = function (name) {
+                const dbname = name ? `backup-${name}` : `backup-${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear}`;
+                db.backup(`backup-${dbname}.sqlite`)
+            };
         },
     };
 
     function arbitrate(method, params, tableName) {
-        if(typeof params.id == 'number') params.id = params.id.toString()
+        if (typeof params.id == 'number') params.id = params.id.toString()
         // Configure Options
         let options = {
             table: tableName || params.ops.table || "json",
@@ -383,7 +381,7 @@ module.exports = function(file) {
         ).run();
 
         // Verify Options
-        if (params.ops.target && params.ops.target[0] === ".")
+        if (params.ops.target && params.ops.target[ 0 ] === ".")
             params.ops.target = params.ops.target.slice(1); // Remove prefix if necessary
         if (params.data && params.data === Infinity)
             throw new TypeError(
@@ -398,8 +396,8 @@ module.exports = function(file) {
         }
 
         // Run & Return Method
-        return methods[method](db, params, options);
+        return methods[ method ](db, params, options);
     }
-    
+
     return module;
 }

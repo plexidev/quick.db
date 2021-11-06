@@ -98,6 +98,14 @@ declare module 'quick.db' {
     function del(key: string, ops?: Options): boolean;
 
     /**
+     * 
+     * @param name custom name for you backup file
+     */
+    function backup(name?: string): boolean;
+
+
+
+    /**
      * Used to get the type of the value.
      * @param key Any string as a key. Also allows for dot notation following the key, this will delete the prop in the object.
      * @param ops Any options to be added to the request.
@@ -192,6 +200,12 @@ declare module 'quick.db' {
          * @param ops Any options to be added to the request.
          */
         public delete(key: string, ops?: Options): boolean;
+
+        /**
+         * 
+         * @param name custom name for you backup file
+         */
+        public backup(name?: string): boolean;
     }
 
     export {
@@ -205,6 +219,7 @@ declare module 'quick.db' {
         includes,
         all,
         fetchAll,
+        backup,
         del as delete,
         dataType as type,
         Table as table,

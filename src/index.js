@@ -203,8 +203,8 @@ module.exports = function (file) {
         },
 
         backup: function (name) {
-            const dbname = name ? `backup-${name}` : `backup-${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear}`;
-            db.backup(`backup-${dbname}.sqlite`)
+            const dbname = name ? `${name}` : `backup-${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear}`;
+            db.backup(`${dbname}.sqlite`)
         },
 
         /**
@@ -362,8 +362,8 @@ module.exports = function (file) {
                 return arbitrate("all", { ops: ops || {} }, this.tableName);
             };
             this.backup = function (name) {
-                const dbname = name ? `backup-${name}` : `backup-${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear}`;
-                db.backup(`backup-${dbname}.sqlite`)
+                const dbname = name ? `${name}` : `backup-${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear}`;
+                db.backup(`${dbname}.sqlite`)
             };
         },
     };

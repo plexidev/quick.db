@@ -360,6 +360,8 @@ module.exports = function(file) {
     };
 
     function arbitrate(method, params, tableName) {
+        if (![ 'string', 'number' ].includes(typeof params.id)) throw new TypeError("params.id should be of time string or number");
+        
         if(typeof params.id == 'number') params.id = params.id.toString()
         // Configure Options
         let options = {

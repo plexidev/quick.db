@@ -14,8 +14,12 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 
 ## Table of Contents
 
+- [Beginner's Guide](#beginners-guide)
 - [Install](#install)
 - [Example](#example)
+
+## Beginner's Guide
+- todo
 
 ## Changes in 9.0.0
 

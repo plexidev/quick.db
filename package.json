@@ -1,14 +1,37 @@
 {
     "name": "quick.db",
-    "version": "8.0.0",
+    "version": "9.0.0",
     "description": "An easy, non-locking, persistent better-sqlite3 wrapper designed to be easy to setup & utilize",
-    "main": "index.js",
-    "dependencies": {
-        "better-sqlite3": "^7.1.1",
-        "lodash": "^4.17.20"
+    "main": "out/index.js",
+    "peerDependencies": {
+        "better-sqlite3": "^7.4.5",
+        "promise-mysql": "^5.0.4"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.16.5",
+        "@babel/preset-env": "^7.16.5",
+        "@babel/preset-typescript": "^7.16.5",
+        "@types/better-sqlite3": "^7.4.2",
+        "@types/jest": "^27.0.3",
+        "@types/lodash": "^4.14.178",
+        "@typescript-eslint/eslint-plugin": "^5.8.1",
+        "@typescript-eslint/parser": "^5.8.1",
+        "babel-jest": "^27.4.5",
+        "eslint": "^8.5.0",
+        "eslint-config-prettier": "^8.3.0",
+        "husky": "^7.0.4",
+        "jest": "^27.4.5",
+        "prettier": "^2.5.1",
+        "typescript": "^4.5.4"
     },
     "scripts": {
-        "test": "node spec/test.js"
+        "test": "jest --roots tests",
+        "lint": "eslint --ext \".ts\" .",
+        "prettier": "prettier --write .",
+        "prepare": "husky install"
+    },
+    "lint-staged": {
+        "*.{ts}": "eslint"
     },
     "repository": {
         "type": "git",
@@ -29,5 +52,8 @@
     "bugs": {
         "url": "https://github.com/TrueXPixels/quick.db/issues"
     },
-    "homepage": "https://quickdb.js.org"
+    "homepage": "https://quickdb.js.org",
+    "dependencies": {
+        "lodash": "^4.17.21"
+    }
 }

@@ -1,14 +1,12 @@
-# Testing Files #
-#################
-# Most files aren't included due to workflow issues
-
-/spec
+/src
 *.sqlite
 *.database
 *.logs
 *.glitch-assets
 watch.json
 server.js
+.vscode/
 .vs/
 .github/
 .package-lock.json
+.husky/

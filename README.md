@@ -96,7 +96,7 @@ const { QuickDB, MySQLDriver } = require("quick.db");
     await db.set("userInfo", { difficulty: "Easy" });
     // -> { difficulty: 'Easy' }
 })();
-
+```
 
 ## Installation
 

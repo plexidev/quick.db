@@ -1,4 +1,3 @@
-/src
 *.sqlite
 *.database
 *.logs

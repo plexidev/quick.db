@@ -30,19 +30,30 @@ const db = new QuickDB({
     driver: driverMock,
 });
 
+function generateTestData(fakerFunc: () => unknown) {
+    const length = Math.floor(Math.random() * 50);
+    const testData = [];
+    for (let i = 0; i < length; i++) {
+        testData.push({
+            id: faker.datatype.uuid(),
+            value: fakerFunc(),
+        });
+    }
+
+    return {
+        length,
+        testData,
+    };
+}
+
 describe("QuickDB", () => {
     describe("String tests", () => {
-        let testDataLength: number;
-        let testData = [] as { id: string; value: string }[];
+        let testData;
+        let testDataLength;
         beforeAll(() => {
-            testDataLength = Math.floor(Math.random() * 50);
-            testData = [] as { id: string; value: string }[];
-            for (let i = 0; i < testDataLength; i++) {
-                testData.push({
-                    id: faker.datatype.uuid(),
-                    value: faker.name.findName(),
-                });
-            }
+            const tData = generateTestData(faker.name.findName);
+            testData = tData.testData;
+            testDataLength = tData.length;
         });
 
         test("set", async () => {

@@ -65,12 +65,34 @@ describe("QuickDB", () => {
                     data.value,
                     false
                 );
+                expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
+                    data.id
+                );
             }
 
             expect(driverMock.setRowByKey).toHaveBeenCalledTimes(
                 testDataLength
             );
+            expect(driverMock.getRowByKey).toHaveBeenCalledTimes(
+                testDataLength
+            );
             (driverMock.setRowByKey as jest.Mock).mockClear();
+            (driverMock.getRowByKey as jest.Mock).mockClear();
+        });
+
+        test("get", async () => {
+            for (const data of testData) {
+                const result = await db.get(data.id);
+                expect(result).toEqual(data.value);
+                expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
+                    data.id
+                );
+            }
+
+            expect(driverMock.getRowByKey).toHaveBeenCalledTimes(
+                testDataLength
+            );
+            (driverMock.getRowByKey as jest.Mock).mockClear();
         });
     });
 });

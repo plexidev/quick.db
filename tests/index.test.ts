@@ -118,5 +118,15 @@ describe("QuickDB", () => {
             expect(results).toEqual(expect.arrayContaining(testData));
             expect(driverMock.getAllRows).toHaveBeenCalledTimes(1);
         });
+
+        test("delete_exists", async () => {
+            const result = await db.delete(testData[0].id);
+            expect(result).toEqual(1);
+            expect(driverMock.deleteRowByKey).toHaveBeenLastCalledWith(
+                testData[0].id
+            );
+
+            expect(db.has(testData[0].id)).resolves.toEqual(false);
+        });
     });
 });

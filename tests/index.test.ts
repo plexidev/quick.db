@@ -56,6 +56,14 @@ describe("QuickDB", () => {
             testDataLength = tData.length;
         });
 
+        afterEach(() => {
+            for (const att of Object.values(driverMock)) {
+                if (typeof att == "function") {
+                    (att as jest.Mock).mockClear();
+                }
+            }
+        });
+
         test("set", async () => {
             for (const data of testData) {
                 const result = await db.set(data.id, data.value);
@@ -76,8 +84,6 @@ describe("QuickDB", () => {
             expect(driverMock.getRowByKey).toHaveBeenCalledTimes(
                 testDataLength
             );
-            (driverMock.setRowByKey as jest.Mock).mockClear();
-            (driverMock.getRowByKey as jest.Mock).mockClear();
         });
 
         test("get", async () => {
@@ -92,7 +98,13 @@ describe("QuickDB", () => {
             expect(driverMock.getRowByKey).toHaveBeenCalledTimes(
                 testDataLength
             );
-            (driverMock.getRowByKey as jest.Mock).mockClear();
+        });
+
+        test("all", async () => {
+            const results = await db.all();
+            expect(results).toHaveLength(testDataLength);
+            expect(results).toEqual(expect.arrayContaining(testData));
+            expect(driverMock.getAllRows).toHaveBeenCalledTimes(1);
         });
     });
 });

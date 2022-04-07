@@ -100,6 +100,18 @@ describe("QuickDB", () => {
             );
         });
 
+        test("has", async () => {
+            for (const data of testData) {
+                const result = await db.has(data.id);
+                expect(result).toEqual(true);
+                expect(driverMock.getRowByKey).toHaveBeenCalledWith(data.id);
+            }
+
+            expect(driverMock.getRowByKey).toHaveBeenCalledTimes(
+                testDataLength
+            );
+        });
+
         test("all", async () => {
             const results = await db.all();
             expect(results).toHaveLength(testDataLength);

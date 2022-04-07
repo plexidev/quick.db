@@ -139,6 +139,36 @@ describe("QuickDB", () => {
                 "First argument (key) needs to be a string"
             );
         });
+
+        test("add_bad_key", async () => {
+            expect(db.add({} as any, 10)).rejects.toThrowError(
+                "First argument (key) needs to be a string"
+            );
+        });
+
+        test("add_missing_second_argument", async () => {
+            expect(db.add("test", null)).rejects.toThrowError(
+                "Missing second argument (value)"
+            );
+            expect(db.add("test", undefined)).rejects.toThrowError(
+                "Missing second argument (value)"
+            );
+        });
+
+        test("sub_bad_key", async () => {
+            expect(db.sub({} as any, 10)).rejects.toThrowError(
+                "First argument (key) needs to be a string"
+            );
+        });
+
+        test("sub_missing_second_argument", async () => {
+            expect(db.sub("test", null)).rejects.toThrowError(
+                "Missing second argument (value)"
+            );
+            expect(db.sub("test", undefined)).rejects.toThrowError(
+                "Missing second argument (value)"
+            );
+        });
     });
 
     describe("Test with data", () => {
@@ -195,6 +225,47 @@ describe("QuickDB", () => {
             expect(result).toEqual(testData.length);
             expect(driverMock.deleteAllRows).toHaveBeenCalled();
             expect(db.all()).resolves.toHaveLength(0);
+        });
+    });
+
+    describe("Test with numbers", () => {
+        let testData;
+        beforeEach(() => {
+            testData = injectTestData(faker.datatype.number);
+        });
+
+        test("add_exist_good", async () => {
+            for (const data of testData) {
+                const toAdd = faker.datatype.number({ min: -100, max: 100 });
+                await expect(db.add(data.id, toAdd)).resolves.toEqual(
+                    data.value + toAdd
+                );
+                expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
+                    data.id,
+                    data.value + toAdd,
+                    true
+                );
+                expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
+                    data.id
+                );
+            }
+        });
+
+        test("sub_exist_good", async () => {
+            for (const data of testData) {
+                const toAdd = faker.datatype.number({ min: -100, max: 100 });
+                await expect(db.sub(data.id, toAdd)).resolves.toEqual(
+                    data.value - toAdd
+                );
+                expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
+                    data.id,
+                    data.value - toAdd,
+                    true
+                );
+                expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
+                    data.id
+                );
+            }
         });
     });
 });

@@ -103,6 +103,12 @@ describe("QuickDB", () => {
                 "Missing second argument (value)"
             );
         });
+
+        test("get_bad_key", async () => {
+            expect(db.get({} as any)).rejects.toThrowError(
+                "First argument (key) needs to be a string"
+            );
+        });
     });
 
     describe("Test with data", () => {

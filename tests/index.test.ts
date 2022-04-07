@@ -133,6 +133,12 @@ describe("QuickDB", () => {
             expect(driverMock.getRowByKey).toHaveBeenCalledWith("test");
             expect(driverMock.getRowByKey).toHaveBeenCalledTimes(1);
         });
+
+        test("delete_bad_key", async () => {
+            expect(db.delete({} as any)).rejects.toThrowError(
+                "First argument (key) needs to be a string"
+            );
+        });
     });
 
     describe("Test with data", () => {

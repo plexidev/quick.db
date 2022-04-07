@@ -86,6 +86,13 @@ describe("QuickDB", () => {
             );
         });
 
+        // TODO: add custom error instead of relying on string (valuable for all errors thrown)
+        test("set_bad_key", async () => {
+            expect(db.set({} as any, "test")).rejects.toThrowError(
+                "First argument (key) needs to be a string"
+            );
+        });
+
         test("get_exists", async () => {
             for (const data of testData) {
                 const result = await db.get(data.id);

@@ -169,6 +169,27 @@ describe("QuickDB", () => {
                 "Missing second argument (value)"
             );
         });
+
+        test("push_not_exists", async () => {
+            const settingData = generateTestData(faker.datatype.number);
+            for (const data of settingData) {
+                await expect(db.push(data.id, data.value)).resolves.toEqual(
+                    expect.arrayContaining([data.value])
+                );
+                expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
+                    data.id,
+                    [data.value],
+                    false
+                );
+                expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
+                    data.id
+                );
+                expect(driverMock.data).toHaveProperty(data.id);
+                expect(driverMock.data[data.id]).toEqual(
+                    expect.arrayContaining([data.value])
+                );
+            }
+        });
     });
 
     describe("Test with data", () => {
@@ -265,6 +286,48 @@ describe("QuickDB", () => {
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
                     data.id
                 );
+            }
+        });
+    });
+
+    describe("Test with arrays", () => {
+        let testData;
+        beforeEach(() => {
+            testData = injectTestData(faker.datatype.array);
+        });
+
+        test("push_exists", async () => {
+            for (const data of testData) {
+                const toPush = faker.datatype.number();
+                await expect(db.push(data.id, toPush)).resolves.toEqual(
+                    expect.arrayContaining([toPush])
+                );
+                expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
+                    data.id,
+                    expect.arrayContaining([toPush]),
+                    true
+                );
+                expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
+                    data.id
+                );
+                expect(driverMock.data).toHaveProperty(data.id);
+                expect(driverMock.data[data.id]).toEqual(
+                    expect.arrayContaining([toPush])
+                );
+            }
+        });
+
+        test("pull_exists", async () => {
+            for (const data of testData) {
+                await expect(db.pull(data.id, data.value[0])).resolves.toEqual(
+                    expect.arrayContaining(data.value.slice(1))
+                );
+                expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
+                    data.id,
+                    data.value.slice(1),
+                    true
+                );
+                expect(driverMock.getRowByKey).toHaveBeenCalledWith(data.id);
             }
         });
     });

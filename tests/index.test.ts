@@ -31,7 +31,7 @@ const db = new QuickDB({
 });
 
 function generateTestData(fakerFunc: () => unknown) {
-    const length = Math.floor(Math.random() * 50);
+    const length = Math.floor(Math.random() * 5) + 1;
     const testData = [];
     for (let i = 0; i < length; i++) {
         testData.push({
@@ -40,32 +40,34 @@ function generateTestData(fakerFunc: () => unknown) {
         });
     }
 
-    return {
-        length,
-        testData,
-    };
+    return testData;
+}
+
+function injectTestData(fakerFunc: () => unknown) {
+    const testData = generateTestData(fakerFunc);
+    driverMock.data = {};
+    for (const data of testData) {
+        driverMock.data[data.id] = data.value;
+    }
+
+    return testData;
 }
 
 describe("QuickDB", () => {
-    describe("String tests", () => {
-        let testData;
-        let testDataLength;
-        beforeAll(() => {
-            const tData = generateTestData(faker.name.findName);
-            testData = tData.testData;
-            testDataLength = tData.length;
-        });
-
-        afterEach(() => {
-            for (const att of Object.values(driverMock)) {
-                if (typeof att == "function") {
-                    (att as jest.Mock).mockClear();
-                }
+    afterEach(() => {
+        for (const att of Object.values(driverMock)) {
+            if (typeof att == "function") {
+                (att as jest.Mock).mockClear();
             }
-        });
+        }
 
+        driverMock.data = [];
+    });
+
+    describe("Test with no data", () => {
         test("set_good", async () => {
-            for (const data of testData) {
+            const settingData = generateTestData(faker.name.findName);
+            for (const data of settingData) {
                 const result = await db.set(data.id, data.value);
                 expect(result).toEqual(data.value);
                 expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
@@ -79,10 +81,10 @@ describe("QuickDB", () => {
             }
 
             expect(driverMock.setRowByKey).toHaveBeenCalledTimes(
-                testDataLength
+                settingData.length
             );
             expect(driverMock.getRowByKey).toHaveBeenCalledTimes(
-                testDataLength
+                settingData.length
             );
         });
 
@@ -91,6 +93,23 @@ describe("QuickDB", () => {
             expect(db.set({} as any, "test")).rejects.toThrowError(
                 "First argument (key) needs to be a string"
             );
+        });
+
+        test("set_missing_second_argument", async () => {
+            expect(db.set("test", null)).rejects.toThrowError(
+                "Missing second argument (value)"
+            );
+            expect(db.set("test", undefined)).rejects.toThrowError(
+                "Missing second argument (value)"
+            );
+        });
+    });
+
+    describe("Test with data", () => {
+        let testData;
+        beforeEach((done) => {
+            testData = injectTestData(faker.name.findName);
+            done();
         });
 
         test("get_exists", async () => {
@@ -103,7 +122,7 @@ describe("QuickDB", () => {
             }
 
             expect(driverMock.getRowByKey).toHaveBeenCalledTimes(
-                testDataLength
+                testData.length
             );
         });
 
@@ -115,13 +134,13 @@ describe("QuickDB", () => {
             }
 
             expect(driverMock.getRowByKey).toHaveBeenCalledTimes(
-                testDataLength
+                testData.length
             );
         });
 
         test("all", async () => {
             const results = await db.all();
-            expect(results).toHaveLength(testDataLength);
+            expect(results).toHaveLength(testData.length);
             expect(results).toEqual(expect.arrayContaining(testData));
             expect(driverMock.getAllRows).toHaveBeenCalledTimes(1);
         });
@@ -133,13 +152,11 @@ describe("QuickDB", () => {
                 testData[0].id
             );
             expect(db.has(testData[0].id)).resolves.toEqual(false);
-            testDataLength--;
-            testData.shift();
         });
 
         test("delete_all", async () => {
             const result = await db.deleteAll();
-            expect(result).toEqual(testDataLength);
+            expect(result).toEqual(testData.length);
             expect(driverMock.deleteAllRows).toHaveBeenCalled();
             expect(db.all()).resolves.toHaveLength(0);
         });

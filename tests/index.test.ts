@@ -65,6 +65,10 @@ describe("QuickDB", () => {
     });
 
     describe("Test with no data", () => {
+        beforeEach(() => {
+            driverMock.data = {};
+        });
+
         test("set_good", async () => {
             const settingData = generateTestData(faker.name.findName);
             for (const data of settingData) {
@@ -78,6 +82,8 @@ describe("QuickDB", () => {
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
                     data.id
                 );
+                expect(driverMock.data).toHaveProperty(data.id);
+                expect(driverMock.data[data.id]).toEqual(data.value);
             }
 
             expect(driverMock.setRowByKey).toHaveBeenCalledTimes(
@@ -104,10 +110,28 @@ describe("QuickDB", () => {
             );
         });
 
+        test("set_dot_insert-good", async () => {
+            await expect(db.set("test.sword", "hi")).resolves.toEqual({
+                sword: "hi",
+            });
+            expect(driverMock.setRowByKey).toHaveBeenCalledTimes(1);
+            expect(driverMock.getRowByKey).toHaveBeenCalledTimes(1);
+            expect(driverMock.data).toHaveProperty("test");
+            expect(driverMock.data.test).toHaveProperty("sword");
+            expect(driverMock.data.test.sword).toEqual("hi");
+        });
+
         test("get_bad_key", async () => {
             expect(db.get({} as any)).rejects.toThrowError(
                 "First argument (key) needs to be a string"
             );
+        });
+
+        test("get_dot_property_good", async () => {
+            driverMock.data = { test: { sword: "hi" } };
+            await expect(db.get("test.sword")).resolves.toEqual("hi");
+            expect(driverMock.getRowByKey).toHaveBeenCalledWith("test");
+            expect(driverMock.getRowByKey).toHaveBeenCalledTimes(1);
         });
     });
 

@@ -64,7 +64,7 @@ describe("QuickDB", () => {
             }
         });
 
-        test("set", async () => {
+        test("set_good", async () => {
             for (const data of testData) {
                 const result = await db.set(data.id, data.value);
                 expect(result).toEqual(data.value);
@@ -86,7 +86,7 @@ describe("QuickDB", () => {
             );
         });
 
-        test("get", async () => {
+        test("get_exists", async () => {
             for (const data of testData) {
                 const result = await db.get(data.id);
                 expect(result).toEqual(data.value);
@@ -100,7 +100,7 @@ describe("QuickDB", () => {
             );
         });
 
-        test("has", async () => {
+        test("has_exists", async () => {
             for (const data of testData) {
                 const result = await db.has(data.id);
                 expect(result).toEqual(true);

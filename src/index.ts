@@ -82,8 +82,8 @@ export class QuickDB {
             return this.driver.setRowByKey(keySplit[0], valueSet, obj != null);
         }
 
-        const obj = await this.get<any>(key);
-        return this.driver.setRowByKey(key, value, obj != null);
+        const update = await this.has(key);
+        return this.driver.setRowByKey(key, value, update);
     }
 
     async has(key: string): Promise<boolean> {

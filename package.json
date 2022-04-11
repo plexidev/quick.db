@@ -4,10 +4,6 @@
     "description": "An easy, non-locking, persistent better-sqlite3 wrapper designed to be easy to setup & utilize",
     "main": "out/index.js",
     "types": "out/index.d.ts",
-    "peerDependencies": {
-        "better-sqlite3": "^7.4.5",
-        "promise-mysql": "^5.0.4"
-    },
     "devDependencies": {
         "@babel/core": "^7.16.5",
         "@babel/preset-env": "^7.16.5",
@@ -21,6 +17,8 @@
         "prettier": "^2.5.1"
     },
     "dependencies": {
+	"better-sqlite3": "^7.4.5",          
+	"promise-mysql": "^5.0.4",
         "@types/better-sqlite3": "^7.4.2",
         "@types/jest": "^27.0.3",
         "@types/lodash": "^4.14.178",

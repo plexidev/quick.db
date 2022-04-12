@@ -1,4 +1,27 @@
-## Change log
+## Quick.db
+
+**Documentation:** [quickdb.js.org](https://quickdb.js.org) <br>
+**Support:** [discord.gg/plexidev](https://discord.gg/plexidev) <br>
+**NPM:** [npmjs.com/quick.db](https://www.npmjs.com/package/quick.db)
+
+Quick.db is an open-source package meant to provide an easy way for beginners and people of all levels to access & store data in a low to medium volume environment. All data is stored persistently via either [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3) or [promise-mysql](https://www.npmjs.com/package/promise-mysql) and comes way various other quality-of-life features.
+
+- **Persistent Storage** - Data doesn't disappear through restarts
+- **Multiple Drivers** - You can use either better-sqlite3 or promise-mysql
+- **Works out of the box** - No need to set up a database server, all the data is stored locally in the same project
+- **Beginner Friendly** - Originally created for use in tutorials, the documentation is straightforward and jargon-free
+- & more...
+
+## Table of Contents
+
+- [Beginner's Guide](#beginners-guide)
+- [Install](#install)
+- [Example](#example)
+
+## Beginner's Guide
+- todo
+
+## Changes in 9.0.0
 
 -   Added drivers and file path option
     Now when using Quick.db you can choose the driver you want (SqliteDriver or MySQLDriver included for now)
@@ -98,7 +121,7 @@ const { QuickDB, MySQLDriver } = require("quick.db");
 })();
 ```
 
-## Installation
+## Install
 
 _If you're having troubles installing, please follow [this troubleshooting guide](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md)._
 
@@ -116,8 +139,3 @@ _If you're having troubles installing, please follow [this troubleshooting guide
 2. **Run:** `npm i -g node-gyp` in terminal
 3. **Run:** `node-gyp --python /path/to/python2.7` (skip this step if you didn't install python 3.x)
 4. **Run:** `npm i quick.db`
-
-## Support
-
-I work on these projects in my spare time, if you'd like to support me, you can do so via [Patreon! ❤️](https://www.patreon.com/lorencerri)
-```

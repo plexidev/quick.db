@@ -3,24 +3,25 @@ import { faker } from "@faker-js/faker";
 
 const driverMock = {
     data: {},
-    getAllRows: jest.fn(async () => {
+    prepare: jest.fn(async (table: string) => null),
+    getAllRows: jest.fn(async (table: string) => {
         return Object.entries(driverMock.data).map((row) => {
             return { id: row[0], value: row[1] };
         });
     }),
-    getRowByKey: jest.fn(async (key: string) => {
+    getRowByKey: jest.fn(async (table: string, key: string) => {
         return driverMock.data[key];
     }),
-    setRowByKey: jest.fn(async (key: string, value: any) => {
+    setRowByKey: jest.fn(async (table: string, key: string, value: any) => {
         driverMock.data[key] = value;
         return value;
     }),
-    deleteAllRows: jest.fn(async () => {
+    deleteAllRows: jest.fn(async (table: string) => {
         const l = Object.keys(driverMock.data).length;
         driverMock.data = {};
         return l;
     }),
-    deleteRowByKey: jest.fn(async (key: string) => {
+    deleteRowByKey: jest.fn(async (table: string, key: string) => {
         delete driverMock.data[key];
         return 1;
     }),
@@ -75,11 +76,13 @@ describe("QuickDB", () => {
                 const result = await db.set(data.id, data.value);
                 expect(result).toEqual(data.value);
                 expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
+                    "DB",
                     data.id,
                     data.value,
                     false
                 );
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
+                    "DB",
                     data.id
                 );
                 expect(driverMock.data).toHaveProperty(data.id);
@@ -130,7 +133,7 @@ describe("QuickDB", () => {
         test("get_dot_property_good", async () => {
             driverMock.data = { test: { sword: "hi" } };
             await expect(db.get("test.sword")).resolves.toEqual("hi");
-            expect(driverMock.getRowByKey).toHaveBeenCalledWith("test");
+            expect(driverMock.getRowByKey).toHaveBeenCalledWith("DB", "test");
             expect(driverMock.getRowByKey).toHaveBeenCalledTimes(1);
         });
 
@@ -177,11 +180,13 @@ describe("QuickDB", () => {
                     expect.arrayContaining([data.value])
                 );
                 expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
+                    "DB",
                     data.id,
                     [data.value],
                     false
                 );
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
+                    "DB",
                     data.id
                 );
                 expect(driverMock.data).toHaveProperty(data.id);
@@ -204,6 +209,7 @@ describe("QuickDB", () => {
                 const result = await db.get(data.id);
                 expect(result).toEqual(data.value);
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
+                    "DB",
                     data.id
                 );
             }
@@ -217,7 +223,10 @@ describe("QuickDB", () => {
             for (const data of testData) {
                 const result = await db.has(data.id);
                 expect(result).toEqual(true);
-                expect(driverMock.getRowByKey).toHaveBeenCalledWith(data.id);
+                expect(driverMock.getRowByKey).toHaveBeenCalledWith(
+                    "DB",
+                    data.id
+                );
             }
 
             expect(driverMock.getRowByKey).toHaveBeenCalledTimes(
@@ -236,6 +245,7 @@ describe("QuickDB", () => {
             const result = await db.delete(testData[0].id);
             expect(result).toEqual(1);
             expect(driverMock.deleteRowByKey).toHaveBeenLastCalledWith(
+                "DB",
                 testData[0].id
             );
             expect(db.has(testData[0].id)).resolves.toEqual(false);
@@ -262,11 +272,13 @@ describe("QuickDB", () => {
                     data.value + toAdd
                 );
                 expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
+                    "DB",
                     data.id,
                     data.value + toAdd,
                     true
                 );
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
+                    "DB",
                     data.id
                 );
             }
@@ -279,11 +291,13 @@ describe("QuickDB", () => {
                     data.value - toAdd
                 );
                 expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
+                    "DB",
                     data.id,
                     data.value - toAdd,
                     true
                 );
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
+                    "DB",
                     data.id
                 );
             }
@@ -303,11 +317,13 @@ describe("QuickDB", () => {
                     expect.arrayContaining([toPush])
                 );
                 expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
+                    "DB",
                     data.id,
                     expect.arrayContaining([toPush]),
                     true
                 );
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
+                    "DB",
                     data.id
                 );
                 expect(driverMock.data).toHaveProperty(data.id);
@@ -323,11 +339,15 @@ describe("QuickDB", () => {
                     expect.arrayContaining(data.value.slice(1))
                 );
                 expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
+                    "DB",
                     data.id,
                     data.value.slice(1),
                     true
                 );
-                expect(driverMock.getRowByKey).toHaveBeenCalledWith(data.id);
+                expect(driverMock.getRowByKey).toHaveBeenCalledWith(
+                    "DB",
+                    data.id
+                );
             }
         });
     });

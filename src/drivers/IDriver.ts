@@ -1,7 +1,8 @@
 export interface IDriver {
-    getAllRows(): Promise<{ id: string; value: any }[]>;
-    getRowByKey<T>(key: string): Promise<T | null>;
-    setRowByKey<T>(key: string, value: any, update: boolean): Promise<T>;
-    deleteAllRows(): Promise<number>;
-    deleteRowByKey(key: string): Promise<number>;
+    prepare(table: string): Promise<void>;
+    getAllRows(table: string): Promise<{ id: string; value: any }[]>;
+    getRowByKey<T>(table: string, key: string): Promise<T | null>;
+    setRowByKey<T>(table: string, key: string, value: any, update: boolean): Promise<T>;
+    deleteAllRows(table: string): Promise<number>;
+    deleteRowByKey(table: string, key: string): Promise<number>;
 }

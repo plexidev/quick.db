@@ -19,58 +19,68 @@ export class MySQLDriver implements IDriver {
 
     async connect(): Promise<void> {
         this.conn = await this.mysql.createConnection(this.config);
+    }
+
+    async prepare(table: string): Promise<void> {
+        this.checkConnection();
         await this.conn?.query(
-            "CREATE TABLE IF NOT EXISTS DB (ID TEXT, Json TEXT)"
+            `CREATE TABLE IF NOT EXISTS ${table} (ID TEXT, Json TEXT)`
         );
     }
 
-    async getAllRows(): Promise<{ id: string; value: any }[]> {
+    async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
         this.checkConnection();
-        const results = await this.conn?.query("SELECT * FROM DB");
+        const results = await this.conn?.query(`SELECT * FROM ${table}`);
         return results.map((row: any) => ({
             id: row.ID,
             value: JSON.parse(row.Json),
         }));
     }
 
-    async getRowByKey<T>(key: string): Promise<T | null> {
+    async getRowByKey<T>(table: string, key: string): Promise<T | null> {
         this.checkConnection();
         const results = await this.conn?.query(
-            "SELECT Json FROM DB WHERE ID = ?",
+            `SELECT Json FROM ${table} WHERE ID = ?`,
             [key]
         );
         if (results.length == 0) return null;
         return JSON.parse(results[0].Json);
     }
 
-    async setRowByKey<T>(key: string, value: any, update: boolean): Promise<T> {
+    async setRowByKey<T>(
+        table: string,
+        key: string,
+        value: any,
+        update: boolean
+    ): Promise<T> {
         const stringifiedJson = JSON.stringify(value);
         if (update) {
-            await this.conn?.query("UPDATE DB SET Json = (?) WHERE ID = (?)", [
-                stringifiedJson,
-                key,
-            ]);
+            await this.conn?.query(
+                `UPDATE ${table} SET Json = (?) WHERE ID = (?)`,
+                [stringifiedJson, key]
+            );
         } else {
-            await this.conn?.query("INSERT INTO DB (ID,Json) VALUES (?,?)", [
-                key,
-                stringifiedJson,
-            ]);
+            await this.conn?.query(
+                `INSERT INTO ${table} (ID,Json) VALUES (?,?)`,
+                [key, stringifiedJson]
+            );
         }
 
         return value;
     }
 
-    async deleteAllRows(): Promise<number> {
+    async deleteAllRows(table: string): Promise<number> {
         this.checkConnection();
-        const result = await this.conn?.query("DELETE FROM DB");
+        const result = await this.conn?.query(`DELETE FROM ${table}`);
         return result.affectedRows;
     }
 
-    async deleteRowByKey(key: string): Promise<number> {
+    async deleteRowByKey(table: string, key: string): Promise<number> {
         this.checkConnection();
-        const result = await this.conn?.query("DELETE FROM DB WHERE ID=?", [
-            key,
-        ]);
+        const result = await this.conn?.query(
+            `DELETE FROM ${table} WHERE ID=?`,
+            [key]
+        );
         return result.affectedRows;
     }
 }

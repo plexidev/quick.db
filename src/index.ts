@@ -13,13 +13,16 @@ export interface IQuickDBOptions {
 }
 
 export class QuickDB {
+    options: IQuickDBOptions;
     table: string;
     driver: IDriver;
 
     constructor(options: IQuickDBOptions = {}) {
         options.filePath ??= "json.sqlite";
         options.driver ??= new SqliteDriver(options.filePath);
-        this.table = options.table ?? "DB";
+        options.table ??= "DB";
+        this.options = options;
+        this.table = options.table;
         this.driver = options.driver;
 
         this.driver.prepare(this.table);
@@ -151,5 +154,15 @@ export class QuickDB {
         );
 
         return this.set(key, currentArr);
+    }
+
+    useTable(table: string): QuickDB {
+        if (typeof table != "string")
+            throw new Error("First argument (table) needs to be a string");
+
+        const options = { ...this.options };
+        options.driver = this.options.driver;
+        options.table = table;
+        return new QuickDB(options);
     }
 }

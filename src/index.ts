@@ -36,7 +36,7 @@ export class QuickDB {
                 currentNumber = parseFloat(currentNumber as string);
             } catch (_) {
                 throw new Error(
-                    `Current value with key: (${key}) is not a number and coudln't be parsed to a number`
+                    `Current value with key: (${key}) is not a number and couldn't be parsed to a number`
                 );
             }
         }

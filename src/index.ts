@@ -149,11 +149,11 @@ export class QuickDB {
         return this.set(key, currentArr);
     }
 
-    async pop(key: string): Promise<any> {
+    async pop<T>(key: string): Promise<any> {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
 
-        let currentArr = await this.getArray(key);
+        let currentArr = await this.getArray<T>(key);
         let value = currentArr.pop();
 
         this.set(key, currentArr);
@@ -161,11 +161,11 @@ export class QuickDB {
         return value;
     }
 
-    async shift(key: string): Promise<any> {
+    async shift<T>(key: string): Promise<any> {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
 
-        let currentArr = await this.getArray(key);
+        let currentArr = await this.getArray<T>(key);
         let value = currentArr.shift();
 
         this.set(key, currentArr);

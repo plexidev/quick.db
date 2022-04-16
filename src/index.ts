@@ -154,9 +154,11 @@ export class QuickDB {
             throw new Error("First argument (key) needs to be a string");
 
         let currentArr = await this.getArray<T>(key);
-        currentArr.pop();
+        let value = currentArr.pop();
 
-        return this.set(key, currentArr);
+        this.set(key, currentArr);
+        
+        return value;
     }
 
     async shift<T>(key: string): Promise<T[]> {
@@ -164,9 +166,11 @@ export class QuickDB {
             throw new Error("First argument (key) needs to be a string");
 
         let currentArr = await this.getArray<T>(key);
-        currentArr.shift();
+        let value = currentArr.shift();
 
-        return this.set(key, currentArr);
+        this.set(key, currentArr);
+        
+        return value;
     }
 
     async pull<T>(

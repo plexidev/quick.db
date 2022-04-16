@@ -166,7 +166,7 @@ export class QuickDB {
         return this.set(key, currentArr);
     }
 
-    async pop(key: string): Promise<T[]> {
+    async pop(key: string): Promise {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
 
@@ -178,7 +178,7 @@ export class QuickDB {
         return value;
     }
 
-    async shift(key: string): Promise<T[]> {
+    async shift(key: string): Promise {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
 

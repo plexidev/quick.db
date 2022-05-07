@@ -43,7 +43,7 @@ db.deleteAll();
 
 ```js
 // db contains key: "test" -> ["nice"]
-db.pull("test", "nice"); // will remvoe from array
+db.pull("test", "nice"); // will remove from array
 // multiple values can be removed by using an array
 db.pull("test", ["nice", "other"]);
 // if you are using objects inside the array you can pass your own function to filter them

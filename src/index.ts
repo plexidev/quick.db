@@ -137,6 +137,42 @@ export class QuickDB {
         return this.set(key, currentArr);
     }
 
+    async unshift<T>(key: string, value: any | any[]): Promise<T[]> {
+        if (typeof key != "string")
+            throw new Error("First argument (key) needs to be a string");
+        if (value == null) throw new Error("Missing second argument (value)");
+
+        let currentArr = await this.getArray<T>(key);
+        if (Array.isArray(value)) currentArr = value.concat(currentArr);
+        else currentArr.unshift(value);
+
+        return this.set(key, currentArr);
+    }
+
+    async pop<T>(key: string): Promise<any> {
+        if (typeof key != "string")
+            throw new Error("First argument (key) needs to be a string");
+
+        let currentArr = await this.getArray<T>(key);
+        let value = currentArr.pop();
+
+        this.set(key, currentArr);
+        
+        return value;
+    }
+
+    async shift<T>(key: string): Promise<any> {
+        if (typeof key != "string")
+            throw new Error("First argument (key) needs to be a string");
+
+        let currentArr = await this.getArray<T>(key);
+        let value = currentArr.shift();
+
+        this.set(key, currentArr);
+        
+        return value;
+    }
+
     async pull<T>(
         key: string,
         value: any | any[] | ((data: any) => boolean)

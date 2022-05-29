@@ -153,11 +153,11 @@ export class QuickDB {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
 
-        let currentArr = await this.getArray<T>(key);
-        let value = currentArr.pop();
+        const currentArr = await this.getArray<T>(key);
+        const value = currentArr.pop();
 
         this.set(key, currentArr);
-        
+
         return value;
     }
 
@@ -165,11 +165,11 @@ export class QuickDB {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
 
-        let currentArr = await this.getArray<T>(key);
-        let value = currentArr.shift();
+        const currentArr = await this.getArray<T>(key);
+        const value = currentArr.shift();
 
         this.set(key, currentArr);
-        
+
         return value;
     }
 

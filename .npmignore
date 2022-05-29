@@ -9,3 +9,9 @@ server.js
 .github/
 .package-lock.json
 .husky/
+src/
+tests/
+.eslintrc.js
+.gitignore
+.prettierrc
+babel.config.js

@@ -14,18 +14,18 @@ export interface IQuickDBOptions {
 
 export class QuickDB {
     options: IQuickDBOptions;
-    table: string;
+    tableName: string;
     driver: IDriver;
 
     constructor(options: IQuickDBOptions = {}) {
         options.filePath ??= "json.sqlite";
         options.driver ??= new SqliteDriver(options.filePath);
-        options.table ??= "DB";
+        options.table ??= "json";
         this.options = options;
-        this.table = options.table;
+        this.tableName = options.table;
         this.driver = options.driver;
 
-        this.driver.prepare(this.table);
+        this.driver.prepare(this.tableName);
     }
 
     private async addSubtract(
@@ -62,7 +62,7 @@ export class QuickDB {
     }
 
     async all(): Promise<{ id: string; value: any }[]> {
-        return this.driver.getAllRows(this.table);
+        return this.driver.getAllRows(this.tableName);
     }
 
     async get<T>(key: string): Promise<T | null> {
@@ -72,13 +72,13 @@ export class QuickDB {
         if (key.includes(".")) {
             const keySplit = key.split(".");
             const result = await this.driver.getRowByKey(
-                this.table,
+                this.tableName,
                 keySplit[0]
             );
             return get(result, keySplit.slice(1).join("."));
         }
 
-        return this.driver.getRowByKey(this.table, key);
+        return this.driver.getRowByKey(this.tableName, key);
     }
 
     async set<T>(key: string, value: any): Promise<T> {
@@ -91,7 +91,7 @@ export class QuickDB {
             const obj = await this.get<any>(keySplit[0]);
             const valueSet = set(obj ?? {}, keySplit.slice(1).join("."), value);
             return this.driver.setRowByKey(
-                this.table,
+                this.tableName,
                 keySplit[0],
                 valueSet,
                 obj != null
@@ -99,7 +99,7 @@ export class QuickDB {
         }
 
         const update = await this.has(key);
-        return this.driver.setRowByKey(this.table, key, value, update);
+        return this.driver.setRowByKey(this.tableName, key, value, update);
     }
 
     async has(key: string): Promise<boolean> {
@@ -110,11 +110,11 @@ export class QuickDB {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
 
-        return this.driver.deleteRowByKey(this.table, key);
+        return this.driver.deleteRowByKey(this.tableName, key);
     }
 
     async deleteAll(): Promise<number> {
-        return this.driver.deleteAllRows(this.table);
+        return this.driver.deleteAllRows(this.tableName);
     }
 
     async add(key: string, value: number): Promise<number> {
@@ -156,7 +156,7 @@ export class QuickDB {
         return this.set(key, currentArr);
     }
 
-    useTable(table: string): QuickDB {
+    table(table: string): QuickDB {
         if (typeof table != "string")
             throw new Error("First argument (table) needs to be a string");
 

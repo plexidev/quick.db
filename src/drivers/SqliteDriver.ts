@@ -12,7 +12,7 @@ export class SqliteDriver implements IDriver {
 
     async prepare(table: string): Promise<void> {
         this.database
-            .prepare(`CREATE TABLE IF NOT EXISTS ${table} (ID TEXT, Json TEXT)`)
+            .prepare(`CREATE TABLE IF NOT EXISTS ${table} (ID TEXT, json TEXT)`)
             .run();
     }
 
@@ -22,7 +22,7 @@ export class SqliteDriver implements IDriver {
         for (const row of prep.iterate()) {
             data.push({
                 id: row.ID,
-                value: JSON.parse(row.Json),
+                value: JSON.parse(row.json),
             });
         }
 
@@ -31,12 +31,12 @@ export class SqliteDriver implements IDriver {
 
     async getRowByKey<T>(table: string, key: string): Promise<T | null> {
         const value = await this.database
-            .prepare(`SELECT Json FROM ${table} WHERE ID = @key`)
+            .prepare(`SELECT json FROM ${table} WHERE ID = @key`)
             .get({
                 key,
             });
 
-        return value != null ? JSON.parse(value.Json) : null;
+        return value != null ? JSON.parse(value.json) : null;
     }
 
     async setRowByKey<T>(
@@ -48,11 +48,11 @@ export class SqliteDriver implements IDriver {
         const stringifiedJson = JSON.stringify(value);
         if (update) {
             this.database
-                .prepare(`UPDATE ${table} SET Json = (?) WHERE ID = (?)`)
+                .prepare(`UPDATE ${table} SET json = (?) WHERE ID = (?)`)
                 .run(stringifiedJson, key);
         } else {
             this.database
-                .prepare(`INSERT INTO ${table} (ID,Json) VALUES (?,?)`)
+                .prepare(`INSERT INTO ${table} (ID,json) VALUES (?,?)`)
                 .run(key, stringifiedJson);
         }
 

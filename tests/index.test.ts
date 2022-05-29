@@ -76,13 +76,13 @@ describe("QuickDB", () => {
                 const result = await db.set(data.id, data.value);
                 expect(result).toEqual(data.value);
                 expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
-                    "DB",
+                    "json",
                     data.id,
                     data.value,
                     false
                 );
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
-                    "DB",
+                    "json",
                     data.id
                 );
                 expect(driverMock.data).toHaveProperty(data.id);
@@ -133,7 +133,7 @@ describe("QuickDB", () => {
         test("get_dot_property_good", async () => {
             driverMock.data = { test: { sword: "hi" } };
             await expect(db.get("test.sword")).resolves.toEqual("hi");
-            expect(driverMock.getRowByKey).toHaveBeenCalledWith("DB", "test");
+            expect(driverMock.getRowByKey).toHaveBeenCalledWith("json", "test");
             expect(driverMock.getRowByKey).toHaveBeenCalledTimes(1);
         });
 
@@ -180,13 +180,13 @@ describe("QuickDB", () => {
                     expect.arrayContaining([data.value])
                 );
                 expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
-                    "DB",
+                    "json",
                     data.id,
                     [data.value],
                     false
                 );
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
-                    "DB",
+                    "json",
                     data.id
                 );
                 expect(driverMock.data).toHaveProperty(data.id);
@@ -209,7 +209,7 @@ describe("QuickDB", () => {
                 const result = await db.get(data.id);
                 expect(result).toEqual(data.value);
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
-                    "DB",
+                    "json",
                     data.id
                 );
             }
@@ -224,7 +224,7 @@ describe("QuickDB", () => {
                 const result = await db.has(data.id);
                 expect(result).toEqual(true);
                 expect(driverMock.getRowByKey).toHaveBeenCalledWith(
-                    "DB",
+                    "json",
                     data.id
                 );
             }
@@ -245,7 +245,7 @@ describe("QuickDB", () => {
             const result = await db.delete(testData[0].id);
             expect(result).toEqual(1);
             expect(driverMock.deleteRowByKey).toHaveBeenLastCalledWith(
-                "DB",
+                "json",
                 testData[0].id
             );
             expect(db.has(testData[0].id)).resolves.toEqual(false);
@@ -272,13 +272,13 @@ describe("QuickDB", () => {
                     data.value + toAdd
                 );
                 expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
-                    "DB",
+                    "json",
                     data.id,
                     data.value + toAdd,
                     true
                 );
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
-                    "DB",
+                    "json",
                     data.id
                 );
             }
@@ -291,13 +291,13 @@ describe("QuickDB", () => {
                     data.value - toAdd
                 );
                 expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
-                    "DB",
+                    "json",
                     data.id,
                     data.value - toAdd,
                     true
                 );
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
-                    "DB",
+                    "json",
                     data.id
                 );
             }
@@ -317,13 +317,13 @@ describe("QuickDB", () => {
                     expect.arrayContaining([toPush])
                 );
                 expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
-                    "DB",
+                    "json",
                     data.id,
                     expect.arrayContaining([toPush]),
                     true
                 );
                 expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
-                    "DB",
+                    "json",
                     data.id
                 );
                 expect(driverMock.data).toHaveProperty(data.id);
@@ -339,13 +339,13 @@ describe("QuickDB", () => {
                     expect.arrayContaining(data.value.slice(1))
                 );
                 expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
-                    "DB",
+                    "json",
                     data.id,
                     data.value.slice(1),
                     true
                 );
                 expect(driverMock.getRowByKey).toHaveBeenCalledWith(
-                    "DB",
+                    "json",
                     data.id
                 );
             }

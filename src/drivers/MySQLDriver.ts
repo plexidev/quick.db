@@ -24,7 +24,7 @@ export class MySQLDriver implements IDriver {
     async prepare(table: string): Promise<void> {
         this.checkConnection();
         await this.conn?.query(
-            `CREATE TABLE IF NOT EXISTS ${table} (ID TEXT, Json TEXT)`
+            `CREATE TABLE IF NOT EXISTS ${table} (ID TEXT, json TEXT)`
         );
     }
 
@@ -33,18 +33,18 @@ export class MySQLDriver implements IDriver {
         const results = await this.conn?.query(`SELECT * FROM ${table}`);
         return results.map((row: any) => ({
             id: row.ID,
-            value: JSON.parse(row.Json),
+            value: JSON.parse(row.json),
         }));
     }
 
     async getRowByKey<T>(table: string, key: string): Promise<T | null> {
         this.checkConnection();
         const results = await this.conn?.query(
-            `SELECT Json FROM ${table} WHERE ID = ?`,
+            `SELECT json FROM ${table} WHERE ID = ?`,
             [key]
         );
         if (results.length == 0) return null;
-        return JSON.parse(results[0].Json);
+        return JSON.parse(results[0].json);
     }
 
     async setRowByKey<T>(
@@ -56,12 +56,12 @@ export class MySQLDriver implements IDriver {
         const stringifiedJson = JSON.stringify(value);
         if (update) {
             await this.conn?.query(
-                `UPDATE ${table} SET Json = (?) WHERE ID = (?)`,
+                `UPDATE ${table} SET json = (?) WHERE ID = (?)`,
                 [stringifiedJson, key]
             );
         } else {
             await this.conn?.query(
-                `INSERT INTO ${table} (ID,Json) VALUES (?,?)`,
+                `INSERT INTO ${table} (ID,json) VALUES (?,?)`,
                 [key, stringifiedJson]
             );
         }

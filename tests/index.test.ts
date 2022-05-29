@@ -65,7 +65,7 @@ describe("QuickDB", () => {
             }
         }
 
-        driverMock.data = [];
+        driverMock.data = {};
     });
 
     describe("Test with no data", () => {
@@ -138,6 +138,18 @@ describe("QuickDB", () => {
             await expect(db.get("test.sword")).resolves.toEqual("hi");
             expect(driverMock.getRowByKey).toHaveBeenCalledWith("json", "test");
             expect(driverMock.getRowByKey).toHaveBeenCalledTimes(1);
+        });
+
+        test("set_get_normal_keys", async () => {
+            db.useNormalKeys(true);
+            await expect(db.set("test.sword", "hi")).resolves.toEqual("hi");
+            expect(driverMock.setRowByKey).toHaveBeenCalledTimes(1);
+            expect(driverMock.getRowByKey).toHaveBeenCalledTimes(1);
+            console.log(driverMock.data);
+            expect(driverMock.data).toHaveProperty(["test.sword"]);
+            expect(driverMock.data["test.sword"]).toEqual("hi");
+
+            db.useNormalKeys(false);
         });
 
         test("delete_bad_key", async () => {

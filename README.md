@@ -19,7 +19,7 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 - [Example](#example)
 
 ## Beginner's Guide
-- todo
+A guide for getting started with quick.db, as well as some interactive demos can be found [here](https://quick-db-guide.vercel.app).
 
 ## Changes in 9.0.0
 

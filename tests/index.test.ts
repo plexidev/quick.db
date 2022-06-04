@@ -1,34 +1,26 @@
-import { QuickDB, IDriver } from "../src";
-import { faker } from "@faker-js/faker";
+// Just need to import
+// QuickDB will create the SqliteDriver itself
+// Which is auto mocked
+import { driverMock, database } from "./stubs/DriverStub";
+import { QuickDB } from "../src";
 
-const driverMock = {
-    data: {},
-    prepare: jest.fn(async (table: string) => null as unknown as void),
-    getAllRows: jest.fn(async (table: string) => {
-        return Object.entries(driverMock.data).map((row) => {
-            return { id: row[0], value: row[1] };
+const db = new QuickDB({ driver: driverMock });
+
+describe("QuickDB", () => {
+    test("set_dot_insert-good", async () => {
+        await expect(db.set("test.sword", "hi")).resolves.toEqual({
+            sword: "hi",
         });
-    }),
-    getRowByKey: jest.fn(async (_table: string, key: string) => {
-        return [driverMock.data[key], driverMock.data[key] != null] as [
-            any,
-            boolean
-        ];
-    }),
-    setRowByKey: jest.fn(async (_table: string, key: string, value: any) => {
-        driverMock.data[key] = value;
-        return value;
-    }),
-    deleteAllRows: jest.fn(async (table: string) => {
-        const l = Object.keys(driverMock.data).length;
-        driverMock.data = {};
-        return l;
-    }),
-    deleteRowByKey: jest.fn(async (table: string, key: string) => {
-        delete driverMock.data[key];
-        return 1;
-    }),
-} as IDriver & { data: any };
+        expect(driverMock.setRowByKey).toHaveBeenCalledTimes(1);
+        expect(driverMock.getRowByKey).toHaveBeenCalledTimes(1);
+        expect(database.json).toHaveProperty("test");
+        expect(database.json.test).toHaveProperty("sword");
+        expect(database.json.test.sword).toEqual("hi");
+    });
+});
+
+/*import { QuickDB, IDriver } from "../src";
+import { faker } from "@faker-js/faker";
 
 const db = new QuickDB({
     driver: driverMock,
@@ -367,3 +359,4 @@ describe("QuickDB", () => {
         });
     });
 });
+*/

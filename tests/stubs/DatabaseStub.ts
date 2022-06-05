@@ -22,4 +22,10 @@ export class DatabaseStub {
     public static delete(table: string, key: string) {
         delete this.innerDb[table][key];
     }
+
+    public static injectEntries(table: string, entries: Entry<any>[]) {
+        entries.forEach((entry) => {
+            this.insert(table, entry.id, entry.value);
+        });
+    }
 }

@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
 export class EntryGenerator {
-    public static generateEntry<T>(
+    public static generateEntries<T>(
         genNumber = 10,
-        fakerF = faker.datatype.string
+        fakerF: () => unknown = faker.datatype.string
     ): Entry<T>[] {
         const genereted = [];
         for (let i = 0; i < genNumber; i++) {
@@ -12,6 +12,17 @@ export class EntryGenerator {
         }
 
         return genereted;
+    }
+
+    public static generateComplexEntry<T>(
+        genNumber = 10,
+        fakerF: () => unknown = faker.datatype.string
+    ): Entry<T>[] {
+        const generated = this.generateEntries<T>(genNumber, fakerF);
+        return generated.map((entry) => {
+            entry.id += "." + faker.datatype.uuid();
+            return entry;
+        });
     }
 }
 

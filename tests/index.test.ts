@@ -19,27 +19,7 @@ describe("QuickDB", () => {
     });
 });
 
-/*import { QuickDB, IDriver } from "../src";
-import { faker } from "@faker-js/faker";
-
-const db = new QuickDB({
-    driver: driverMock,
-});
-
-function generateTestData(fakerFunc: () => unknown) {
-    const length = Math.floor(Math.random() * 5) + 1;
-    const testData = [] as any;
-    for (let i = 0; i < length; i++) {
-        testData.push({
-            id: faker.datatype.uuid(),
-            value: fakerFunc(),
-        });
-    }
-
-    return testData;
-}
-
-function injectTestData(fakerFunc: () => unknown) {
+/*function injectTestData(fakerFunc: () => unknown) {
     const testData = generateTestData(fakerFunc);
     driverMock.data = {};
     for (const data of testData) {

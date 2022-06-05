@@ -1,8 +1,9 @@
 // Just need to import
 // QuickDB will create the SqliteDriver itself
 // Which is auto mocked
-import { driverMock, database } from "./stubs/DriverStub";
+import { driverMock } from "./stubs/DriverStub";
 import { QuickDB } from "../src";
+import { DatabaseStub } from "./stubs/DatabaseStub";
 
 const db = new QuickDB({ driver: driverMock });
 
@@ -13,9 +14,11 @@ describe("QuickDB", () => {
         });
         expect(driverMock.setRowByKey).toHaveBeenCalledTimes(1);
         expect(driverMock.getRowByKey).toHaveBeenCalledTimes(1);
-        expect(database.json).toHaveProperty("test");
-        expect(database.json.test).toHaveProperty("sword");
-        expect(database.json.test.sword).toEqual("hi");
+
+        const data = DatabaseStub.extractTable("json");
+        expect(data).toHaveProperty("test");
+        expect(data.test).toHaveProperty("sword");
+        expect(data.test.sword).toEqual("hi");
     });
 });
 

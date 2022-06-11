@@ -1,6 +1,6 @@
 import { IDriver } from "./drivers/IDriver";
 import { SqliteDriver } from "./drivers/SqliteDriver";
-import { set, get } from "lodash";
+import { set, get, unset } from "lodash";
 
 export { IDriver } from "./drivers/IDriver";
 export { SqliteDriver } from "./drivers/SqliteDriver";
@@ -88,7 +88,12 @@ export class QuickDB {
 
         if (key.includes(".")) {
             const keySplit = key.split(".");
-            const obj = await this.get<any>(keySplit[0]);
+            let obj = await this.get<any>(keySplit[0]);
+            // If it's not an instance of an object (rewrite it)
+            if (obj instanceof Object == false) {
+                obj = {};
+            }
+
             const valueSet = set(obj ?? {}, keySplit.slice(1).join("."), value);
             return this.driver.setRowByKey(
                 this.tableName,
@@ -109,6 +114,18 @@ export class QuickDB {
     async delete(key: string): Promise<number> {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
+
+        if (key.includes(".")) {
+            const keySplit = key.split(".");
+            const obj = await this.get<any>(keySplit[0]);
+            unset(obj ?? {}, keySplit.slice(1).join("."));
+            return this.driver.setRowByKey(
+                this.tableName,
+                keySplit[0],
+                obj,
+                obj != null
+            );
+        }
 
         return this.driver.deleteRowByKey(this.tableName, key);
     }

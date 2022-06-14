@@ -60,6 +60,18 @@ const db = new QuickDB(); // will make a json.sqlite in the root folder
     // -> { difficulty: 'Easy' }
 
     // Getting an object property from the database:
+    await db.set("userInfo.difficulty");
+    // -> 'Easy'
+
+    // Setting an object in the database:
+    await db.set("userInfo", { difficulty: "Easy" });
+    // -> { difficulty: 'Easy' }
+
+    // Getting an object from the database:
+    await db.get("userInfo");
+    // -> { difficulty: 'Easy' }
+
+    // Getting an object property from the database:
     await db.get("userInfo.difficulty");
     // -> 'Easy'
 

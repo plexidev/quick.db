@@ -27,7 +27,7 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
     
 </details>
 
-```bash
+```python
 npm i quick.db better-sqlite3 # (Default) Local SQLite3 File
 npm i quick.db promise-mysql # (Alternative) MySQL Server Connection
 ```

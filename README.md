@@ -28,8 +28,8 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 </details>
 
 ```python
-npm i quick.db better-sqlite3 # (Default) Local SQLite3 File
-npm i quick.db promise-mysql # (Alternative) MySQL Server Connection
+npm i quick.db better-sqlite3   # (Default) Local SQLite3 File
+npm i quick.db promise-mysql    # (Alternative) MySQL Server Connection
 ```
 
 > If you're having troubles installing, please follow [this troubleshooting guide](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).
@@ -41,10 +41,22 @@ npm i quick.db promise-mysql # (Alternative) MySQL Server Connection
 const { QuickDB } = require("quick.db");
 const db = new QuickDB(); // will make a json.sqlite in the root folder
 // if you want to specify a path you can do so like this
-// const db = QuickDB({ filePath: "source/to/path/test.sqlite" });
+// const db = new QuickDB({ filePath: "source/to/path/test.sqlite" });
 
 (async () => {
     // self calling async function just to get async
+    // Setting an object in the database:
+    await db.set("userInfo", { difficulty: "Easy" });
+    // -> { difficulty: 'Easy' }
+    
+    // Getting an object from the database:
+    await db.get("userInfo");
+    // -> { difficulty: 'Easy' }
+    
+    // Getting an object property from the database:
+    await db.set("userInfo.difficulty");
+    // -> 'Easy'
+    
     // Setting an object in the database:
     await db.set("userInfo", { difficulty: "Easy" });
     // -> { difficulty: 'Easy' }
@@ -93,26 +105,18 @@ const { QuickDB, MySQLDriver } = require("quick.db");
 })();
 ```
 
-## Changes in 9.x.x
+## Changes in 9.0.x
 
 -   Added drivers and file path option
     Now when using Quick.db you can choose the driver you want (SqliteDriver or MySQLDriver included for now)
-
 -   Changed the api to use async/await
     why? because now with different drivers some of them need async so may as well put everything async
-
 -   Changed quickdb to be a class so the initialization part is a bit different
-
 -   Changed function subtract to sub. To match the length of add
-
--   Added deleteAll function to whipe the entire database
-
-```js
-db.deleteAll();
-```
-
+-   Added deleteAll function to whipe the entire database `db.deleteAll();`
+-   Changed how add and sub works
+    Now they will both try to parse the current value if it is not a number so setting "100" as a string for example will still work
 -   Added pull function to remove from an array
-
 ```js
 // db contains key: "test" -> ["nice"]
 db.pull("test", "nice"); // will remove from array
@@ -122,6 +126,3 @@ db.pull("test", ["nice", "other"]);
 // db contains key: "test" -> [{id: "nice"}]
 db.pull("test", (e) => e.id == "nice");
 ```
-
--   Changed how add and sub works
-    Now they will both try to parse the current value if it is not a number so setting "100" as a string for example will still work

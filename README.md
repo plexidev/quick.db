@@ -114,7 +114,7 @@ const { QuickDB, MySQLDriver } = require("quick.db");
 * Changed all methods to use async/await
     * This is because some drivers, such as MySQL, need to use await. Using async/await globally adds code consistency  throughout drivers.
 * Changed QuickDB into a class
-    * This changes how a database is initialized, read the [migration guide](https://quickdb.js.org/overview/migration-guide) for more information.
+    * This changes how the database is initialized, read the [migration guide](https://quickdb.js.org/overview/migration-guide) for more information.
 * Renamed the **.subtract()** method to **.sub()** to match the length of **.add()**
 * General bug fixes
     * A notable one includes storing numbers as strings in the database now working as intended.

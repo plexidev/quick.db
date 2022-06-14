@@ -107,22 +107,28 @@ const { QuickDB, MySQLDriver } = require("quick.db");
 
 ## Changes in 9.0.x
 
--   Added drivers and file path option
-    Now when using Quick.db you can choose the driver you want (SqliteDriver or MySQLDriver included for now)
--   Changed the api to use async/await
-    why? because now with different drivers some of them need async so may as well put everything async
--   Changed quickdb to be a class so the initialization part is a bit different
--   Changed function subtract to sub. To match the length of add
--   Added deleteAll function to whipe the entire database `db.deleteAll();`
--   Changed how add and sub works
-    Now they will both try to parse the current value if it is not a number so setting "100" as a string for example will still work
--   Added pull function to remove from an array
+* Added two new database options: **driver** and **filePath**
+    * By default, the Sqlite driver is used. Although, you can use the MySQL driver by looking at the example above. More drivers are planned for the future, feel free to submit a pull request as well.
+* Added **.deleteAll()** method
+* Added **.pull()** method (see below)
+* Changed all methods to use async/await
+    * This is because some drivers, such as MySQL, need to use await. Using async/await globally adds code consistensy throughout drivers.
+* Changed QuickDB into a class
+    * This changes how a database is initialized, read the [migration guide](https://quickdb.js.org/overview/migration-guide) for more information.
+* Renamed the **.subtract()** method to **.sub()** to match the length of **.add()**
+* General bug fixes
+    * A noteable one includes storing numbers as strings in the database now working as intended.
+
+**.pull()**
 ```js
-// db contains key: "test" -> ["nice"]
-db.pull("test", "nice"); // will remove from array
-// multiple values can be removed by using an array
-db.pull("test", ["nice", "other"]);
-// if you are using objects inside the array you can pass your own function to filter them
-// db contains key: "test" -> [{id: "nice"}]
-db.pull("test", (e) => e.id == "nice");
+await db.set('myArray', ['axe', 'sword', 'shield', 'health_potion', 'mana_potion'])
+
+await db.pull('myArray', 'axe') // Removing a single item
+// -> ['sword', 'shield', 'health_potion', 'mana_potion']
+
+await db.pull('myArray', ['sword', 'shield']) // Removing multiple options
+// -> ['health_potion', 'mana_potion']
+
+await db.pull('myArray', (i) => i.includes('potion')) // Using a function
+// -> []
 ```

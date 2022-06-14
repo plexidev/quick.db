@@ -1,6 +1,6 @@
 ## ![Quick.db Logo](https://www.plexidev.org/quickdb.png)
-> Need a powerful, low-cost VPS for hosting your applications & bots 24/7? Check out our partner, [Contabo](https://www.tkqlhce.com/click-8950879-15301134)! 🎉
 
+> Need a powerful, low-cost VPS for hosting your applications & bots 24/7? Check out our partner, [Contabo](https://www.tkqlhce.com/click-8950879-15301134)! 🎉
 
 **Documentation:** [quickdb.js.org](https://quickdb.js.org) [[Migration Guide](https://quickdb.js.org/overview/migration-guide)] <br>
 **Support:** [discord.gg/plexidev](https://discord.gg/plexidev) <br>
@@ -46,6 +46,18 @@ const db = new QuickDB(); // will make a json.sqlite in the root folder
 
 (async () => {
     // self calling async function just to get async
+    // Setting an object in the database:
+    await db.set("userInfo", { difficulty: "Easy" });
+    // -> { difficulty: 'Easy' }
+
+    // Getting an object from the database:
+    await db.get("userInfo");
+    // -> { difficulty: 'Easy' }
+
+    // Getting an object property from the database:
+    await db.set("userInfo.difficulty");
+    // -> 'Easy'
+
     // Setting an object in the database:
     await db.set("userInfo", { difficulty: "Easy" });
     // -> { difficulty: 'Easy' }

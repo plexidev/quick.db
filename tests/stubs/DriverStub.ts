@@ -1,17 +1,15 @@
 import { IDriver } from "../../src/drivers/IDriver";
 import { DatabaseStub } from "./DatabaseStub";
 
-export const driverMock = {
-    prepare: jest.fn(
-        async (table: string) => (DatabaseStub.insertTable(table), null)
-    ),
+export const driverMock: IDriver = {
+    prepare: jest.fn(async (table: string) => DatabaseStub.insertTable(table)),
     getAllRows: jest.fn(async (table: string) => {
         return Object.entries(DatabaseStub.extractTable(table)).map((row) => {
             return { id: row[0], value: row[1] };
         });
     }),
     getRowByKey: jest.fn(async (table: string, key: string) => {
-        return DatabaseStub.extract(table, key);
+        return DatabaseStub.extract(table, key) as any;
     }),
     setRowByKey: jest.fn(async (table: string, key: string, value: any) => {
         DatabaseStub.insert(table, key, value);
@@ -26,4 +24,4 @@ export const driverMock = {
         DatabaseStub.delete(table, key);
         return 1;
     }),
-} as IDriver;
+};

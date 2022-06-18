@@ -1,7 +1,7 @@
 import { Entry } from "../generators/EntryGenerator";
 
 export class DatabaseStub {
-    private static innerDb: any = { json: {} };
+    private static innerDb: { [key: string]: { [key: string]: any } } = {};
 
     public static insert(table: string, key: string, value: any) {
         this.innerDb[table][key] = value;

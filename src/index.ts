@@ -1,10 +1,10 @@
+import { set, get, unset } from "lodash";
 import { IDriver } from "./drivers/IDriver";
 import { SqliteDriver } from "./drivers/SqliteDriver";
-import { set, get, unset } from "lodash";
 
 export { IDriver } from "./drivers/IDriver";
-export { SqliteDriver } from "./drivers/SqliteDriver";
 export { MySQLDriver } from "./drivers/MySQLDriver";
+export { SqliteDriver } from "./drivers/SqliteDriver";
 
 export interface IQuickDBOptions {
     filePath?: string;
@@ -30,6 +30,10 @@ export class QuickDB {
         this.driver = options.driver;
         this.normalKeys = options.normalKeys;
 
+        this.options = options;
+        this.driver = options.driver;
+        this.tableName = options.table;
+
         this.driver.prepare(this.tableName);
     }
 
@@ -40,9 +44,11 @@ export class QuickDB {
     ): Promise<number> {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
+
         if (value == null) throw new Error("Missing second argument (value)");
 
         let currentNumber = await this.get<number>(key);
+
         if (currentNumber == null) currentNumber = 0;
         if (typeof currentNumber != "number") {
             try {
@@ -60,6 +66,7 @@ export class QuickDB {
 
     private async getArray<T>(key: string): Promise<T[]> {
         const currentArr = (await this.get<T[]>(key)) ?? [];
+
         if (!Array.isArray(currentArr))
             throw new Error(`Current value with key: (${key}) is not an array`);
 
@@ -153,6 +160,7 @@ export class QuickDB {
         if (value == null) throw new Error("Missing second argument (value)");
 
         let currentArr = await this.getArray<T>(key);
+
         if (Array.isArray(value)) currentArr = currentArr.concat(value);
         else currentArr.push(value);
 
@@ -204,6 +212,7 @@ export class QuickDB {
         if (value == null) throw new Error("Missing second argument (value)");
 
         let currentArr = await this.getArray<T>(key);
+
         if (!Array.isArray(value) && typeof value != "function")
             value = [value];
 
@@ -239,8 +248,9 @@ export class QuickDB {
             throw new Error("First argument (table) needs to be a string");
 
         const options = { ...this.options };
-        options.driver = this.options.driver;
+
         options.table = table;
+        options.driver = this.options.driver;
         return new QuickDB(options);
     }
 

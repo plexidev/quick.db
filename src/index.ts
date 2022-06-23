@@ -30,6 +30,10 @@ export class QuickDB {
         this.tableName = options.table;
         this.normalKeys = options.normalKeys;
 
+        this.options = options;
+        this.driver = options.driver;
+        this.tableName = options.table;
+
         this.driver.prepare(this.tableName);
     }
 

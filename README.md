@@ -60,18 +60,6 @@ const db = new QuickDB(); // will make a json.sqlite in the root folder
     // -> { difficulty: 'Easy' }
 
     // Getting an object property from the database:
-    await db.set("userInfo.difficulty");
-    // -> 'Easy'
-
-    // Setting an object in the database:
-    await db.set("userInfo", { difficulty: "Easy" });
-    // -> { difficulty: 'Easy' }
-
-    // Getting an object from the database:
-    await db.get("userInfo");
-    // -> { difficulty: 'Easy' }
-
-    // Getting an object property from the database:
     await db.get("userInfo.difficulty");
     // -> 'Easy'
 
@@ -139,6 +127,15 @@ const { QuickDB, MySQLDriver } = require("quick.db");
 
 **.pull()**
 
+````js
+await db.set('myArray', [
+    'axe',
+    'sword',
+    'shield',
+    'health_potion',
+    'mana_potion'
+])
+
 ```js
 await db.set("myArray", [
     "axe",
@@ -156,4 +153,4 @@ await db.pull("myArray", ["sword", "shield"]); // Removing multiple options
 
 await db.pull("myArray", (i) => i.includes("potion")); // Using a function
 // -> []
-```
+````

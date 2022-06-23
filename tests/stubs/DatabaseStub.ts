@@ -12,7 +12,7 @@ export class DatabaseStub {
     }
 
     public static extract(table: string, key: string) {
-        this.innerDb[table][key];
+        return this.innerDb[table][key];
     }
 
     public static extractTable(table: string) {

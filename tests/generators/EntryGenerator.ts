@@ -35,4 +35,18 @@ export class EntryGenerator {
             return entry;
         });
     }
+
+    public static generateDeepComplexEntries<T>(
+        fakerF: () => unknown = faker.datatype.string,
+        genNumber = 10,
+        pass = 2
+    ): Entry<T>[] {
+        const generated = this.generateEntries<T>(fakerF, genNumber);
+        return generated.map((entry) => {
+            for (let i = 0; i < pass; i++) {
+                entry.id += "." + faker.datatype.uuid();
+            }
+            return entry;
+        });
+    }
 }

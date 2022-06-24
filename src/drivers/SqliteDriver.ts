@@ -1,33 +1,33 @@
-import { IDriver } from './IDriver'
-import type { Database } from 'better-sqlite3'
+import { IDriver } from "./IDriver";
+import type { Database } from "better-sqlite3";
 
 export class SqliteDriver implements IDriver {
-    database: Database
+    database: Database;
 
     constructor(path: string) {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const sqlite3 = require('better-sqlite3')
-        this.database = sqlite3(path)
+        const sqlite3 = require("better-sqlite3");
+        this.database = sqlite3(path);
     }
 
     async prepare(table: string): Promise<void> {
         this.database
             .prepare(`CREATE TABLE IF NOT EXISTS ${table} (ID TEXT, json TEXT)`)
-            .run()
+            .run();
     }
 
     async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
-        const prep = this.database.prepare(`SELECT * FROM ${table}`)
-        const data = []
+        const prep = this.database.prepare(`SELECT * FROM ${table}`);
+        const data = [];
 
         for (const row of prep.iterate()) {
             data.push({
                 id: row.ID,
                 value: JSON.parse(row.json),
-            })
+            });
         }
 
-        return data
+        return data;
     }
 
     async getRowByKey<T>(table: string, key: string): Promise<T | null> {
@@ -35,9 +35,9 @@ export class SqliteDriver implements IDriver {
             .prepare(`SELECT json FROM ${table} WHERE ID = @key`)
             .get({
                 key,
-            })
+            });
 
-        return value != null ? JSON.parse(value.json) : null
+        return value != null ? JSON.parse(value.json) : null;
     }
 
     async setRowByKey<T>(
@@ -46,27 +46,27 @@ export class SqliteDriver implements IDriver {
         value: any,
         update: boolean
     ): Promise<T> {
-        const stringifiedJson = JSON.stringify(value)
+        const stringifiedJson = JSON.stringify(value);
         if (update) {
             this.database
                 .prepare(`UPDATE ${table} SET json = (?) WHERE ID = (?)`)
-                .run(stringifiedJson, key)
+                .run(stringifiedJson, key);
         } else {
             this.database
                 .prepare(`INSERT INTO ${table} (ID,json) VALUES (?,?)`)
-                .run(key, stringifiedJson)
+                .run(key, stringifiedJson);
         }
 
-        return value
+        return value;
     }
 
     async deleteAllRows(table: string): Promise<number> {
-        return this.database.prepare(`DELETE FROM ${table}`).run().changes
+        return this.database.prepare(`DELETE FROM ${table}`).run().changes;
     }
 
     async deleteRowByKey(table: string, key: string): Promise<number> {
         return this.database.prepare(`DELETE FROM ${table} WHERE ID=@key`).run({
             key,
-        }).changes
+        }).changes;
     }
 }

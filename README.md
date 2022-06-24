@@ -122,15 +122,6 @@ const { QuickDB, MySQLDriver } = require("quick.db");
 
 **.pull()**
 
-````js
-await db.set('myArray', [
-    'axe',
-    'sword',
-    'shield',
-    'health_potion',
-    'mana_potion',
-])
-
 ```js
 await db.set("myArray", [
     "axe",
@@ -148,4 +139,4 @@ await db.pull("myArray", ["sword", "shield"]); // Removing multiple options
 
 await db.pull("myArray", (i) => i.includes("potion")); // Using a function
 // -> []
-````
+```

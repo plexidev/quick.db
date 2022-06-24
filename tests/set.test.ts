@@ -69,7 +69,7 @@ function testDeepComplexEntry(driverMock, result, entry, update = false) {
 
 const db = new QuickDB({ driver: driverMock });
 // TODO: make set tests for error (do custom errors before)
-describe("Empty Database", () => {
+describe("Set no overwrite", () => {
     afterEach(() => {
         jest.clearAllMocks();
         DatabaseStub.insertTable("json"); // Reset database
@@ -80,22 +80,6 @@ describe("Empty Database", () => {
         for (const entry of testEntries) {
             const setted = await db.set(entry.id, entry.value);
             testNormalEntry(driverMock, setted, entry);
-        }
-    });
-
-    test("set_complexEntryStrings_string", async () => {
-        const testEntries = EntryGenerator.generateComplexEntries<string>();
-        for (const entry of testEntries) {
-            const setted = await db.set(entry.id, entry.value);
-            testComplexEntry(driverMock, setted, entry);
-        }
-    });
-
-    test("set_deepComplexEntryStrings_string", async () => {
-        const testEntries = EntryGenerator.generateDeepComplexEntries<string>();
-        for (const entry of testEntries) {
-            const setted = await db.set(entry.id, entry.value);
-            testDeepComplexEntry(driverMock, setted, entry);
         }
     });
 
@@ -128,6 +112,22 @@ describe("Empty Database", () => {
         for (const entry of testEntries) {
             const setted = await db.set(entry.id, entry.value);
             testNormalEntry(driverMock, setted, entry);
+        }
+    });
+
+    test("set_complexEntryStrings_string", async () => {
+        const testEntries = EntryGenerator.generateComplexEntries<string>();
+        for (const entry of testEntries) {
+            const setted = await db.set(entry.id, entry.value);
+            testComplexEntry(driverMock, setted, entry);
+        }
+    });
+
+    test("set_deepComplexEntryStrings_string", async () => {
+        const testEntries = EntryGenerator.generateDeepComplexEntries<string>();
+        for (const entry of testEntries) {
+            const setted = await db.set(entry.id, entry.value);
+            testDeepComplexEntry(driverMock, setted, entry);
         }
     });
 });

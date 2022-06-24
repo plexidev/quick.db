@@ -128,7 +128,7 @@ await db.set('myArray', [
     'sword',
     'shield',
     'health_potion',
-    'mana_potion'
+    'mana_potion',
 ])
 
 ```js

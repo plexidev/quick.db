@@ -3,13 +3,13 @@ import type { ConnectionConfig, Connection } from "promise-mysql";
 
 export class MySQLDriver implements IDriver {
     mysql: any;
-    config: string | ConnectionConfig;
     conn?: Connection;
+    config: string | ConnectionConfig;
 
     constructor(config: string | ConnectionConfig) {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        this.mysql = require("promise-mysql");
         this.config = config;
+        this.mysql = require("promise-mysql");
     }
 
     private checkConnection() {
@@ -23,6 +23,7 @@ export class MySQLDriver implements IDriver {
 
     async prepare(table: string): Promise<void> {
         this.checkConnection();
+
         await this.conn?.query(
             `CREATE TABLE IF NOT EXISTS ${table} (ID TEXT, json TEXT)`
         );
@@ -30,6 +31,7 @@ export class MySQLDriver implements IDriver {
 
     async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
         this.checkConnection();
+
         const results = await this.conn?.query(`SELECT * FROM ${table}`);
         return results.map((row: any) => ({
             id: row.ID,
@@ -39,10 +41,12 @@ export class MySQLDriver implements IDriver {
 
     async getRowByKey<T>(table: string, key: string): Promise<T | null> {
         this.checkConnection();
+
         const results = await this.conn?.query(
             `SELECT json FROM ${table} WHERE ID = ?`,
             [key]
         );
+
         if (results.length == 0) return null;
         return JSON.parse(results[0].json);
     }
@@ -54,6 +58,7 @@ export class MySQLDriver implements IDriver {
         update: boolean
     ): Promise<T> {
         const stringifiedJson = JSON.stringify(value);
+
         if (update) {
             await this.conn?.query(
                 `UPDATE ${table} SET json = (?) WHERE ID = (?)`,
@@ -71,12 +76,14 @@ export class MySQLDriver implements IDriver {
 
     async deleteAllRows(table: string): Promise<number> {
         this.checkConnection();
+
         const result = await this.conn?.query(`DELETE FROM ${table}`);
         return result.affectedRows;
     }
 
     async deleteRowByKey(table: string, key: string): Promise<number> {
         this.checkConnection();
+
         const result = await this.conn?.query(
             `DELETE FROM ${table} WHERE ID=?`,
             [key]

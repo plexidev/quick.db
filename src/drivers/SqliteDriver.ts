@@ -19,6 +19,7 @@ export class SqliteDriver implements IDriver {
     async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
         const prep = this.database.prepare(`SELECT * FROM ${table}`);
         const data = [];
+
         for (const row of prep.iterate()) {
             data.push({
                 id: row.ID,

@@ -35,7 +35,7 @@ export class MySQLDriver implements IDriver {
         const results = await this.conn?.query(`SELECT * FROM ${table}`)
         return results.map((row: any) => ({
             id: row.ID,
-            value: JSON.parse(row.json)
+            value: JSON.parse(row.json),
         }))
     }
 
@@ -83,7 +83,7 @@ export class MySQLDriver implements IDriver {
 
     async deleteRowByKey(table: string, key: string): Promise<number> {
         this.checkConnection()
-        
+
         const result = await this.conn?.query(
             `DELETE FROM ${table} WHERE ID=?`,
             [key]

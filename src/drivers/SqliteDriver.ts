@@ -19,11 +19,11 @@ export class SqliteDriver implements IDriver {
     async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
         const prep = this.database.prepare(`SELECT * FROM ${table}`)
         const data = []
-        
+
         for (const row of prep.iterate()) {
             data.push({
                 id: row.ID,
-                value: JSON.parse(row.json)
+                value: JSON.parse(row.json),
             })
         }
 
@@ -34,7 +34,7 @@ export class SqliteDriver implements IDriver {
         const value = await this.database
             .prepare(`SELECT json FROM ${table} WHERE ID = @key`)
             .get({
-                key
+                key,
             })
 
         return value != null ? JSON.parse(value.json) : null
@@ -66,7 +66,7 @@ export class SqliteDriver implements IDriver {
 
     async deleteRowByKey(table: string, key: string): Promise<number> {
         return this.database.prepare(`DELETE FROM ${table} WHERE ID=@key`).run({
-            key
+            key,
         }).changes
     }
 }

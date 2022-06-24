@@ -93,7 +93,7 @@ const { QuickDB, MySQLDriver } = require('quick.db')
         host: 'localhost',
         user: 'me',
         password: 'secret',
-        database: 'my_db'
+        database: 'my_db',
     })
 
     await mysqlDriver.connect() // connect to the database **this is important**
@@ -128,7 +128,7 @@ await db.set('myArray', [
     'sword',
     'shield',
     'health_potion',
-    'mana_potion'
+    'mana_potion',
 ])
 
 await db.pull('myArray', 'axe') // Removing a single item

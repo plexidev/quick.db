@@ -24,11 +24,11 @@ const driverMock = {
     deleteRowByKey: jest.fn(async (table: string, key: string) => {
         delete driverMock.data[key]
         return 1
-    })
+    }),
 } as IDriver & { data: any }
 
 const db = new QuickDB({
-    driver: driverMock
+    driver: driverMock,
 })
 
 function generateTestData(fakerFunc: () => unknown) {
@@ -37,7 +37,7 @@ function generateTestData(fakerFunc: () => unknown) {
     for (let i = 0; i < length; i++) {
         testData.push({
             id: faker.datatype.uuid(),
-            value: fakerFunc()
+            value: fakerFunc(),
         })
     }
 
@@ -115,7 +115,7 @@ describe('QuickDB', () => {
 
         test('set_dot_insert-good', async () => {
             await expect(db.set('test.sword', 'hi')).resolves.toEqual({
-                sword: 'hi'
+                sword: 'hi',
             })
             expect(driverMock.setRowByKey).toHaveBeenCalledTimes(1)
             expect(driverMock.getRowByKey).toHaveBeenCalledTimes(1)

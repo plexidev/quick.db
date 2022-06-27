@@ -101,6 +101,7 @@ export class QuickDB {
         if (key.includes(".") && !this.normalKeys) {
             const keySplit = key.split(".");
             let obj = await this.get<any>(keySplit[0]);
+            const update = obj != null;
             // If it's not an instance of an object (rewrite it)
             if (obj instanceof Object == false) {
                 obj = {};
@@ -111,7 +112,7 @@ export class QuickDB {
                 this.tableName,
                 keySplit[0],
                 valueSet,
-                obj != null
+                update
             );
         }
 

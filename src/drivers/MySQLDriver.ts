@@ -1,12 +1,12 @@
 import { IDriver } from "./IDriver";
-import type { ConnectionConfig, Connection } from "promise-mysql";
+import type { mysqlModule, Pool, PoolConfig } from "promise-mysql";
 
 export class MySQLDriver implements IDriver {
-    mysql: any;
-    conn?: Connection;
-    config: string | ConnectionConfig;
+    mysql: mysqlModule;
+    conn?: Pool;
+    config: string | PoolConfig;
 
-    constructor(config: string | ConnectionConfig) {
+    constructor(config: string | PoolConfig) {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         this.config = config;
         this.mysql = require("promise-mysql");
@@ -18,7 +18,7 @@ export class MySQLDriver implements IDriver {
     }
 
     async connect(): Promise<void> {
-        this.conn = await this.mysql.createConnection(this.config);
+        this.conn = (await this.mysql.createPool(this.config)) as any;
     }
 
     async prepare(table: string): Promise<void> {

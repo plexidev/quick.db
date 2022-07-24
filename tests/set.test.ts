@@ -19,52 +19,44 @@ function testNormalEntry(driverMock, result, entry, update = false) {
 }
 
 function testComplexEntry(driverMock, result, entry, update = false) {
-    const split_id = entry.id.split(".");
+    const splitId = entry.id.split(".");
     const madeUpObject = {};
-    madeUpObject[split_id[1]] = entry.value;
+    madeUpObject[splitId[1]] = entry.value;
     expect(result).toEqual(madeUpObject);
     expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
         "json",
-        split_id[0],
+        splitId[0],
         madeUpObject,
         update
     );
-    expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
-        "json",
-        split_id[0]
-    );
+    expect(driverMock.getRowByKey).toHaveBeenLastCalledWith("json", splitId[0]);
     const data = DatabaseStub.extractTable("json");
 
-    expect(data).toHaveProperty(split_id[0]);
-    expect(data[split_id[0]]).toHaveProperty(split_id[1]);
-    expect(data[split_id[0]][split_id[1]]).toStrictEqual(entry.value);
+    expect(data).toHaveProperty(splitId[0]);
+    expect(data[splitId[0]]).toHaveProperty(splitId[1]);
+    expect(data[splitId[0]][splitId[1]]).toStrictEqual(entry.value);
 }
 
 // TODO: may rewrite this to make it looping
 function testDeepComplexEntry(driverMock, result, entry, update = false) {
-    const split_id = entry.id.split(".");
+    const splitId = entry.id.split(".");
     const madeUpObject = {};
-    madeUpObject[split_id[1]] = {};
-    madeUpObject[split_id[1]][split_id[2]] = entry.value;
+    madeUpObject[splitId[1]] = {};
+    madeUpObject[splitId[1]][splitId[2]] = entry.value;
     expect(result).toEqual(madeUpObject);
     expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
         "json",
-        split_id[0],
+        splitId[0],
         madeUpObject,
         update
     );
-    expect(driverMock.getRowByKey).toHaveBeenLastCalledWith(
-        "json",
-        split_id[0]
-    );
+    expect(driverMock.getRowByKey).toHaveBeenLastCalledWith("json", splitId[0]);
     const data = DatabaseStub.extractTable("json");
 
-    expect(data).toHaveProperty(split_id[0]);
-    expect(data[split_id[0]]).toHaveProperty(split_id[1]);
-    expect(data[split_id[0]][split_id[1]]).toHaveProperty(split_id[2]);
-    expect(data[split_id[0]][split_id[1]][split_id[2]]).toStrictEqual(
-        entry.value
-    );
+    expect(data).toHaveProperty(splitId[0]);
+    expect(data[splitId[0]]).toHaveProperty(splitId[1]);
+    expect(data[splitId[0]][splitId[1]]).toHaveProperty(splitId[2]);
+    expect(data[splitId[0]][splitId[1]][splitId[2]]).toStrictEqual(entry.value);
 }
 
 const db = new QuickDB({ driver: driverMock });

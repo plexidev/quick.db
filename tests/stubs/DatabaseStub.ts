@@ -1,3 +1,4 @@
+import { split } from "lodash";
 import { Entry } from "../generators/EntryGenerator";
 
 export class DatabaseStub {
@@ -5,6 +6,20 @@ export class DatabaseStub {
 
     public static insert(table: string, key: string, value: any) {
         this.innerDb[table][key] = value;
+    }
+
+    public static insertComplex(table: string, key: string, value: any) {
+        const splitId = key.split(".");
+        this.innerDb[table][splitId[0]] = {};
+        let lastInsert = this.innerDb[table][splitId[0]];
+        for (let i = 1; i < splitId.length; i++) {
+            if (i != splitId.length - 1) {
+                lastInsert[splitId[i]] = {};
+                lastInsert = lastInsert[splitId[i]];
+            } else {
+                lastInsert[splitId[i]] = value;
+            }
+        }
     }
 
     public static insertTable(table: string) {
@@ -23,9 +38,17 @@ export class DatabaseStub {
         delete this.innerDb[table][key];
     }
 
-    public static injectEntries(table: string, entries: Entry<any>[]) {
+    public static injectEntries(
+        table: string,
+        entries: Entry<any>[],
+        complex = false
+    ) {
         entries.forEach((entry) => {
-            this.insert(table, entry.id, entry.value);
+            if (complex) {
+                this.insertComplex(table, entry.id, entry.value);
+            } else {
+                this.insert(table, entry.id, entry.value);
+            }
         });
     }
 }

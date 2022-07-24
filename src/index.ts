@@ -227,11 +227,10 @@ export class QuickDB {
         return this.set(key, currentArr);
     }
 
-    async startsWith<T>(
+    async startsWith(
         query: string,
-        key: string = ''
+        key = ""
     ): Promise<{ id: string; value: any }[]> {
-
         if (typeof query != "string")
             throw new Error("First argument (query) needs to be a string");
         if (typeof key != "string")
@@ -240,7 +239,12 @@ export class QuickDB {
         // Get either the whole db or the rows from the provided key
         // -> Filter the result if the id starts with the provided query
         // -> Return the filtered result
-        return ((key === '' ? await this.all() : await this.get(key) ?? []) as { id: string; value: any }[]).filter((v) => v.id.startsWith(query));
+        return (
+            (key === "" ? await this.all() : (await this.get(key)) ?? []) as {
+                id: string;
+                value: any;
+            }[]
+        ).filter((v) => v.id.startsWith(query));
     }
 
     table(table: string): QuickDB {

@@ -1,3 +1,5 @@
+> Interested in a powerful, low-cost VPS for hosting your applications & bots 24/7? Check out our partner, [Contabo](https://www.tkqlhce.com/click-8950879-15301134)! 🎉
+
 ## Quick.db
 
 **Documentation:** [quickdb.js.org](https://quickdb.js.org) <br>
@@ -14,12 +16,8 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 
 ## Table of Contents
 
-- [Beginner's Guide](#beginners-guide)
 - [Install](#install)
 - [Example](#example)
-
-## Beginner's Guide
-- todo
 
 ## Changes in 9.0.0
 

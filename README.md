@@ -1,8 +1,9 @@
+> Need a powerful, low-cost VPS for hosting your applications & bots 24/7? Check out our partner, [Contabo](https://www.tkqlhce.com/click-8950879-15301134)! 🎉
+
 ## Quick.db
 
-> v9.0.x introduces a variety of breaking changes from v7.1.3, you can view a migration guide [here](https://quickdb.js.org/overview/migration-guide).
 
-**Documentation:** [quickdb.js.org](https://quickdb.js.org) <br>
+**Documentation:** [quickdb.js.org](https://quickdb.js.org) [[Migration Guide](https://quickdb.js.org/overview/migration-guide)] <br>
 **Support:** [discord.gg/plexidev](https://discord.gg/plexidev) <br>
 **NPM:** [npmjs.com/quick.db](https://www.npmjs.com/package/quick.db)
 

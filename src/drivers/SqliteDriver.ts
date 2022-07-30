@@ -30,14 +30,17 @@ export class SqliteDriver implements IDriver {
         return data;
     }
 
-    async getRowByKey<T>(table: string, key: string): Promise<T | null> {
+    async getRowByKey<T>(
+        table: string,
+        key: string
+    ): Promise<[T | null, boolean]> {
         const value = await this.database
             .prepare(`SELECT json FROM ${table} WHERE ID = @key`)
             .get({
                 key,
             });
 
-        return value != null ? JSON.parse(value.json) : null;
+        return value != null ? [JSON.parse(value.json), true] : [null, false];
     }
 
     async setRowByKey<T>(

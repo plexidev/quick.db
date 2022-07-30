@@ -3,16 +3,19 @@ import { faker } from "@faker-js/faker";
 
 const driverMock = {
     data: {},
-    prepare: jest.fn(async (table: string) => null),
+    prepare: jest.fn(async (table: string) => null as unknown as void),
     getAllRows: jest.fn(async (table: string) => {
         return Object.entries(driverMock.data).map((row) => {
             return { id: row[0], value: row[1] };
         });
     }),
-    getRowByKey: jest.fn(async (table: string, key: string) => {
-        return driverMock.data[key];
+    getRowByKey: jest.fn(async (_table: string, key: string) => {
+        return [driverMock.data[key], driverMock.data[key] != null] as [
+            any,
+            boolean
+        ];
     }),
-    setRowByKey: jest.fn(async (table: string, key: string, value: any) => {
+    setRowByKey: jest.fn(async (_table: string, key: string, value: any) => {
         driverMock.data[key] = value;
         return value;
     }),
@@ -33,7 +36,7 @@ const db = new QuickDB({
 
 function generateTestData(fakerFunc: () => unknown) {
     const length = Math.floor(Math.random() * 5) + 1;
-    const testData = [];
+    const testData = [] as any;
     for (let i = 0; i < length; i++) {
         testData.push({
             id: faker.datatype.uuid(),
@@ -150,12 +153,12 @@ describe("QuickDB", () => {
         });
 
         test("add_missing_second_argument", async () => {
-            expect(db.add("test", null)).rejects.toThrowError(
-                "Missing second argument (value)"
-            );
-            expect(db.add("test", undefined)).rejects.toThrowError(
-                "Missing second argument (value)"
-            );
+            expect(
+                db.add("test", null as unknown as number)
+            ).rejects.toThrowError("Missing second argument (value)");
+            expect(
+                db.add("test", undefined as unknown as number)
+            ).rejects.toThrowError("Missing second argument (value)");
         });
 
         test("sub_bad_key", async () => {
@@ -165,12 +168,12 @@ describe("QuickDB", () => {
         });
 
         test("sub_missing_second_argument", async () => {
-            expect(db.sub("test", null)).rejects.toThrowError(
-                "Missing second argument (value)"
-            );
-            expect(db.sub("test", undefined)).rejects.toThrowError(
-                "Missing second argument (value)"
-            );
+            expect(
+                db.sub("test", null as unknown as number)
+            ).rejects.toThrowError("Missing second argument (value)");
+            expect(
+                db.sub("test", undefined as unknown as number)
+            ).rejects.toThrowError("Missing second argument (value)");
         });
 
         test("push_not_exists", async () => {

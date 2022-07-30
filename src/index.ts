@@ -75,14 +75,15 @@ export class QuickDB {
 
         if (key.includes(".")) {
             const keySplit = key.split(".");
-            const result = await this.driver.getRowByKey(
+            const [result] = await this.driver.getRowByKey<T>(
                 this.tableName,
                 keySplit[0]
             );
             return get(result, keySplit.slice(1).join("."));
         }
 
-        return this.driver.getRowByKey(this.tableName, key);
+        const [result] = await this.driver.getRowByKey<T>(this.tableName, key);
+        return result;
     }
 
     async set<T>(key: string, value: any): Promise<T> {
@@ -92,24 +93,33 @@ export class QuickDB {
 
         if (key.includes(".")) {
             const keySplit = key.split(".");
-            let obj = await this.get<any>(keySplit[0]);
-            const update = obj != null;
+            const [result, exist] = await this.driver.getRowByKey(
+                this.tableName,
+                keySplit[0]
+            );
             // If it's not an instance of an object (rewrite it)
-            if (obj instanceof Object == false) {
+            let obj: object;
+            if (result instanceof Object == false) {
                 obj = {};
+            } else {
+                obj = result as object;
             }
 
-            const valueSet = set(obj ?? {}, keySplit.slice(1).join("."), value);
+            const valueSet = set<T>(
+                obj ?? {},
+                keySplit.slice(1).join("."),
+                value
+            );
             return this.driver.setRowByKey(
                 this.tableName,
                 keySplit[0],
                 valueSet,
-                update
+                exist
             );
         }
 
-        const update = await this.has(key);
-        return this.driver.setRowByKey(this.tableName, key, value, update);
+        const exist = (await this.driver.getRowByKey(this.tableName, key))[1];
+        return this.driver.setRowByKey(this.tableName, key, value, exist);
     }
 
     async has(key: string): Promise<boolean> {
@@ -124,12 +134,7 @@ export class QuickDB {
             const keySplit = key.split(".");
             const obj = await this.get<any>(keySplit[0]);
             unset(obj ?? {}, keySplit.slice(1).join("."));
-            return this.driver.setRowByKey(
-                this.tableName,
-                keySplit[0],
-                obj,
-                obj != null
-            );
+            return this.set(keySplit[0], obj);
         }
 
         return this.driver.deleteRowByKey(this.tableName, key);

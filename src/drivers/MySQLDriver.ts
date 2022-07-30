@@ -39,7 +39,10 @@ export class MySQLDriver implements IDriver {
         }));
     }
 
-    async getRowByKey<T>(table: string, key: string): Promise<T | null> {
+    async getRowByKey<T>(
+        table: string,
+        key: string
+    ): Promise<[T | null, boolean]> {
         this.checkConnection();
 
         const results = await this.conn?.query(
@@ -47,8 +50,8 @@ export class MySQLDriver implements IDriver {
             [key]
         );
 
-        if (results.length == 0) return null;
-        return JSON.parse(results[0].json);
+        if (results.length == 0) return [null, false];
+        return [JSON.parse(results[0].json), true];
     }
 
     async setRowByKey<T>(

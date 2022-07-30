@@ -8,6 +8,6 @@ export interface IDriver {
     prepare(table: string): Promise<void>;
     deleteAllRows(table: string): Promise<number>;
     deleteRowByKey(table: string, key: string): Promise<number>;
-    getRowByKey<T>(table: string, key: string): Promise<T | null>;
+    getRowByKey<T>(table: string, key: string): Promise<[T | null, boolean]>;
     getAllRows(table: string): Promise<{ id: string; value: any }[]>;
 }

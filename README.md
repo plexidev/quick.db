@@ -13,6 +13,11 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 -   **Works out of the box** - No need to set up a database server, all the data is stored locally in the same project
 -   **Beginner Friendly** - Originally created for use in tutorials, the documentation is straightforward and jargon-free
 -   & more...
+-   **Persistent Storage** - Data doesn't disappear through restarts
+-   **Multiple Drivers** - You can use either better-sqlite3 or promise-mysql
+-   **Works out of the box** - No need to set up a database server, all the data is stored locally in the same project
+-   **Beginner Friendly** - Originally created for use in tutorials, the documentation is straightforward and jargon-free
+-   & more...
 
 ## Installation
 

@@ -1,6 +1,6 @@
-> Need a powerful, low-cost VPS for hosting your applications & bots 24/7? Check out our partner, [Contabo](https://www.tkqlhce.com/click-8950879-15301134)! 🎉
+## ![Quick.db Logo](https://www.plexidev.org/quickdb.png)
 
-## Quick.db
+> Need a powerful, low-cost VPS for hosting your applications & bots 24/7? Check out our partner, [Contabo](https://www.tkqlhce.com/click-8950879-15301134)! 🎉
 
 **Documentation:** [quickdb.js.org](https://quickdb.js.org) [[Migration Guide](https://quickdb.js.org/overview/migration-guide)] <br>
 **Support:** [discord.gg/plexidev](https://discord.gg/plexidev) <br>

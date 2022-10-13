@@ -1,6 +1,6 @@
 import { MemoryDriver } from "./MemoryDriver";
 import { existsSync, readFileSync, writeFileSync } from "fs";
-import { writeFile } from "fs/promises";
+import { writeFile, readFile } from "fs/promises";
 
 type DataLike<T = any> = { id: string; value: T };
 
@@ -8,17 +8,17 @@ export class JSONDriver extends MemoryDriver {
     public constructor(public path = "./quickdb.json") {
         super();
         // synchronously load contents before initializing
-        this._read();
+        this.loadContentSync();
     }
 
-    private _read() {
+    public loadContentSync(): void {
         if (existsSync(this.path)) {
             const contents = readFileSync(this.path, { encoding: "utf-8" });
 
             try {
                 const data = JSON.parse(contents);
                 for (const table in data) {
-                    const store = this.$getOrCreateTable(table);
+                    const store = this.getOrCreateTable(table);
                     data[table].forEach((d: DataLike) =>
                         store.set(d.id, d.value)
                     );
@@ -31,17 +31,37 @@ export class JSONDriver extends MemoryDriver {
         }
     }
 
-    public async export() {
+    public async loadContent(): Promise<void> {
+        if (existsSync(this.path)) {
+            const contents = await readFile(this.path, { encoding: "utf-8" });
+
+            try {
+                const data = JSON.parse(contents);
+                for (const table in data) {
+                    const store = this.getOrCreateTable(table);
+                    data[table].forEach((d: DataLike) =>
+                        store.set(d.id, d.value)
+                    );
+                }
+            } catch {
+                throw new Error("Database malformed");
+            }
+        } else {
+            await writeFile(this.path, "{}");
+        }
+    }
+
+    public async export(): Promise<Record<string, DataLike[]>> {
         const val: Record<string, DataLike[]> = {};
 
-        for (const tableName of this.$store.keys()) {
+        for (const tableName of this.store.keys()) {
             val[tableName] = await this.getAllRows(tableName);
         }
 
         return val;
     }
 
-    public async snapshot() {
+    public async snapshot(): Promise<void> {
         const data = await this.export();
         await writeFile(this.path, JSON.stringify(data));
     }

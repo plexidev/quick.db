@@ -6,13 +6,15 @@
 **Support:** [discord.gg/plexidev](https://discord.gg/plexidev) <br>
 **NPM:** [npmjs.com/quick.db](https://www.npmjs.com/package/quick.db)
 
-Quick.db is an open-source package meant to provide an easy way for beginners and people of all levels to access & store data in a low to medium volume environment. All data is stored persistently via either [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3) or [promise-mysql](https://www.npmjs.com/package/promise-mysql) and comes way various other quality-of-life features.
+Quick.db is an open-source package meant to provide an easy way for beginners and people of all levels to access & store data in a low to medium volume environment. All data is stored persistently via either [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3), [promise-mysql](https://www.npmjs.com/package/promise-mysql), in-memory store or JSON and comes way various other quality-of-life features.
 
 -   **Persistent Storage** - Data doesn't disappear through restarts
--   **Multiple Drivers** - You can use either better-sqlite3 or promise-mysql
+-   **Multiple Drivers** - You can use either better-sqlite3, promise-mysql, in-memory database or JSON
 -   **Works out of the box** - No need to set up a database server, all the data is stored locally in the same project
 -   **Beginner Friendly** - Originally created for use in tutorials, the documentation is straightforward and jargon-free
 -   & more...
+
+> **Note:** In-memory database is not persistent and is suitable for temporary caching.
 
 ## Installation
 

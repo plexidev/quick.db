@@ -5,6 +5,8 @@ import { set, get, unset } from "lodash";
 export { IDriver } from "./drivers/IDriver";
 export { SqliteDriver } from "./drivers/SqliteDriver";
 export { MySQLDriver } from "./drivers/MySQLDriver";
+export { MemoryDriver } from "./drivers/MemoryDriver";
+export { JSONDriver } from "./drivers/JSONDriver";
 
 export interface IQuickDBOptions {
     filePath?: string;

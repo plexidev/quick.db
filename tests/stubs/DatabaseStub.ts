@@ -1,4 +1,3 @@
-import { split } from "lodash";
 import { Entry } from "../generators/EntryGenerator";
 
 export class DatabaseStub {

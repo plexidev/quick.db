@@ -57,7 +57,8 @@ export class QuickDB {
         }
 
         sub ? (currentNumber -= value) : (currentNumber += value);
-        return this.set<number>(key, currentNumber);
+        await this.set<any>(key, currentNumber);
+        return currentNumber;
     }
 
     private async getArray<T>(key: string): Promise<T[]> {

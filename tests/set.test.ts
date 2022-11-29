@@ -20,7 +20,9 @@ describe("set", () => {
         });
 
         it("should set string", async () => {
-            const entry = EntryGenerator.generateEntry<string>();
+            const entry = EntryGenerator.generateEntry<string>(
+                faker.datatype.string
+            );
             await db.set(entry.id, entry.value);
             const result = await db.get(entry.id);
             expect(result).toBe(entry.value);

@@ -55,6 +55,16 @@ export class QuickDB {
             }
         }
 
+        if (typeof value != "number") {
+            try {
+                value = parseFloat(value as string);
+            } catch (_) {
+                throw new Error(
+                    `Value to add/subtract with key: (${key}) is not a number and couldn't be parsed to a number`
+                );
+            }
+        }
+
         sub ? (currentNumber -= value) : (currentNumber += value);
         await this.set<any>(key, currentNumber);
         return currentNumber;

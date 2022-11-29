@@ -1,3 +1,4 @@
+import faker from "@faker-js/faker";
 import { QuickDB } from "../src";
 import { EntryGenerator } from "./generators/EntryGenerator";
 import { SqliteDriverMock } from "./mocks/SqliteDriver";
@@ -19,7 +20,9 @@ describe("delete", () => {
         });
 
         it("should delete entry", async () => {
-            const entry = EntryGenerator.generateEntry<string>();
+            const entry = EntryGenerator.generateEntry<string>(
+                faker.datatype.string
+            );
             await db.set(entry.id, entry.value);
             await db.delete(entry.id);
             const result = await db.get(entry.id);

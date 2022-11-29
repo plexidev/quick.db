@@ -11,14 +11,12 @@ export class Entry<T> {
 }
 
 export class EntryGenerator {
-    public static generateEntry<T>(
-        fakerF: () => unknown = faker.datatype.string
-    ): Entry<T> {
+    public static generateEntry<T>(fakerF: () => unknown): Entry<T> {
         return new Entry<T>(faker.datatype.uuid(), fakerF() as unknown as T);
     }
 
     public static generateEntries<T>(
-        fakerF: () => unknown = faker.datatype.string,
+        fakerF: () => unknown,
         genNumber = 10
     ): Entry<T>[] {
         const genereted: Entry<T>[] = [];
@@ -29,16 +27,14 @@ export class EntryGenerator {
         return genereted;
     }
 
-    public static generateComplexEntry<T>(
-        fakerF: () => unknown = faker.datatype.string
-    ): Entry<T> {
+    public static generateComplexEntry<T>(fakerF: () => unknown): Entry<T> {
         const generated = this.generateEntry<T>(fakerF);
         generated.id += "." + faker.datatype.uuid();
         return generated;
     }
 
     public static generateComplexEntries<T>(
-        fakerF: () => unknown = faker.datatype.string,
+        fakerF: () => unknown,
         genNumber = 10
     ): Entry<T>[] {
         const genereted: Entry<T>[] = [];
@@ -50,7 +46,7 @@ export class EntryGenerator {
     }
 
     public static generateDeepComplexEntries<T>(
-        fakerF: () => unknown = faker.datatype.string,
+        fakerF: () => unknown,
         genNumber = 10,
         pass = 2
     ): Entry<T>[] {

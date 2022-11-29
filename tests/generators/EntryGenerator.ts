@@ -11,29 +11,42 @@ export class Entry<T> {
 }
 
 export class EntryGenerator {
+    public static generateEntry<T>(
+        fakerF: () => unknown = faker.datatype.string
+    ): Entry<T> {
+        return new Entry<T>(faker.datatype.uuid(), fakerF() as unknown as T);
+    }
+
     public static generateEntries<T>(
         fakerF: () => unknown = faker.datatype.string,
         genNumber = 10
     ): Entry<T>[] {
         const genereted: Entry<T>[] = [];
         for (let i = 0; i < genNumber; i++) {
-            genereted.push(
-                new Entry<T>(faker.datatype.uuid(), fakerF() as unknown as T)
-            );
+            genereted.push(this.generateEntry<T>(fakerF));
         }
 
         return genereted;
+    }
+
+    public static generateComplexEntry<T>(
+        fakerF: () => unknown = faker.datatype.string
+    ): Entry<T> {
+        const generated = this.generateEntry<T>(fakerF);
+        generated.id += "." + faker.datatype.uuid();
+        return generated;
     }
 
     public static generateComplexEntries<T>(
         fakerF: () => unknown = faker.datatype.string,
         genNumber = 10
     ): Entry<T>[] {
-        const generated = this.generateEntries<T>(fakerF, genNumber);
-        return generated.map((entry) => {
-            entry.id += "." + faker.datatype.uuid();
-            return entry;
-        });
+        const genereted: Entry<T>[] = [];
+        for (let i = 0; i < genNumber; i++) {
+            genereted.push(this.generateComplexEntry<T>(fakerF));
+        }
+
+        return genereted;
     }
 
     public static generateDeepComplexEntries<T>(

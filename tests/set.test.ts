@@ -64,7 +64,7 @@ describe("set", () => {
     });
 
     describe("with initial data", () => {
-        beforeAll(async () => {
+        beforeEach(async () => {
             await db.set("string", "string");
             await db.set("number", 1);
             await db.set("boolean", true);

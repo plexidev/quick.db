@@ -166,15 +166,13 @@ export class QuickDB {
         return this.addSubtract(key, value, true);
     }
 
-    async push<T>(key: string, value: any | any[]): Promise<T[]> {
+    async push<T>(key: string, value: any): Promise<T[]> {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
         if (value == null) throw new Error("Missing second argument (value)");
 
-        let currentArr = await this.getArray<T>(key);
-
-        if (Array.isArray(value)) currentArr = currentArr.concat(value);
-        else currentArr.push(value);
+        const currentArr = await this.getArray<T>(key);
+        currentArr.push(value);
 
         return this.set(key, currentArr);
     }

@@ -47,12 +47,15 @@ describe("set", () => {
         });
 
         it("should set object of string", async () => {
-            const entry = EntryGenerator.generateEntry<string>(
+            const entry = EntryGenerator.generateComplexEntry<string>(
                 faker.datatype.string
             );
             await db.set(entry.id, entry.value);
-            const result = await db.get(entry.id);
+            const result = (await db.get(entry.id)) as any;
             expect(result).toEqual(entry.value);
+            expect(result[Object.keys(result)[0]]).toBe(
+                (entry.value as any)[Object.keys(result)[0]]
+            );
         });
 
         it("should set array of string", async () => {

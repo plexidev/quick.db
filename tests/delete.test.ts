@@ -1,6 +1,5 @@
 import { QuickDB } from "../src";
 import { EntryGenerator } from "./generators/EntryGenerator";
-import { faker } from "@faker-js/faker";
 import { SqliteDriverMock } from "./mocks/SqliteDriver";
 
 const db = new QuickDB({
@@ -24,12 +23,12 @@ describe("delete", () => {
             await db.set(entry.id, entry.value);
             await db.delete(entry.id);
             const result = await db.get(entry.id);
-            expect(result).toBeNull();
+            expect(result).toBeUndefined();
         });
     });
 
     describe("with initial data", () => {
-        beforeAll(async () => {
+        beforeEach(async () => {
             await db.set("test", "test");
             await db.set("object", { test: "test", other: "other" });
         });
@@ -39,16 +38,22 @@ describe("delete", () => {
             await db.deleteAll();
         });
 
-        it("should delete entry", async () => {
+        it("should delete string", async () => {
             await db.delete("test");
             const result = await db.get("test");
-            expect(result).toBeNull();
+            expect(result).toBeUndefined();
         });
 
-        // it("should delete object property", async () => {
-        //     await db.delete("object.test");
-        //     const result = await db.get("object");
-        //     expect(result).toEqual({ other: "other" });
-        // });
+        it("should delete object", async () => {
+            await db.delete("object");
+            const result = await db.get("object");
+            expect(result).toBeUndefined();
+        });
+
+        it("should delete object property", async () => {
+            await db.delete("object.test");
+            const result = await db.get("object");
+            expect(result).toEqual({ other: "other" });
+        });
     });
 });

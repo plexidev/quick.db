@@ -23,7 +23,8 @@ SqliteDriverMock.mockImplementation((table: string) => {
             );
         }),
         getRowByKey: jest.fn((table: string, key: string) => {
-            return Promise.resolve(database[table][key] ?? null);
+            const value = database[table][key];
+            return Promise.resolve([value, value != null]);
         }),
         setRowByKey: jest.fn((table: string, key: string, value: any) => {
             database[table][key] = value;

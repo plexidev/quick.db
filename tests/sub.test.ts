@@ -37,6 +37,15 @@ describe("sub", () => {
             const result = await db.get(entry.id);
             expect(result).toEqual(-Number(entry.value));
         });
+
+        it("should subtract from object property", async () => {
+            const entry = EntryGenerator.generateComplexEntry<number>(
+                faker.datatype.number
+            );
+            await db.sub(entry.id, entry.value);
+            const result = await db.get(entry.id);
+            expect(result).toEqual(-entry.value);
+        });
     });
 
     describe("with initial data", () => {

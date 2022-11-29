@@ -6,8 +6,6 @@ const SqliteDriverMock = SqliteDriver as jest.MockedClass<typeof SqliteDriver>;
 SqliteDriverMock.mock;
 SqliteDriverMock.mockImplementation((table: string) => {
     const database = {} as any;
-    database[table] = {};
-
     return {
         database,
         prepare: jest.fn((table: string) => {

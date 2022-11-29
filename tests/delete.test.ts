@@ -1,52 +1,54 @@
 import { QuickDB } from "../src";
-import { driverMock } from "./stubs/DriverStub";
-import { DatabaseStub } from "./stubs/DatabaseStub";
 import { EntryGenerator } from "./generators/EntryGenerator";
-import faker from "@faker-js/faker";
-// TODO: check for errors as well in all testes files
-function testNormalEntry(driverMock, entry) {
-    expect(driverMock.deleteRowByKey).toHaveBeenLastCalledWith(
-        "json",
-        entry.id
-    );
-    const data = DatabaseStub.extractTable("json");
-    expect(data[entry.id]).toEqual(undefined);
-}
+import { faker } from "@faker-js/faker";
+import { SqliteDriverMock } from "./mocks/SqliteDriver";
 
-function testComplexEntry(driverMock, entry) {
-    const splitId = entry.id.split(".");
-    expect(driverMock.setRowByKey).toHaveBeenLastCalledWith(
-        "json",
-        splitId[0],
-        {},
-        true
-    );
-    const data = DatabaseStub.extractTable("json");
-    expect(data[splitId[0]][splitId[1]]).toEqual(undefined);
-}
+const db = new QuickDB({
+    driver: new SqliteDriverMock("test.sqlite"),
+});
 
-const db = new QuickDB({ driver: driverMock });
-describe("Get", () => {
-    afterEach(() => {
-        jest.clearAllMocks();
-        DatabaseStub.insertTable("json");
+describe("delete", () => {
+    afterEach(async () => {
+        SqliteDriverMock.mockClear();
+        await db.deleteAll();
     });
 
-    test("delete_entryStrings_undefined", async () => {
-        const testEntries = EntryGenerator.generateEntries<string>();
-        DatabaseStub.injectEntries("json", testEntries); // inject data in db
-        for (const entry of testEntries) {
+    describe("no initial data", () => {
+        afterEach(async () => {
+            SqliteDriverMock.mockClear();
+            await db.deleteAll();
+        });
+
+        it("should delete entry", async () => {
+            const entry = EntryGenerator.generateEntry<string>();
+            await db.set(entry.id, entry.value);
             await db.delete(entry.id);
-            testNormalEntry(driverMock, entry);
-        }
+            const result = await db.get(entry.id);
+            expect(result).toBeNull();
+        });
     });
 
-    test("delete_complexEntryStrings_undefined", async () => {
-        const testEntries = EntryGenerator.generateComplexEntries<string>();
-        DatabaseStub.injectEntries("json", testEntries, true); // inject data in db
-        for (const entry of testEntries) {
-            await db.delete(entry.id);
-            testComplexEntry(driverMock, entry);
-        }
+    describe("with initial data", () => {
+        beforeAll(async () => {
+            await db.set("test", "test");
+            await db.set("object", { test: "test", other: "other" });
+        });
+
+        afterEach(async () => {
+            SqliteDriverMock.mockClear();
+            await db.deleteAll();
+        });
+
+        it("should delete entry", async () => {
+            await db.delete("test");
+            const result = await db.get("test");
+            expect(result).toBeNull();
+        });
+
+        // it("should delete object property", async () => {
+        //     await db.delete("object.test");
+        //     const result = await db.get("object");
+        //     expect(result).toEqual({ other: "other" });
+        // });
     });
 });

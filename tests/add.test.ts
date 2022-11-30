@@ -23,9 +23,10 @@ describe("add", () => {
             const entry = EntryGenerator.generateEntry<number>(
                 faker.datatype.number
             );
-            await db.add(entry.id, entry.value);
+            const returned = await db.add(entry.id, entry.value);
             const result = await db.get(entry.id);
             expect(result).toEqual(entry.value);
+            expect(returned).toEqual(entry.value);
         });
 
         it("should add entry convert string to number", async () => {
@@ -33,18 +34,20 @@ describe("add", () => {
                 faker.datatype.number
             );
             entry.value = entry.value.toString() as any;
-            await db.add(entry.id, entry.value);
+            const returned = await db.add(entry.id, entry.value);
             const result = await db.get(entry.id);
             expect(result).toEqual(Number(entry.value));
+            expect(returned).toEqual(Number(entry.value));
         });
 
         it("should add from object property", async () => {
             const entry = EntryGenerator.generateComplexEntry<number>(
                 faker.datatype.number
             );
-            await db.add(entry.id, entry.value);
+            const returned = await db.add(entry.id, entry.value);
             const result = await db.get(entry.id);
             expect(result).toEqual(entry.value);
+            expect(returned).toEqual(entry.value);
         });
     });
 
@@ -61,27 +64,31 @@ describe("add", () => {
         });
 
         it("should add entry", async () => {
-            await db.add("test", 5);
+            const returned = await db.add("test", 10);
             const result = await db.get("test");
-            expect(result).toEqual(10);
+            expect(result).toEqual(15);
+            expect(returned).toEqual(15);
         });
 
         it("should add entry convert string to number", async () => {
-            await db.add("test", "5" as any);
-            const result = await db.get("test");
-            expect(result).toEqual(10);
+            const returned = await db.add("string", 10);
+            const result = await db.get("string");
+            expect(result).toEqual(15);
+            expect(returned).toEqual(15);
         });
 
         it("should add entry convert string to number with db string", async () => {
-            await db.add("string", "5" as any);
+            const returned = await db.add("string", "10" as any);
             const result = await db.get("string");
-            expect(result).toEqual(10);
+            expect(result).toEqual(15);
+            expect(returned).toEqual(15);
         });
 
         it("should add object property", async () => {
-            await db.add("object.test", 5);
+            const returned = await db.add("object.test", 10);
             const result = await db.get("object");
-            expect(result).toEqual({ test: 15 });
+            expect(result).toEqual({ test: 20 });
+            expect(returned).toEqual(20);
         });
     });
 });

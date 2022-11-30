@@ -23,48 +23,56 @@ describe("set", () => {
             const entry = EntryGenerator.generateEntry<string>(
                 faker.datatype.string
             );
-            await db.set(entry.id, entry.value);
+            const returned = await db.set(entry.id, entry.value);
             const result = await db.get(entry.id);
             expect(result).toBe(entry.value);
+            expect(returned).toBe(entry.value);
         });
 
         it("should set number", async () => {
             const entry = EntryGenerator.generateEntry<number>(
                 faker.datatype.number
             );
-            await db.set(entry.id, entry.value);
+            const returned = await db.set(entry.id, entry.value);
             const result = await db.get(entry.id);
             expect(result).toBe(entry.value);
+            expect(returned).toBe(entry.value);
         });
 
         it("should set boolean", async () => {
             const entry = EntryGenerator.generateEntry<boolean>(
                 faker.datatype.boolean
             );
-            await db.set(entry.id, entry.value);
+            const returned = await db.set(entry.id, entry.value);
             const result = await db.get(entry.id);
             expect(result).toBe(entry.value);
+            expect(returned).toBe(entry.value);
         });
 
         it("should set object of string", async () => {
             const entry = EntryGenerator.generateComplexEntry<string>(
                 faker.datatype.string
             );
-            await db.set(entry.id, entry.value);
+            const returned = (await db.set(entry.id, entry.value)) as any;
             const result = (await db.get(entry.id)) as any;
             expect(result).toEqual(entry.value);
             expect(result[Object.keys(result)[0]]).toBe(
                 (entry.value as any)[Object.keys(result)[0]]
             );
+
+            const obj = {} as any;
+            obj[entry.id.split(".")[1]] = entry.value;
+            expect(returned).toEqual(obj);
         });
 
         it("should set array of string", async () => {
             const entry = EntryGenerator.generateEntry<string>(
                 faker.datatype.string
             );
-            await db.set(entry.id, [entry.value]);
+            const returned = await db.set(entry.id, [entry.value]);
             const result = await db.get(entry.id);
             expect(result).toEqual([entry.value]);
+            expect(returned).toEqual([entry.value]);
         });
     });
 
@@ -83,33 +91,38 @@ describe("set", () => {
         });
 
         it("should set string", async () => {
-            await db.set("string", "other string");
+            const returned = await db.set("string", "other string");
             const result = await db.get("string");
             expect(result).toBe("other string");
+            expect(returned).toBe("other string");
         });
 
         it("should set number", async () => {
-            await db.set("number", 2);
+            const returned = await db.set("number", 2);
             const result = await db.get("number");
             expect(result).toBe(2);
+            expect(returned).toBe(2);
         });
 
         it("should set boolean", async () => {
-            await db.set("boolean", false);
+            const returned = await db.set("boolean", false);
             const result = await db.get("boolean");
             expect(result).toBe(false);
+            expect(returned).toBe(false);
         });
 
         it("should set object of string", async () => {
-            await db.set("object", { key: "other value" });
+            const returned = await db.set("object", { key: "other value" });
             const result = await db.get("object");
             expect(result).toEqual({ key: "other value" });
+            expect(returned).toEqual({ key: "other value" });
         });
 
         it("should set array of string", async () => {
-            await db.set("array", ["other value"]);
+            const returned = await db.set("array", ["other value"]);
             const result = await db.get("array");
             expect(result).toEqual(["other value"]);
+            expect(returned).toEqual(["other value"]);
         });
     });
 });

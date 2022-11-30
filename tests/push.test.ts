@@ -23,36 +23,43 @@ describe("push", () => {
             const entry = EntryGenerator.generateEntry<string>(
                 faker.datatype.string
             );
-            await db.push(entry.id, entry.value);
+            const returned = await db.push(entry.id, entry.value);
             const result = await db.get(entry.id);
             expect(result).toEqual([entry.value]);
+            expect(returned).toEqual([entry.value]);
         });
 
         it("should push number", async () => {
             const entry = EntryGenerator.generateEntry<number>(
                 faker.datatype.number
             );
-            await db.push(entry.id, entry.value);
+            const returned = await db.push(entry.id, entry.value);
             const result = await db.get(entry.id);
             expect(result).toEqual([entry.value]);
+            expect(returned).toEqual([entry.value]);
         });
 
         it("should push boolean", async () => {
             const entry = EntryGenerator.generateEntry<boolean>(
                 faker.datatype.boolean
             );
-            await db.push(entry.id, entry.value);
+            const returned = await db.push(entry.id, entry.value);
             const result = await db.get(entry.id);
             expect(result).toEqual([entry.value]);
+            expect(returned).toEqual([entry.value]);
         });
 
         it("should push object of string", async () => {
             const entry = EntryGenerator.generateComplexEntry<string>(
                 faker.datatype.string
             );
-            await db.push(entry.id, entry.value);
+            const returned = await db.push(entry.id, entry.value);
             const result = await db.get(entry.id);
             expect(result).toEqual([entry.value]);
+
+            const obj = {} as any;
+            obj[entry.id.split(".")[1]] = [entry.value];
+            expect(returned).toEqual(obj);
         });
 
         it("should push array of string", async () => {
@@ -60,9 +67,10 @@ describe("push", () => {
                 faker.datatype.string
             );
             entry.value = [entry.value] as any;
-            await db.push(entry.id, entry.value);
+            const returned = await db.push(entry.id, entry.value);
             const result = await db.get(entry.id);
             expect(result).toEqual([entry.value]);
+            expect(returned).toEqual([entry.value]);
         });
     });
 
@@ -70,6 +78,7 @@ describe("push", () => {
         beforeEach(async () => {
             await db.set("test", [5]);
             await db.set("object", [{ test: 10 }]);
+            await db.set("objectProp", { test: [10] });
         });
 
         afterEach(async () => {
@@ -78,15 +87,35 @@ describe("push", () => {
         });
 
         it("should push entry", async () => {
-            await db.push("test", 5);
+            const entry = EntryGenerator.generateEntry<number>(
+                faker.datatype.number
+            );
+            const returned = await db.push("test", entry.value);
             const result = await db.get("test");
-            expect(result).toEqual([5, 5]);
+            expect(result).toEqual([5, entry.value]);
+            expect(returned).toEqual([5, entry.value]);
         });
 
-        it("should push entry convert object to array", async () => {
-            await db.push("object", { test: 10 });
+        it("should push object in array", async () => {
+            const entry = EntryGenerator.generateEntry<string>(
+                faker.datatype.string
+            );
+            entry.value = { test: entry.value } as any;
+            const returned = await db.push("object", entry.value);
             const result = await db.get("object");
-            expect(result).toEqual([{ test: 10 }, { test: 10 }]);
+            expect(result).toEqual([{ test: 10 }, entry.value]);
+            expect(returned).toEqual([{ test: 10 }, entry.value]);
+        });
+
+        it("should push object in object", async () => {
+            const entry = EntryGenerator.generateEntry<string>(
+                faker.datatype.string
+            );
+            entry.value = { test: entry.value } as any;
+            const returned = await db.push("objectProp.test", entry.value);
+            const result = await db.get("objectProp.test");
+            expect(result).toEqual([10, entry.value]);
+            expect(returned).toEqual({ test: [10, entry.value] });
         });
     });
 });

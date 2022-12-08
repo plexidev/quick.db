@@ -178,8 +178,10 @@ export class QuickDB {
         if (!Array.isArray(value) && typeof value != "function")
             value = [value];
 
-        currentArr = currentArr.filter((e) =>
-            Array.isArray(value) ? !value.includes(e) : !value(e)
+        currentArr = currentArr.filter((...params) =>
+            Array.isArray(value)
+                ? !value.includes(params[0])
+                : !value(...params)
         );
 
         return this.set(key, currentArr);

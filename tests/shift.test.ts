@@ -7,7 +7,7 @@ const db = new QuickDB({
     driver: new SqliteDriverMock("test.sqlite"),
 });
 
-describe("pop", () => {
+describe("shift", () => {
     afterEach(async () => {
         SqliteDriverMock.mockClear();
         await db.deleteAll();
@@ -19,11 +19,11 @@ describe("pop", () => {
             await db.deleteAll();
         });
 
-        it("should pop entry no data return undefined", async () => {
+        it("should shift entry no data return undefined", async () => {
             const entry = EntryGenerator.generateEntry<number>(
                 faker.datatype.number
             );
-            const returned = await db.pop(entry.id);
+            const returned = await db.shift(entry.id);
             expect(returned).toEqual(undefined);
         });
     });
@@ -39,18 +39,18 @@ describe("pop", () => {
             await db.deleteAll();
         });
 
-        it("should pop entry", async () => {
-            const returned = await db.pop("test");
+        it("should shift entry", async () => {
+            const returned = await db.shift("test");
             const result = await db.get("test");
-            expect(result).toEqual([5]);
-            expect(returned).toEqual(6);
+            expect(result).toEqual([6]);
+            expect(returned).toEqual(5);
         });
 
-        it("should pop from object property", async () => {
-            const returned = await db.pop("object.test");
+        it("should shift from object property", async () => {
+            const returned = await db.shift("object.test");
             const result = await db.get("object.test");
-            expect(result).toEqual([10]);
-            expect(returned).toEqual(19);
+            expect(result).toEqual([19]);
+            expect(returned).toEqual(10);
         });
     });
 });

@@ -18,7 +18,7 @@ export class MySQLDriver implements IDriver {
         return this.instance;
     }
 
-    private checkConnection() {
+    private checkConnection(): void {
         if (this.conn == null)
             throw new Error("MySQL not connected to the database");
     }

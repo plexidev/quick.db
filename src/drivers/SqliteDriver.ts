@@ -2,12 +2,18 @@ import { IDriver } from "./IDriver";
 import type { Database } from "better-sqlite3";
 
 export class SqliteDriver implements IDriver {
+    private static instance: SqliteDriver;
     database: Database;
 
     constructor(path: string) {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const sqlite3 = require("better-sqlite3");
         this.database = sqlite3(path);
+    }
+
+    static createSingleton(path: string): SqliteDriver {
+        if (!this.instance) this.instance = new SqliteDriver(path);
+        return this.instance;
     }
 
     async prepare(table: string): Promise<void> {

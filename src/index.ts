@@ -13,6 +13,7 @@ export interface IQuickDBOptions {
 }
 
 export class QuickDB {
+    private static instance: QuickDB;
     driver: IDriver;
     tableName: string;
     options: IQuickDBOptions;
@@ -30,6 +31,11 @@ export class QuickDB {
         this.normalKeys = options.normalKeys;
 
         this.driver.prepare(this.tableName);
+    }
+
+    static createSingleton(options: IQuickDBOptions = {}): QuickDB {
+        if (!this.instance) this.instance = new QuickDB(options);
+        return this.instance;
     }
 
     private async addSubtract(

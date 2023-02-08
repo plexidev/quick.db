@@ -2,6 +2,7 @@ import { IDriver } from "./IDriver";
 import type { mysqlModule, Pool, PoolConfig } from "promise-mysql";
 
 export class MySQLDriver implements IDriver {
+    private static instance: MySQLDriver;
     mysql: mysqlModule;
     conn?: Pool;
     config: string | PoolConfig;
@@ -10,6 +11,11 @@ export class MySQLDriver implements IDriver {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         this.config = config;
         this.mysql = require("promise-mysql");
+    }
+
+    static createSingleton(config: string | PoolConfig): MySQLDriver {
+        if (!this.instance) this.instance = new MySQLDriver(config);
+        return this.instance;
     }
 
     private checkConnection() {

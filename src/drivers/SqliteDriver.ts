@@ -18,7 +18,7 @@ export class SqliteDriver implements IDriver {
 
     async prepare(table: string): Promise<void> {
         this.database
-            .prepare(`CREATE TABLE IF NOT EXISTS ${table} (ID TEXT, json TEXT)`)
+            .prepare(`CREATE TABLE IF NOT EXISTS ${table} (ID TEXT PRIMARY KEY, json TEXT)`)
             .run();
     }
 

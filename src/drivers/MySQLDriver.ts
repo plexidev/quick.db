@@ -31,7 +31,7 @@ export class MySQLDriver implements IDriver {
         this.checkConnection();
 
         await this.conn?.query(
-            `CREATE TABLE IF NOT EXISTS ${table} (ID TEXT, json TEXT)`
+            `CREATE TABLE IF NOT EXISTS ${table} (ID VARCHAR(255) PRIMARY KEY, json TEXT)`
         );
     }
 

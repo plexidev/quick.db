@@ -27,7 +27,6 @@
         "test": "jest --roots tests",
         "lint": "eslint --ext \".ts\" ./src",
         "prettier": "prettier --write ./src",
-        "prepare": "husky install",
         "prepublishOnly": "tsc"
     },
     "lint-staged": {

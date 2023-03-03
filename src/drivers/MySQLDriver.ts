@@ -1,14 +1,13 @@
 import { IDriver } from "./IDriver";
-import type { mysqlModule, Pool, PoolConfig } from "promise-mysql";
+import type { mysqlModule, Pool, PoolConfig, RowDataPacket } from "promise-mysql";
 
 export class MySQLDriver implements IDriver {
     private static instance: MySQLDriver;
-    mysql: mysqlModule;
-    conn?: Pool;
-    config: string | PoolConfig;
+    private mysql: mysqlModule;
+    private conn?: Pool;
+    private config: string | PoolConfig;
 
     constructor(config: string | PoolConfig) {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
         this.config = config;
         this.mysql = require("promise-mysql");
     }
@@ -19,18 +18,19 @@ export class MySQLDriver implements IDriver {
     }
 
     private checkConnection(): void {
-        if (this.conn == null)
+        if (!this.conn) {
             throw new Error("MySQL not connected to the database");
+        }
     }
 
     async connect(): Promise<void> {
-        this.conn = (await this.mysql.createPool(this.config)) as any;
+        this.conn = await this.mysql.createPool(this.config);
     }
 
     async prepare(table: string): Promise<void> {
         this.checkConnection();
 
-        await this.conn?.query(
+        await this.conn.query(
             `CREATE TABLE IF NOT EXISTS ${table} (ID VARCHAR(255) PRIMARY KEY, json TEXT)`
         );
     }
@@ -38,8 +38,10 @@ export class MySQLDriver implements IDriver {
     async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
         this.checkConnection();
 
-        const results = await this.conn?.query(`SELECT * FROM ${table}`);
-        return results.map((row: any) => ({
+        const results = await this.conn.query<RowDataPacket[]>(
+            `SELECT * FROM ${table}`
+        );
+        return results.map((row) => ({
             id: row.ID,
             value: JSON.parse(row.json),
         }));
@@ -51,12 +53,15 @@ export class MySQLDriver implements IDriver {
     ): Promise<[T | null, boolean]> {
         this.checkConnection();
 
-        const results = await this.conn?.query(
+        const results = await this.conn.query<RowDataPacket[]>(
             `SELECT json FROM ${table} WHERE ID = ?`,
             [key]
         );
 
-        if (results.length == 0) return [null, false];
+        if (results.length === 0) {
+            return [null, false];
+        }
+
         return [JSON.parse(results[0].json), true];
     }
 
@@ -69,12 +74,12 @@ export class MySQLDriver implements IDriver {
         const stringifiedJson = JSON.stringify(value);
 
         if (update) {
-            await this.conn?.query(
+            await this.conn.query(
                 `UPDATE ${table} SET json = (?) WHERE ID = (?)`,
                 [stringifiedJson, key]
             );
         } else {
-            await this.conn?.query(
+            await this.conn.query(
                 `INSERT INTO ${table} (ID,json) VALUES (?,?)`,
                 [key, stringifiedJson]
             );
@@ -86,17 +91,16 @@ export class MySQLDriver implements IDriver {
     async deleteAllRows(table: string): Promise<number> {
         this.checkConnection();
 
-        const result = await this.conn?.query(`DELETE FROM ${table}`);
+        const result = await this.conn.query(`DELETE FROM ${table}`);
         return result.affectedRows;
     }
 
     async deleteRowByKey(table: string, key: string): Promise<number> {
         this.checkConnection();
 
-        const result = await this.conn?.query(
-            `DELETE FROM ${table} WHERE ID=?`,
-            [key]
-        );
+        const result = await this.conn.query(`DELETE FROM ${table} WHERE ID=?`, [
+            key,
+        ]);
         return result.affectedRows;
     }
 }

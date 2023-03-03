@@ -41,7 +41,7 @@ export class MySQLDriver implements IDriver {
         const results = await this.conn.query<RowDataPacket[]>(
             `SELECT * FROM ${table}`
         );
-        return results.map((row) => ({
+        return results.map((row: any) => ({
             id: row.ID,
             value: JSON.parse(row.json),
         }));

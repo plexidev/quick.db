@@ -6,6 +6,7 @@ export class SqliteDriver implements IDriver {
     private readonly database: Database;
 
     private constructor(path: string) {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         const sqlite3 = require("better-sqlite3");
         this.database = sqlite3(path);
     }

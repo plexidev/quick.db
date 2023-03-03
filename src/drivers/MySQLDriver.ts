@@ -3,12 +3,11 @@ import type { mysqlModule, Pool, PoolConfig } from "promise-mysql";
 
 export class MySQLDriver implements IDriver {
     private static instance: MySQLDriver;
-    mysql: mysqlModule;
-    conn?: Pool;
-    config: string | PoolConfig;
+    private mysql: mysqlModule;
+    private conn?: Pool;
+    private config: string | PoolConfig;
 
     constructor(config: string | PoolConfig) {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
         this.config = config;
         this.mysql = require("promise-mysql");
     }
@@ -19,8 +18,9 @@ export class MySQLDriver implements IDriver {
     }
 
     private checkConnection(): void {
-        if (this.conn == null)
+        if (!this.conn) {
             throw new Error("MySQL not connected to the database");
+        }
     }
 
     async connect(): Promise<void> {
@@ -38,7 +38,9 @@ export class MySQLDriver implements IDriver {
     async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
         this.checkConnection();
 
-        const results = await this.conn?.query(`SELECT * FROM ${table}`);
+        const results = await this.conn?.query(
+            `SELECT * FROM ${table}`
+        );
         return results.map((row: any) => ({
             id: row.ID,
             value: JSON.parse(row.json),
@@ -56,7 +58,10 @@ export class MySQLDriver implements IDriver {
             [key]
         );
 
-        if (results.length == 0) return [null, false];
+        if (results.length === 0) {
+            return [null, false];
+        }
+
         return [JSON.parse(results[0].json), true];
     }
 
@@ -93,10 +98,9 @@ export class MySQLDriver implements IDriver {
     async deleteRowByKey(table: string, key: string): Promise<number> {
         this.checkConnection();
 
-        const result = await this.conn?.query(
-            `DELETE FROM ${table} WHERE ID=?`,
-            [key]
-        );
+        const result = await this.conn?.query(`DELETE FROM ${table} WHERE ID=?`, [
+            key,
+        ]);
         return result.affectedRows;
     }
 }

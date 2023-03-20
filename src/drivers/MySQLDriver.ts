@@ -39,8 +39,10 @@ export class MySQLDriver implements IDriver {
     async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
         this.checkConnection();
 
-        const results = await this.conn!.query(`SELECT * FROM ${table}`);
-        return results.map((row: any) => ({
+        const [rows] = await this.conn!.query<MySQLModule.RowDataPacket[]>(
+            `SELECT * FROM ${table}`
+        );
+        return rows.map((row: any) => ({
             id: row.ID,
             value: JSON.parse(row.json),
         }));

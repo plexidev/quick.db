@@ -227,24 +227,26 @@ export class QuickDB<D = any> {
 
     async pull<T = D>(
         key: string,
-        value: T | T[] | ((data: T, ...params: any[]) => boolean)
+        value: T | T[] | ((data: T, ...params: any[]) => boolean),
+        once = false
     ): Promise<T[]> {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
         if (value == null) throw new Error("Missing second argument (value)");
 
-        let currentArr = await this.getArray<T>(key);
-
+        const currentArr = await this.getArray<T>(key);
         if (!Array.isArray(value) && typeof value != "function")
             value = [value];
 
-        currentArr = currentArr.filter((...params) =>
-            Array.isArray(value)
-                ? !value.includes(params[0])
-                : !(value as unknown as ((data: T, ...params: any[]) => boolean))(...params)
-        );
+        const data = [];
+        for (const i in currentArr) {
+            const condition = Array.isArray(value) ? value.includes(currentArr[i]) : (value as unknown as ((data: T, ...params: any[]) => boolean))(currentArr[i], i);
+            if (condition) continue;
+            data.push(currentArr[i]);
+            if (once) break;
+        }
 
-        return this.set(key, currentArr);
+        return this.set(key, data);
     }
 
     async startsWith<T = D>(

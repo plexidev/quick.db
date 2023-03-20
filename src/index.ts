@@ -16,6 +16,7 @@ export class QuickDB {
     driver: IDriver;
     tableName: string;
     options: IQuickDBOptions;
+    private prepared!: Promise<any>;
 
     constructor(options: IQuickDBOptions = {}) {
         options.table ??= "json";
@@ -26,7 +27,7 @@ export class QuickDB {
         this.driver = options.driver;
         this.tableName = options.table;
 
-        this.driver.prepare(this.tableName);
+        this.prepared = this.driver.prepare(this.tableName);
     }
 
     private async addSubtract(
@@ -196,5 +197,12 @@ export class QuickDB {
         options.table = table;
         options.driver = this.options.driver;
         return new QuickDB(options);
+    }
+
+    async tableAsync(table: string): Promise<QuickDB> {
+        const db = this.table(table);
+        await db.prepared;
+
+        return db;
     }
 }

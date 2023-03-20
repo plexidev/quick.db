@@ -24,7 +24,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 11,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L11"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L11"
 						}
 					],
 					"signatures": [
@@ -69,7 +69,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 9,
 							"character": 12,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L9"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L9"
 						}
 					],
 					"type": {
@@ -92,7 +92,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 8,
 							"character": 12,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L8"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L8"
 						}
 					],
 					"type": {
@@ -115,7 +115,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 7,
 							"character": 12,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L7"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L7"
 						}
 					],
 					"type": {
@@ -139,7 +139,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 6,
 							"character": 19,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L6"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L6"
 						}
 					],
 					"type": {
@@ -161,7 +161,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 22,
 							"character": 12,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L22"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L22"
 						}
 					],
 					"signatures": [
@@ -189,7 +189,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 28,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L28"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L28"
 						}
 					],
 					"signatures": [
@@ -225,7 +225,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 97,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L97"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L97"
 						}
 					],
 					"signatures": [
@@ -284,7 +284,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 106,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L106"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L106"
 						}
 					],
 					"signatures": [
@@ -354,7 +354,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 46,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L46"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L46"
 						}
 					],
 					"signatures": [
@@ -402,7 +402,7 @@
 																"fileName": "drivers/MySQLDriver.ts",
 																"line": 46,
 																"character": 47,
-																"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L46"
+																"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L46"
 															}
 														],
 														"type": {
@@ -421,7 +421,7 @@
 																"fileName": "drivers/MySQLDriver.ts",
 																"line": 46,
 																"character": 59,
-																"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L46"
+																"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L46"
 															}
 														],
 														"type": {
@@ -444,7 +444,7 @@
 														"fileName": "drivers/MySQLDriver.ts",
 														"line": 46,
 														"character": 45,
-														"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L46"
+														"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L46"
 													}
 												]
 											}
@@ -479,7 +479,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 58,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L58"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L58"
 						}
 					],
 					"signatures": [
@@ -577,7 +577,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 38,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L38"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L38"
 						}
 					],
 					"signatures": [
@@ -636,7 +636,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 73,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L73"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L73"
 						}
 					],
 					"signatures": [
@@ -740,7 +740,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 17,
 							"character": 11,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L17"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L17"
 						}
 					],
 					"signatures": [
@@ -809,7 +809,7 @@
 					"fileName": "drivers/MySQLDriver.ts",
 					"line": 5,
 					"character": 13,
-					"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L5"
+					"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L5"
 				}
 			],
 			"implementedTypes": [
@@ -838,7 +838,7 @@
 							"fileName": "index.ts",
 							"line": 24,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L24"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L24"
 						}
 					],
 					"signatures": [
@@ -902,7 +902,7 @@
 							"fileName": "index.ts",
 							"line": 19,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L19"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L19"
 						}
 					],
 					"type": {
@@ -922,7 +922,7 @@
 							"fileName": "index.ts",
 							"line": 22,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L22"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L22"
 						}
 					],
 					"type": {
@@ -941,7 +941,7 @@
 							"fileName": "index.ts",
 							"line": 21,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L21"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L21"
 						}
 					],
 					"type": {
@@ -963,7 +963,7 @@
 							"fileName": "index.ts",
 							"line": 18,
 							"character": 12,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L18"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L18"
 						}
 					],
 					"type": {
@@ -990,7 +990,7 @@
 							"fileName": "index.ts",
 							"line": 20,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L20"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L20"
 						}
 					],
 					"type": {
@@ -1012,7 +1012,7 @@
 							"fileName": "index.ts",
 							"line": 17,
 							"character": 19,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L17"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L17"
 						}
 					],
 					"type": {
@@ -1038,7 +1038,7 @@
 							"fileName": "index.ts",
 							"line": 169,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L169"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L169"
 						}
 					],
 					"signatures": [
@@ -1100,7 +1100,7 @@
 							"fileName": "index.ts",
 							"line": 43,
 							"character": 18,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L43"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L43"
 						}
 					],
 					"signatures": [
@@ -1172,7 +1172,7 @@
 							"fileName": "index.ts",
 							"line": 90,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L90"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L90"
 						}
 					],
 					"signatures": [
@@ -1207,7 +1207,7 @@
 																"fileName": "index.ts",
 																"line": 90,
 																"character": 27,
-																"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L90"
+																"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L90"
 															}
 														],
 														"type": {
@@ -1226,7 +1226,7 @@
 																"fileName": "index.ts",
 																"line": 90,
 																"character": 39,
-																"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L90"
+																"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L90"
 															}
 														],
 														"type": {
@@ -1249,7 +1249,7 @@
 														"fileName": "index.ts",
 														"line": 90,
 														"character": 25,
-														"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L90"
+														"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L90"
 													}
 												]
 											}
@@ -1274,7 +1274,7 @@
 							"fileName": "index.ts",
 							"line": 151,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L151"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L151"
 						}
 					],
 					"signatures": [
@@ -1323,7 +1323,7 @@
 							"fileName": "index.ts",
 							"line": 165,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L165"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L165"
 						}
 					],
 					"signatures": [
@@ -1359,7 +1359,7 @@
 							"fileName": "index.ts",
 							"line": 94,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L94"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L94"
 						}
 					],
 					"signatures": [
@@ -1434,7 +1434,7 @@
 							"fileName": "index.ts",
 							"line": 81,
 							"character": 18,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L81"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L81"
 						}
 					],
 					"signatures": [
@@ -1501,7 +1501,7 @@
 							"fileName": "index.ts",
 							"line": 147,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L147"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L147"
 						}
 					],
 					"signatures": [
@@ -1550,7 +1550,7 @@
 							"fileName": "index.ts",
 							"line": 200,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L200"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L200"
 						}
 					],
 					"signatures": [
@@ -1613,7 +1613,7 @@
 							"fileName": "index.ts",
 							"line": 224,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L224"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L224"
 						}
 					],
 					"signatures": [
@@ -1691,7 +1691,7 @@
 							"fileName": "index.ts",
 							"line": 177,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L177"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L177"
 						}
 					],
 					"signatures": [
@@ -1769,7 +1769,7 @@
 							"fileName": "index.ts",
 							"line": 111,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L111"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L111"
 						}
 					],
 					"signatures": [
@@ -1844,7 +1844,7 @@
 							"fileName": "index.ts",
 							"line": 212,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L212"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L212"
 						}
 					],
 					"signatures": [
@@ -1907,7 +1907,7 @@
 							"fileName": "index.ts",
 							"line": 246,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L246"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L246"
 						}
 					],
 					"signatures": [
@@ -1981,7 +1981,7 @@
 																"fileName": "index.ts",
 																"line": 249,
 																"character": 17,
-																"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L249"
+																"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L249"
 															}
 														],
 														"type": {
@@ -2000,7 +2000,7 @@
 																"fileName": "index.ts",
 																"line": 249,
 																"character": 29,
-																"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L249"
+																"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L249"
 															}
 														],
 														"type": {
@@ -2024,7 +2024,7 @@
 														"fileName": "index.ts",
 														"line": 249,
 														"character": 15,
-														"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L249"
+														"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L249"
 													}
 												]
 											}
@@ -2049,7 +2049,7 @@
 							"fileName": "index.ts",
 							"line": 173,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L173"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L173"
 						}
 					],
 					"signatures": [
@@ -2109,7 +2109,7 @@
 							"fileName": "index.ts",
 							"line": 266,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L266"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L266"
 						}
 					],
 					"signatures": [
@@ -2172,7 +2172,7 @@
 							"fileName": "index.ts",
 							"line": 277,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L277"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L277"
 						}
 					],
 					"signatures": [
@@ -2228,7 +2228,7 @@
 							"fileName": "index.ts",
 							"line": 188,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L188"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L188"
 						}
 					],
 					"signatures": [
@@ -2306,7 +2306,7 @@
 							"fileName": "index.ts",
 							"line": 284,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L284"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L284"
 						}
 					],
 					"signatures": [
@@ -2349,7 +2349,7 @@
 							"fileName": "index.ts",
 							"line": 38,
 							"character": 11,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L38"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L38"
 						}
 					],
 					"signatures": [
@@ -2448,7 +2448,7 @@
 					"fileName": "index.ts",
 					"line": 16,
 					"character": 13,
-					"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L16"
+					"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L16"
 				}
 			],
 			"typeParameters": [
@@ -2483,7 +2483,7 @@
 							"fileName": "drivers/SqliteDriver.ts",
 							"line": 8,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L8"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L8"
 						}
 					],
 					"signatures": [
@@ -2528,7 +2528,7 @@
 							"fileName": "drivers/SqliteDriver.ts",
 							"line": 6,
 							"character": 21,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L6"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L6"
 						}
 					],
 					"type": {
@@ -2552,7 +2552,7 @@
 							"fileName": "drivers/SqliteDriver.ts",
 							"line": 5,
 							"character": 19,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L5"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L5"
 						}
 					],
 					"type": {
@@ -2584,7 +2584,7 @@
 							"fileName": "drivers/SqliteDriver.ts",
 							"line": 70,
 							"character": 17,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L70"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L70"
 						}
 					],
 					"signatures": [
@@ -2645,7 +2645,7 @@
 							"fileName": "drivers/SqliteDriver.ts",
 							"line": 75,
 							"character": 17,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L75"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L75"
 						}
 					],
 					"signatures": [
@@ -2717,7 +2717,7 @@
 							"fileName": "drivers/SqliteDriver.ts",
 							"line": 25,
 							"character": 17,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L25"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L25"
 						}
 					],
 					"signatures": [
@@ -2765,7 +2765,7 @@
 																"fileName": "drivers/SqliteDriver.ts",
 																"line": 25,
 																"character": 54,
-																"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L25"
+																"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L25"
 															}
 														],
 														"type": {
@@ -2784,7 +2784,7 @@
 																"fileName": "drivers/SqliteDriver.ts",
 																"line": 25,
 																"character": 66,
-																"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L25"
+																"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L25"
 															}
 														],
 														"type": {
@@ -2807,7 +2807,7 @@
 														"fileName": "drivers/SqliteDriver.ts",
 														"line": 25,
 														"character": 52,
-														"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L25"
+														"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L25"
 													}
 												]
 											}
@@ -2844,7 +2844,7 @@
 							"fileName": "drivers/SqliteDriver.ts",
 							"line": 39,
 							"character": 17,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L39"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L39"
 						}
 					],
 					"signatures": [
@@ -2944,7 +2944,7 @@
 							"fileName": "drivers/SqliteDriver.ts",
 							"line": 21,
 							"character": 17,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L21"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L21"
 						}
 					],
 					"signatures": [
@@ -3005,7 +3005,7 @@
 							"fileName": "drivers/SqliteDriver.ts",
 							"line": 50,
 							"character": 17,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L50"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L50"
 						}
 					],
 					"signatures": [
@@ -3110,7 +3110,7 @@
 							"fileName": "drivers/SqliteDriver.ts",
 							"line": 14,
 							"character": 18,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L14"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L14"
 						}
 					],
 					"signatures": [
@@ -3174,7 +3174,7 @@
 					"fileName": "drivers/SqliteDriver.ts",
 					"line": 4,
 					"character": 13,
-					"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/SqliteDriver.ts#L4"
+					"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/SqliteDriver.ts#L4"
 				}
 			],
 			"implementedTypes": [
@@ -3203,7 +3203,7 @@
 							"fileName": "drivers/IDriver.ts",
 							"line": 11,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/IDriver.ts#L11"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/IDriver.ts#L11"
 						}
 					],
 					"signatures": [
@@ -3252,7 +3252,7 @@
 							"fileName": "drivers/IDriver.ts",
 							"line": 12,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/IDriver.ts#L12"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/IDriver.ts#L12"
 						}
 					],
 					"signatures": [
@@ -3312,7 +3312,7 @@
 							"fileName": "drivers/IDriver.ts",
 							"line": 3,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/IDriver.ts#L3"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/IDriver.ts#L3"
 						}
 					],
 					"signatures": [
@@ -3360,7 +3360,7 @@
 																"fileName": "drivers/IDriver.ts",
 																"line": 3,
 																"character": 41,
-																"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/IDriver.ts#L3"
+																"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/IDriver.ts#L3"
 															}
 														],
 														"type": {
@@ -3379,7 +3379,7 @@
 																"fileName": "drivers/IDriver.ts",
 																"line": 3,
 																"character": 53,
-																"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/IDriver.ts#L3"
+																"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/IDriver.ts#L3"
 															}
 														],
 														"type": {
@@ -3402,7 +3402,7 @@
 														"fileName": "drivers/IDriver.ts",
 														"line": 3,
 														"character": 39,
-														"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/IDriver.ts#L3"
+														"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/IDriver.ts#L3"
 													}
 												]
 											}
@@ -3427,7 +3427,7 @@
 							"fileName": "drivers/IDriver.ts",
 							"line": 4,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/IDriver.ts#L4"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/IDriver.ts#L4"
 						}
 					],
 					"signatures": [
@@ -3515,7 +3515,7 @@
 							"fileName": "drivers/IDriver.ts",
 							"line": 2,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/IDriver.ts#L2"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/IDriver.ts#L2"
 						}
 					],
 					"signatures": [
@@ -3564,7 +3564,7 @@
 							"fileName": "drivers/IDriver.ts",
 							"line": 5,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/IDriver.ts#L5"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/IDriver.ts#L5"
 						}
 					],
 					"signatures": [
@@ -3664,7 +3664,7 @@
 					"fileName": "drivers/IDriver.ts",
 					"line": 1,
 					"character": 17,
-					"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/IDriver.ts#L1"
+					"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/IDriver.ts#L1"
 				}
 			],
 			"implementedBy": [
@@ -3700,7 +3700,7 @@
 							"fileName": "index.ts",
 							"line": 12,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L12"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L12"
 						}
 					],
 					"type": {
@@ -3722,7 +3722,7 @@
 							"fileName": "index.ts",
 							"line": 11,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L11"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L11"
 						}
 					],
 					"type": {
@@ -3743,7 +3743,7 @@
 							"fileName": "index.ts",
 							"line": 13,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L13"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L13"
 						}
 					],
 					"type": {
@@ -3764,7 +3764,7 @@
 							"fileName": "index.ts",
 							"line": 10,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L10"
+							"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L10"
 						}
 					],
 					"type": {
@@ -3789,7 +3789,7 @@
 					"fileName": "index.ts",
 					"line": 9,
 					"character": 17,
-					"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L9"
+					"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L9"
 				}
 			]
 		},
@@ -3804,7 +3804,7 @@
 					"fileName": "drivers/MySQLDriver.ts",
 					"line": 3,
 					"character": 12,
-					"url": "https://github.com/plexidev/quick.db/blob/d850233/src/drivers/MySQLDriver.ts#L3"
+					"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/drivers/MySQLDriver.ts#L3"
 				}
 			],
 			"type": {
@@ -3852,7 +3852,7 @@
 			"fileName": "index.ts",
 			"line": 1,
 			"character": 0,
-			"url": "https://github.com/plexidev/quick.db/blob/d850233/src/index.ts#L1"
+			"url": "https://github.com/plexidev/quick.db/blob/dfb1238/src/index.ts#L1"
 		}
 	]
 }

@@ -21,7 +21,7 @@ export class QuickDB<D = any> {
     private normalKeys: boolean;
     private options: IQuickDBOptions;
 
-    public get driver(): IDriver {
+    get driver(): IDriver {
         return this._driver;
     }
 

@@ -4,14 +4,18 @@ export type Config = string | MySQLModule.PoolOptions;
 
 export class MySQLDriver implements IDriver {
     private static instance: MySQLDriver;
-    private mysql: typeof MySQLModule;
+    private readonly _mysql: typeof MySQLModule;
     private conn?: MySQLModule.Pool;
     private config: Config;
+
+    get mysql(): typeof MySQLModule {
+        return this._mysql;
+    }
 
     constructor(config: Config) {
         this.config = config;
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        this.mysql = require("mysql2/promise");
+        this._mysql = require("mysql2/promise");
     }
 
     static createSingleton(config: string | Config): MySQLDriver {
@@ -29,9 +33,9 @@ export class MySQLDriver implements IDriver {
         // This is needed for typescript typecheking
         // For some reason, it doesn't work even if createPool needs a string and in an overload a PoolOptions
         if (typeof this.config == "string") {
-            this.conn = await this.mysql.createPool(this.config);
+            this.conn = await this._mysql.createPool(this.config);
         } else {
-            this.conn = await this.mysql.createPool(this.config);
+            this.conn = await this._mysql.createPool(this.config);
         }
     }
 

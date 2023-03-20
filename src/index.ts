@@ -3,8 +3,8 @@ import { IDriver } from "./drivers/IDriver";
 import { SqliteDriver } from "./drivers/SqliteDriver";
 
 export { IDriver } from "./drivers/IDriver";
-export { MySQLDriver } from "./drivers/MySQLDriver";
 export { SqliteDriver } from "./drivers/SqliteDriver";
+export { MySQLDriver, Config } from "./drivers/MySQLDriver";
 
 export interface IQuickDBOptions {
     table?: string;

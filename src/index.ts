@@ -15,6 +15,7 @@ export interface IQuickDBOptions {
 
 export class QuickDB<D = any> {
     private static instance: QuickDB;
+    private prepared!: Promise<any>;
     driver: IDriver;
     tableName: string;
     options: IQuickDBOptions;
@@ -31,7 +32,7 @@ export class QuickDB<D = any> {
         this.tableName = options.table;
         this.normalKeys = options.normalKeys;
 
-        this.driver.prepare(this.tableName);
+        this.prepared = this.driver.prepare(this.tableName);
     }
 
     static createSingleton<T>(options: IQuickDBOptions = {}): QuickDB<T> {
@@ -271,6 +272,13 @@ export class QuickDB<D = any> {
         options.table = table;
         options.driver = this.options.driver;
         return new QuickDB(options);
+    }
+
+    async tableAsync(table: string): Promise<QuickDB> {
+        const db = this.table(table);
+        await db.prepared;
+
+        return db;
     }
 
     useNormalKeys(toggle: boolean): void {

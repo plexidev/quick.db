@@ -15,7 +15,7 @@ export interface IQuickDBOptions {
 
 export class QuickDB<D = any> {
     private static instance: QuickDB;
-    private prepared!: Promise<any>;
+    private prepared!: Promise<unknown>;
     driver: IDriver;
     tableName: string;
     options: IQuickDBOptions;
@@ -74,7 +74,7 @@ export class QuickDB<D = any> {
         }
 
         sub ? (currentNumber -= value) : (currentNumber += value);
-        await this.set<any>(key, currentNumber);
+        await this.set<number>(key, currentNumber);
         return currentNumber;
     }
 
@@ -87,7 +87,7 @@ export class QuickDB<D = any> {
         return currentArr;
     }
 
-    async all(): Promise<{ id: string; value: any }[]> {
+    async all<T = D>(): Promise<{ id: string; value: T }[]> {
         return this.driver.getAllRows(this.tableName);
     }
 
@@ -108,7 +108,7 @@ export class QuickDB<D = any> {
         return result;
     }
 
-    async set<T = D>(key: string, value: any): Promise<T> {
+    async set<T = D>(key: string, value: T): Promise<T> {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
         if (value == null) throw new Error("Missing second argument (value)");
@@ -174,7 +174,7 @@ export class QuickDB<D = any> {
         return this.addSubtract(key, value, true);
     }
 
-    async push<T = D>(key: string, value: any): Promise<T[]> {
+    async push<T = D>(key: string, value: T): Promise<T[]> {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
         if (value == null) throw new Error("Missing second argument (value)");
@@ -185,7 +185,7 @@ export class QuickDB<D = any> {
         return this.set(key, currentArr);
     }
 
-    async unshift<T = D>(key: string, value: any | any[]): Promise<T[]> {
+    async unshift<T = D>(key: string, value: T | T[]): Promise<T[]> {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
         if (value == null) throw new Error("Missing second argument (value)");
@@ -197,7 +197,7 @@ export class QuickDB<D = any> {
         return this.set(key, currentArr);
     }
 
-    async pop<T = D>(key: string): Promise<any> {
+    async pop<T = D>(key: string): Promise<T | undefined> {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
 
@@ -209,7 +209,7 @@ export class QuickDB<D = any> {
         return value;
     }
 
-    async shift<T = D>(key: string): Promise<any> {
+    async shift<T = D>(key: string): Promise<T | undefined> {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
 
@@ -223,7 +223,7 @@ export class QuickDB<D = any> {
 
     async pull<T = D>(
         key: string,
-        value: any | any[] | ((data: any) => boolean)
+        value: T | T[] | ((data: T, ...params: any[]) => boolean)
     ): Promise<T[]> {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
@@ -237,7 +237,7 @@ export class QuickDB<D = any> {
         currentArr = currentArr.filter((...params) =>
             Array.isArray(value)
                 ? !value.includes(params[0])
-                : !value(...params)
+                : !(value as unknown as ((data: T, ...params: any[]) => boolean))(...params)
         );
 
         return this.set(key, currentArr);
@@ -258,7 +258,7 @@ export class QuickDB<D = any> {
         return (
             (key === "" ? await this.all() : (await this.get(key)) ?? []) as {
                 id: string;
-                value: any;
+                value: T;
             }[]
         ).filter((v) => v.id.startsWith(query));
     }

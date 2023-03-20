@@ -4,10 +4,13 @@ jest.mock("../../src/drivers/SqliteDriver.ts");
 const SqliteDriverMock = SqliteDriver as jest.MockedClass<typeof SqliteDriver>;
 
 SqliteDriverMock.mock;
-SqliteDriverMock.mockImplementation((table: string) => {
+SqliteDriverMock.mockImplementation(() => {
     const database = {} as any;
+
     return {
-        database,
+        createSingleton: jest.fn((filePath: string) => {
+            return new SqliteDriverMock(filePath);
+        }),
         prepare: jest.fn((table: string) => {
             if (!database[table]) database[table] = {};
             return Promise.resolve();
@@ -38,7 +41,7 @@ SqliteDriverMock.mockImplementation((table: string) => {
             delete database[table][key];
             return Promise.resolve(changes);
         }),
-    };
+    } as unknown as SqliteDriver;
 });
 
 export { SqliteDriverMock };

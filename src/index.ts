@@ -16,10 +16,14 @@ export interface IQuickDBOptions {
 export class QuickDB<D = any> {
     private static instance: QuickDB;
     private prepared!: Promise<unknown>;
-    driver: IDriver;
-    tableName: string;
-    options: IQuickDBOptions;
-    normalKeys: boolean;
+    private _driver: IDriver;
+    private tableName: string;
+    private normalKeys: boolean;
+    private options: IQuickDBOptions;
+
+    public get driver(): IDriver {
+        return this._driver;
+    }
 
     constructor(options: IQuickDBOptions = {}) {
         options.table ??= "json";
@@ -28,16 +32,11 @@ export class QuickDB<D = any> {
         options.normalKeys ??= false;
 
         this.options = options;
-        this.driver = options.driver;
+        this._driver = options.driver;
         this.tableName = options.table;
         this.normalKeys = options.normalKeys;
 
         this.prepared = this.driver.prepare(this.tableName);
-    }
-
-    static createSingleton<T>(options: IQuickDBOptions = {}): QuickDB<T> {
-        if (!this.instance) this.instance = new QuickDB(options);
-        return this.instance;
     }
 
     private async addSubtract(
@@ -85,6 +84,11 @@ export class QuickDB<D = any> {
             throw new Error(`Current value with key: (${key}) is not an array`);
 
         return currentArr;
+    }
+
+    static createSingleton<T>(options: IQuickDBOptions = {}): QuickDB<T> {
+        if (!this.instance) this.instance = new QuickDB(options);
+        return this.instance;
     }
 
     async all<T = D>(): Promise<{ id: string; value: T }[]> {
@@ -270,10 +274,11 @@ export class QuickDB<D = any> {
         const options = { ...this.options };
 
         options.table = table;
-        options.driver = this.options.driver;
+        options.driver = this.driver;
         return new QuickDB(options);
     }
 
+    // Here for temporary backwards compatibility fix
     async tableAsync(table: string): Promise<QuickDB> {
         const db = this.table(table);
         await db.prepared;
@@ -281,8 +286,7 @@ export class QuickDB<D = any> {
         return db;
     }
 
-    useNormalKeys(toggle: boolean): void {
-        if (toggle) this.normalKeys = true;
-        else this.normalKeys = false;
+    useNormalKeys(activate: boolean): void {
+        this.normalKeys = activate;
     }
 }

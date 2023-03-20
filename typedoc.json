@@ -2,5 +2,6 @@
     "$schema": "https://typedoc.org/schema.json",
     "entryPoints": ["./src/index.ts"],
     "out": "./docs",
-    "json": "./docs/doc.json"
+    "json": "./docs/doc.json",
+    "cname": "docs.plexidev.org"
 }

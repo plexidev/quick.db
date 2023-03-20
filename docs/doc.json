@@ -7,14 +7,14 @@
 	"originalName": "",
 	"children": [
 		{
-			"id": 173,
+			"id": 178,
 			"name": "MySQLDriver",
 			"kind": 128,
 			"kindString": "Class",
 			"flags": {},
 			"children": [
 				{
-					"id": 178,
+					"id": 183,
 					"name": "constructor",
 					"kind": 512,
 					"kindString": "Constructor",
@@ -22,42 +22,66 @@
 					"sources": [
 						{
 							"fileName": "drivers/MySQLDriver.ts",
-							"line": 11,
+							"line": 15,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L11"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L15"
 						}
 					],
 					"signatures": [
 						{
-							"id": 179,
+							"id": 184,
 							"name": "new MySQLDriver",
 							"kind": 16384,
 							"kindString": "Constructor signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 180,
+									"id": 185,
 									"name": "config",
 									"kind": 32768,
 									"kindString": "Parameter",
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 216,
+										"id": 223,
 										"name": "Config"
 									}
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 173,
+								"id": 178,
 								"name": "MySQLDriver"
 							}
 						}
 					]
 				},
 				{
-					"id": 183,
+					"id": 186,
+					"name": "_mysql",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isPrivate": true,
+						"isReadonly": true
+					},
+					"sources": [
+						{
+							"fileName": "drivers/MySQLDriver.ts",
+							"line": 7,
+							"character": 21,
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L7"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"name": "__module",
+						"qualifiedName": "\"/home/zelak/ghq/github.com/plexidev/quick.db/node_modules/mysql2/promise\"",
+						"package": "mysql2"
+					}
+				},
+				{
+					"id": 188,
 					"name": "config",
 					"kind": 1024,
 					"kindString": "Property",
@@ -69,17 +93,17 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 9,
 							"character": 12,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L9"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L9"
 						}
 					],
 					"type": {
 						"type": "reference",
-						"id": 216,
+						"id": 223,
 						"name": "Config"
 					}
 				},
 				{
-					"id": 182,
+					"id": 187,
 					"name": "conn",
 					"kind": 1024,
 					"kindString": "Property",
@@ -92,7 +116,7 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 8,
 							"character": 12,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L8"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L8"
 						}
 					],
 					"type": {
@@ -103,30 +127,7 @@
 					}
 				},
 				{
-					"id": 181,
-					"name": "mysql",
-					"kind": 1024,
-					"kindString": "Property",
-					"flags": {
-						"isPrivate": true
-					},
-					"sources": [
-						{
-							"fileName": "drivers/MySQLDriver.ts",
-							"line": 7,
-							"character": 12,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L7"
-						}
-					],
-					"type": {
-						"type": "reference",
-						"name": "__module",
-						"qualifiedName": "\"/home/zelak/ghq/github.com/plexidev/quick.db/node_modules/mysql2/promise\"",
-						"package": "mysql2"
-					}
-				},
-				{
-					"id": 174,
+					"id": 179,
 					"name": "instance",
 					"kind": 1024,
 					"kindString": "Property",
@@ -139,17 +140,45 @@
 							"fileName": "drivers/MySQLDriver.ts",
 							"line": 6,
 							"character": 19,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L6"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L6"
 						}
 					],
 					"type": {
 						"type": "reference",
-						"id": 173,
+						"id": 178,
 						"name": "MySQLDriver"
 					}
 				},
 				{
-					"id": 184,
+					"id": 189,
+					"name": "mysql",
+					"kind": 262144,
+					"kindString": "Accessor",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "drivers/MySQLDriver.ts",
+							"line": 11,
+							"character": 8,
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L11"
+						}
+					],
+					"getSignature": {
+						"id": 190,
+						"name": "mysql",
+						"kind": 524288,
+						"kindString": "Get signature",
+						"flags": {},
+						"type": {
+							"type": "reference",
+							"name": "__module",
+							"qualifiedName": "\"/home/zelak/ghq/github.com/plexidev/quick.db/node_modules/mysql2/promise\"",
+							"package": "mysql2"
+						}
+					}
+				},
+				{
+					"id": 191,
 					"name": "checkConnection",
 					"kind": 2048,
 					"kindString": "Method",
@@ -159,14 +188,14 @@
 					"sources": [
 						{
 							"fileName": "drivers/MySQLDriver.ts",
-							"line": 22,
+							"line": 26,
 							"character": 12,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L22"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L26"
 						}
 					],
 					"signatures": [
 						{
-							"id": 185,
+							"id": 192,
 							"name": "checkConnection",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -179,7 +208,7 @@
 					]
 				},
 				{
-					"id": 186,
+					"id": 193,
 					"name": "connect",
 					"kind": 2048,
 					"kindString": "Method",
@@ -187,14 +216,14 @@
 					"sources": [
 						{
 							"fileName": "drivers/MySQLDriver.ts",
-							"line": 28,
+							"line": 32,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L28"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L32"
 						}
 					],
 					"signatures": [
 						{
-							"id": 187,
+							"id": 194,
 							"name": "connect",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -215,7 +244,7 @@
 					]
 				},
 				{
-					"id": 209,
+					"id": 216,
 					"name": "deleteAllRows",
 					"kind": 2048,
 					"kindString": "Method",
@@ -223,92 +252,22 @@
 					"sources": [
 						{
 							"fileName": "drivers/MySQLDriver.ts",
-							"line": 97,
+							"line": 101,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L97"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L101"
 						}
 					],
 					"signatures": [
 						{
-							"id": 210,
+							"id": 217,
 							"name": "deleteAllRows",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 211,
+									"id": 218,
 									"name": "table",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "string"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "number"
-									}
-								],
-								"name": "Promise",
-								"qualifiedName": "Promise",
-								"package": "typescript"
-							},
-							"implementationOf": {
-								"type": "reference",
-								"id": 130,
-								"name": "IDriver.deleteAllRows"
-							}
-						}
-					],
-					"implementationOf": {
-						"type": "reference",
-						"id": 129,
-						"name": "IDriver.deleteAllRows"
-					}
-				},
-				{
-					"id": 212,
-					"name": "deleteRowByKey",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {},
-					"sources": [
-						{
-							"fileName": "drivers/MySQLDriver.ts",
-							"line": 106,
-							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L106"
-						}
-					],
-					"signatures": [
-						{
-							"id": 213,
-							"name": "deleteRowByKey",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"parameters": [
-								{
-									"id": 214,
-									"name": "table",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "string"
-									}
-								},
-								{
-									"id": 215,
-									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
 									"flags": {},
@@ -333,18 +292,88 @@
 							"implementationOf": {
 								"type": "reference",
 								"id": 133,
-								"name": "IDriver.deleteRowByKey"
+								"name": "IDriver.deleteAllRows"
 							}
 						}
 					],
 					"implementationOf": {
 						"type": "reference",
 						"id": 132,
+						"name": "IDriver.deleteAllRows"
+					}
+				},
+				{
+					"id": 219,
+					"name": "deleteRowByKey",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "drivers/MySQLDriver.ts",
+							"line": 110,
+							"character": 10,
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L110"
+						}
+					],
+					"signatures": [
+						{
+							"id": 220,
+							"name": "deleteRowByKey",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 221,
+									"name": "table",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								},
+								{
+									"id": 222,
+									"name": "key",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "number"
+									}
+								],
+								"name": "Promise",
+								"qualifiedName": "Promise",
+								"package": "typescript"
+							},
+							"implementationOf": {
+								"type": "reference",
+								"id": 136,
+								"name": "IDriver.deleteRowByKey"
+							}
+						}
+					],
+					"implementationOf": {
+						"type": "reference",
+						"id": 135,
 						"name": "IDriver.deleteRowByKey"
 					}
 				},
 				{
-					"id": 191,
+					"id": 198,
 					"name": "getAllRows",
 					"kind": 2048,
 					"kindString": "Method",
@@ -352,21 +381,21 @@
 					"sources": [
 						{
 							"fileName": "drivers/MySQLDriver.ts",
-							"line": 46,
+							"line": 50,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L46"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L50"
 						}
 					],
 					"signatures": [
 						{
-							"id": 192,
+							"id": 199,
 							"name": "getAllRows",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 193,
+									"id": 200,
 									"name": "table",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -385,14 +414,14 @@
 										"elementType": {
 											"type": "reflection",
 											"declaration": {
-												"id": 194,
+												"id": 201,
 												"name": "__type",
 												"kind": 65536,
 												"kindString": "Type literal",
 												"flags": {},
 												"children": [
 													{
-														"id": 195,
+														"id": 202,
 														"name": "id",
 														"kind": 1024,
 														"kindString": "Property",
@@ -400,9 +429,9 @@
 														"sources": [
 															{
 																"fileName": "drivers/MySQLDriver.ts",
-																"line": 46,
+																"line": 50,
 																"character": 47,
-																"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L46"
+																"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L50"
 															}
 														],
 														"type": {
@@ -411,7 +440,7 @@
 														}
 													},
 													{
-														"id": 196,
+														"id": 203,
 														"name": "value",
 														"kind": 1024,
 														"kindString": "Property",
@@ -419,9 +448,9 @@
 														"sources": [
 															{
 																"fileName": "drivers/MySQLDriver.ts",
-																"line": 46,
+																"line": 50,
 																"character": 59,
-																"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L46"
+																"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L50"
 															}
 														],
 														"type": {
@@ -434,17 +463,17 @@
 													{
 														"title": "Properties",
 														"children": [
-															195,
-															196
+															202,
+															203
 														]
 													}
 												],
 												"sources": [
 													{
 														"fileName": "drivers/MySQLDriver.ts",
-														"line": 46,
+														"line": 50,
 														"character": 45,
-														"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L46"
+														"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L50"
 													}
 												]
 											}
@@ -457,19 +486,19 @@
 							},
 							"implementationOf": {
 								"type": "reference",
-								"id": 112,
+								"id": 115,
 								"name": "IDriver.getAllRows"
 							}
 						}
 					],
 					"implementationOf": {
 						"type": "reference",
-						"id": 111,
+						"id": 114,
 						"name": "IDriver.getAllRows"
 					}
 				},
 				{
-					"id": 197,
+					"id": 204,
 					"name": "getRowByKey",
 					"kind": 2048,
 					"kindString": "Method",
@@ -477,21 +506,21 @@
 					"sources": [
 						{
 							"fileName": "drivers/MySQLDriver.ts",
-							"line": 58,
+							"line": 62,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L58"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L62"
 						}
 					],
 					"signatures": [
 						{
-							"id": 198,
+							"id": 205,
 							"name": "getRowByKey",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 199,
+									"id": 206,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -500,7 +529,7 @@
 							],
 							"parameters": [
 								{
-									"id": 200,
+									"id": 207,
 									"name": "table",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -511,7 +540,7 @@
 									}
 								},
 								{
-									"id": 201,
+									"id": 208,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -537,7 +566,7 @@
 													},
 													{
 														"type": "reference",
-														"id": 199,
+														"id": 206,
 														"name": "T"
 													}
 												]
@@ -555,19 +584,19 @@
 							},
 							"implementationOf": {
 								"type": "reference",
-								"id": 118,
+								"id": 121,
 								"name": "IDriver.getRowByKey"
 							}
 						}
 					],
 					"implementationOf": {
 						"type": "reference",
-						"id": 117,
+						"id": 120,
 						"name": "IDriver.getRowByKey"
 					}
 				},
 				{
-					"id": 188,
+					"id": 195,
 					"name": "prepare",
 					"kind": 2048,
 					"kindString": "Method",
@@ -575,21 +604,21 @@
 					"sources": [
 						{
 							"fileName": "drivers/MySQLDriver.ts",
-							"line": 38,
+							"line": 42,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L38"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L42"
 						}
 					],
 					"signatures": [
 						{
-							"id": 189,
+							"id": 196,
 							"name": "prepare",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 190,
+									"id": 197,
 									"name": "table",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -614,19 +643,19 @@
 							},
 							"implementationOf": {
 								"type": "reference",
-								"id": 109,
+								"id": 112,
 								"name": "IDriver.prepare"
 							}
 						}
 					],
 					"implementationOf": {
 						"type": "reference",
-						"id": 108,
+						"id": 111,
 						"name": "IDriver.prepare"
 					}
 				},
 				{
-					"id": 202,
+					"id": 209,
 					"name": "setRowByKey",
 					"kind": 2048,
 					"kindString": "Method",
@@ -634,21 +663,21 @@
 					"sources": [
 						{
 							"fileName": "drivers/MySQLDriver.ts",
-							"line": 73,
+							"line": 77,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L73"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L77"
 						}
 					],
 					"signatures": [
 						{
-							"id": 203,
+							"id": 210,
 							"name": "setRowByKey",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 204,
+									"id": 211,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -657,7 +686,7 @@
 							],
 							"parameters": [
 								{
-									"id": 205,
+									"id": 212,
 									"name": "table",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -668,7 +697,7 @@
 									}
 								},
 								{
-									"id": 206,
+									"id": 213,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -679,7 +708,7 @@
 									}
 								},
 								{
-									"id": 207,
+									"id": 214,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -690,7 +719,7 @@
 									}
 								},
 								{
-									"id": 208,
+									"id": 215,
 									"name": "update",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -706,7 +735,7 @@
 								"typeArguments": [
 									{
 										"type": "reference",
-										"id": 204,
+										"id": 211,
 										"name": "T"
 									}
 								],
@@ -716,19 +745,19 @@
 							},
 							"implementationOf": {
 								"type": "reference",
-								"id": 123,
+								"id": 126,
 								"name": "IDriver.setRowByKey"
 							}
 						}
 					],
 					"implementationOf": {
 						"type": "reference",
-						"id": 122,
+						"id": 125,
 						"name": "IDriver.setRowByKey"
 					}
 				},
 				{
-					"id": 175,
+					"id": 180,
 					"name": "createSingleton",
 					"kind": 2048,
 					"kindString": "Method",
@@ -738,35 +767,35 @@
 					"sources": [
 						{
 							"fileName": "drivers/MySQLDriver.ts",
-							"line": 17,
+							"line": 21,
 							"character": 11,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L17"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L21"
 						}
 					],
 					"signatures": [
 						{
-							"id": 176,
+							"id": 181,
 							"name": "createSingleton",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 177,
+									"id": 182,
 									"name": "config",
 									"kind": 32768,
 									"kindString": "Parameter",
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 216,
+										"id": 223,
 										"name": "Config"
 									}
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 173,
+								"id": 178,
 								"name": "MySQLDriver"
 							}
 						}
@@ -777,30 +806,36 @@
 				{
 					"title": "Constructors",
 					"children": [
-						178
+						183
 					]
 				},
 				{
 					"title": "Properties",
 					"children": [
-						183,
-						182,
-						181,
-						174
+						186,
+						188,
+						187,
+						179
+					]
+				},
+				{
+					"title": "Accessors",
+					"children": [
+						189
 					]
 				},
 				{
 					"title": "Methods",
 					"children": [
-						184,
-						186,
-						209,
-						212,
 						191,
-						197,
-						188,
-						202,
-						175
+						193,
+						216,
+						219,
+						198,
+						204,
+						195,
+						209,
+						180
 					]
 				}
 			],
@@ -809,13 +844,13 @@
 					"fileName": "drivers/MySQLDriver.ts",
 					"line": 5,
 					"character": 13,
-					"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L5"
+					"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L5"
 				}
 			],
 			"implementedTypes": [
 				{
 					"type": "reference",
-					"id": 107,
+					"id": 110,
 					"name": "IDriver"
 				}
 			]
@@ -836,9 +871,9 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 24,
+							"line": 28,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L24"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L28"
 						}
 					],
 					"signatures": [
@@ -893,36 +928,40 @@
 				},
 				{
 					"id": 17,
-					"name": "driver",
+					"name": "_driver",
 					"kind": 1024,
 					"kindString": "Property",
-					"flags": {},
+					"flags": {
+						"isPrivate": true
+					},
 					"sources": [
 						{
 							"fileName": "index.ts",
 							"line": 19,
-							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L19"
+							"character": 12,
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L19"
 						}
 					],
 					"type": {
 						"type": "reference",
-						"id": 107,
+						"id": 110,
 						"name": "IDriver"
 					}
 				},
 				{
-					"id": 20,
+					"id": 19,
 					"name": "normalKeys",
 					"kind": 1024,
 					"kindString": "Property",
-					"flags": {},
+					"flags": {
+						"isPrivate": true
+					},
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 22,
-							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L22"
+							"line": 21,
+							"character": 12,
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L21"
 						}
 					],
 					"type": {
@@ -931,17 +970,19 @@
 					}
 				},
 				{
-					"id": 19,
+					"id": 20,
 					"name": "options",
 					"kind": 1024,
 					"kindString": "Property",
-					"flags": {},
+					"flags": {
+						"isPrivate": true
+					},
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 21,
-							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L21"
+							"line": 22,
+							"character": 12,
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L22"
 						}
 					],
 					"type": {
@@ -963,7 +1004,7 @@
 							"fileName": "index.ts",
 							"line": 18,
 							"character": 12,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L18"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L18"
 						}
 					],
 					"type": {
@@ -984,13 +1025,15 @@
 					"name": "tableName",
 					"kind": 1024,
 					"kindString": "Property",
-					"flags": {},
+					"flags": {
+						"isPrivate": true
+					},
 					"sources": [
 						{
 							"fileName": "index.ts",
 							"line": 20,
-							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L20"
+							"character": 12,
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L20"
 						}
 					],
 					"type": {
@@ -1012,7 +1055,7 @@
 							"fileName": "index.ts",
 							"line": 17,
 							"character": 19,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L17"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L17"
 						}
 					],
 					"type": {
@@ -1028,7 +1071,34 @@
 					}
 				},
 				{
-					"id": 53,
+					"id": 21,
+					"name": "driver",
+					"kind": 262144,
+					"kindString": "Accessor",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 24,
+							"character": 8,
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L24"
+						}
+					],
+					"getSignature": {
+						"id": 22,
+						"name": "driver",
+						"kind": 524288,
+						"kindString": "Get signature",
+						"flags": {},
+						"type": {
+							"type": "reference",
+							"id": 110,
+							"name": "IDriver"
+						}
+					}
+				},
+				{
+					"id": 55,
 					"name": "add",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1036,21 +1106,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 169,
+							"line": 173,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L169"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L173"
 						}
 					],
 					"signatures": [
 						{
-							"id": 54,
+							"id": 56,
 							"name": "add",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 55,
+									"id": 57,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1061,7 +1131,7 @@
 									}
 								},
 								{
-									"id": 56,
+									"id": 58,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1088,7 +1158,7 @@
 					]
 				},
 				{
-					"id": 21,
+					"id": 23,
 					"name": "addSubtract",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1098,21 +1168,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 43,
+							"line": 42,
 							"character": 18,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L43"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L42"
 						}
 					],
 					"signatures": [
 						{
-							"id": 22,
+							"id": 24,
 							"name": "addSubtract",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 23,
+									"id": 25,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1123,7 +1193,7 @@
 									}
 								},
 								{
-									"id": 24,
+									"id": 26,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1134,7 +1204,7 @@
 									}
 								},
 								{
-									"id": 25,
+									"id": 27,
 									"name": "sub",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1162,7 +1232,7 @@
 					]
 				},
 				{
-					"id": 30,
+					"id": 32,
 					"name": "all",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1170,21 +1240,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 90,
+							"line": 94,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L90"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L94"
 						}
 					],
 					"signatures": [
 						{
-							"id": 31,
+							"id": 33,
 							"name": "all",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 32,
+									"id": 34,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -1204,14 +1274,14 @@
 										"elementType": {
 											"type": "reflection",
 											"declaration": {
-												"id": 33,
+												"id": 35,
 												"name": "__type",
 												"kind": 65536,
 												"kindString": "Type literal",
 												"flags": {},
 												"children": [
 													{
-														"id": 34,
+														"id": 36,
 														"name": "id",
 														"kind": 1024,
 														"kindString": "Property",
@@ -1219,9 +1289,9 @@
 														"sources": [
 															{
 																"fileName": "index.ts",
-																"line": 90,
+																"line": 94,
 																"character": 34,
-																"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L90"
+																"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L94"
 															}
 														],
 														"type": {
@@ -1230,7 +1300,7 @@
 														}
 													},
 													{
-														"id": 35,
+														"id": 37,
 														"name": "value",
 														"kind": 1024,
 														"kindString": "Property",
@@ -1238,14 +1308,14 @@
 														"sources": [
 															{
 																"fileName": "index.ts",
-																"line": 90,
+																"line": 94,
 																"character": 46,
-																"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L90"
+																"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L94"
 															}
 														],
 														"type": {
 															"type": "reference",
-															"id": 32,
+															"id": 34,
 															"name": "T"
 														}
 													}
@@ -1254,17 +1324,17 @@
 													{
 														"title": "Properties",
 														"children": [
-															34,
-															35
+															36,
+															37
 														]
 													}
 												],
 												"sources": [
 													{
 														"fileName": "index.ts",
-														"line": 90,
+														"line": 94,
 														"character": 32,
-														"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L90"
+														"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L94"
 													}
 												]
 											}
@@ -1279,7 +1349,7 @@
 					]
 				},
 				{
-					"id": 48,
+					"id": 50,
 					"name": "delete",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1287,21 +1357,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 151,
+							"line": 155,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L151"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L155"
 						}
 					],
 					"signatures": [
 						{
-							"id": 49,
+							"id": 51,
 							"name": "delete",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 50,
+									"id": 52,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1328,7 +1398,7 @@
 					]
 				},
 				{
-					"id": 51,
+					"id": 53,
 					"name": "deleteAll",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1336,14 +1406,14 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 165,
+							"line": 169,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L165"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L169"
 						}
 					],
 					"signatures": [
 						{
-							"id": 52,
+							"id": 54,
 							"name": "deleteAll",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -1364,7 +1434,7 @@
 					]
 				},
 				{
-					"id": 36,
+					"id": 38,
 					"name": "get",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1372,21 +1442,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 94,
+							"line": 98,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L94"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L98"
 						}
 					],
 					"signatures": [
 						{
-							"id": 37,
+							"id": 39,
 							"name": "get",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 38,
+									"id": 40,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -1400,7 +1470,7 @@
 							],
 							"parameters": [
 								{
-									"id": 39,
+									"id": 41,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1423,7 +1493,7 @@
 											},
 											{
 												"type": "reference",
-												"id": 38,
+												"id": 40,
 												"name": "T"
 											}
 										]
@@ -1437,7 +1507,7 @@
 					]
 				},
 				{
-					"id": 26,
+					"id": 28,
 					"name": "getArray",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1447,21 +1517,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 81,
+							"line": 80,
 							"character": 18,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L81"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L80"
 						}
 					],
 					"signatures": [
 						{
-							"id": 27,
+							"id": 29,
 							"name": "getArray",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 28,
+									"id": 30,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -1475,7 +1545,7 @@
 							],
 							"parameters": [
 								{
-									"id": 29,
+									"id": 31,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1493,7 +1563,7 @@
 										"type": "array",
 										"elementType": {
 											"type": "reference",
-											"id": 28,
+											"id": 30,
 											"name": "T"
 										}
 									}
@@ -1506,7 +1576,7 @@
 					]
 				},
 				{
-					"id": 45,
+					"id": 47,
 					"name": "has",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1514,21 +1584,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 147,
+							"line": 151,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L147"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L151"
 						}
 					],
 					"signatures": [
 						{
-							"id": 46,
+							"id": 48,
 							"name": "has",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 47,
+									"id": 49,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1555,7 +1625,7 @@
 					]
 				},
 				{
-					"id": 71,
+					"id": 73,
 					"name": "pop",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1563,21 +1633,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 200,
+							"line": 204,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L200"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L204"
 						}
 					],
 					"signatures": [
 						{
-							"id": 72,
+							"id": 74,
 							"name": "pop",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 73,
+									"id": 75,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -1591,7 +1661,7 @@
 							],
 							"parameters": [
 								{
-									"id": 74,
+									"id": 76,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1614,7 +1684,7 @@
 											},
 											{
 												"type": "reference",
-												"id": 73,
+												"id": 75,
 												"name": "T"
 											}
 										]
@@ -1628,7 +1698,7 @@
 					]
 				},
 				{
-					"id": 79,
+					"id": 81,
 					"name": "pull",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1636,21 +1706,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 224,
+							"line": 228,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L224"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L228"
 						}
 					],
 					"signatures": [
 						{
-							"id": 80,
+							"id": 82,
 							"name": "pull",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 81,
+									"id": 83,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -1664,7 +1734,7 @@
 							],
 							"parameters": [
 								{
-									"id": 82,
+									"id": 84,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1675,7 +1745,7 @@
 									}
 								},
 								{
-									"id": 83,
+									"id": 85,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1685,21 +1755,21 @@
 										"types": [
 											{
 												"type": "reference",
-												"id": 81,
+												"id": 83,
 												"name": "T"
 											},
 											{
 												"type": "array",
 												"elementType": {
 													"type": "reference",
-													"id": 81,
+													"id": 83,
 													"name": "T"
 												}
 											},
 											{
 												"type": "reflection",
 												"declaration": {
-													"id": 84,
+													"id": 86,
 													"name": "__type",
 													"kind": 65536,
 													"kindString": "Type literal",
@@ -1707,45 +1777,40 @@
 													"sources": [
 														{
 															"fileName": "index.ts",
-															"line": 226,
+															"line": 230,
 															"character": 26,
-															"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L226"
+															"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L230"
 														}
 													],
 													"signatures": [
 														{
-															"id": 85,
+															"id": 87,
 															"name": "__type",
 															"kind": 4096,
 															"kindString": "Call signature",
 															"flags": {},
 															"parameters": [
 																{
-																	"id": 86,
+																	"id": 88,
 																	"name": "data",
 																	"kind": 32768,
 																	"kindString": "Parameter",
 																	"flags": {},
 																	"type": {
 																		"type": "reference",
-																		"id": 81,
+																		"id": 83,
 																		"name": "T"
 																	}
 																},
 																{
-																	"id": 87,
-																	"name": "params",
+																	"id": 89,
+																	"name": "index",
 																	"kind": 32768,
 																	"kindString": "Parameter",
-																	"flags": {
-																		"isRest": true
-																	},
+																	"flags": {},
 																	"type": {
-																		"type": "array",
-																		"elementType": {
-																			"type": "intrinsic",
-																			"name": "any"
-																		}
+																		"type": "intrinsic",
+																		"name": "string"
 																	}
 																}
 															],
@@ -1759,6 +1824,18 @@
 											}
 										]
 									}
+								},
+								{
+									"id": 90,
+									"name": "once",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									},
+									"defaultValue": "false"
 								}
 							],
 							"type": {
@@ -1768,7 +1845,7 @@
 										"type": "array",
 										"elementType": {
 											"type": "reference",
-											"id": 81,
+											"id": 83,
 											"name": "T"
 										}
 									}
@@ -1781,7 +1858,7 @@
 					]
 				},
 				{
-					"id": 61,
+					"id": 63,
 					"name": "push",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1789,21 +1866,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 177,
+							"line": 181,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L177"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L181"
 						}
 					],
 					"signatures": [
 						{
-							"id": 62,
+							"id": 64,
 							"name": "push",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 63,
+									"id": 65,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -1817,7 +1894,7 @@
 							],
 							"parameters": [
 								{
-									"id": 64,
+									"id": 66,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1828,14 +1905,14 @@
 									}
 								},
 								{
-									"id": 65,
+									"id": 67,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 63,
+										"id": 65,
 										"name": "T"
 									}
 								}
@@ -1847,7 +1924,7 @@
 										"type": "array",
 										"elementType": {
 											"type": "reference",
-											"id": 63,
+											"id": 65,
 											"name": "T"
 										}
 									}
@@ -1860,7 +1937,7 @@
 					]
 				},
 				{
-					"id": 40,
+					"id": 42,
 					"name": "set",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1868,21 +1945,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 111,
+							"line": 115,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L111"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L115"
 						}
 					],
 					"signatures": [
 						{
-							"id": 41,
+							"id": 43,
 							"name": "set",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 42,
+									"id": 44,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -1896,7 +1973,7 @@
 							],
 							"parameters": [
 								{
-									"id": 43,
+									"id": 45,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1907,14 +1984,14 @@
 									}
 								},
 								{
-									"id": 44,
+									"id": 46,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 42,
+										"id": 44,
 										"name": "T"
 									}
 								}
@@ -1924,7 +2001,7 @@
 								"typeArguments": [
 									{
 										"type": "reference",
-										"id": 42,
+										"id": 44,
 										"name": "T"
 									}
 								],
@@ -1936,7 +2013,7 @@
 					]
 				},
 				{
-					"id": 75,
+					"id": 77,
 					"name": "shift",
 					"kind": 2048,
 					"kindString": "Method",
@@ -1944,21 +2021,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 212,
+							"line": 216,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L212"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L216"
 						}
 					],
 					"signatures": [
 						{
-							"id": 76,
+							"id": 78,
 							"name": "shift",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 77,
+									"id": 79,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -1972,7 +2049,7 @@
 							],
 							"parameters": [
 								{
-									"id": 78,
+									"id": 80,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -1995,7 +2072,7 @@
 											},
 											{
 												"type": "reference",
-												"id": 77,
+												"id": 79,
 												"name": "T"
 											}
 										]
@@ -2009,7 +2086,7 @@
 					]
 				},
 				{
-					"id": 88,
+					"id": 91,
 					"name": "startsWith",
 					"kind": 2048,
 					"kindString": "Method",
@@ -2017,21 +2094,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 246,
+							"line": 253,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L246"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L253"
 						}
 					],
 					"signatures": [
 						{
-							"id": 89,
+							"id": 92,
 							"name": "startsWith",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 90,
+									"id": 93,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -2045,7 +2122,7 @@
 							],
 							"parameters": [
 								{
-									"id": 91,
+									"id": 94,
 									"name": "query",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -2056,7 +2133,7 @@
 									}
 								},
 								{
-									"id": 92,
+									"id": 95,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -2076,14 +2153,14 @@
 										"elementType": {
 											"type": "reflection",
 											"declaration": {
-												"id": 93,
+												"id": 96,
 												"name": "__type",
 												"kind": 65536,
 												"kindString": "Type literal",
 												"flags": {},
 												"children": [
 													{
-														"id": 94,
+														"id": 97,
 														"name": "id",
 														"kind": 1024,
 														"kindString": "Property",
@@ -2091,9 +2168,9 @@
 														"sources": [
 															{
 																"fileName": "index.ts",
-																"line": 249,
+																"line": 256,
 																"character": 17,
-																"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L249"
+																"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L256"
 															}
 														],
 														"type": {
@@ -2102,7 +2179,7 @@
 														}
 													},
 													{
-														"id": 95,
+														"id": 98,
 														"name": "value",
 														"kind": 1024,
 														"kindString": "Property",
@@ -2110,14 +2187,14 @@
 														"sources": [
 															{
 																"fileName": "index.ts",
-																"line": 249,
+																"line": 256,
 																"character": 29,
-																"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L249"
+																"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L256"
 															}
 														],
 														"type": {
 															"type": "reference",
-															"id": 90,
+															"id": 93,
 															"name": "T"
 														}
 													}
@@ -2126,17 +2203,17 @@
 													{
 														"title": "Properties",
 														"children": [
-															94,
-															95
+															97,
+															98
 														]
 													}
 												],
 												"sources": [
 													{
 														"fileName": "index.ts",
-														"line": 249,
+														"line": 256,
 														"character": 15,
-														"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L249"
+														"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L256"
 													}
 												]
 											}
@@ -2151,7 +2228,7 @@
 					]
 				},
 				{
-					"id": 57,
+					"id": 59,
 					"name": "sub",
 					"kind": 2048,
 					"kindString": "Method",
@@ -2159,21 +2236,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 173,
+							"line": 177,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L173"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L177"
 						}
 					],
 					"signatures": [
 						{
-							"id": 58,
+							"id": 60,
 							"name": "sub",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 59,
+									"id": 61,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -2184,7 +2261,7 @@
 									}
 								},
 								{
-									"id": 60,
+									"id": 62,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -2211,7 +2288,7 @@
 					]
 				},
 				{
-					"id": 96,
+					"id": 99,
 					"name": "table",
 					"kind": 2048,
 					"kindString": "Method",
@@ -2219,21 +2296,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 266,
+							"line": 273,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L266"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L273"
 						}
 					],
 					"signatures": [
 						{
-							"id": 97,
+							"id": 100,
 							"name": "table",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 98,
+									"id": 101,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -2247,7 +2324,7 @@
 							],
 							"parameters": [
 								{
-									"id": 99,
+									"id": 102,
 									"name": "table",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -2264,7 +2341,7 @@
 								"typeArguments": [
 									{
 										"type": "reference",
-										"id": 98,
+										"id": 101,
 										"name": "T"
 									}
 								],
@@ -2274,7 +2351,7 @@
 					]
 				},
 				{
-					"id": 100,
+					"id": 103,
 					"name": "tableAsync",
 					"kind": 2048,
 					"kindString": "Method",
@@ -2282,21 +2359,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 277,
+							"line": 285,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L277"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L285"
 						}
 					],
 					"signatures": [
 						{
-							"id": 101,
+							"id": 104,
 							"name": "tableAsync",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 102,
+									"id": 105,
 									"name": "table",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -2330,7 +2407,7 @@
 					]
 				},
 				{
-					"id": 66,
+					"id": 68,
 					"name": "unshift",
 					"kind": 2048,
 					"kindString": "Method",
@@ -2338,21 +2415,21 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 188,
+							"line": 192,
 							"character": 10,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L188"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L192"
 						}
 					],
 					"signatures": [
 						{
-							"id": 67,
+							"id": 69,
 							"name": "unshift",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 68,
+									"id": 70,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -2366,7 +2443,7 @@
 							],
 							"parameters": [
 								{
-									"id": 69,
+									"id": 71,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -2377,7 +2454,7 @@
 									}
 								},
 								{
-									"id": 70,
+									"id": 72,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -2387,14 +2464,14 @@
 										"types": [
 											{
 												"type": "reference",
-												"id": 68,
+												"id": 70,
 												"name": "T"
 											},
 											{
 												"type": "array",
 												"elementType": {
 													"type": "reference",
-													"id": 68,
+													"id": 70,
 													"name": "T"
 												}
 											}
@@ -2409,7 +2486,7 @@
 										"type": "array",
 										"elementType": {
 											"type": "reference",
-											"id": 68,
+											"id": 70,
 											"name": "T"
 										}
 									}
@@ -2422,7 +2499,7 @@
 					]
 				},
 				{
-					"id": 103,
+					"id": 106,
 					"name": "useNormalKeys",
 					"kind": 2048,
 					"kindString": "Method",
@@ -2430,22 +2507,22 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 284,
+							"line": 292,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L284"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L292"
 						}
 					],
 					"signatures": [
 						{
-							"id": 104,
+							"id": 107,
 							"name": "useNormalKeys",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 105,
-									"name": "toggle",
+									"id": 108,
+									"name": "activate",
 									"kind": 32768,
 									"kindString": "Parameter",
 									"flags": {},
@@ -2473,9 +2550,9 @@
 					"sources": [
 						{
 							"fileName": "index.ts",
-							"line": 38,
+							"line": 89,
 							"character": 11,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L38"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L89"
 						}
 					],
 					"signatures": [
@@ -2536,35 +2613,41 @@
 					"title": "Properties",
 					"children": [
 						17,
-						20,
 						19,
+						20,
 						16,
 						18,
 						7
 					]
 				},
 				{
+					"title": "Accessors",
+					"children": [
+						21
+					]
+				},
+				{
 					"title": "Methods",
 					"children": [
+						55,
+						23,
+						32,
+						50,
 						53,
-						21,
-						30,
-						48,
-						51,
-						36,
-						26,
-						45,
-						71,
-						79,
-						61,
-						40,
-						75,
-						88,
-						57,
-						96,
-						100,
-						66,
+						38,
+						28,
+						47,
+						73,
+						81,
+						63,
+						42,
+						77,
+						91,
+						59,
+						99,
 						103,
+						68,
+						106,
 						8
 					]
 				}
@@ -2574,12 +2657,12 @@
 					"fileName": "index.ts",
 					"line": 16,
 					"character": 13,
-					"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L16"
+					"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L16"
 				}
 			],
 			"typeParameters": [
 				{
-					"id": 106,
+					"id": 109,
 					"name": "D",
 					"kind": 131072,
 					"kindString": "Type parameter",
@@ -2592,14 +2675,14 @@
 			]
 		},
 		{
-			"id": 136,
+			"id": 139,
 			"name": "SqliteDriver",
 			"kind": 128,
 			"kindString": "Class",
 			"flags": {},
 			"children": [
 				{
-					"id": 141,
+					"id": 144,
 					"name": "constructor",
 					"kind": 512,
 					"kindString": "Constructor",
@@ -2607,21 +2690,21 @@
 					"sources": [
 						{
 							"fileName": "drivers/SqliteDriver.ts",
-							"line": 8,
+							"line": 12,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L8"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L12"
 						}
 					],
 					"signatures": [
 						{
-							"id": 142,
+							"id": 145,
 							"name": "new SqliteDriver",
 							"kind": 16384,
 							"kindString": "Constructor signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 143,
+									"id": 146,
 									"name": "path",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -2634,15 +2717,15 @@
 							],
 							"type": {
 								"type": "reference",
-								"id": 136,
+								"id": 139,
 								"name": "SqliteDriver"
 							}
 						}
 					]
 				},
 				{
-					"id": 144,
-					"name": "database",
+					"id": 147,
+					"name": "_database",
 					"kind": 1024,
 					"kindString": "Property",
 					"flags": {
@@ -2654,7 +2737,7 @@
 							"fileName": "drivers/SqliteDriver.ts",
 							"line": 6,
 							"character": 21,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L6"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L6"
 						}
 					],
 					"type": {
@@ -2665,7 +2748,7 @@
 					}
 				},
 				{
-					"id": 137,
+					"id": 140,
 					"name": "instance",
 					"kind": 1024,
 					"kindString": "Property",
@@ -2678,7 +2761,7 @@
 							"fileName": "drivers/SqliteDriver.ts",
 							"line": 5,
 							"character": 19,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L5"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L5"
 						}
 					],
 					"type": {
@@ -2690,7 +2773,7 @@
 							},
 							{
 								"type": "reference",
-								"id": 136,
+								"id": 139,
 								"name": "SqliteDriver"
 							}
 						]
@@ -2698,7 +2781,35 @@
 					"defaultValue": "null"
 				},
 				{
-					"id": 166,
+					"id": 148,
+					"name": "database",
+					"kind": 262144,
+					"kindString": "Accessor",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "drivers/SqliteDriver.ts",
+							"line": 8,
+							"character": 8,
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L8"
+						}
+					],
+					"getSignature": {
+						"id": 149,
+						"name": "database",
+						"kind": 524288,
+						"kindString": "Get signature",
+						"flags": {},
+						"type": {
+							"type": "reference",
+							"name": "Database",
+							"qualifiedName": "BetterSqlite3.Database",
+							"package": "@types/better-sqlite3"
+						}
+					}
+				},
+				{
+					"id": 171,
 					"name": "deleteAllRows",
 					"kind": 2048,
 					"kindString": "Method",
@@ -2708,94 +2819,22 @@
 					"sources": [
 						{
 							"fileName": "drivers/SqliteDriver.ts",
-							"line": 70,
+							"line": 74,
 							"character": 17,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L70"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L74"
 						}
 					],
 					"signatures": [
 						{
-							"id": 167,
+							"id": 172,
 							"name": "deleteAllRows",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 168,
+									"id": 173,
 									"name": "table",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "string"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "number"
-									}
-								],
-								"name": "Promise",
-								"qualifiedName": "Promise",
-								"package": "typescript"
-							},
-							"implementationOf": {
-								"type": "reference",
-								"id": 130,
-								"name": "IDriver.deleteAllRows"
-							}
-						}
-					],
-					"implementationOf": {
-						"type": "reference",
-						"id": 129,
-						"name": "IDriver.deleteAllRows"
-					}
-				},
-				{
-					"id": 169,
-					"name": "deleteRowByKey",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isPublic": true
-					},
-					"sources": [
-						{
-							"fileName": "drivers/SqliteDriver.ts",
-							"line": 75,
-							"character": 17,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L75"
-						}
-					],
-					"signatures": [
-						{
-							"id": 170,
-							"name": "deleteRowByKey",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"parameters": [
-								{
-									"id": 171,
-									"name": "table",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "string"
-									}
-								},
-								{
-									"id": 172,
-									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
 									"flags": {},
@@ -2820,18 +2859,90 @@
 							"implementationOf": {
 								"type": "reference",
 								"id": 133,
-								"name": "IDriver.deleteRowByKey"
+								"name": "IDriver.deleteAllRows"
 							}
 						}
 					],
 					"implementationOf": {
 						"type": "reference",
 						"id": 132,
+						"name": "IDriver.deleteAllRows"
+					}
+				},
+				{
+					"id": 174,
+					"name": "deleteRowByKey",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPublic": true
+					},
+					"sources": [
+						{
+							"fileName": "drivers/SqliteDriver.ts",
+							"line": 79,
+							"character": 17,
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L79"
+						}
+					],
+					"signatures": [
+						{
+							"id": 175,
+							"name": "deleteRowByKey",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 176,
+									"name": "table",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								},
+								{
+									"id": 177,
+									"name": "key",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "number"
+									}
+								],
+								"name": "Promise",
+								"qualifiedName": "Promise",
+								"package": "typescript"
+							},
+							"implementationOf": {
+								"type": "reference",
+								"id": 136,
+								"name": "IDriver.deleteRowByKey"
+							}
+						}
+					],
+					"implementationOf": {
+						"type": "reference",
+						"id": 135,
 						"name": "IDriver.deleteRowByKey"
 					}
 				},
 				{
-					"id": 148,
+					"id": 153,
 					"name": "getAllRows",
 					"kind": 2048,
 					"kindString": "Method",
@@ -2841,21 +2952,21 @@
 					"sources": [
 						{
 							"fileName": "drivers/SqliteDriver.ts",
-							"line": 25,
+							"line": 29,
 							"character": 17,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L25"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L29"
 						}
 					],
 					"signatures": [
 						{
-							"id": 149,
+							"id": 154,
 							"name": "getAllRows",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 150,
+									"id": 155,
 									"name": "table",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -2874,14 +2985,14 @@
 										"elementType": {
 											"type": "reflection",
 											"declaration": {
-												"id": 151,
+												"id": 156,
 												"name": "__type",
 												"kind": 65536,
 												"kindString": "Type literal",
 												"flags": {},
 												"children": [
 													{
-														"id": 152,
+														"id": 157,
 														"name": "id",
 														"kind": 1024,
 														"kindString": "Property",
@@ -2889,9 +3000,9 @@
 														"sources": [
 															{
 																"fileName": "drivers/SqliteDriver.ts",
-																"line": 25,
+																"line": 29,
 																"character": 54,
-																"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L25"
+																"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L29"
 															}
 														],
 														"type": {
@@ -2900,7 +3011,7 @@
 														}
 													},
 													{
-														"id": 153,
+														"id": 158,
 														"name": "value",
 														"kind": 1024,
 														"kindString": "Property",
@@ -2908,9 +3019,9 @@
 														"sources": [
 															{
 																"fileName": "drivers/SqliteDriver.ts",
-																"line": 25,
+																"line": 29,
 																"character": 66,
-																"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L25"
+																"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L29"
 															}
 														],
 														"type": {
@@ -2923,17 +3034,17 @@
 													{
 														"title": "Properties",
 														"children": [
-															152,
-															153
+															157,
+															158
 														]
 													}
 												],
 												"sources": [
 													{
 														"fileName": "drivers/SqliteDriver.ts",
-														"line": 25,
+														"line": 29,
 														"character": 52,
-														"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L25"
+														"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L29"
 													}
 												]
 											}
@@ -2946,19 +3057,19 @@
 							},
 							"implementationOf": {
 								"type": "reference",
-								"id": 112,
+								"id": 115,
 								"name": "IDriver.getAllRows"
 							}
 						}
 					],
 					"implementationOf": {
 						"type": "reference",
-						"id": 111,
+						"id": 114,
 						"name": "IDriver.getAllRows"
 					}
 				},
 				{
-					"id": 154,
+					"id": 159,
 					"name": "getRowByKey",
 					"kind": 2048,
 					"kindString": "Method",
@@ -2968,176 +3079,15 @@
 					"sources": [
 						{
 							"fileName": "drivers/SqliteDriver.ts",
-							"line": 39,
+							"line": 43,
 							"character": 17,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L39"
-						}
-					],
-					"signatures": [
-						{
-							"id": 155,
-							"name": "getRowByKey",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"typeParameter": [
-								{
-									"id": 156,
-									"name": "T",
-									"kind": 131072,
-									"kindString": "Type parameter",
-									"flags": {}
-								}
-							],
-							"parameters": [
-								{
-									"id": 157,
-									"name": "table",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "string"
-									}
-								},
-								{
-									"id": 158,
-									"name": "key",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "string"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "tuple",
-										"elements": [
-											{
-												"type": "union",
-												"types": [
-													{
-														"type": "literal",
-														"value": null
-													},
-													{
-														"type": "reference",
-														"id": 156,
-														"name": "T"
-													}
-												]
-											},
-											{
-												"type": "intrinsic",
-												"name": "boolean"
-											}
-										]
-									}
-								],
-								"name": "Promise",
-								"qualifiedName": "Promise",
-								"package": "typescript"
-							},
-							"implementationOf": {
-								"type": "reference",
-								"id": 118,
-								"name": "IDriver.getRowByKey"
-							}
-						}
-					],
-					"implementationOf": {
-						"type": "reference",
-						"id": 117,
-						"name": "IDriver.getRowByKey"
-					}
-				},
-				{
-					"id": 145,
-					"name": "prepare",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isPublic": true
-					},
-					"sources": [
-						{
-							"fileName": "drivers/SqliteDriver.ts",
-							"line": 21,
-							"character": 17,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L21"
-						}
-					],
-					"signatures": [
-						{
-							"id": 146,
-							"name": "prepare",
-							"kind": 4096,
-							"kindString": "Call signature",
-							"flags": {},
-							"parameters": [
-								{
-									"id": 147,
-									"name": "table",
-									"kind": 32768,
-									"kindString": "Parameter",
-									"flags": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "string"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "void"
-									}
-								],
-								"name": "Promise",
-								"qualifiedName": "Promise",
-								"package": "typescript"
-							},
-							"implementationOf": {
-								"type": "reference",
-								"id": 109,
-								"name": "IDriver.prepare"
-							}
-						}
-					],
-					"implementationOf": {
-						"type": "reference",
-						"id": 108,
-						"name": "IDriver.prepare"
-					}
-				},
-				{
-					"id": 159,
-					"name": "setRowByKey",
-					"kind": 2048,
-					"kindString": "Method",
-					"flags": {
-						"isPublic": true
-					},
-					"sources": [
-						{
-							"fileName": "drivers/SqliteDriver.ts",
-							"line": 50,
-							"character": 17,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L50"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L43"
 						}
 					],
 					"signatures": [
 						{
 							"id": 160,
-							"name": "setRowByKey",
+							"name": "getRowByKey",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
@@ -3172,9 +3122,170 @@
 										"type": "intrinsic",
 										"name": "string"
 									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "tuple",
+										"elements": [
+											{
+												"type": "union",
+												"types": [
+													{
+														"type": "literal",
+														"value": null
+													},
+													{
+														"type": "reference",
+														"id": 161,
+														"name": "T"
+													}
+												]
+											},
+											{
+												"type": "intrinsic",
+												"name": "boolean"
+											}
+										]
+									}
+								],
+								"name": "Promise",
+								"qualifiedName": "Promise",
+								"package": "typescript"
+							},
+							"implementationOf": {
+								"type": "reference",
+								"id": 121,
+								"name": "IDriver.getRowByKey"
+							}
+						}
+					],
+					"implementationOf": {
+						"type": "reference",
+						"id": 120,
+						"name": "IDriver.getRowByKey"
+					}
+				},
+				{
+					"id": 150,
+					"name": "prepare",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPublic": true
+					},
+					"sources": [
+						{
+							"fileName": "drivers/SqliteDriver.ts",
+							"line": 25,
+							"character": 17,
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L25"
+						}
+					],
+					"signatures": [
+						{
+							"id": 151,
+							"name": "prepare",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 152,
+									"name": "table",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "void"
+									}
+								],
+								"name": "Promise",
+								"qualifiedName": "Promise",
+								"package": "typescript"
+							},
+							"implementationOf": {
+								"type": "reference",
+								"id": 112,
+								"name": "IDriver.prepare"
+							}
+						}
+					],
+					"implementationOf": {
+						"type": "reference",
+						"id": 111,
+						"name": "IDriver.prepare"
+					}
+				},
+				{
+					"id": 164,
+					"name": "setRowByKey",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPublic": true
+					},
+					"sources": [
+						{
+							"fileName": "drivers/SqliteDriver.ts",
+							"line": 54,
+							"character": 17,
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L54"
+						}
+					],
+					"signatures": [
+						{
+							"id": 165,
+							"name": "setRowByKey",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"typeParameter": [
+								{
+									"id": 166,
+									"name": "T",
+									"kind": 131072,
+									"kindString": "Type parameter",
+									"flags": {}
+								}
+							],
+							"parameters": [
+								{
+									"id": 167,
+									"name": "table",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
 								},
 								{
-									"id": 164,
+									"id": 168,
+									"name": "key",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								},
+								{
+									"id": 169,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3185,7 +3296,7 @@
 									}
 								},
 								{
-									"id": 165,
+									"id": 170,
 									"name": "update",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3201,7 +3312,7 @@
 								"typeArguments": [
 									{
 										"type": "reference",
-										"id": 161,
+										"id": 166,
 										"name": "T"
 									}
 								],
@@ -3211,19 +3322,19 @@
 							},
 							"implementationOf": {
 								"type": "reference",
-								"id": 123,
+								"id": 126,
 								"name": "IDriver.setRowByKey"
 							}
 						}
 					],
 					"implementationOf": {
 						"type": "reference",
-						"id": 122,
+						"id": 125,
 						"name": "IDriver.setRowByKey"
 					}
 				},
 				{
-					"id": 138,
+					"id": 141,
 					"name": "createSingleton",
 					"kind": 2048,
 					"kindString": "Method",
@@ -3234,21 +3345,21 @@
 					"sources": [
 						{
 							"fileName": "drivers/SqliteDriver.ts",
-							"line": 14,
+							"line": 18,
 							"character": 18,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L14"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L18"
 						}
 					],
 					"signatures": [
 						{
-							"id": 139,
+							"id": 142,
 							"name": "createSingleton",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 140,
+									"id": 143,
 									"name": "path",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3261,7 +3372,7 @@
 							],
 							"type": {
 								"type": "reference",
-								"id": 136,
+								"id": 139,
 								"name": "SqliteDriver"
 							}
 						}
@@ -3272,26 +3383,32 @@
 				{
 					"title": "Constructors",
 					"children": [
-						141
+						144
 					]
 				},
 				{
 					"title": "Properties",
 					"children": [
-						144,
-						137
+						147,
+						140
+					]
+				},
+				{
+					"title": "Accessors",
+					"children": [
+						148
 					]
 				},
 				{
 					"title": "Methods",
 					"children": [
-						166,
-						169,
-						148,
-						154,
-						145,
+						171,
+						174,
+						153,
 						159,
-						138
+						150,
+						164,
+						141
 					]
 				}
 			],
@@ -3300,26 +3417,26 @@
 					"fileName": "drivers/SqliteDriver.ts",
 					"line": 4,
 					"character": 13,
-					"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/SqliteDriver.ts#L4"
+					"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/SqliteDriver.ts#L4"
 				}
 			],
 			"implementedTypes": [
 				{
 					"type": "reference",
-					"id": 107,
+					"id": 110,
 					"name": "IDriver"
 				}
 			]
 		},
 		{
-			"id": 107,
+			"id": 110,
 			"name": "IDriver",
 			"kind": 256,
 			"kindString": "Interface",
 			"flags": {},
 			"children": [
 				{
-					"id": 129,
+					"id": 132,
 					"name": "deleteAllRows",
 					"kind": 2048,
 					"kindString": "Method",
@@ -3329,19 +3446,19 @@
 							"fileName": "drivers/IDriver.ts",
 							"line": 11,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/IDriver.ts#L11"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/IDriver.ts#L11"
 						}
 					],
 					"signatures": [
 						{
-							"id": 130,
+							"id": 133,
 							"name": "deleteAllRows",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 131,
+									"id": 134,
 									"name": "table",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3368,7 +3485,7 @@
 					]
 				},
 				{
-					"id": 132,
+					"id": 135,
 					"name": "deleteRowByKey",
 					"kind": 2048,
 					"kindString": "Method",
@@ -3378,19 +3495,19 @@
 							"fileName": "drivers/IDriver.ts",
 							"line": 12,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/IDriver.ts#L12"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/IDriver.ts#L12"
 						}
 					],
 					"signatures": [
 						{
-							"id": 133,
+							"id": 136,
 							"name": "deleteRowByKey",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 134,
+									"id": 137,
 									"name": "table",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3401,7 +3518,7 @@
 									}
 								},
 								{
-									"id": 135,
+									"id": 138,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3428,7 +3545,7 @@
 					]
 				},
 				{
-					"id": 111,
+					"id": 114,
 					"name": "getAllRows",
 					"kind": 2048,
 					"kindString": "Method",
@@ -3438,19 +3555,19 @@
 							"fileName": "drivers/IDriver.ts",
 							"line": 3,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/IDriver.ts#L3"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/IDriver.ts#L3"
 						}
 					],
 					"signatures": [
 						{
-							"id": 112,
+							"id": 115,
 							"name": "getAllRows",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 113,
+									"id": 116,
 									"name": "table",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3469,14 +3586,14 @@
 										"elementType": {
 											"type": "reflection",
 											"declaration": {
-												"id": 114,
+												"id": 117,
 												"name": "__type",
 												"kind": 65536,
 												"kindString": "Type literal",
 												"flags": {},
 												"children": [
 													{
-														"id": 115,
+														"id": 118,
 														"name": "id",
 														"kind": 1024,
 														"kindString": "Property",
@@ -3486,7 +3603,7 @@
 																"fileName": "drivers/IDriver.ts",
 																"line": 3,
 																"character": 41,
-																"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/IDriver.ts#L3"
+																"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/IDriver.ts#L3"
 															}
 														],
 														"type": {
@@ -3495,7 +3612,7 @@
 														}
 													},
 													{
-														"id": 116,
+														"id": 119,
 														"name": "value",
 														"kind": 1024,
 														"kindString": "Property",
@@ -3505,7 +3622,7 @@
 																"fileName": "drivers/IDriver.ts",
 																"line": 3,
 																"character": 53,
-																"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/IDriver.ts#L3"
+																"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/IDriver.ts#L3"
 															}
 														],
 														"type": {
@@ -3518,8 +3635,8 @@
 													{
 														"title": "Properties",
 														"children": [
-															115,
-															116
+															118,
+															119
 														]
 													}
 												],
@@ -3528,7 +3645,7 @@
 														"fileName": "drivers/IDriver.ts",
 														"line": 3,
 														"character": 39,
-														"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/IDriver.ts#L3"
+														"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/IDriver.ts#L3"
 													}
 												]
 											}
@@ -3543,7 +3660,7 @@
 					]
 				},
 				{
-					"id": 117,
+					"id": 120,
 					"name": "getRowByKey",
 					"kind": 2048,
 					"kindString": "Method",
@@ -3553,19 +3670,19 @@
 							"fileName": "drivers/IDriver.ts",
 							"line": 4,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/IDriver.ts#L4"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/IDriver.ts#L4"
 						}
 					],
 					"signatures": [
 						{
-							"id": 118,
+							"id": 121,
 							"name": "getRowByKey",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 119,
+									"id": 122,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -3574,7 +3691,7 @@
 							],
 							"parameters": [
 								{
-									"id": 120,
+									"id": 123,
 									"name": "table",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3585,7 +3702,7 @@
 									}
 								},
 								{
-									"id": 121,
+									"id": 124,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3611,7 +3728,7 @@
 													},
 													{
 														"type": "reference",
-														"id": 119,
+														"id": 122,
 														"name": "T"
 													}
 												]
@@ -3631,7 +3748,7 @@
 					]
 				},
 				{
-					"id": 108,
+					"id": 111,
 					"name": "prepare",
 					"kind": 2048,
 					"kindString": "Method",
@@ -3641,19 +3758,19 @@
 							"fileName": "drivers/IDriver.ts",
 							"line": 2,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/IDriver.ts#L2"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/IDriver.ts#L2"
 						}
 					],
 					"signatures": [
 						{
-							"id": 109,
+							"id": 112,
 							"name": "prepare",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 110,
+									"id": 113,
 									"name": "table",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3680,7 +3797,7 @@
 					]
 				},
 				{
-					"id": 122,
+					"id": 125,
 					"name": "setRowByKey",
 					"kind": 2048,
 					"kindString": "Method",
@@ -3690,19 +3807,19 @@
 							"fileName": "drivers/IDriver.ts",
 							"line": 5,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/IDriver.ts#L5"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/IDriver.ts#L5"
 						}
 					],
 					"signatures": [
 						{
-							"id": 123,
+							"id": 126,
 							"name": "setRowByKey",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 124,
+									"id": 127,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -3711,7 +3828,7 @@
 							],
 							"parameters": [
 								{
-									"id": 125,
+									"id": 128,
 									"name": "table",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3722,7 +3839,7 @@
 									}
 								},
 								{
-									"id": 126,
+									"id": 129,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3733,7 +3850,7 @@
 									}
 								},
 								{
-									"id": 127,
+									"id": 130,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3744,7 +3861,7 @@
 									}
 								},
 								{
-									"id": 128,
+									"id": 131,
 									"name": "update",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -3760,7 +3877,7 @@
 								"typeArguments": [
 									{
 										"type": "reference",
-										"id": 124,
+										"id": 127,
 										"name": "T"
 									}
 								],
@@ -3776,12 +3893,12 @@
 				{
 					"title": "Methods",
 					"children": [
-						129,
 						132,
+						135,
+						114,
+						120,
 						111,
-						117,
-						108,
-						122
+						125
 					]
 				}
 			],
@@ -3790,18 +3907,18 @@
 					"fileName": "drivers/IDriver.ts",
 					"line": 1,
 					"character": 17,
-					"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/IDriver.ts#L1"
+					"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/IDriver.ts#L1"
 				}
 			],
 			"implementedBy": [
 				{
 					"type": "reference",
-					"id": 173,
+					"id": 178,
 					"name": "MySQLDriver"
 				},
 				{
 					"type": "reference",
-					"id": 136,
+					"id": 139,
 					"name": "SqliteDriver"
 				}
 			]
@@ -3826,12 +3943,12 @@
 							"fileName": "index.ts",
 							"line": 12,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L12"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L12"
 						}
 					],
 					"type": {
 						"type": "reference",
-						"id": 107,
+						"id": 110,
 						"name": "IDriver"
 					}
 				},
@@ -3848,7 +3965,7 @@
 							"fileName": "index.ts",
 							"line": 11,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L11"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L11"
 						}
 					],
 					"type": {
@@ -3869,7 +3986,7 @@
 							"fileName": "index.ts",
 							"line": 13,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L13"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L13"
 						}
 					],
 					"type": {
@@ -3890,7 +4007,7 @@
 							"fileName": "index.ts",
 							"line": 10,
 							"character": 4,
-							"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L10"
+							"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L10"
 						}
 					],
 					"type": {
@@ -3915,12 +4032,12 @@
 					"fileName": "index.ts",
 					"line": 9,
 					"character": 17,
-					"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L9"
+					"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L9"
 				}
 			]
 		},
 		{
-			"id": 216,
+			"id": 223,
 			"name": "Config",
 			"kind": 4194304,
 			"kindString": "Type alias",
@@ -3930,7 +4047,7 @@
 					"fileName": "drivers/MySQLDriver.ts",
 					"line": 3,
 					"character": 12,
-					"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/drivers/MySQLDriver.ts#L3"
+					"url": "https://github.com/plexidev/quick.db/blob/4316733/src/drivers/MySQLDriver.ts#L3"
 				}
 			],
 			"type": {
@@ -3954,22 +4071,22 @@
 		{
 			"title": "Classes",
 			"children": [
-				173,
+				178,
 				6,
-				136
+				139
 			]
 		},
 		{
 			"title": "Interfaces",
 			"children": [
-				107,
+				110,
 				1
 			]
 		},
 		{
 			"title": "Type Aliases",
 			"children": [
-				216
+				223
 			]
 		}
 	],
@@ -3978,7 +4095,7 @@
 			"fileName": "index.ts",
 			"line": 1,
 			"character": 0,
-			"url": "https://github.com/plexidev/quick.db/blob/d8d5b0c/src/index.ts#L1"
+			"url": "https://github.com/plexidev/quick.db/blob/4316733/src/index.ts#L1"
 		}
 	]
 }

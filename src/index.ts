@@ -227,7 +227,7 @@ export class QuickDB<D = any> {
 
     async pull<T = D>(
         key: string,
-        value: T | T[] | ((data: T, ...params: any[]) => boolean),
+        value: T | T[] | ((data: T, index: string) => boolean),
         once = false
     ): Promise<T[]> {
         if (typeof key != "string")
@@ -240,8 +240,9 @@ export class QuickDB<D = any> {
 
         const data = [];
         for (const i in currentArr) {
-            const condition = Array.isArray(value) ? value.includes(currentArr[i]) : (value as unknown as ((data: T, ...params: any[]) => boolean))(currentArr[i], i);
-            if (condition) continue;
+            if (Array.isArray(value) ? value.includes(currentArr[i])
+                : (value as any)(currentArr[i], i))
+                continue;
             data.push(currentArr[i]);
             if (once) break;
         }

@@ -18,6 +18,7 @@
         "prettier": "^2.5.1",
         "promise-mysql": "^5.0.4",
         "ts-jest": "^29.0.3",
+        "typedoc": "^0.23.26",
         "typescript": "^4.5.4"
     },
     "dependencies": {
@@ -27,7 +28,8 @@
         "test": "jest --roots tests",
         "lint": "eslint --ext \".ts\" ./src",
         "prettier": "prettier --write ./src",
-        "prepublishOnly": "tsc"
+        "prepublishOnly": "tsc",
+        "docgen": "typedoc"
     },
     "lint-staged": {
         "*.{ts}": "eslint"

@@ -1,38 +1,39 @@
 {
     "name": "quick.db",
-    "version": "9.0.10",
+    "version": "9.1.0",
     "description": "An easy, non-locking, persistent better-sqlite3 wrapper designed to be easy to setup & utilize",
     "main": "out/index.js",
     "types": "out/index.d.ts",
     "devDependencies": {
-        "@babel/core": "^7.16.5",
-        "@babel/preset-env": "^7.16.5",
-        "@babel/preset-typescript": "^7.16.5",
         "@faker-js/faker": "^6.1.2",
         "@types/better-sqlite3": "^7.4.2",
         "@types/jest": "^27.0.3",
         "@types/lodash": "^4.14.178",
+        "@types/write-file-atomic": "^4.0.0",
         "@typescript-eslint/eslint-plugin": "^5.8.1",
         "@typescript-eslint/parser": "^5.8.1",
-        "babel-jest": "^27.4.5",
         "better-sqlite3": "^7.4.5",
         "eslint": "^8.5.0",
         "eslint-config-prettier": "^8.3.0",
-        "husky": "^7.0.4",
-        "jest": "^27.4.5",
+        "jest": "^29.3.1",
+        "mongoose": "^6.9.1",
         "mysql2": "^3.2.0",
         "prettier": "^2.5.1",
-        "typescript": "^4.5.4"
+        "ts-jest": "^29.0.3",
+        "typedoc": "^0.23.26",
+        "typescript": "^4.5.4",
+        "write-file-atomic": "^5.0.0"
     },
     "dependencies": {
         "lodash": "^4.17.21"
     },
     "scripts": {
         "test": "jest --roots tests",
+        "build": "tsc",
         "lint": "eslint --ext \".ts\" ./src",
         "prettier": "prettier --write ./src",
-        "prepare": "husky install",
-        "prepublishOnly": "tsc"
+        "prepublishOnly": "tsc",
+        "docgen": "typedoc"
     },
     "lint-staged": {
         "*.{ts}": "eslint"

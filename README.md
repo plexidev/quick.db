@@ -1,16 +1,15 @@
+## ![Quick.db Logo](https://www.plexidev.org/quickdb.png)
+
 > Need a powerful, low-cost VPS for hosting your applications & bots 24/7? Check out our partner, [Contabo](https://www.tkqlhce.com/click-8950879-15301134)! 🎉
-
-## Quick.db
-
 
 **Documentation:** [quickdb.js.org](https://quickdb.js.org) [[Migration Guide](https://quickdb.js.org/overview/migration-guide)] <br>
 **Support:** [discord.gg/plexidev](https://discord.gg/plexidev) <br>
 **NPM:** [npmjs.com/quick.db](https://www.npmjs.com/package/quick.db)
 
-Quick.db is an open-source package meant to provide an easy way for beginners and people of all levels to access & store data in a low to medium volume environment. All data is stored persistently via either [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3) or [promise-mysql](https://www.npmjs.com/package/promise-mysql) and comes way various other quality-of-life features.
+Quick.db is an open-source package meant to provide an easy way for beginners and people of all levels to access & store data in a low to medium volume environment. All data is stored persistently via either [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3) or [mysql2](https://www.npmjs.com/package/mysql2) and comes way various other quality-of-life features.
 
 -   **Persistent Storage** - Data doesn't disappear through restarts
--   **Multiple Drivers** - You can use either better-sqlite3 or promise-mysql
+-   **Multiple Drivers** - You can use either better-sqlite3 or mysql2
 -   **Works out of the box** - No need to set up a database server, all the data is stored locally in the same project
 -   **Beginner Friendly** - Originally created for use in tutorials, the documentation is straightforward and jargon-free
 -   & more...
@@ -31,7 +30,7 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 
 ```python
 npm i quick.db better-sqlite3   # (Default) Local SQLite3 File
-npm i quick.db promise-mysql    # (Alternative) MySQL Server Connection
+npm i quick.db mysql2    # (Alternative) MySQL Server Connection
 ```
 
 > If you're having troubles installing, please follow [this troubleshooting guide](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).
@@ -56,7 +55,7 @@ const db = new QuickDB(); // will make a json.sqlite in the root folder
     // -> { difficulty: 'Easy' }
 
     // Getting an object property from the database:
-    await db.set("userInfo.difficulty");
+    await db.get("userInfo.difficulty");
     // -> 'Easy'
 
     // Setting an object in the database:
@@ -85,7 +84,7 @@ const db = new QuickDB(); // will make a json.sqlite in the root folder
 
 ## Example With MySQLDriver
 
-> **NOTE:** In order to use this driver, install `npm i promise-mysql` separately.
+> **NOTE:** In order to use this driver, install `npm i mysql2` separately.
 
 ```js
 const { QuickDB, MySQLDriver } = require("quick.db");
@@ -105,6 +104,52 @@ const { QuickDB, MySQLDriver } = require("quick.db");
     await db.set("userInfo", { difficulty: "Easy" });
     // -> { difficulty: 'Easy' }
 })();
+```
+
+## Example With MongoDriver
+
+> **NOTE:** In order to use this driver, install `npm i mongoose` separately.
+
+```js
+const { QuickDB, MongoDriver } = require("quick.db");
+(async () => {
+    const mongoDriver = new MongoDriver("mongodb://localhost/quickdb");
+
+    await mongoDriver.connect();
+
+    const db = new QuickDB({ driver: mongoDriver });
+    // Now you can use quick.db as normal
+
+    await db.set("userInfo", { difficulty: "Easy" });
+    // -> { difficulty: 'Easy' }
+
+    await driver.close();
+    // disconnect from the database
+})();
+```
+
+## Example With JSONDriver
+
+> **NOTE:** In order to use this driver, install `npm i write-file-atomic` separately.
+
+```js
+const { QuickDB, JSONDriver } = require("quick.db");
+const jsonDriver = new JSONDriver();
+const db = new QuickDB({ driver: jsonDriver });
+
+await db.set("userInfo", { difficulty: "Easy" });
+```
+
+## Example With MemoryDriver
+
+> **Note:** In-memory database is not persistent and is suitable for temporary caching.
+
+```js
+const { QuickDB, MemoryDriver } = require("quick.db");
+const memoryDriver = new MemoryDriver();
+const db = new QuickDB({ driver: memoryDriver });
+
+await db.set("userInfo", { difficulty: "Easy" });
 ```
 
 ## Changes in 9.0.x

@@ -3,28 +3,39 @@ import MySQLModule from "mysql2/promise";
 export type Config = string | MySQLModule.PoolOptions;
 
 export class MySQLDriver implements IDriver {
-    mysql: typeof MySQLModule;
-    conn?: MySQLModule.Pool;
-    config: Config;
+    private static instance: MySQLDriver;
+    private readonly _mysql: typeof MySQLModule;
+    private conn?: MySQLModule.Pool;
+    private config: Config;
 
-    constructor(config: Config) {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        this.config = config;
-        this.mysql = require("mysql2/promise");
+    get mysql(): typeof MySQLModule {
+        return this._mysql;
     }
 
-    private checkConnection() {
-        if (this.conn == null)
+    constructor(config: Config) {
+        this.config = config;
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        this._mysql = require("mysql2/promise");
+    }
+
+    static createSingleton(config: string | Config): MySQLDriver {
+        if (!this.instance) this.instance = new MySQLDriver(config);
+        return this.instance;
+    }
+
+    private checkConnection(): void {
+        if (!this.conn) {
             throw new Error("MySQL not connected to the database");
+        }
     }
 
     async connect(): Promise<void> {
         // This is needed for typescript typecheking
         // For some reason, it doesn't work even if createPool needs a string and in an overload a PoolOptions
         if (typeof this.config == "string") {
-            this.conn = await this.mysql.createPool(this.config);
+            this.conn = await this._mysql.createPool(this.config);
         } else {
-            this.conn = await this.mysql.createPool(this.config);
+            this.conn = await this._mysql.createPool(this.config);
         }
     }
 
@@ -32,7 +43,7 @@ export class MySQLDriver implements IDriver {
         this.checkConnection();
 
         await this.conn!.query(
-            `CREATE TABLE IF NOT EXISTS ${table} (ID TEXT, json TEXT)`
+            `CREATE TABLE IF NOT EXISTS ${table} (ID VARCHAR(255) PRIMARY KEY, json TEXT)`
         );
     }
 

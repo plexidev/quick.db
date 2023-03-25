@@ -45,6 +45,7 @@ build/Release
 
 # Dependency directories
 node_modules/
+package-lock.json
 jspm_packages/
 pnpm-lock.yaml
 
@@ -134,3 +135,5 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 out
+
+.tool-versions

@@ -1,23 +1,33 @@
 import { IDriver } from "./IDriver";
-import type { Database } from "better-sqlite3";
+import { Database } from "better-sqlite3";
 
 export class SqliteDriver implements IDriver {
-    database: Database;
+    private static instance: SqliteDriver | null = null;
+    private readonly _database: Database;
+
+    get database(): Database {
+        return this._database;
+    }
 
     constructor(path: string) {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const sqlite3 = require("better-sqlite3");
-        this.database = sqlite3(path);
+        this._database = sqlite3(path);
     }
 
-    async prepare(table: string): Promise<void> {
-        this.database
-            .prepare(`CREATE TABLE IF NOT EXISTS ${table} (ID TEXT, json TEXT)`)
-            .run();
+    public static createSingleton(path: string): SqliteDriver {
+        if (!SqliteDriver.instance) {
+            SqliteDriver.instance = new SqliteDriver(path);
+        }
+        return SqliteDriver.instance;
     }
 
-    async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
-        const prep = this.database.prepare(`SELECT * FROM ${table}`);
+    public async prepare(table: string): Promise<void> {
+        await this._database.exec(`CREATE TABLE IF NOT EXISTS ${table} (ID TEXT PRIMARY KEY, json TEXT)`);
+    }
+
+    public async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
+        const prep = this._database.prepare(`SELECT * FROM ${table}`);
         const data = [];
 
         for (const row of prep.iterate()) {
@@ -30,20 +40,18 @@ export class SqliteDriver implements IDriver {
         return data;
     }
 
-    async getRowByKey<T>(
+    public async getRowByKey<T>(
         table: string,
         key: string
     ): Promise<[T | null, boolean]> {
-        const value = await this.database
+        const value = await this._database
             .prepare(`SELECT json FROM ${table} WHERE ID = @key`)
-            .get({
-                key,
-            });
+            .get({ key });
 
         return value != null ? [JSON.parse(value.json), true] : [null, false];
     }
 
-    async setRowByKey<T>(
+    public async setRowByKey<T>(
         table: string,
         key: string,
         value: any,
@@ -51,11 +59,11 @@ export class SqliteDriver implements IDriver {
     ): Promise<T> {
         const stringifiedJson = JSON.stringify(value);
         if (update) {
-            this.database
+            await this._database
                 .prepare(`UPDATE ${table} SET json = (?) WHERE ID = (?)`)
                 .run(stringifiedJson, key);
         } else {
-            this.database
+            await this._database
                 .prepare(`INSERT INTO ${table} (ID,json) VALUES (?,?)`)
                 .run(key, stringifiedJson);
         }
@@ -63,13 +71,13 @@ export class SqliteDriver implements IDriver {
         return value;
     }
 
-    async deleteAllRows(table: string): Promise<number> {
-        return this.database.prepare(`DELETE FROM ${table}`).run().changes;
+    public async deleteAllRows(table: string): Promise<number> {
+        const result = await this._database.prepare(`DELETE FROM ${table}`).run();
+        return result.changes;
     }
 
-    async deleteRowByKey(table: string, key: string): Promise<number> {
-        return this.database.prepare(`DELETE FROM ${table} WHERE ID=@key`).run({
-            key,
-        }).changes;
+    public async deleteRowByKey(table: string, key: string): Promise<number> {
+        const result = await this._database.prepare(`DELETE FROM ${table} WHERE ID=@key`).run({ key });
+        return result.changes;
     }
 }

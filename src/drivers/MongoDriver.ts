@@ -101,16 +101,16 @@ export class MongoDriver implements IDriver {
 
     async getRowByKey<T>(table: string, key: string): Promise<[T | null, boolean]> {
         this.checkConnection();
-        const model: any = await this.getModel(table);
-        // wtf quickdb?
-        const res = await model.find({ ID: key });
-        return res.map((m: any) => m.data);
+        const model = await this.getModel(table);
+        const res = await model!.findOne({ ID: key });
+        if (!res) return [null, false];
+        return [res.data as T | null, true];
     }
 
-    async setRowByKey<T>(table: string, key: string, value: any, update: boolean): Promise<T> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async setRowByKey<T>(table: string, key: string, value: any, _update: boolean): Promise<T> {
         this.checkConnection();
         const model = await this.getModel(table);
-        void update;
         await model?.findOneAndUpdate(
             {
                 ID: key
@@ -146,13 +146,12 @@ export class MongoDriver implements IDriver {
     }
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    modelSchema<T = unknown>(modelName = "JSON"): mongoose.Model<unknown, unknown, unknown, {}, CollectionInterface<T>> {
+    modelSchema<T = unknown>(modelName = "JSON"): mongoose.Model<CollectionInterface<T>> {
         this.checkConnection();
-        // @ts-expect-error docSchema
-        const model = this.conn!.model<CollectionInterface<T>>(modelName, this.docSchema);
+        const model = this.conn!.model(modelName, this.docSchema);
         model.collection.createIndex({ expireAt: 1 }, { expireAfterSeconds: 0 }).catch(() => {
             /* void */
         });
-        return model;
+        return model as mongoose.Model<CollectionInterface<T>>;
     }
 }

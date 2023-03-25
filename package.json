@@ -29,6 +29,7 @@
     },
     "scripts": {
         "test": "jest --roots tests",
+        "build": "tsc",
         "lint": "eslint --ext \".ts\" ./src",
         "prettier": "prettier --write ./src",
         "prepublishOnly": "tsc",

@@ -34,8 +34,7 @@ export class MongoDriver implements IDriver {
     public conn?: mongoose.Connection;
     public mongoose: typeof mongoose;
     private models = new Map<string, ReturnType<typeof this.modelSchema>>();
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    docSchema: mongoose.Schema<CollectionInterface<unknown>, mongoose.Model<CollectionInterface<unknown>, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, CollectionInterface<unknown>>;
+    docSchema: mongoose.Schema<CollectionInterface<unknown>>;
 
     public constructor(public url: string, public options: mongoose.ConnectOptions = {}) {
         this.mongoose = require("mongoose");

@@ -1,6 +1,7 @@
 import { MemoryDriver } from "./MemoryDriver";
-import { existsSync, readFileSync, writeFileSync } from "fs";
-import { writeFile, readFile } from "fs/promises";
+import { existsSync, readFileSync } from "fs";
+import { readFile } from "fs/promises";
+import writeFile from "write-file-atomic";
 
 type DataLike<T = any> = { id: string; value: T };
 
@@ -27,7 +28,7 @@ export class JSONDriver extends MemoryDriver {
                 throw new Error("Database malformed");
             }
         } else {
-            writeFileSync(this.path, "{}");
+            writeFile.sync(this.path, "{}");
         }
     }
 

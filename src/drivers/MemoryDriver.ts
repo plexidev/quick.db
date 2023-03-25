@@ -12,6 +12,7 @@ export class MemoryDriver implements IDriver {
     public getOrCreateTable(name: string): Table {
         const table = this.store.get(name);
         if (table) return table;
+
         const newTable = new Map();
         this.store.set(name, newTable);
         return newTable;
@@ -33,30 +34,24 @@ export class MemoryDriver implements IDriver {
         table: string
     ): Promise<{ id: string; value: any }[]> {
         const store = this.getOrCreateTable(table);
-
         return [...store.entries()].map(([k, v]) => ({ id: k, value: v }));
     }
 
-    public async getRowByKey<T>(table: string, key: string): Promise<T | null> {
+    public async getRowByKey<T>(table: string, key: string): Promise<[T | null, boolean]> {
         const store = this.getOrCreateTable(table);
-
-        const val = store.get(key);
-        return val == null ? null : val;
+        const val = store.get(key) as T;
+        return [val == null ? null : val, false];
     }
 
     public async setRowByKey<T>(
         table: string,
         key: string,
         value: any,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         update: boolean
     ): Promise<T> {
         const store = this.getOrCreateTable(table);
-
-        // unused var
-        void update;
-
         store.set(key, value);
-
         return store.get(key);
     }
 }

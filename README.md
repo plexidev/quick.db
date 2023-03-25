@@ -89,7 +89,7 @@ const db = new QuickDB(); // will make a json.sqlite in the root folder
 
 ## Example With MySQLDriver
 
-> **NOTE:** In order to use this driver, install `npm i promise-mysql` separately.
+> **NOTE:** In order to use this driver, install `npm i mysql2` separately.
 
 ```js
 const { QuickDB, MySQLDriver } = require("quick.db");
@@ -108,6 +108,28 @@ const { QuickDB, MySQLDriver } = require("quick.db");
 
     await db.set("userInfo", { difficulty: "Easy" });
     // -> { difficulty: 'Easy' }
+})();
+```
+
+## Example With MongoDriver
+
+> **NOTE:** In order to use this driver, install `npm i mongoose` separately.
+
+```js
+const { QuickDB, MongoDriver } = require("quick.db");
+(async () => {
+    const mongoDriver = new MongoDriver("mongodb://localhost/quickdb");
+
+    await mongoDriver.connect()
+
+    const db = new QuickDB({ driver: mongoDriver });
+    // Now you can use quick.db as normal
+
+    await db.set("userInfo", { difficulty: "Easy" });
+    // -> { difficulty: 'Easy' }
+
+    await driver.close();
+    // disconnect from the database
 })();
 ```
 

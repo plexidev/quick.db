@@ -47,6 +47,7 @@ build/Release
 node_modules/
 package-lock.json
 jspm_packages/
+pnpm-lock.yaml
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
@@ -134,3 +135,5 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 out
+
+.tool-versions

@@ -6,15 +6,15 @@
 **Support:** [discord.gg/plexidev](https://discord.gg/plexidev) <br>
 **NPM:** [npmjs.com/quick.db](https://www.npmjs.com/package/quick.db)
 
-Quick.db is an open-source package meant to provide an easy way for beginners and people of all levels to access & store data in a low to medium volume environment. All data is stored persistently via either [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3) or [promise-mysql](https://www.npmjs.com/package/promise-mysql) and comes way various other quality-of-life features.
+Quick.db is an open-source package meant to provide an easy way for beginners and people of all levels to access & store data in a low to medium volume environment. All data is stored persistently via either [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3) or [mysql2](https://www.npmjs.com/package/mysql2) and comes way various other quality-of-life features.
 
 -   **Persistent Storage** - Data doesn't disappear through restarts
--   **Multiple Drivers** - You can use either better-sqlite3 or promise-mysql
+-   **Multiple Drivers** - You can use either better-sqlite3 or mysql2
 -   **Works out of the box** - No need to set up a database server, all the data is stored locally in the same project
 -   **Beginner Friendly** - Originally created for use in tutorials, the documentation is straightforward and jargon-free
 -   & more...
 -   **Persistent Storage** - Data doesn't disappear through restarts
--   **Multiple Drivers** - You can use either better-sqlite3 or promise-mysql
+-   **Multiple Drivers** - You can use either better-sqlite3 or mysql2
 -   **Works out of the box** - No need to set up a database server, all the data is stored locally in the same project
 -   **Beginner Friendly** - Originally created for use in tutorials, the documentation is straightforward and jargon-free
 -   & more...
@@ -35,7 +35,7 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 
 ```python
 npm i quick.db better-sqlite3   # (Default) Local SQLite3 File
-npm i quick.db promise-mysql    # (Alternative) MySQL Server Connection
+npm i quick.db mysql2    # (Alternative) MySQL Server Connection
 ```
 
 > If you're having troubles installing, please follow [this troubleshooting guide](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).
@@ -120,7 +120,7 @@ const { QuickDB, MongoDriver } = require("quick.db");
 (async () => {
     const mongoDriver = new MongoDriver("mongodb://localhost/quickdb");
 
-    await mongoDriver.connect()
+    await mongoDriver.connect();
 
     const db = new QuickDB({ driver: mongoDriver });
     // Now you can use quick.db as normal

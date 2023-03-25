@@ -3,6 +3,7 @@ import { IDriver } from "./drivers/IDriver";
 import { SqliteDriver } from "./drivers/SqliteDriver";
 
 export { IDriver } from "./drivers/IDriver";
+export { MongoDriver } from "./drivers/MongoDriver";
 export { SqliteDriver } from "./drivers/SqliteDriver";
 export { MySQLDriver, Config } from "./drivers/MySQLDriver";
 

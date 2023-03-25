@@ -8,6 +8,7 @@ export interface CollectionInterface<T = unknown> {
     updatedAt: Date;
     expireAt?: Date;
 }
+
 /**
  * Quick.db compatible mongo driver
  * @example // require quickdb
@@ -30,7 +31,7 @@ export interface CollectionInterface<T = unknown> {
  * console.log(await db.get("foo")); // -> foo
  */
 export class MongoDriver implements IDriver {
-    public connection: mongoose.Connection | undefined;
+    public conn?: mongoose.Connection;
     public mongoose: typeof mongoose;
     private models = new Map<string, ReturnType<typeof this.modelSchema>>();
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -62,30 +63,29 @@ export class MongoDriver implements IDriver {
     }
 
     public connect(): Promise<MongoDriver> {
-        // eslint-disable-next-line
-        return new Promise(async (resolve, reject) => {
+        return new Promise((resolve, reject) => {
             this.mongoose.createConnection(this.url, this.options, (err: any, connection: any) => {
                 if (err) return reject(err);
-                this.connection = connection;
+                this.conn = connection;
                 resolve(this);
             });
         });
     }
 
-    public close(force?: boolean) {
-        return this.connection?.close(force);
+    public async close(force?: boolean): Promise<void> {
+        return await this.conn?.close(force);
     }
 
-    private checkConnection() {
-        if (this.connection == null) throw new Error(`MongoDriver is not connected to the database`);
+    private checkConnection(): void {
+        if (this.conn == null) throw new Error(`MongoDriver is not connected to the database`);
     }
 
-    public async prepare(table: string) {
+    public async prepare(table: string): Promise<void> {
         this.checkConnection();
         if (!this.models.has(table)) this.models.set(table, this.modelSchema(table));
     }
 
-    private async getModel(name: string) {
+    private async getModel(name: string): Promise<ReturnType<typeof this.modelSchema> | undefined> {
         await this.prepare(name);
         return this.models.get(name);
     }
@@ -129,9 +129,9 @@ export class MongoDriver implements IDriver {
         this.checkConnection();
         const model = await this.getModel(table);
         const res = await model?.deleteMany();
-        
-       
-        return res!.deletedCount!;  // eslint-disable-line @typescript-eslint/no-non-null-assertion
+
+
+        return res!.deletedCount!;
     }
 
     async deleteRowByKey(table: string, key: string): Promise<number> {
@@ -142,14 +142,15 @@ export class MongoDriver implements IDriver {
             ID: key
         });
 
-        
-        return res!.deletedCount!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+
+        return res!.deletedCount!;
     }
 
-    modelSchema<T = unknown>(modelName = "JSON") {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    modelSchema<T = unknown>(modelName = "JSON"): mongoose.Model<unknown, unknown, unknown, {}, CollectionInterface<T>> {
         this.checkConnection();
         // @ts-expect-error docSchema
-        const model = this.connection!.model<CollectionInterface<T>>(modelName, this.docSchema); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+        const model = this.conn!.model<CollectionInterface<T>>(modelName, this.docSchema);
         model.collection.createIndex({ expireAt: 1 }, { expireAfterSeconds: 0 }).catch(() => {
             /* void */
         });

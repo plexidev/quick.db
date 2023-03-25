@@ -1,6 +1,6 @@
 import { IDriver } from "./IDriver";
 
-type Table = Map<string, any>;
+export type Table = Map<string, any>;
 
 export class MemoryDriver implements IDriver {
     public store = new Map<string, Table>();

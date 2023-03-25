@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from "fs";
 import { readFile } from "fs/promises";
 import writeFile from "write-file-atomic";
 
-type DataLike<T = any> = { id: string; value: T };
+export type DataLike<T = any> = { id: string; value: T };
 
 export class JSONDriver extends MemoryDriver {
     public constructor(public path = "./quickdb.json") {

@@ -6,6 +6,8 @@ export { IDriver } from "./drivers/IDriver";
 export { MongoDriver, CollectionInterface } from "./drivers/MongoDriver";
 export { SqliteDriver } from "./drivers/SqliteDriver";
 export { MySQLDriver, Config } from "./drivers/MySQLDriver";
+export { MemoryDriver, Table } from "./drivers/MemoryDriver";
+export { JSONDriver, DataLike } from "./drivers/JSONDriver";
 
 export interface IQuickDBOptions {
     table?: string;

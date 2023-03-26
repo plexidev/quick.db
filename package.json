@@ -32,8 +32,8 @@
         "build": "tsc",
         "lint": "eslint --ext \".ts\" ./src",
         "prettier": "prettier --write ./src",
-        "prepublishOnly": "tsc",
-        "prepare": "tsc",
+        "prepublishOnly": "npm run build",
+        "prepare": "npm run build",
         "docgen": "typedoc"
     },
     "lint-staged": {

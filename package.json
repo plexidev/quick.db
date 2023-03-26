@@ -5,7 +5,7 @@
     "main": "out/index.js",
     "types": "out/index.d.ts",
     "devDependencies": {
-        "@faker-js/faker": "^6.1.2",
+        "@faker-js/faker": "^7.0.0",
         "@types/better-sqlite3": "^7.4.2",
         "@types/jest": "^27.0.3",
         "@types/lodash": "^4.14.178",

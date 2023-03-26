@@ -2,7 +2,6 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
 name: Node.js CI
-
 on:
     push:
         branches: ["dev"]
@@ -13,18 +12,26 @@ on:
             - "tsconfig.json"
     pull_request:
         branches: ["dev"]
-
+env:
+    MYSQL_PORT: 3306
+    MYSQL_DATABASE: test
+    MYSQL_ROOT_PASSWORD: root
+    MONGO_PORT: 27017
+    MONGO_INITDB_ROOT_USERNAME: root
+    MONGO_INITDB_ROOT_PASSWORD: root
+    MONGO_INITDB_DATABASE: test
 jobs:
     build:
         runs-on: ubuntu-latest
-
         strategy:
             matrix:
                 node-version: [18.x]
-                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
         steps:
             - uses: actions/checkout@v3
+            - name: Setup environment
+            - run: docker compose -f docker-compose.yml up -d
+            - name: Wait for databases
+            - run: sleep 30s
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v3
               with:
@@ -32,5 +39,5 @@ jobs:
                   cache: "npm"
             - run: npm ci
             - run: npm run build --if-present
-            - run: npm test
             - run: npm run lint
+            - run: npm test

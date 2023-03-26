@@ -8,6 +8,7 @@ export { SqliteDriver } from "./drivers/SqliteDriver";
 export { MySQLDriver, Config } from "./drivers/MySQLDriver";
 export { MemoryDriver, Table } from "./drivers/MemoryDriver";
 export { JSONDriver, DataLike } from "./drivers/JSONDriver";
+export { DriverUnion } from "./drivers/DriverUnion";
 
 export interface IQuickDBOptions {
     table?: string;

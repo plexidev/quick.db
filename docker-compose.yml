@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+    mysql:
+        image: mysql
+        container_name: mysql
+        restart: always
+        ports:
+            - "${MYSQL_PORT}:${MYSQL_PORT}"
+        networks:
+            - testing-network
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+    mongo:
+        image: mongo
+        container_name: mongo
+        restart: always
+        ports:
+            - "${MONGO_PORT}:${MONGO_PORT}"
+        networks:
+            - testing-network
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+            MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+networks:
+    testing-network:

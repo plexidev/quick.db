@@ -1,13 +1,15 @@
 import { MemoryDriver } from "./MemoryDriver";
 import { existsSync, readFileSync } from "fs";
 import { readFile } from "fs/promises";
-import writeFile from "write-file-atomic";
 
 export type DataLike<T = any> = { id: string; value: T };
 
 export class JSONDriver extends MemoryDriver {
+    private writeFile: typeof import("write-file-atomic");
+
     public constructor(public path = "./quickdb.json") {
         super();
+        this.writeFile = require("write-file-atomic");
         // synchronously load contents before initializing
         this.loadContentSync();
     }
@@ -28,7 +30,7 @@ export class JSONDriver extends MemoryDriver {
                 throw new Error("Database malformed");
             }
         } else {
-            writeFile.sync(this.path, "{}");
+            this.writeFile.sync(this.path, "{}");
         }
     }
 
@@ -48,7 +50,7 @@ export class JSONDriver extends MemoryDriver {
                 throw new Error("Database malformed");
             }
         } else {
-            await writeFile(this.path, "{}");
+            await this.writeFile(this.path, "{}");
         }
     }
 
@@ -64,7 +66,7 @@ export class JSONDriver extends MemoryDriver {
 
     public async snapshot(): Promise<void> {
         const data = await this.export();
-        await writeFile(this.path, JSON.stringify(data));
+        await this.writeFile(this.path, JSON.stringify(data));
     }
 
     public async deleteAllRows(table: string): Promise<number> {

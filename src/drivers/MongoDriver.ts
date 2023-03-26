@@ -61,14 +61,10 @@ export class MongoDriver implements IDriver {
         );
     }
 
-    public connect(): Promise<MongoDriver> {
-        return new Promise((resolve, reject) => {
-            this.mongoose.createConnection(this.url, this.options, (err: any, connection: any) => {
-                if (err) return reject(err);
-                this.conn = connection;
-                resolve(this);
-            });
-        });
+    public async connect(): Promise<MongoDriver> {
+        const connection = await this.mongoose.createConnection(this.url, this.options).asPromise();
+        this.conn = connection;
+        return this;
     }
 
     public async close(force?: boolean): Promise<void> {

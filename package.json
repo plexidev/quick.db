@@ -33,6 +33,7 @@
         "lint": "eslint --ext \".ts\" ./src",
         "prettier": "prettier --write ./src",
         "prepublishOnly": "tsc",
+        "postinstall": "tsc",
         "docgen": "typedoc"
     },
     "lint-staged": {

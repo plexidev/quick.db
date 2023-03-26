@@ -6,6 +6,11 @@ name: Node.js CI
 on:
     push:
         branches: ["dev"]
+        paths:
+            - "src/**"
+            - "tests/**"
+            - "package.json"
+            - "tsconfig.json"
     pull_request:
         branches: ["dev"]
 

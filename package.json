@@ -34,6 +34,36 @@
     "dependencies": {
         "lodash": "^4.17.21"
     },
+    "exports": {
+        ".": {
+            "require": "./out/index.js",
+            "types": "./out/index.d.ts"
+        },
+        "./SqliteDriver": {
+            "require": "./out/drivers/SqliteDriver.js",
+            "types": "./out/drivers/SqliteDriver.d.ts"
+        },
+        "./MySQLDriver": {
+            "require": "./out/drivers/MySQLDriver.js",
+            "types": "./out/drivers/MySQLDriver.d.ts"
+        },
+        "./MongoDriver": {
+            "require": "./out/drivers/MongoDriver.js",
+            "types": "./out/drivers/MongoDriver.d.ts"
+        },
+        "./MemoryDriver": {
+            "require": "./out/drivers/MemoryDriver.js",
+            "types": "./out/drivers/MemoryDriver.d.ts"
+        },
+        "./JSONDriver": {
+            "require": "./out/drivers/JSONDriver.js",
+            "types": "./out/drivers/JSONDriver.d.ts"
+        },
+        "./DriverUnion": {
+            "require": "./out/drivers/DriverUnion.js",
+            "types": "./out/drivers/DriverUnion.d.ts"
+        }
+    },
     "scripts": {
         "test": "jest --roots tests",
         "build": "tsc",

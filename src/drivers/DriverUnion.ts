@@ -2,40 +2,40 @@ import { IDriver } from "./IDriver";
 
 /**
  * DriverUnion - Union of Drivers
- * 
+ *
  * This driver allows the usage of multiple drivers and multiple driver instances at the same time.
  * Useful for redundancies and live backups.
- * 
- * The main driver is the driver used for all operations, while the rest of the drivers are called 
- * mirror drivers, and are only used for data reflection.  
+ *
+ * The main driver is the driver used for all operations, while the rest of the drivers are called
+ * mirror drivers, and are only used for data reflection.
  * By the default, the main driver is the first one the union is initialized with.
  * This can be changed by modifying the {@link DriverUnion.main | `main` property} on the union instance.
- * 
+ *
  * @example
  * const SQLiteInstance = new SqliteDriver("./json.sqlite")
  * const JSONInstance = new JSONDriver("./backup.json");
  * const DriverUnionInstance = new DriverUnion(SQLiteInstance, JSONInstance);
  * const db = new QuickDB({ driver: DriverUnionInstance })
- * 
+ *
  * // Regular db usage
  */
 export class DriverUnion implements IDriver {
     private drivers: IDriver[];
-	private _main: number;
+    private _main: number;
 
-	/** @property {number} main Index of the main driver. */
-	public get main(): number {
-		return this._main;
-	}
-	public set main(value: number) {
-		if (!(value in this.drivers)) return;
+    /** @property {number} main Index of the main driver. */
+    public get main(): number {
+        return this._main;
+    }
+    public set main(value: number) {
+        if (!(value in this.drivers)) return;
 
-		this._main = value;
-	}
+        this._main = value;
+    }
 
     constructor(main: IDriver, ...mirrors: IDriver[]) {
         this.drivers = [main, ...mirrors];
-		this._main = 0;
+        this._main = 0;
     }
 
     public async prepare(table: string): Promise<void> {
@@ -63,13 +63,13 @@ export class DriverUnion implements IDriver {
         value: any,
         update: boolean
     ): Promise<T> {
-		let val: T = undefined as T; // It's guaranteed that at least one driver is present.
+        let val: T = undefined as T; // It's guaranteed that at least one driver is present.
 
         for (let i = 0; i < this.drivers.length; i++) {
-			const driver = this.drivers[i];
+            const driver = this.drivers[i];
 
             const res = await driver.setRowByKey<T>(table, key, value, update);
-			if (i === this._main) val = res;
+            if (i === this._main) val = res;
         }
 
         return val;

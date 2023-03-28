@@ -106,6 +106,30 @@ const { QuickDB, MySQLDriver } = require("quick.db");
 })();
 ```
 
+## Example With PostgresDriver
+
+> **NOTE:** In order to use this driver, install `npm i pg` separately.
+
+```js
+const { QuickDB, PostgresDriver } = require("quick.db");
+(async () => {
+    const postgresDriver = new PostgresDriver({
+        host: "localhost",
+        user: "me",
+        password: "secret",
+        database: "my_db",
+    });
+
+    await postgresDriver.connect(); // connect to the database **this is important**
+
+    const db = new QuickDB({ driver: postgresDriver });
+    // Now you can use quick.db as normal
+
+    await db.set("userInfo", { difficulty: "Easy" });
+    // -> { difficulty: 'Easy' }
+})();
+```
+
 ## Example With MongoDriver
 
 > **NOTE:** In order to use this driver, install `npm i mongoose` separately.

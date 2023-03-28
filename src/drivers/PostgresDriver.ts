@@ -9,7 +9,7 @@ export class PostgresDriver implements IDriver {
 
     get pg(): typeof PgModule {
         return this._pg;
-    } 
+    }
 
     constructor(config: PgModule.ClientConfig) {
         this.config = config;
@@ -34,20 +34,18 @@ export class PostgresDriver implements IDriver {
 
     async prepare(table: string): Promise<void> {
         this.checkConnection();
-        await this.conn?.query(
-            `CREATE TABLE IF NOT EXISTS ${table} (id VARCHAR(255), value jsonb)`
+        await this.conn!.query(
+            `CREATE TABLE IF NOT EXISTS ${table} (id VARCHAR(255), value TEXT)`
         );
     }
 
     async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
         this.checkConnection();
-        const queryResult = await this.conn?.query(`SELECT * FROM ${table}`);
-        return (
-            queryResult?.rows.map((row) => ({
-                id: row.id,
-                value: row.value,
-            })) ?? []
-        );
+        const queryResult = await this.conn!.query(`SELECT * FROM ${table}`);
+        return queryResult.rows.map((row) => ({
+            id: row.id,
+            value: JSON.parse(row.value),
+        }));
     }
 
     async getRowByKey<T>(
@@ -55,16 +53,13 @@ export class PostgresDriver implements IDriver {
         key: string
     ): Promise<[T | null, boolean]> {
         this.checkConnection();
-        const queryResult = await this.conn?.query(
+        const queryResult = await this.conn!.query(
             `SELECT value FROM ${table} WHERE id = $1`,
             [key]
         );
 
-        if (!queryResult || queryResult.rowCount < 1) {
-            return [null, false];
-        }
-
-        return [queryResult?.rows[0].value, true];
+        if (queryResult.rowCount < 1) return [null, false];
+        return [JSON.parse(queryResult.rows[0].value), true];
     }
 
     async setRowByKey<T>(
@@ -75,15 +70,17 @@ export class PostgresDriver implements IDriver {
     ): Promise<T> {
         this.checkConnection();
 
+        const stringifiedValue = JSON.stringify(value);
+
         if (update) {
-            await this.conn?.query(
+            await this.conn!.query(
                 `UPDATE ${table} SET value = $1 WHERE id = $2`,
-                [value, key]
+                [stringifiedValue, key]
             );
         } else {
-            await this.conn?.query(
+            await this.conn!.query(
                 `INSERT INTO ${table} (id, value) VALUES ($1, $2)`,
-                [key, value]
+                [key, stringifiedValue]
             );
         }
 
@@ -92,16 +89,16 @@ export class PostgresDriver implements IDriver {
 
     async deleteAllRows(table: string): Promise<number> {
         this.checkConnection();
-        const queryResult = await this.conn?.query(`DELETE FROM ${table}`);
-        return queryResult?.rowCount ?? 0;
+        const queryResult = await this.conn!.query(`DELETE FROM ${table}`);
+        return queryResult.rowCount;
     }
 
     async deleteRowByKey(table: string, key: string): Promise<number> {
         this.checkConnection();
-        const queryResult = await this.conn?.query(
+        const queryResult = await this.conn!.query(
             `DELETE FROM ${table} WHERE id = $1`,
             [key]
         );
-        return queryResult?.rowCount ?? 0;
+        return queryResult.rowCount;
     }
 }

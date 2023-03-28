@@ -9,6 +9,7 @@ export { MySQLDriver, Config } from "./drivers/MySQLDriver";
 export { MemoryDriver, Table } from "./drivers/MemoryDriver";
 export { JSONDriver, DataLike } from "./drivers/JSONDriver";
 export { DriverUnion } from "./drivers/DriverUnion";
+export { PostgresDriver } from "./drivers/PostgresDriver";
 
 export interface IQuickDBOptions {
     table?: string;
@@ -250,8 +251,11 @@ export class QuickDB<D = any> {
 
         const data = [];
         for (const i in currentArr) {
-            if (Array.isArray(value) ? value.includes(currentArr[i])
-                : (value as any)(currentArr[i], i))
+            if (
+                Array.isArray(value)
+                    ? value.includes(currentArr[i])
+                    : (value as any)(currentArr[i], i)
+            )
                 continue;
             data.push(currentArr[i]);
             if (once) break;

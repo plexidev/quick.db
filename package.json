@@ -12,6 +12,7 @@
         "@types/better-sqlite3": "^7.4.2",
         "@types/jest": "^29.0.0",
         "@types/lodash": "^4.14.178",
+        "@types/pg": "^8.6.6",
         "@types/write-file-atomic": "^4.0.0",
         "@typescript-eslint/eslint-plugin": "^5.8.1",
         "@typescript-eslint/parser": "^5.8.1",
@@ -27,6 +28,7 @@
         "better-sqlite3": "^8.0.0",
         "mongoose": "^7.0.0",
         "mysql2": "^3.2.0",
+        "pg": "^8.10.0",
         "write-file-atomic": "^5.0.0"
     },
     "dependencies": {

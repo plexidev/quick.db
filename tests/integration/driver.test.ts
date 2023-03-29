@@ -3,6 +3,13 @@ import { IRemoteDriver } from "../../src/interfaces/IRemoteDriver";
 import * as dotenv from "dotenv";
 import { resolve } from "path";
 dotenv.config({ path: resolve(process.cwd(), ".env.dev") });
+import fs from "fs";
+
+// check if folder integration-database exists
+// if not create it
+if (!fs.existsSync("./integration-database")) {
+    fs.mkdirSync("./integration-database");
+}
 
 const maxTime = 60; // seconds
 const drivers = [
@@ -21,8 +28,8 @@ const drivers = [
         port: Number(process.env.POSTGRES_PORT),
         database: process.env.POSTGRES_DB,
     }),
-    new JSONDriver("./test-driver.json"),
-    new SqliteDriver("./test-driver.sqlite"),
+    new JSONDriver("./integration-database/test-driver.json"),
+    new SqliteDriver("./integration-database/test-driver.sqlite"),
 ];
 
 function isRemoteDriver(object: any): object is IRemoteDriver {

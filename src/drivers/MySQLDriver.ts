@@ -33,9 +33,9 @@ export class MySQLDriver implements IDriver {
         // This is needed for typescript typecheking
         // For some reason, it doesn't work even if createPool needs a string and in an overload a PoolOptions
         if (typeof this.config == "string") {
-            this.conn = await this._mysql.createPool(this.config);
+            this.conn = this._mysql.createPool(this.config);
         } else {
-            this.conn = await this._mysql.createPool(this.config);
+            this.conn = this._mysql.createPool(this.config);
         }
     }
 

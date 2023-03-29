@@ -1,6 +1,6 @@
 {
     "name": "quick.db",
-    "version": "9.1.2",
+    "version": "9.1.3",
     "description": "An easy, non-locking, persistent better-sqlite3 wrapper designed to be easy to setup & utilize",
     "main": "out/index.js",
     "types": "out/index.d.ts",

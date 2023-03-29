@@ -25,5 +25,3 @@ jobs:
             - run: npm ci
             - run: npm run lint
             - run: npm run test:all
-            - name: Removing environment
-              run: docker compose -f docker-compose.yml --env-file .env.dev down

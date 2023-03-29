@@ -1,7 +1,7 @@
-import { IDriver } from "./IDriver";
 import PgModule from "pg";
+import { IRemoteDriver } from "../interfaces/IRemoteDriver";
 
-export class PostgresDriver implements IDriver {
+export class PostgresDriver implements IRemoteDriver {
     private static instance: PostgresDriver;
     private readonly _pg: typeof PgModule;
     private config: PgModule.ClientConfig;
@@ -24,6 +24,11 @@ export class PostgresDriver implements IDriver {
     async connect(): Promise<void> {
         this.conn = new PgModule.Client(this.config);
         await this.conn.connect();
+    }
+
+    async disconnect(): Promise<void> {
+        this.checkConnection();
+        await this.conn!.end();
     }
 
     private checkConnection(): void {

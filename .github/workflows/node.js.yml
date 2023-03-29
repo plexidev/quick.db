@@ -4,9 +4,9 @@
 name: Node.js CI
 on:
     push:
-        branches: ["dev", "feature/integration-tests"]
+        branches: ["master", "dev", "feature/integration-tests"]
     pull_request:
-        branches: ["dev"]
+        branches: ["master", "dev"]
 env:
     MYSQL_PORT: 3306
     MYSQL_DATABASE: test
@@ -31,6 +31,5 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
             - run: npm ci
-            - run: npm run build
             - run: npm run lint
             - run: npm run test:all

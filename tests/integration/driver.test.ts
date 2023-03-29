@@ -1,10 +1,10 @@
-import { MongoDriver, MySQLDriver, PostgresDriver } from "../../src";
+import { IDriver, JSONDriver, MongoDriver, MySQLDriver, PostgresDriver, SqliteDriver } from "../../src";
 import { IRemoteDriver } from "../../src/interfaces/IRemoteDriver";
 import * as dotenv from "dotenv";
 import { resolve } from "path";
 dotenv.config({ path: resolve(process.cwd(), ".env.dev") });
 
-const maxTime = 6000; // seconds
+const maxTime = 60; // seconds
 const drivers = [
     new MySQLDriver({
         host: "127.0.0.1",
@@ -20,7 +20,9 @@ const drivers = [
         password: process.env.POSTGRES_PASSWORD,
         port: Number(process.env.POSTGRES_PORT),
         database: process.env.POSTGRES_DB,
-    })
+    }),
+    new JSONDriver("./test-driver.json"),
+    new SqliteDriver("./test-driver.sqlite"),
 ];
 
 function isRemoteDriver(object: any): object is IRemoteDriver {
@@ -37,15 +39,17 @@ describe("drivers integration tests", () => {
             const start = new Date().getTime();
             let now = new Date().getTime();
             let status = false;
+            if (!isRemoteDriver(driver)) {
+                await (driver as IDriver).prepare(process.env.MYSQL_DATABASE!);
+                return true;
+            }
 
-            if (!isRemoteDriver(driver)) return true;
             while (now - start < maxTime * 1000) {
                 try {
                     await driver.connect();
                     await driver.prepare(process.env.MYSQL_DATABASE!);
                     status = true;
                     break;
-                    // eslint-disable-next-line no-empty
                 } catch (_) {
                     await sleep(1000);
                 }

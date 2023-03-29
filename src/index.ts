@@ -94,6 +94,11 @@ export class QuickDB<D = any> {
         return this.instance;
     }
 
+    async init(): Promise<void> {
+        // TODO: change this to remove prepared and call prepare here instead
+        await this.prepared;
+    }
+
     async all<T = D>(): Promise<{ id: string; value: T }[]> {
         return this.driver.getAllRows(this.tableName);
     }

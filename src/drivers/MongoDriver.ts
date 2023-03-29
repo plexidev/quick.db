@@ -1,5 +1,5 @@
 import type mongoose from "mongoose";
-import { IDriver } from "./IDriver";
+import { IRemoteDriver } from "../interfaces/IRemoteDriver";
 
 export interface CollectionInterface<T = unknown> {
     ID: string;
@@ -30,7 +30,7 @@ export interface CollectionInterface<T = unknown> {
  * // get something
  * console.log(await db.get("foo")); // -> foo
  */
-export class MongoDriver implements IDriver {
+export class MongoDriver implements IRemoteDriver {
     public conn?: mongoose.Connection;
     public mongoose: typeof mongoose;
     private models = new Map<string, ReturnType<typeof this.modelSchema>>();
@@ -72,8 +72,8 @@ export class MongoDriver implements IDriver {
         return this;
     }
 
-    public async close(force?: boolean): Promise<void> {
-        return await this.conn?.close(force);
+    public async disconnect(): Promise<void> {
+        return await this.conn?.close();
     }
 
     private checkConnection(): void {

@@ -1,12 +1,13 @@
 import { MySQLDriver } from "../../src";
-import * as dotenv from 'dotenv'
-dotenv.config();
+import * as dotenv from "dotenv";
+import { resolve } from "path";
+dotenv.config({ path: resolve(process.cwd(), ".env.dev") });
 
 const drivers = [
     new MySQLDriver({
         host: "127.0.0.1",
-        user: "root",
-        password: process.env.MYSQL_ROOT_PASSWORD,
+        user: process.env.MYSQL_USER,
+        password: process.env.MYSQL_PASSWORD,
         port: Number(process.env.MYSQL_PORT),
         database: process.env.MYSQL_DATABASE,
     })
@@ -40,7 +41,8 @@ describe("drivers integration tests", () => {
                 now = new Date().getTime();
             }
 
-            return expect(status).toBe(true);
+            expect(status).toBe(true);
+            return await driver.disconnect();
         }, 1000 * maxTime);
 
     });

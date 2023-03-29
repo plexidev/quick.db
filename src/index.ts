@@ -1,8 +1,8 @@
 import { set, get, unset } from "lodash";
-import { IDriver } from "./drivers/IDriver";
+import { IDriver } from "./interfaces/IDriver";
 import { SqliteDriver } from "./drivers/SqliteDriver";
 
-export { IDriver } from "./drivers/IDriver";
+export { IDriver } from "./interfaces/IDriver";
 export { MongoDriver, CollectionInterface } from "./drivers/MongoDriver";
 export { SqliteDriver } from "./drivers/SqliteDriver";
 export { MySQLDriver, Config } from "./drivers/MySQLDriver";

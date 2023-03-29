@@ -1,8 +1,8 @@
-import { IDriver } from "./IDriver";
 import MySQLModule from "mysql2/promise";
+import { IRemoteDriver } from "../interfaces/IRemoteDriver";
 export type Config = string | MySQLModule.PoolOptions;
 
-export class MySQLDriver implements IDriver {
+export class MySQLDriver implements IRemoteDriver {
     private static instance: MySQLDriver;
     private readonly _mysql: typeof MySQLModule;
     private conn?: MySQLModule.Pool;
@@ -37,6 +37,11 @@ export class MySQLDriver implements IDriver {
         } else {
             this.conn = this._mysql.createPool(this.config);
         }
+    }
+
+    async disconnect(): Promise<void> {
+        this.checkConnection();
+        await this.conn!.end();
     }
 
     async prepare(table: string): Promise<void> {

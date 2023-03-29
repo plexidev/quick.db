@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
-import { QuickDB } from "../src";
-import { EntryGenerator } from "./generators/EntryGenerator";
-import { SqliteDriverMock } from "./mocks/SqliteDriver";
+import { QuickDB } from "../../src";
+import { EntryGenerator } from "../generators/EntryGenerator";
+import { SqliteDriverMock } from "../mocks/SqliteDriver";
 
 const db = new QuickDB({
     driver: new SqliteDriverMock("test.sqlite"),

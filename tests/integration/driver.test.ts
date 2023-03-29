@@ -1,8 +1,10 @@
-import { MySQLDriver } from "../../src";
+import { MongoDriver, MySQLDriver, PostgresDriver } from "../../src";
+import { IRemoteDriver } from "../../src/interfaces/IRemoteDriver";
 import * as dotenv from "dotenv";
 import { resolve } from "path";
 dotenv.config({ path: resolve(process.cwd(), ".env.dev") });
 
+const maxTime = 6000; // seconds
 const drivers = [
     new MySQLDriver({
         host: "127.0.0.1",
@@ -10,19 +12,23 @@ const drivers = [
         password: process.env.MYSQL_PASSWORD,
         port: Number(process.env.MYSQL_PORT),
         database: process.env.MYSQL_DATABASE,
+    }),
+    new MongoDriver(`mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@localhost:${process.env.MONGO_PORT}/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`),
+    new PostgresDriver({
+        host: "127.0.0.1",
+        user: process.env.POSTGRES_USER,
+        password: process.env.POSTGRES_PASSWORD,
+        port: Number(process.env.POSTGRES_PORT),
+        database: process.env.POSTGRES_DB,
     })
 ];
 
-const maxTime = 60; // seconds
+function isRemoteDriver(object: any): object is IRemoteDriver {
+    return "connect" in object;
+}
 
-async function tryConnectAndPrepare(driver: any, fn: any): Promise<boolean> {
-    if (fn in driver) {
-        await driver[fn]();
-        await driver.prepare(process.env.MYSQL_DATABASE);
-        return true;
-    }
-
-    return true;
+function sleep(time: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, time));
 }
 
 describe("drivers integration tests", () => {
@@ -31,11 +37,17 @@ describe("drivers integration tests", () => {
             const start = new Date().getTime();
             let now = new Date().getTime();
             let status = false;
+
+            if (!isRemoteDriver(driver)) return true;
             while (now - start < maxTime * 1000) {
-                const connected = await tryConnectAndPrepare(driver, "connect").catch(() => false);
-                if (connected) {
+                try {
+                    await driver.connect();
+                    await driver.prepare(process.env.MYSQL_DATABASE!);
                     status = true;
                     break;
+                    // eslint-disable-next-line no-empty
+                } catch (_) {
+                    await sleep(1000);
                 }
 
                 now = new Date().getTime();

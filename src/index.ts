@@ -92,7 +92,8 @@ export class QuickDB<D = any> {
     }
 
     static createSingleton<T>(options: IQuickDBOptions = {}): QuickDB<T> {
-        if (!this.instance && !options.driver) throw Error("No instance and driver provided");
+        if (!this.instance && !options.driver)
+            throw Error("No instance and driver provided");
         if (!this.instance) this.instance = new QuickDB(options);
         return this.instance;
     }

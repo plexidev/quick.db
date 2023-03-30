@@ -23,7 +23,7 @@ export class SqliteDriver implements IDriver {
     }
 
     public async prepare(table: string): Promise<void> {
-        await this._database.exec(
+        this._database.exec(
             `CREATE TABLE IF NOT EXISTS ${table} (ID TEXT PRIMARY KEY, json TEXT)`
         );
     }
@@ -63,11 +63,11 @@ export class SqliteDriver implements IDriver {
     ): Promise<T> {
         const stringifiedJson = JSON.stringify(value);
         if (update) {
-            await this._database
+            this._database
                 .prepare(`UPDATE ${table} SET json = (?) WHERE ID = (?)`)
                 .run(stringifiedJson, key);
         } else {
-            await this._database
+            this._database
                 .prepare(`INSERT INTO ${table} (ID,json) VALUES (?,?)`)
                 .run(key, stringifiedJson);
         }
@@ -76,14 +76,12 @@ export class SqliteDriver implements IDriver {
     }
 
     public async deleteAllRows(table: string): Promise<number> {
-        const result = await this._database
-            .prepare(`DELETE FROM ${table}`)
-            .run();
+        const result = this._database.prepare(`DELETE FROM ${table}`).run();
         return result.changes;
     }
 
     public async deleteRowByKey(table: string, key: string): Promise<number> {
-        const result = await this._database
+        const result = this._database
             .prepare(`DELETE FROM ${table} WHERE ID=@key`)
             .run({ key });
         return result.changes;

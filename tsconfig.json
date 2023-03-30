@@ -12,6 +12,6 @@
         "skipLibCheck": true /* Skip type checking all .d.ts files. */,
         "declaration": true
     },
-    "include": ["src", ".eslintrc.js"],
+    "include": ["src", ".eslintrc.js", "tests"],
     "exclude": ["tests", "out"]
 }

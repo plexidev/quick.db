@@ -87,11 +87,11 @@ export class MongoDriver implements IRemoteDriver {
             this.models.set(table, this.modelSchema(table));
     }
 
-    private async getModel(
+    private async getModel<T = unknown>(
         name: string
-    ): Promise<ReturnType<typeof this.modelSchema> | undefined> {
+    ): Promise<mongoose.Model<CollectionInterface<T>> | undefined> {
         await this.prepare(name);
-        return this.models.get(name);
+        return this.models.get(name) as mongoose.Model<CollectionInterface<T>> | undefined;
     }
 
     async getAllRows(table: string): Promise<{ id: string; value: any }[]> {

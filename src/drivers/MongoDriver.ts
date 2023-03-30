@@ -91,7 +91,9 @@ export class MongoDriver implements IRemoteDriver {
         name: string
     ): Promise<mongoose.Model<CollectionInterface<T>> | undefined> {
         await this.prepare(name);
-        return this.models.get(name) as mongoose.Model<CollectionInterface<T>> | undefined;
+        return this.models.get(name) as
+            | mongoose.Model<CollectionInterface<T>>
+            | undefined;
     }
 
     async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
@@ -115,11 +117,11 @@ export class MongoDriver implements IRemoteDriver {
         return [res.data as T | null, true];
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async setRowByKey<T>(
         table: string,
         key: string,
         value: any,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         _update: boolean
     ): Promise<T> {
         this.checkConnection();

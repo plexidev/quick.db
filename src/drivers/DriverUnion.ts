@@ -1,4 +1,4 @@
-import { IDriver } from "./IDriver";
+import { IDriver } from "../interfaces/IDriver";
 
 /**
  * DriverUnion - Union of Drivers

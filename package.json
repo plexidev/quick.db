@@ -16,6 +16,7 @@
         "@types/write-file-atomic": "^4.0.0",
         "@typescript-eslint/eslint-plugin": "^5.8.1",
         "@typescript-eslint/parser": "^5.8.1",
+        "dotenv": "^16.0.3",
         "eslint": "^8.5.0",
         "eslint-config-prettier": "^8.3.0",
         "jest": "^29.3.1",
@@ -35,7 +36,10 @@
         "lodash": "^4.17.21"
     },
     "scripts": {
-        "test": "jest --roots tests",
+        "test:all": "jest --roots tests",
+        "test:integration": "jest --roots tests/integration",
+        "test:unit": "jest --roots tests/unit",
+        "test": "npm run test:unit",
         "build": "tsc",
         "lint": "eslint --ext \".ts\" ./src",
         "prettier": "prettier --write ./src",

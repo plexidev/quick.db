@@ -1,4 +1,4 @@
-import { IDriver } from "./IDriver";
+import { IDriver } from "../interfaces/IDriver";
 import { Database } from "better-sqlite3";
 
 export class SqliteDriver implements IDriver {

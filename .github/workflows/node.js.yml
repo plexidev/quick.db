@@ -4,7 +4,12 @@
 name: Node.js CI
 on:
     push:
-        branches: ["master", "dev", "feature/integration-tests"]
+        branches: ["master", "dev"]
+        paths:
+            - "src/**"
+            - "tests/**"
+            - "package.json"
+            - "tsconfig.json"
     pull_request:
         branches: ["master", "dev"]
 jobs:

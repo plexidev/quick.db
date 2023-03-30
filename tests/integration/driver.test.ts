@@ -1,12 +1,10 @@
-import { IDriver, JSONDriver, MongoDriver, MySQLDriver, PostgresDriver, SqliteDriver } from "../../src";
+import { IDriver, JSONDriver, MemoryDriver, MongoDriver, MySQLDriver, PostgresDriver, SqliteDriver } from "../../src";
 import { IRemoteDriver } from "../../src/interfaces/IRemoteDriver";
 import * as dotenv from "dotenv";
 import { resolve } from "path";
-dotenv.config({ path: resolve(process.cwd(), ".env.dev") });
 import fs from "fs";
+dotenv.config({ path: resolve(process.cwd(), ".env.dev") });
 
-// check if folder integration-database exists
-// if not create it
 if (!fs.existsSync("./integration-database")) {
     fs.mkdirSync("./integration-database");
 }
@@ -30,6 +28,7 @@ const drivers = [
     }),
     new JSONDriver("./integration-database/test-driver.json"),
     new SqliteDriver("./integration-database/test-driver.sqlite"),
+    new MemoryDriver(),
 ];
 
 function isRemoteDriver(object: any): object is IRemoteDriver {
@@ -40,33 +39,109 @@ function sleep(time: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, time));
 }
 
+const driversWithNames = drivers.map((driver) => [driver.constructor.name, driver]) as [string, IDriver][];
 describe("drivers integration tests", () => {
-    describe("should connect to database", () => {
-        test.each(drivers.map(driver => [driver.constructor.name, driver]))("connects to database using %p", async (_, driver) => {
-            const start = new Date().getTime();
-            let now = new Date().getTime();
-            let status = false;
-            if (!isRemoteDriver(driver)) {
-                await (driver as IDriver).prepare(process.env.MYSQL_DATABASE!);
-                return true;
-            }
+    afterAll(async () => {
+        if (fs.existsSync("./integration-database")) {
+            fs.rmdirSync("./integration-database", { recursive: true });
+        }
+    });
 
-            while (now - start < maxTime * 1000) {
-                try {
-                    await driver.connect();
-                    await driver.prepare(process.env.MYSQL_DATABASE!);
-                    status = true;
-                    break;
-                } catch (_) {
-                    await sleep(1000);
+    describe("should connect to database", () => {
+        test.each(driversWithNames)(
+            'connects to database using %s',
+            async (_, driver) => {
+                const start = new Date().getTime();
+                let now = new Date().getTime();
+                let status = false;
+                if (!isRemoteDriver(driver)) {
+                    await (driver as IDriver).prepare(process.env.MYSQL_DATABASE!);
+                    return true;
                 }
 
-                now = new Date().getTime();
+                while (now - start < maxTime * 1000) {
+                    try {
+                        await driver.connect();
+                        await driver.prepare(process.env.MYSQL_DATABASE!);
+                        status = true;
+                        break;
+                    } catch (_) {
+                        await sleep(1000);
+                    }
+
+                    now = new Date().getTime();
+                }
+
+                expect(status).toBe(true);
+            }, 1000 * maxTime);
+    });
+
+    describe("integration tests", () => {
+        afterEach(async () => {
+            for (const driver of drivers) {
+                await driver.deleteAllRows(process.env.MYSQL_DATABASE!);
             }
+        });
 
-            expect(status).toBe(true);
-            return await driver.disconnect();
-        }, 1000 * maxTime);
+        test.each(driversWithNames)(
+            'should set and get data using %s',
+            async (_, driver) => {
+                const key = "foo";
+                const value = "bar";
+                await driver.setRowByKey(process.env.MYSQL_DATABASE!, key, value, false);
+                let result = await driver.getRowByKey(process.env.MYSQL_DATABASE!, key);
+                expect(result).toEqual([value, true]);
 
+                result = await driver.getRowByKey(process.env.MYSQL_DATABASE!, "not-exists");
+                expect(result).toEqual([null, false]);
+            }
+        );
+
+        test.each(driversWithNames)(
+            'should delete data using %s',
+            async (_, driver) => {
+                const key = "foobar";
+                const value = "bar";
+                await driver.setRowByKey(process.env.MYSQL_DATABASE!, key, value, false);
+                let result = await driver.getRowByKey(process.env.MYSQL_DATABASE!, key);
+                expect(result).toEqual([value, true]);
+
+                await driver.deleteRowByKey(process.env.MYSQL_DATABASE!, key);
+                result = await driver.getRowByKey(process.env.MYSQL_DATABASE!, key);
+                expect(result).toEqual([null, false]);
+            }
+        );
+
+        test.each(driversWithNames)(
+            'should get all data using %s',
+            async (_, driver) => {
+                const key = "foobarbar";
+                const value = "bar";
+                await driver.setRowByKey(process.env.MYSQL_DATABASE!, key, value, false);
+                const result = await driver.getAllRows(process.env.MYSQL_DATABASE!);
+                expect(result.length).toBe(1);
+                expect(result[0]).toEqual({ id: key, value });
+            }
+        );
+
+        test.each(driversWithNames)(
+            'should delete all data using %s',
+            async (_, driver) => {
+                await driver.deleteAllRows(process.env.MYSQL_DATABASE!);
+                const result = await driver.getAllRows(process.env.MYSQL_DATABASE!);
+                expect(result.length).toBe(0);
+            }
+        );
+    });
+
+    describe("should disconnect to database", () => {
+        test.each(driversWithNames)(
+            'connects to database using %s',
+            async (_, driver) => {
+                if (!isRemoteDriver(driver)) return true;
+
+                return await driver.disconnect();
+            }
+        );
     });
 });

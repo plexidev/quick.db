@@ -2,7 +2,6 @@
     "compilerOptions": {
         "target": "esnext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
         "module": "CommonJS" /* Specify what module code is generated. */,
-        "rootDir": "./src",
         "sourceMap": true /* Create source map files for emitted JavaScript files. */,
         "outDir": "./out" /* Specify an output folder for all emitted files. */,
         "removeComments": true /* Disable emitting comments. */,
@@ -12,6 +11,6 @@
         "skipLibCheck": true /* Skip type checking all .d.ts files. */,
         "declaration": true
     },
-    "include": ["src", ".eslintrc.js", "tests"],
-    "exclude": ["tests", "out"]
+    "include": ["src", "tests", ".eslintrc.js"],
+    "exclude": ["out"]
 }

@@ -3,14 +3,7 @@ import { IDriver } from "./interfaces/IDriver";
 import { SqliteDriver } from "./drivers/SqliteDriver";
 
 export { IDriver } from "./interfaces/IDriver";
-export { MongoDriver, CollectionInterface } from "./drivers/MongoDriver";
-export { SqliteDriver } from "./drivers/SqliteDriver";
-export { MySQLDriver, Config } from "./drivers/MySQLDriver";
-export { MemoryDriver, Table } from "./drivers/MemoryDriver";
-export { JSONDriver, DataLike } from "./drivers/JSONDriver";
-export { DriverUnion } from "./drivers/DriverUnion";
-export { PostgresDriver } from "./drivers/PostgresDriver";
-
+export { IRemoteDriver } from "./interfaces/IRemoteDriver";
 export interface IQuickDBOptions {
     table?: string;
     filePath?: string;

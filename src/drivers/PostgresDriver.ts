@@ -1,28 +1,22 @@
-import PgModule from "pg";
+import { Client, ClientConfig } from "pg";
 import { IRemoteDriver } from "../interfaces/IRemoteDriver";
 
 export class PostgresDriver implements IRemoteDriver {
     private static instance: PostgresDriver;
-    private readonly _pg: typeof PgModule;
-    private config: PgModule.ClientConfig;
-    private conn: PgModule.Client | undefined;
+    private config: ClientConfig;
+    private conn: Client | undefined;
 
-    get pg(): typeof PgModule {
-        return this._pg;
-    }
-
-    constructor(config: PgModule.ClientConfig) {
+    constructor(config: ClientConfig) {
         this.config = config;
-        this._pg = require("pg");
     }
 
-    static createSingleton(config: PgModule.ClientConfig): PostgresDriver {
+    static createSingleton(config: ClientConfig): PostgresDriver {
         if (!this.instance) this.instance = new PostgresDriver(config);
         return this.instance;
     }
 
     async connect(): Promise<void> {
-        this.conn = new PgModule.Client(this.config);
+        this.conn = new Client(this.config);
         await this.conn.connect();
     }
 

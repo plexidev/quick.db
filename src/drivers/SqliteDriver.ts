@@ -1,5 +1,5 @@
+import sqlite3, { Database } from "better-sqlite3";
 import { IDriver } from "../interfaces/IDriver";
-import { Database } from "better-sqlite3";
 
 export class SqliteDriver implements IDriver {
     private static instance: SqliteDriver | null = null;
@@ -10,8 +10,6 @@ export class SqliteDriver implements IDriver {
     }
 
     constructor(path: string) {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const sqlite3 = require("better-sqlite3");
         this._database = sqlite3(path);
     }
 

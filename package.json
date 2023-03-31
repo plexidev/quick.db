@@ -35,6 +35,16 @@
     "dependencies": {
         "lodash": "^4.17.21"
     },
+    "exports": {
+        ".": {
+            "require": "./out/index.js",
+            "types": "./out/index.d.ts"
+        },
+        "./*": {
+            "require": "./out/drivers/*.js",
+            "types": "./out/drivers/*.d.ts"
+        }
+    },
     "scripts": {
         "test:all": "jest --roots tests",
         "test:integration": "jest --roots tests/integration",

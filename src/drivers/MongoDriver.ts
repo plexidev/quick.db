@@ -1,4 +1,11 @@
-import type mongoose from "mongoose";
+import {
+    ConnectOptions,
+    Connection,
+    Model,
+    Schema,
+    SchemaTypes,
+    createConnection,
+} from "mongoose";
 import { IRemoteDriver } from "../interfaces/IRemoteDriver";
 
 export interface CollectionInterface<T = unknown> {
@@ -31,29 +38,27 @@ export interface CollectionInterface<T = unknown> {
  * console.log(await db.get("foo")); // -> foo
  */
 export class MongoDriver implements IRemoteDriver {
-    public conn?: mongoose.Connection;
-    public mongoose: typeof mongoose;
+    public conn?: Connection;
     private models = new Map<string, ReturnType<typeof this.modelSchema>>();
-    docSchema: mongoose.Schema<CollectionInterface<unknown>>;
+    docSchema: Schema<CollectionInterface<unknown>>;
 
     public constructor(
         public url: string,
-        public options: mongoose.ConnectOptions = {}
+        public options: ConnectOptions = {}
     ) {
-        this.mongoose = require("mongoose");
-        this.docSchema = new this.mongoose.Schema<CollectionInterface>(
+        this.docSchema = new Schema<CollectionInterface>(
             {
                 ID: {
-                    type: this.mongoose.SchemaTypes.String,
+                    type: SchemaTypes.String,
                     required: true,
                     unique: true,
                 },
                 data: {
-                    type: this.mongoose.SchemaTypes.Mixed,
+                    type: SchemaTypes.Mixed,
                     required: false,
                 },
                 expireAt: {
-                    type: this.mongoose.SchemaTypes.Date,
+                    type: SchemaTypes.Date,
                     required: false,
                     default: null,
                 },
@@ -65,9 +70,10 @@ export class MongoDriver implements IRemoteDriver {
     }
 
     public async connect(): Promise<MongoDriver> {
-        const connection = await this.mongoose
-            .createConnection(this.url, this.options)
-            .asPromise();
+        const connection = await createConnection(
+            this.url,
+            this.options
+        ).asPromise();
         this.conn = connection;
         return this;
     }
@@ -89,10 +95,10 @@ export class MongoDriver implements IRemoteDriver {
 
     private async getModel<T = unknown>(
         name: string
-    ): Promise<mongoose.Model<CollectionInterface<T>> | undefined> {
+    ): Promise<Model<CollectionInterface<T>> | undefined> {
         await this.prepare(name);
         return this.models.get(name) as
-            | mongoose.Model<CollectionInterface<T>>
+            | Model<CollectionInterface<T>>
             | undefined;
     }
 
@@ -161,7 +167,7 @@ export class MongoDriver implements IRemoteDriver {
     // eslint-disable-next-line @typescript-eslint/ban-types
     modelSchema<T = unknown>(
         modelName = "JSON"
-    ): mongoose.Model<CollectionInterface<T>> {
+    ): Model<CollectionInterface<T>> {
         this.checkConnection();
         const model = this.conn!.model(modelName, this.docSchema);
         model.collection
@@ -169,6 +175,6 @@ export class MongoDriver implements IRemoteDriver {
             .catch(() => {
                 /* void */
             });
-        return model as mongoose.Model<CollectionInterface<T>>;
+        return model as Model<CollectionInterface<T>>;
     }
 }

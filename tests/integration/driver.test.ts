@@ -1,8 +1,14 @@
-import { IDriver, JSONDriver, MemoryDriver, MongoDriver, MySQLDriver, PostgresDriver, SqliteDriver } from "../../src";
+import { MySQLDriver } from "../../src/drivers/MySQLDriver";
+import { MongoDriver } from "../../src/drivers/MongoDriver";
+import { PostgresDriver } from "../../src/drivers/PostgresDriver";
+import { JSONDriver } from "../../src/drivers/JSONDriver";
+import { SqliteDriver } from "../../src/drivers/SqliteDriver";
+import { MemoryDriver } from "../../src/drivers/MemoryDriver";
 import { IRemoteDriver } from "../../src/interfaces/IRemoteDriver";
 import * as dotenv from "dotenv";
 import { resolve } from "path";
 import fs from "fs";
+import { IDriver } from "../../src/interfaces/IDriver";
 dotenv.config({ path: resolve(process.cwd(), ".env.dev") });
 
 if (!fs.existsSync("./integration-database")) {
@@ -18,7 +24,9 @@ const drivers = [
         port: Number(process.env.MYSQL_PORT),
         database: process.env.MYSQL_DATABASE,
     }),
-    new MongoDriver(`mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@localhost:${process.env.MONGO_PORT}/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`),
+    new MongoDriver(
+        `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@localhost:${process.env.MONGO_PORT}/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`
+    ),
     new PostgresDriver({
         host: "127.0.0.1",
         user: process.env.POSTGRES_USER,
@@ -36,10 +44,13 @@ function isRemoteDriver(object: any): object is IRemoteDriver {
 }
 
 function sleep(time: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, time));
+    return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-const driversWithNames = drivers.map((driver) => [driver.constructor.name, driver]) as [string, IDriver][];
+const driversWithNames = drivers.map((driver) => [
+    driver.constructor.name,
+    driver,
+]) as [string, IDriver][];
 describe("drivers integration tests", () => {
     afterAll(async () => {
         if (fs.existsSync("./integration-database")) {
@@ -49,13 +60,15 @@ describe("drivers integration tests", () => {
 
     describe("should connect to database", () => {
         test.each(driversWithNames)(
-            'connects to database using %s',
+            "connects to database using %s",
             async (_, driver) => {
                 const start = new Date().getTime();
                 let now = new Date().getTime();
                 let status = false;
                 if (!isRemoteDriver(driver)) {
-                    await (driver as IDriver).prepare(process.env.MYSQL_DATABASE!);
+                    await (driver as IDriver).prepare(
+                        process.env.MYSQL_DATABASE!
+                    );
                     return true;
                 }
 
@@ -73,7 +86,9 @@ describe("drivers integration tests", () => {
                 }
 
                 expect(status).toBe(true);
-            }, 1000 * maxTime);
+            },
+            1000 * maxTime
+        );
     });
 
     describe("integration tests", () => {
@@ -84,51 +99,82 @@ describe("drivers integration tests", () => {
         });
 
         test.each(driversWithNames)(
-            'should set and get data using %s',
+            "should set and get data using %s",
             async (_, driver) => {
                 const key = "foo";
                 const value = "bar";
-                await driver.setRowByKey(process.env.MYSQL_DATABASE!, key, value, false);
-                let result = await driver.getRowByKey(process.env.MYSQL_DATABASE!, key);
+                await driver.setRowByKey(
+                    process.env.MYSQL_DATABASE!,
+                    key,
+                    value,
+                    false
+                );
+                let result = await driver.getRowByKey(
+                    process.env.MYSQL_DATABASE!,
+                    key
+                );
                 expect(result).toEqual([value, true]);
 
-                result = await driver.getRowByKey(process.env.MYSQL_DATABASE!, "not-exists");
+                result = await driver.getRowByKey(
+                    process.env.MYSQL_DATABASE!,
+                    "not-exists"
+                );
                 expect(result).toEqual([null, false]);
             }
         );
 
         test.each(driversWithNames)(
-            'should delete data using %s',
+            "should delete data using %s",
             async (_, driver) => {
                 const key = "foobar";
                 const value = "bar";
-                await driver.setRowByKey(process.env.MYSQL_DATABASE!, key, value, false);
-                let result = await driver.getRowByKey(process.env.MYSQL_DATABASE!, key);
+                await driver.setRowByKey(
+                    process.env.MYSQL_DATABASE!,
+                    key,
+                    value,
+                    false
+                );
+                let result = await driver.getRowByKey(
+                    process.env.MYSQL_DATABASE!,
+                    key
+                );
                 expect(result).toEqual([value, true]);
 
                 await driver.deleteRowByKey(process.env.MYSQL_DATABASE!, key);
-                result = await driver.getRowByKey(process.env.MYSQL_DATABASE!, key);
+                result = await driver.getRowByKey(
+                    process.env.MYSQL_DATABASE!,
+                    key
+                );
                 expect(result).toEqual([null, false]);
             }
         );
 
         test.each(driversWithNames)(
-            'should get all data using %s',
+            "should get all data using %s",
             async (_, driver) => {
                 const key = "foobarbar";
                 const value = "bar";
-                await driver.setRowByKey(process.env.MYSQL_DATABASE!, key, value, false);
-                const result = await driver.getAllRows(process.env.MYSQL_DATABASE!);
+                await driver.setRowByKey(
+                    process.env.MYSQL_DATABASE!,
+                    key,
+                    value,
+                    false
+                );
+                const result = await driver.getAllRows(
+                    process.env.MYSQL_DATABASE!
+                );
                 expect(result.length).toBe(1);
                 expect(result[0]).toEqual({ id: key, value });
             }
         );
 
         test.each(driversWithNames)(
-            'should delete all data using %s',
+            "should delete all data using %s",
             async (_, driver) => {
                 await driver.deleteAllRows(process.env.MYSQL_DATABASE!);
-                const result = await driver.getAllRows(process.env.MYSQL_DATABASE!);
+                const result = await driver.getAllRows(
+                    process.env.MYSQL_DATABASE!
+                );
                 expect(result.length).toBe(0);
             }
         );
@@ -136,7 +182,7 @@ describe("drivers integration tests", () => {
 
     describe("should disconnect to database", () => {
         test.each(driversWithNames)(
-            'connects to database using %s',
+            "connects to database using %s",
             async (_, driver) => {
                 if (!isRemoteDriver(driver)) return true;
 

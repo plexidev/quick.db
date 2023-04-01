@@ -1,4 +1,4 @@
-name: "PR Triage"
+name: "auto assign"
 on:
     pull_request:
         branches: ["dev"]

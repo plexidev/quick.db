@@ -2,6 +2,7 @@ import { set, get, unset } from "lodash";
 import { IDriver } from "./interfaces/IDriver";
 import { SqliteDriver } from "./drivers/SqliteDriver";
 import { isConnectable, isDisconnectable } from "./utilities";
+import { CustomError as QuickError, ErrorKind } from "./error";
 
 export { IDriver } from "./interfaces/IDriver";
 export { IRemoteDriver } from "./interfaces/IRemoteDriver";
@@ -40,10 +41,19 @@ export class QuickDB<D = any> {
         value: number,
         sub = false
     ): Promise<number> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
+        if (typeof key != "string") {
+            throw new QuickError(
+                `First argument (key) needs to be a string received "${typeof key}"`,
+                ErrorKind.InvalidType
+            );
+        }
 
-        if (value == null) throw new Error("Missing second argument (value)");
+        if (value == null) {
+            throw new QuickError(
+                "Missing second argument (value)",
+                ErrorKind.MissingValue
+            );
+        }
 
         let currentNumber = await this.get<number>(key);
 
@@ -52,8 +62,9 @@ export class QuickDB<D = any> {
             try {
                 currentNumber = parseFloat(currentNumber as string);
             } catch (_) {
-                throw new Error(
-                    `Current value with key: (${key}) is not a number and couldn't be parsed to a number`
+                throw new QuickError(
+                    `Current value with key: (${key}) is not a number and couldn't be parsed to a number`,
+                    ErrorKind.InvalidType
                 );
             }
         }
@@ -62,8 +73,9 @@ export class QuickDB<D = any> {
             try {
                 value = parseFloat(value as string);
             } catch (_) {
-                throw new Error(
-                    `Value to add/subtract with key: (${key}) is not a number and couldn't be parsed to a number`
+                throw new QuickError(
+                    `Value to add/subtract with key: (${key}) is not a number and couldn't be parsed to a number`,
+                    ErrorKind.InvalidType
                 );
             }
         }
@@ -76,16 +88,29 @@ export class QuickDB<D = any> {
     private async getArray<T = D>(key: string): Promise<T[]> {
         const currentArr = (await this.get<T[]>(key)) ?? [];
 
-        if (!Array.isArray(currentArr))
-            throw new Error(`Current value with key: (${key}) is not an array`);
+        if (!Array.isArray(currentArr)) {
+            throw new QuickError(
+                `Current value with key: (${key}) is not an array`,
+                ErrorKind.InvalidType
+            );
+        }
 
         return currentArr;
     }
 
     static createSingleton<T>(options: IQuickDBOptions = {}): QuickDB<T> {
-        if (!this.instance && !options.driver)
-            throw Error("No instance and driver provided");
-        if (!this.instance) this.instance = new QuickDB(options);
+        if (!this.instance && !options.driver) {
+            throw new QuickError("No driver provided", ErrorKind.MissingDriver);
+        }
+
+        if (!this.instance) {
+            this.instance = new QuickDB(options);
+        }
+
+        return this.instance;
+    }
+
+    static getSingletion<T>(): QuickDB<T> {
         return this.instance;
     }
 
@@ -107,8 +132,12 @@ export class QuickDB<D = any> {
     }
 
     async get<T = D>(key: string): Promise<T | null> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
+        if (typeof key != "string") {
+            throw new QuickError(
+                "First argument (key) needs to be a string",
+                ErrorKind.InvalidType
+            );
+        }
 
         if (key.includes(".") && !this.normalKeys) {
             const keySplit = key.split(".");
@@ -124,9 +153,19 @@ export class QuickDB<D = any> {
     }
 
     async set<T = D>(key: string, value: T): Promise<T> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
-        if (value == null) throw new Error("Missing second argument (value)");
+        if (typeof key != "string") {
+            throw new QuickError(
+                "First argument (key) needs to be a string",
+                ErrorKind.InvalidType
+            );
+        }
+
+        if (value == null) {
+            throw new QuickError(
+                "Missing second argument (value)",
+                ErrorKind.MissingValue
+            );
+        }
 
         if (key.includes(".") && !this.normalKeys) {
             const keySplit = key.split(".");
@@ -164,8 +203,12 @@ export class QuickDB<D = any> {
     }
 
     async delete(key: string): Promise<number> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
+        if (typeof key != "string") {
+            throw new QuickError(
+                "First argument (key) needs to be a string",
+                ErrorKind.InvalidType
+            );
+        }
 
         if (key.includes(".")) {
             const keySplit = key.split(".");
@@ -190,9 +233,19 @@ export class QuickDB<D = any> {
     }
 
     async push<T = D>(key: string, value: T): Promise<T[]> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
-        if (value == null) throw new Error("Missing second argument (value)");
+        if (typeof key != "string") {
+            throw new QuickError(
+                "First argument (key) needs to be a string",
+                ErrorKind.InvalidType
+            );
+        }
+
+        if (value == null) {
+            throw new QuickError(
+                "Missing second argument (value)",
+                ErrorKind.MissingValue
+            );
+        }
 
         const currentArr = await this.getArray<T>(key);
         currentArr.push(value);
@@ -201,9 +254,18 @@ export class QuickDB<D = any> {
     }
 
     async unshift<T = D>(key: string, value: T | T[]): Promise<T[]> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
-        if (value == null) throw new Error("Missing second argument (value)");
+        if (typeof key != "string") {
+            throw new QuickError(
+                "First argument (key) needs to be a string",
+                ErrorKind.InvalidType
+            );
+        }
+        if (value == null) {
+            throw new QuickError(
+                "Missing second argument (value)",
+                ErrorKind.InvalidType
+            );
+        }
 
         let currentArr = await this.getArray<T>(key);
         if (Array.isArray(value)) currentArr = value.concat(currentArr);
@@ -213,8 +275,12 @@ export class QuickDB<D = any> {
     }
 
     async pop<T = D>(key: string): Promise<T | undefined> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
+        if (typeof key != "string") {
+            throw new QuickError(
+                "First argument (key) needs to be a string",
+                ErrorKind.InvalidType
+            );
+        }
 
         const currentArr = await this.getArray<T>(key);
         const value = currentArr.pop();
@@ -225,8 +291,12 @@ export class QuickDB<D = any> {
     }
 
     async shift<T = D>(key: string): Promise<T | undefined> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
+        if (typeof key != "string") {
+            throw new QuickError(
+                "First argument (key) needs to be a string",
+                ErrorKind.InvalidType
+            );
+        }
 
         const currentArr = await this.getArray<T>(key);
         const value = currentArr.shift();
@@ -241,9 +311,18 @@ export class QuickDB<D = any> {
         value: T | T[] | ((data: T, index: string) => boolean),
         once = false
     ): Promise<T[]> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
-        if (value == null) throw new Error("Missing second argument (value)");
+        if (typeof key != "string") {
+            throw new QuickError(
+                "First argument (key) needs to be a string",
+                ErrorKind.InvalidType
+            );
+        }
+        if (value == null) {
+            throw new QuickError(
+                "Missing second argument (value)",
+                ErrorKind.MissingValue
+            );
+        }
 
         const currentArr = await this.getArray<T>(key);
         if (!Array.isArray(value) && typeof value != "function")
@@ -268,10 +347,18 @@ export class QuickDB<D = any> {
         query: string,
         key = ""
     ): Promise<{ id: string; value: T }[]> {
-        if (typeof query != "string")
-            throw new Error("First argument (query) needs to be a string");
-        if (typeof key != "string")
-            throw new Error("Second argument (key) needs to be a string");
+        if (typeof query != "string") {
+            throw new QuickError(
+                "First argument (query) needs to be a string",
+                ErrorKind.InvalidType
+            );
+        }
+        if (typeof key != "string") {
+            throw new QuickError(
+                "Second argument (key) needs to be a string",
+                ErrorKind.InvalidType
+            );
+        }
 
         // Get either the whole db or the rows from the provided key
         // -> Filter the result if the id starts with the provided query
@@ -285,8 +372,12 @@ export class QuickDB<D = any> {
     }
 
     table<T = D>(table: string): QuickDB<T> {
-        if (typeof table != "string")
-            throw new Error("First argument (table) needs to be a string");
+        if (typeof table != "string") {
+            throw new QuickError(
+                "First argument (table) needs to be a string",
+                ErrorKind.InvalidType
+            );
+        }
 
         const options = { ...this.options };
 

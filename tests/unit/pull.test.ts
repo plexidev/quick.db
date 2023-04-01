@@ -6,6 +6,8 @@ import { SqliteDriverMock } from "../mocks/SqliteDriver";
 const db = new QuickDB({
     driver: new SqliteDriverMock("test.sqlite"),
 });
+db.init();
+
 
 describe("pull", () => {
     afterEach(async () => {

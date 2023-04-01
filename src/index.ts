@@ -134,7 +134,7 @@ export class QuickDB<D = any> {
     async get<T = D>(key: string): Promise<T | null> {
         if (typeof key != "string") {
             throw new QuickError(
-                "First argument (key) needs to be a string",
+                `First argument (key) needs to be a string received "${typeof key}"`,
                 ErrorKind.InvalidType
             );
         }
@@ -155,7 +155,7 @@ export class QuickDB<D = any> {
     async set<T = D>(key: string, value: T): Promise<T> {
         if (typeof key != "string") {
             throw new QuickError(
-                "First argument (key) needs to be a string",
+                `First argument (key) needs to be a string received "${typeof key}"`,
                 ErrorKind.InvalidType
             );
         }
@@ -205,7 +205,7 @@ export class QuickDB<D = any> {
     async delete(key: string): Promise<number> {
         if (typeof key != "string") {
             throw new QuickError(
-                "First argument (key) needs to be a string",
+                `First argument (key) needs to be a string received "${typeof key}"`,
                 ErrorKind.InvalidType
             );
         }
@@ -235,7 +235,7 @@ export class QuickDB<D = any> {
     async push<T = D>(key: string, value: T): Promise<T[]> {
         if (typeof key != "string") {
             throw new QuickError(
-                "First argument (key) needs to be a string",
+                `First argument (key) needs to be a string received "${typeof key}"`,
                 ErrorKind.InvalidType
             );
         }
@@ -256,7 +256,7 @@ export class QuickDB<D = any> {
     async unshift<T = D>(key: string, value: T | T[]): Promise<T[]> {
         if (typeof key != "string") {
             throw new QuickError(
-                "First argument (key) needs to be a string",
+                `First argument (key) needs to be a string received "${typeof key}"`,
                 ErrorKind.InvalidType
             );
         }
@@ -277,7 +277,7 @@ export class QuickDB<D = any> {
     async pop<T = D>(key: string): Promise<T | undefined> {
         if (typeof key != "string") {
             throw new QuickError(
-                "First argument (key) needs to be a string",
+                `First argument (key) needs to be a string received "${typeof key}"`,
                 ErrorKind.InvalidType
             );
         }
@@ -293,7 +293,7 @@ export class QuickDB<D = any> {
     async shift<T = D>(key: string): Promise<T | undefined> {
         if (typeof key != "string") {
             throw new QuickError(
-                "First argument (key) needs to be a string",
+                `First argument (key) needs to be a string received "${typeof key}"`,
                 ErrorKind.InvalidType
             );
         }
@@ -313,7 +313,7 @@ export class QuickDB<D = any> {
     ): Promise<T[]> {
         if (typeof key != "string") {
             throw new QuickError(
-                "First argument (key) needs to be a string",
+                `First argument (key) needs to be a string received "${typeof key}"`,
                 ErrorKind.InvalidType
             );
         }
@@ -349,13 +349,13 @@ export class QuickDB<D = any> {
     ): Promise<{ id: string; value: T }[]> {
         if (typeof query != "string") {
             throw new QuickError(
-                "First argument (query) needs to be a string",
+                `First argument (query) needs to be a string received "${typeof query}"`,
                 ErrorKind.InvalidType
             );
         }
         if (typeof key != "string") {
             throw new QuickError(
-                "Second argument (key) needs to be a string",
+                `Second argument (key) needs to be a string received "${typeof key}"`,
                 ErrorKind.InvalidType
             );
         }
@@ -374,7 +374,7 @@ export class QuickDB<D = any> {
     table<T = D>(table: string): QuickDB<T> {
         if (typeof table != "string") {
             throw new QuickError(
-                "First argument (table) needs to be a string",
+                `First argument (table) needs to be a string received "${typeof table}"`,
                 ErrorKind.InvalidType
             );
         }

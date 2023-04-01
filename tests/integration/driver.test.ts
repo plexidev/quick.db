@@ -54,7 +54,7 @@ const driversWithNames = drivers.map((driver) => [
 describe("drivers integration tests", () => {
     afterAll(async () => {
         if (fs.existsSync("./integration-database")) {
-            fs.rmdirSync("./integration-database", { recursive: true });
+            fs.rmSync("./integration-database", { recursive: true });
         }
     });
 

@@ -3,7 +3,6 @@ services:
     mysql:
         image: mysql
         container_name: mysql
-        restart: always
         ports:
             - "${MYSQL_PORT}:${MYSQL_PORT}"
         networks:
@@ -16,7 +15,6 @@ services:
     mongo:
         image: mongo
         container_name: mongo
-        restart: always
         ports:
             - "${MONGO_PORT}:${MONGO_PORT}"
         networks:
@@ -28,7 +26,6 @@ services:
     pg:
         image: postgres
         container_name: pg
-        restart: always
         ports:
             - "${POSTGRESS_PORT}:${POSTGRESS_PORT}"
         networks:

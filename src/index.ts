@@ -1,6 +1,7 @@
 import { set, get, unset } from "lodash";
 import { IDriver } from "./interfaces/IDriver";
 import { SqliteDriver } from "./drivers/SqliteDriver";
+import { isConnectable, isDisconnectable } from "./utilities";
 
 export { IDriver } from "./interfaces/IDriver";
 export { IRemoteDriver } from "./interfaces/IRemoteDriver";
@@ -13,7 +14,6 @@ export interface IQuickDBOptions {
 
 export class QuickDB<D = any> {
     private static instance: QuickDB;
-    private prepared!: Promise<unknown>;
     private _driver: IDriver;
     private tableName: string;
     private normalKeys: boolean;
@@ -33,8 +33,6 @@ export class QuickDB<D = any> {
         this._driver = options.driver;
         this.tableName = options.table;
         this.normalKeys = options.normalKeys;
-
-        this.prepared = this.driver.prepare(this.tableName);
     }
 
     private async addSubtract(
@@ -92,8 +90,16 @@ export class QuickDB<D = any> {
     }
 
     async init(): Promise<void> {
-        // TODO: change this to remove prepared and call prepare here instead
-        await this.prepared;
+        if (isConnectable(this.driver)) {
+            await this.driver.connect();
+        }
+        await this.driver.prepare(this.tableName);
+    }
+
+    async close(): Promise<void> {
+        if (isDisconnectable(this.driver)) {
+            await this.driver.disconnect();
+        }
     }
 
     async all<T = D>(): Promise<{ id: string; value: T }[]> {
@@ -287,14 +293,6 @@ export class QuickDB<D = any> {
         options.table = table;
         options.driver = this.driver;
         return new QuickDB(options);
-    }
-
-    // Here for temporary backwards compatibility fix
-    async tableAsync(table: string): Promise<QuickDB> {
-        const db = this.table(table);
-        await db.prepared;
-
-        return db;
     }
 
     useNormalKeys(activate: boolean): void {

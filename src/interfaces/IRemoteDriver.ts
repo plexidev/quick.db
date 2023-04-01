@@ -1,6 +1,5 @@
-import { IDriver } from "./IDriver";
+import { IDisconnectable } from "./IDisconnectable";
 
-export interface IRemoteDriver extends IDriver {
+export interface IRemoteDriver extends IDisconnectable {
     connect(): Promise<unknown>;
-    disconnect(): Promise<unknown>;
 }

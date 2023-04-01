@@ -4,7 +4,7 @@ import { PostgresDriver } from "../../src/drivers/PostgresDriver";
 import { JSONDriver } from "../../src/drivers/JSONDriver";
 import { SqliteDriver } from "../../src/drivers/SqliteDriver";
 import { MemoryDriver } from "../../src/drivers/MemoryDriver";
-import { IRemoteDriver } from "../../src/interfaces/IRemoteDriver";
+import { isConnectable, isDisconnectable } from "../../src/utilities"
 import * as dotenv from "dotenv";
 import { resolve } from "path";
 import fs from "fs";
@@ -39,10 +39,6 @@ const drivers = [
     new MemoryDriver(),
 ];
 
-function isRemoteDriver(object: any): object is IRemoteDriver {
-    return "connect" in object;
-}
-
 function sleep(time: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
@@ -65,7 +61,7 @@ describe("drivers integration tests", () => {
                 const start = new Date().getTime();
                 let now = new Date().getTime();
                 let status = false;
-                if (!isRemoteDriver(driver)) {
+                if (!isConnectable(driver)) {
                     await (driver as IDriver).prepare(
                         process.env.MYSQL_DATABASE!
                     );
@@ -184,7 +180,7 @@ describe("drivers integration tests", () => {
         test.each(driversWithNames)(
             "connects to database using %s",
             async (_, driver) => {
-                if (!isRemoteDriver(driver)) return true;
+                if (!isDisconnectable(driver)) return true;
 
                 return await driver.disconnect();
             }

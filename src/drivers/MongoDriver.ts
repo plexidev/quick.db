@@ -36,8 +36,10 @@ export class MongoDriver implements IDriver {
     private models = new Map<string, ReturnType<typeof this.modelSchema>>();
     docSchema: mongoose.Schema<CollectionInterface<unknown>>;
 
-    public constructor(public url: string, public options: mongoose.ConnectOptions = {}) {
+    public constructor(public url: string, public options: mongoose.ConnectOptions = {}, pluralize = false) {
         this.mongoose = require("mongoose");
+        if (!pluralize) this.mongoose.pluralize(null);
+
         this.docSchema = new this.mongoose.Schema<CollectionInterface>(
             {
                 ID: {

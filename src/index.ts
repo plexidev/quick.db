@@ -98,15 +98,8 @@ export class QuickDB<D = any> {
         return currentArr;
     }
 
-    static createSingleton<T>(options: IQuickDBOptions = {}): QuickDB<T> {
-        if (!this.instance && !options.driver) {
-            throw new QuickError("No driver provided", ErrorKind.MissingDriver);
-        }
-
-        if (!this.instance) {
-            this.instance = new QuickDB(options);
-        }
-
+    static setSingleton<T>(options: IQuickDBOptions = {}): QuickDB<T> {
+        this.instance = new QuickDB(options);
         return this.instance;
     }
 

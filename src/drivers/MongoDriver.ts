@@ -5,6 +5,7 @@ import {
     Schema,
     SchemaTypes,
     createConnection,
+    pluralize,
 } from "mongoose";
 import { IRemoteDriver } from "../interfaces/IRemoteDriver";
 
@@ -44,8 +45,11 @@ export class MongoDriver implements IRemoteDriver {
 
     public constructor(
         public url: string,
-        public options: ConnectOptions = {}
+        public options: ConnectOptions = {},
+        pluralizeP = false
     ) {
+        if (!pluralizeP) pluralize(null);
+
         this.docSchema = new Schema<CollectionInterface>(
             {
                 ID: {

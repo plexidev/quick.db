@@ -364,7 +364,7 @@ export class QuickDB<D = any> {
         ).filter((v) => v.id.startsWith(query));
     }
 
-    table<T = D>(table: string): QuickDB<T> {
+    async table<T = D>(table: string): Promise<QuickDB<T>> {
         if (typeof table != "string") {
             throw new QuickError(
                 `First argument (table) needs to be a string received "${typeof table}"`,
@@ -373,10 +373,12 @@ export class QuickDB<D = any> {
         }
 
         const options = { ...this.options };
-
         options.table = table;
         options.driver = this.driver;
-        return new QuickDB(options);
+        const instance = new QuickDB(options);
+        await instance.init();
+
+        return instance;
     }
 
     useNormalKeys(activate: boolean): void {

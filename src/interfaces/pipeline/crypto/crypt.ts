@@ -31,7 +31,12 @@ interface BuiltInCryptOptions {
 	solveEncoding?: boolean,
 	// strict?: boolean
 }
-type CryptOptions = BuiltInCryptOptions
+interface CustomCryptOptions extends BuiltInCryptOptions {
+	encryptor: Cryptor,
+	decryptor: Cryptor
+}
+
+export type CryptOptions = BuiltInCryptOptions | CustomCryptOptions
 type JointResolvedCryptOptions = Required<BuiltInCryptOptions> & { byteSize: number }
 type ResolvedCryptOptions = Omit<JointResolvedCryptOptions, "strict">
 
@@ -39,7 +44,7 @@ type ResolvedCryptOptions = Omit<JointResolvedCryptOptions, "strict">
 // 	strict: boolean
 // }
 
-type Cryptor = (options: ResolvedCryptOptions, data: string, encoding?: StringEncoding) => Promise<string>
+export type Cryptor = (options: ResolvedCryptOptions, data: string, encoding?: StringEncoding) => Promise<string>
 
 type Payload<K extends string> = Record<K, string>;
 type PayloadExtractor<K extends string> = ((str: string) => Payload<K> | undefined)
@@ -127,77 +132,97 @@ export class CryptPipeline implements IPipeline<string, string> {
 
 		this.payloadExtractor = makePayloadExtractor<cryptSymbolVars>(cryptSymbol);
 
-		this.encryptor = async function(options, data): Promise<string> {
-			try {
-				const iv = crypto.randomBytes(options.byteSize);
-				const cipher = crypto.createCipheriv(options.algorithm, Buffer.from(options.key), iv);
+		if ("encryptor" in options) {
+			this.encryptor = options.encryptor;
+		} else {
+			this.encryptor ??= async function(options, data): Promise<string> {
+				try {
+					const iv = crypto.randomBytes(options.byteSize);
+					const cipher = crypto.createCipheriv(options.algorithm, Buffer.from(options.key), iv);
 
-				// Ensure data is a string
-				const stringifiedData = (data as unknown) instanceof Object ? JSON.stringify(data) : data;
+					// Ensure data is a string
+					const stringifiedData = (data as unknown) instanceof Object ? JSON.stringify(data) : data;
 
-				return Buffer.concat([
-					cipher.update(stringifiedData),
-					cipher.final(), 
-					iv
-				]).toString(options.encoding);
-			} catch (e: unknown) {
-				const err = e instanceof Error ? e : new Error(`${e}`);
+					return Buffer.concat([
+						cipher.update(stringifiedData),
+						cipher.final(), 
+						iv
+					]).toString(options.encoding);
+				} catch (e: unknown) {
+					const err = e instanceof Error ? e : new Error(`${e}`);
 
-				throw new Error("Unable to encrypt data: Unknown error", { cause: err });
+					throw new Error("Unknown error", { cause: err });
+				}
 			}
 		}
 
-		this.decryptor = async function(options, data, encoding): Promise<string> {
-			try {
-				encoding ??= "utf8";
+		if ("decryptor" in options) {
+			this.decryptor = options.decryptor;
+		} else {
+			this.decryptor ??= async function(options, data, encoding): Promise<string> {
+				try {
+					encoding ??= "utf8";
 
-				const binaryData = Buffer.from(data, options.encoding);
-				const iv = binaryData.subarray(binaryData.length - options.byteSize, binaryData.length);
-				const encryptedData = binaryData.subarray(0, binaryData.length - options.byteSize);
+					const binaryData = Buffer.from(data, options.encoding);
+					const iv = binaryData.subarray(binaryData.length - options.byteSize, binaryData.length);
+					const encryptedData = binaryData.subarray(0, binaryData.length - options.byteSize);
 
-				const decipher = crypto.createDecipheriv(options.algorithm, Buffer.from(options.key), iv);
-				const decrypted = Buffer.concat([
-					decipher.update(encryptedData), 
-					decipher.final()
-				]);
+					const decipher = crypto.createDecipheriv(options.algorithm, Buffer.from(options.key), iv);
+					const decrypted = Buffer.concat([
+						decipher.update(encryptedData), 
+						decipher.final()
+					]);
 
-				return decrypted.toString(encoding);
-			} catch (e: unknown) {
-				const err = e instanceof Error ? e : new Error(`${e}`);
-				if (err.message.includes("error:1C800064:Provider routines::bad decrypt")) throw new Error("Unable to decrypt data: Bad decrypt.");
+					return decrypted.toString(encoding);
+				} catch (e: unknown) {
+					const err = e instanceof Error ? e : new Error(`${e}`);
+					if (err.message.includes("error:1C800064:Provider routines::bad decrypt")) throw new Error("Bad decrypt");
 
-				throw new Error("Unable to decrypt data: Unknown error", { cause: err });
+					throw new Error("Unknown error", { cause: err });
+				}
 			}
 		}
 	}
 
 	
 	async serialize(value: string): Promise<string> {
-		const encryptedData = await this.encryptor(this.options, value);
-		return cryptSymbol.replace("%encoding%", this.options.encoding).replace("%payload%", encryptedData);
+		try {
+			const encryptedData = await this.encryptor(this.options, value);
+			return cryptSymbol.replace("%encoding%", this.options.encoding).replace("%payload%", encryptedData);
+		} catch (e: unknown) {
+			const err = e instanceof Error ? e : new Error(`${e}`);
+
+			throw new Error("Unable to encrypt data", { cause: err });
+		}
 	}
 	
 	async deserialize<R>(data: string): Promise<R> {
-		const nData = data.trim().replace(/^"/, "").replace(/"$/, "");
-		const payload = this.payloadExtractor(nData);
-		if (!payload) {
-			// if (this.pipelineOptions.strict) throw new Error("Entry is not encrypted or was encrypted on an unsupported format.")
-			return data as R;
-		}
-
-		const options = { ...this.options };
-		if (payload.encoding !== "null") {
-			if (!this.options.solveEncoding) throw new Error(`Invalid encoding. Expected '${this.options.encoding}', but got '${payload.encoding}'`)
-
-			if (Encoding.includes(payload.encoding as Encoding)) options.encoding = payload.encoding as Encoding;
-		}
-
-		const decryptedData = await this.decryptor(options, payload.payload, "utf8");
-
 		try {
-			return JSON.parse(decryptedData) as R;
-		} catch (_) {
-			return decryptedData as R;
+			const nData = data.trim().replace(/^"/, "").replace(/"$/, "");
+			const payload = this.payloadExtractor(nData);
+			if (!payload) {
+				// if (this.pipelineOptions.strict) throw new Error("Entry is not encrypted or was encrypted on an unsupported format.")
+				return data as R;
+			}
+
+			const options = { ...this.options };
+			if (payload.encoding !== "null") {
+				if (!this.options.solveEncoding) throw new Error(`Invalid encoding. Expected '${this.options.encoding}', but got '${payload.encoding}'`)
+
+				if (Encoding.includes(payload.encoding as Encoding)) options.encoding = payload.encoding as Encoding;
+			}
+
+			const decryptedData = await this.decryptor(options, payload.payload, "utf8");
+
+			try {
+				return JSON.parse(decryptedData) as R;
+			} catch (_) {
+				return decryptedData as R;
+			}
+		} catch (e: unknown) {
+			const err = e instanceof Error ? e : new Error(`${e}`);
+
+			throw new Error("Unable to decrypt data", { cause: err });
 		}
 	}
 }

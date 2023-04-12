@@ -15,7 +15,7 @@ export { DriverUnion } from "./drivers/DriverUnion";
 
 export { IPipeline } from "./interfaces/pipeline/IPipeline";
 export { PipeLiner } from "./interfaces/pipeline/pipeliner";
-export { CryptPipeline } from "./interfaces/pipeline/crypto/crypt"
+export { CryptPipeline, CryptOptions, Cryptor } from "./interfaces/pipeline/crypto/crypt"
 
 export interface IQuickDBOptions {
     table?: string;

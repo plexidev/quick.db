@@ -2,7 +2,6 @@
 
 > Need a powerful, low-cost VPS for hosting your applications & bots 24/7? Check out our partner, [Contabo](https://www.tkqlhce.com/click-8950879-15301134)! 🎉
 
-**Documentation:** [quickdb.js.org](https://quickdb.js.org) [[Migration Guide](https://quickdb.js.org/overview/migration-guide)] <br>
 **Support:** [discord.gg/plexidev](https://discord.gg/plexidev) <br>
 **NPM:** [npmjs.com/quick.db](https://www.npmjs.com/package/quick.db)
 
@@ -96,9 +95,8 @@ const { QuickDB, MySQLDriver } = require("quick.db");
         database: "my_db",
     });
 
-    await mysqlDriver.connect(); // connect to the database **this is important**
-
     const db = new QuickDB({ driver: mysqlDriver });
+    await db.init(); // Connects and setup the database
     // Now you can use quick.db as normal
 
     await db.set("userInfo", { difficulty: "Easy" });
@@ -120,9 +118,8 @@ const { QuickDB, PostgresDriver } = require("quick.db");
         database: "my_db",
     });
 
-    await postgresDriver.connect(); // connect to the database **this is important**
-
     const db = new QuickDB({ driver: postgresDriver });
+    await db.init(); // Connects and setup the database
     // Now you can use quick.db as normal
 
     await db.set("userInfo", { difficulty: "Easy" });
@@ -139,9 +136,8 @@ const { QuickDB, MongoDriver } = require("quick.db");
 (async () => {
     const mongoDriver = new MongoDriver("mongodb://localhost/quickdb");
 
-    await mongoDriver.connect();
-
     const db = new QuickDB({ driver: mongoDriver });
+    await db.init(); // Connects and setup the database
     // Now you can use quick.db as normal
 
     await db.set("userInfo", { difficulty: "Easy" });
@@ -174,39 +170,4 @@ const memoryDriver = new MemoryDriver();
 const db = new QuickDB({ driver: memoryDriver });
 
 await db.set("userInfo", { difficulty: "Easy" });
-```
-
-## Changes in 9.0.x
-
--   Added two new database options: **driver** and **filePath**
-    -   By default, the Sqlite driver is used. Although, you can use the MySQL driver by looking at the example above. More drivers are planned for the future, feel free to submit a pull request as well.
--   Added **.deleteAll()** method
--   Added **.pull()** method (see below)
--   Changed all methods to use async/await
-    -   This is because some drivers, such as MySQL, need to use await. Using async/await globally adds code consistency throughout drivers.
--   Changed QuickDB into a class
-    -   This changes how the database is initialized, read the [migration guide](https://quickdb.js.org/overview/migration-guide) for more information.
--   Renamed the **.subtract()** method to **.sub()** to match the length of **.add()**
--   General bug fixes
-    -   A notable one includes storing numbers as strings in the database now working as intended.
-
-**.pull()**
-
-```js
-await db.set("myArray", [
-    "axe",
-    "sword",
-    "shield",
-    "health_potion",
-    "mana_potion",
-]);
-
-await db.pull("myArray", "axe"); // Removing a single item
-// -> ['sword', 'shield', 'health_potion', 'mana_potion']
-
-await db.pull("myArray", ["sword", "shield"]); // Removing multiple options
-// -> ['health_potion', 'mana_potion']
-
-await db.pull("myArray", (i) => i.includes("potion")); // Using a function
-// -> []
 ```

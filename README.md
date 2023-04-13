@@ -2,13 +2,15 @@
 
 > Need a powerful, low-cost VPS for hosting your applications & bots 24/7? Check out our partner, [Contabo](https://www.tkqlhce.com/click-8950879-15301134)! 🎉
 
+**Auto Generated Docs** [docs](https://docs.plexidev.org/classes/index.QuickDB.html) <br>
+**Guide** [Guide](https://quickdb.js.org/en/introduction/) <br>
 **Support:** [discord.gg/plexidev](https://discord.gg/plexidev) <br>
 **NPM:** [npmjs.com/quick.db](https://www.npmjs.com/package/quick.db)
 
 Quick.db is an open-source package meant to provide an easy way for beginners and people of all levels to access & store data in a low to medium volume environment. All data is stored persistently via either [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3), [mysql2](https://www.npmjs.com/package/mysql2), [pg](https://www.npmjs.com/package/pg) or [mongoose](https://www.npmjs.com/package/mongoose) and comes way various other quality-of-life features.
 
 -   **Persistent Storage** - Data doesn't disappear through restarts
--   **Multiple Drivers** - You can use either better-sqlite3 or mysql2
+-   **Multiple Drivers** - SQLite, MySQL, Postgres, Mongoose
 -   **Works out of the box** - No need to set up a database server, all the data is stored locally in the same project
 -   **Beginner Friendly** - Originally created for use in tutorials, the documentation is straightforward and jargon-free
 -   & more...

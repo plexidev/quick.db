@@ -13,9 +13,9 @@ export { MemoryDriver, Table } from "./drivers/MemoryDriver";
 export { JSONDriver, DataLike } from "./drivers/JSONDriver";
 export { DriverUnion } from "./drivers/DriverUnion";
 
-export { IPipeline } from "./interfaces/pipeline/IPipeline";
-export { PipeLiner } from "./interfaces/pipeline/pipeliner";
-export { CryptPipeline, CryptOptions, Cryptor } from "./interfaces/pipeline/crypto/crypt"
+export { IPipeline } from "./interfaces/IPipeline";
+export { PipeLiner } from "./pipeline/pipeliner";
+export { CryptPipeline, CryptOptions, Cryptor } from "./pipeline/crypto/crypt"
 
 export interface IQuickDBOptions {
     table?: string;

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import crypto from "crypto";
-import { IPipeline } from "../IPipeline";
+import { IPipeline } from "../../interfaces/IPipeline";
 
 /* CONSTANTS */
 const cryptSymbol = "__SYM_QUICKDB_CRYPT__{%encoding%;%payload%}";
@@ -123,7 +123,7 @@ export class CryptPipeline implements IPipeline<string, string> {
 			algorithm: options.algorithm,
 			encoding: options.encoding,
 			solveEncoding: options.solveEncoding,
-			byteSize: byteSize
+			byteSize: 16 //byteSize
 		}
 
 		// this.pipelineOptions = {

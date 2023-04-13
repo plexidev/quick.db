@@ -1,5 +1,5 @@
-import { IDriver } from "../IDriver";
-import { IPipeline } from "./IPipeline";
+import { IDriver } from "../interfaces/IDriver";
+import { IPipeline } from "../interfaces/IPipeline";
 
 export class PipeLiner<R> implements IDriver {
 	public driver: IDriver;

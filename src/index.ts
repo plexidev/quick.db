@@ -6,6 +6,9 @@ import { CustomError as QuickError, ErrorKind } from "./error";
 
 export { IDriver } from "./interfaces/IDriver";
 export { IRemoteDriver } from "./interfaces/IRemoteDriver";
+export { IPipeline } from "./interfaces/IPipeline";
+export { PipeLiner } from "./pipeline/pipeliner";
+export * as CryptoPipeline from "./pipeline/crypto/crypt"
 
 /**
  * Options for the QuickDB class

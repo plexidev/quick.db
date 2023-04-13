@@ -29,11 +29,6 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 
 </details>
 
-```python
-npm i quick.db better-sqlite3   # (Default) Local SQLite3 File
-npm i quick.db mysql2    # (Alternative) MySQL Server Connection
-```
-
 > If you're having troubles installing, please follow [this troubleshooting guide](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).
 > Windows users may need to do additional steps listed [here](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).
 

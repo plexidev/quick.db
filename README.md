@@ -2,20 +2,26 @@
 
 > Need a powerful, low-cost VPS for hosting your applications & bots 24/7? Check out our partner, [Contabo](https://www.tkqlhce.com/click-8950879-15301134)! 🎉
 
-**Documentation:** [quickdb.js.org](https://quickdb.js.org) [[Migration Guide](https://quickdb.js.org/overview/migration-guide)] <br>
+**Auto Generated Docs** [docs](https://docs.plexidev.org/classes/index.QuickDB.html) <br>
+**Guide** [Guide](https://quickdb.js.org/en/introduction/) <br>
 **Support:** [discord.gg/plexidev](https://discord.gg/plexidev) <br>
 **NPM:** [npmjs.com/quick.db](https://www.npmjs.com/package/quick.db)
 
 Quick.db is an open-source package meant to provide an easy way for beginners and people of all levels to access & store data in a low to medium volume environment. All data is stored persistently via either [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3), [mysql2](https://www.npmjs.com/package/mysql2), [pg](https://www.npmjs.com/package/pg) or [mongoose](https://www.npmjs.com/package/mongoose) and comes way various other quality-of-life features.
 
 -   **Persistent Storage** - Data doesn't disappear through restarts
--   **Multiple Drivers** - You can use either better-sqlite3 or mysql2
+-   **Multiple Drivers** - SQLite, MySQL, Postgres, Mongoose
 -   **Works out of the box** - No need to set up a database server, all the data is stored locally in the same project
 -   **Beginner Friendly** - Originally created for use in tutorials, the documentation is straightforward and jargon-free
 -   & more...
 
 ## Installation
 
+```bash
+npm i quick.db
+```
+
+<br>
 <details>
 <summary>Mac Prerequisites</summary>
 <br>
@@ -27,11 +33,6 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 ```
 
 </details>
-
-```python
-npm i quick.db better-sqlite3   # (Default) Local SQLite3 File
-npm i quick.db mysql2    # (Alternative) MySQL Server Connection
-```
 
 > If you're having troubles installing, please follow [this troubleshooting guide](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).
 > Windows users may need to do additional steps listed [here](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).
@@ -96,9 +97,8 @@ const { QuickDB, MySQLDriver } = require("quick.db");
         database: "my_db",
     });
 
-    await mysqlDriver.connect(); // connect to the database **this is important**
-
     const db = new QuickDB({ driver: mysqlDriver });
+    await db.init(); // Connects and setup the database
     // Now you can use quick.db as normal
 
     await db.set("userInfo", { difficulty: "Easy" });
@@ -120,9 +120,8 @@ const { QuickDB, PostgresDriver } = require("quick.db");
         database: "my_db",
     });
 
-    await postgresDriver.connect(); // connect to the database **this is important**
-
     const db = new QuickDB({ driver: postgresDriver });
+    await db.init(); // Connects and setup the database
     // Now you can use quick.db as normal
 
     await db.set("userInfo", { difficulty: "Easy" });
@@ -139,9 +138,8 @@ const { QuickDB, MongoDriver } = require("quick.db");
 (async () => {
     const mongoDriver = new MongoDriver("mongodb://localhost/quickdb");
 
-    await mongoDriver.connect();
-
     const db = new QuickDB({ driver: mongoDriver });
+    await db.init(); // Connects and setup the database
     // Now you can use quick.db as normal
 
     await db.set("userInfo", { difficulty: "Easy" });
@@ -174,39 +172,4 @@ const memoryDriver = new MemoryDriver();
 const db = new QuickDB({ driver: memoryDriver });
 
 await db.set("userInfo", { difficulty: "Easy" });
-```
-
-## Changes in 9.0.x
-
--   Added two new database options: **driver** and **filePath**
-    -   By default, the Sqlite driver is used. Although, you can use the MySQL driver by looking at the example above. More drivers are planned for the future, feel free to submit a pull request as well.
--   Added **.deleteAll()** method
--   Added **.pull()** method (see below)
--   Changed all methods to use async/await
-    -   This is because some drivers, such as MySQL, need to use await. Using async/await globally adds code consistency throughout drivers.
--   Changed QuickDB into a class
-    -   This changes how the database is initialized, read the [migration guide](https://quickdb.js.org/overview/migration-guide) for more information.
--   Renamed the **.subtract()** method to **.sub()** to match the length of **.add()**
--   General bug fixes
-    -   A notable one includes storing numbers as strings in the database now working as intended.
-
-**.pull()**
-
-```js
-await db.set("myArray", [
-    "axe",
-    "sword",
-    "shield",
-    "health_potion",
-    "mana_potion",
-]);
-
-await db.pull("myArray", "axe"); // Removing a single item
-// -> ['sword', 'shield', 'health_potion', 'mana_potion']
-
-await db.pull("myArray", ["sword", "shield"]); // Removing multiple options
-// -> ['health_potion', 'mana_potion']
-
-await db.pull("myArray", (i) => i.includes("potion")); // Using a function
-// -> []
 ```

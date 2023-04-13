@@ -10,6 +10,7 @@ const Encoding = ["ucs2", "ucs-2", "base64", "base64url", "latin1", "hex"] as co
 const StringEncoding = ["ascii", "utf8", "utf-8", "utf16le", "ucs2", "ucs-2", "base64", "base64url", "latin1", "hex", "binary"] as const;
 
 const algorithmByteSizes = {
+	"custom": -1,
 	"aes-128-cbc": 16, 
 	"aes-192-cbc": 24, 
 	"aes-256-cbc": 32
@@ -24,30 +25,31 @@ type CryptoAlgorithm = keyof typeof algorithmByteSizes
 type Encoding = typeof Encoding[number]
 type StringEncoding = typeof StringEncoding[number]
 
-interface BuiltInCryptOptions {
+export interface BuiltInCryptOptions {
 	key: string | Buffer,
 	algorithm?: CryptoAlgorithm,
 	encoding?: Encoding,
-	solveEncoding?: boolean,
-	// strict?: boolean
+	solveEncoding?: boolean
 }
-interface CustomCryptOptions extends BuiltInCryptOptions {
+export interface CustomCryptOptions extends BuiltInCryptOptions {
 	encryptor: Cryptor,
 	decryptor: Cryptor
 }
 
+export type ResolvedCryptOptions = Required<BuiltInCryptOptions> & { byteSize: number }
 export type CryptOptions = BuiltInCryptOptions | CustomCryptOptions
-type JointResolvedCryptOptions = Required<BuiltInCryptOptions> & { byteSize: number }
-type ResolvedCryptOptions = Omit<JointResolvedCryptOptions, "strict">
-
-// type PipelineOptions = {
-// 	strict: boolean
-// }
-
 export type Cryptor = (options: ResolvedCryptOptions, data: string, encoding?: StringEncoding) => Promise<string>
 
 type Payload<K extends string> = Record<K, string>;
 type PayloadExtractor<K extends string> = ((str: string) => Payload<K> | undefined)
+
+/**
+ * Automatically extracts relevant data against a template from a string, if the string matches the template.
+ *
+ * @template K
+ * @param {string} template
+ * @return {*}  {PayloadExtractor<K>}
+ */
 function makePayloadExtractor<K extends string>(template: string): PayloadExtractor<K> {
 	const varSymLength = 2;
 	const varRegex = /%((?:[a-zA-Z_])+)%/gm;
@@ -96,6 +98,33 @@ function makePayloadExtractor<K extends string>(template: string): PayloadExtrac
 	return payloadExtractor;
 }
 
+/**
+ * The Crypt pipeline adds cryptography to all data piped through to the database.
+ * 
+ * **WARNING:** Attempting to deserialize data which was serialized using a different algorithm / key ***will*** result in an error being thrown.
+ * 
+ * A custom encryption / decryption pair algorithm can be provided.
+ * 
+ * @example
+ * const { PipeLiner, CryptoPipeline: { CryptPipeline }, QuickDB, SqliteDriver } = require("quick.db");
+ * const SQLiteInstance = SqliteDriver.createSingleton("./crypt.sqlite");
+ * const Crypt = new CryptPipeline({
+ *   algorithm: "aes-128-cbc",
+ *   key: "0000111122223333",
+ *   encoding: "base64",
+ *   solveEncoding: true
+ * });
+ * const pipeline = new PipeLiner(SQLiteInstance, Crypt);
+ * 
+ * const db = new QuickDB({ driver: pipeline });
+ * await db.init();
+ * 
+ * // Database ready to be used.
+ *
+ * @export
+ * @class CryptPipeline
+ * @implements {IPipeline<string, string>}
+ */
 export class CryptPipeline implements IPipeline<string, string> {
 	private options: ResolvedCryptOptions;
 	// private pipelineOptions: PipelineOptions;
@@ -107,7 +136,6 @@ export class CryptPipeline implements IPipeline<string, string> {
 		options.algorithm ??= "aes-128-cbc" as unknown as CryptoAlgorithm;
 		options.encoding ??= "hex" as unknown as Encoding;
 		options.solveEncoding ??= true;
-		// options.strict ??= false;
 
 		const byteSize = algorithmByteSizes[options.algorithm];
 
@@ -117,22 +145,23 @@ export class CryptPipeline implements IPipeline<string, string> {
 		if (!(Encoding as unknown as string[]).includes(options.encoding)) throw new Error("Encoding is not supported");
 		options.solveEncoding = !!options.solveEncoding;
 
-
 		this.options = {
 			key: options.key,
 			algorithm: options.algorithm,
 			encoding: options.encoding,
 			solveEncoding: options.solveEncoding,
-			byteSize: 16 //byteSize
+			byteSize: 16
 		}
-
-		// this.pipelineOptions = {
-		// 	strict: options.strict
-		// }
 
 		this.payloadExtractor = makePayloadExtractor<cryptSymbolVars>(cryptSymbol);
 
+		// Check if custom encryption is being used, and ensure it is being correctly initialized
+		if ( ("encryptor" in options && !("decryptor" in options)) || (!("encryptor" in options) && "decryptor" in options) )
+			throw new Error("Both an encryptor and decryptor must be provided when using a custom algorithm.")
+		else options.algorithm = "custom";
+
 		if ("encryptor" in options) {
+			if (typeof options.encryptor !== "function") throw new Error("Encriptor is not a function.");
 			this.encryptor = options.encryptor;
 		} else {
 			this.encryptor ??= async function(options, data): Promise<string> {
@@ -157,6 +186,7 @@ export class CryptPipeline implements IPipeline<string, string> {
 		}
 
 		if ("decryptor" in options) {
+			if (typeof options.decryptor !== "function") throw new Error("Decriptor is not a function.");
 			this.decryptor = options.decryptor;
 		} else {
 			this.decryptor ??= async function(options, data, encoding): Promise<string> {
@@ -201,7 +231,6 @@ export class CryptPipeline implements IPipeline<string, string> {
 			const nData = data.trim().replace(/^"/, "").replace(/"$/, "");
 			const payload = this.payloadExtractor(nData);
 			if (!payload) {
-				// if (this.pipelineOptions.strict) throw new Error("Entry is not encrypted or was encrypted on an unsupported format.")
 				return data as R;
 			}
 

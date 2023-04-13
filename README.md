@@ -17,6 +17,11 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 
 ## Installation
 
+```bash
+npm i quick.db
+```
+
+<br>
 <details>
 <summary>Mac Prerequisites</summary>
 <br>

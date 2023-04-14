@@ -37,7 +37,9 @@ npm i quick.db
 > If you're having troubles installing, please follow [this troubleshooting guide](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).
 > Windows users may need to do additional steps listed [here](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).
 
-## Example
+## Example With Sqlite (Default driver)
+
+> **NOTE:** In order to use this driver, install `npm i better-sqlite3` separately.
 
 ```js
 const { QuickDB } = require("quick.db");

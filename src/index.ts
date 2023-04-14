@@ -31,7 +31,7 @@ export class QuickDB<D = any> {
     constructor(options: IQuickDBOptions = {}) {
         options.table ??= "json";
         options.filePath ??= "json.sqlite";
-        options.driver ??= SqliteDriver.createSingleton(options.filePath);
+        options.driver ??= new SqliteDriver(options.filePath);
         options.normalKeys ??= false;
 
         this.options = options;

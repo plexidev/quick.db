@@ -1,6 +1,5 @@
 import { set, get, unset } from "lodash";
 import { IDriver } from "./interfaces/IDriver";
-import { SqliteDriver } from "./drivers/SqliteDriver";
 import { isConnectable, isDisconnectable } from "./utilities";
 import { CustomError as QuickError, ErrorKind } from "./error";
 
@@ -70,11 +69,15 @@ export class QuickDB<D = any> {
     constructor(options: IQuickDBOptions = {}) {
         options.table ??= "json";
         options.filePath ??= "json.sqlite";
-        options.driver ??= SqliteDriver.createSingleton(options.filePath);
         options.normalKeys ??= false;
+        if (!options.driver) {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const { SqliteDriver } = require("./drivers/SqliteDriver");
+            options.driver = SqliteDriver.createSingleton(options.filePath);
+        }
 
         this.options = options;
-        this._driver = options.driver;
+        this._driver = options.driver!;
         this.tableName = options.table;
         this.normalKeys = options.normalKeys;
     }

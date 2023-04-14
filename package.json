@@ -26,11 +26,11 @@
         "typescript": "^5.0.0"
     },
     "peerDependencies": {
-        "better-sqlite3": "^8.0.0",
-        "mongoose": "^7.0.0",
-        "mysql2": "^3.2.0",
-        "pg": "^8.10.0",
-        "write-file-atomic": "^5.0.0"
+        "better-sqlite3": "8.x",
+        "mongoose": "7.x",
+        "mysql2": "3.x",
+        "pg": "8.x",
+        "write-file-atomic": "5.x"
     },
     "dependencies": {
         "lodash": "^4.17.21"

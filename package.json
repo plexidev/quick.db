@@ -16,14 +16,19 @@
         "@types/write-file-atomic": "^4.0.0",
         "@typescript-eslint/eslint-plugin": "^5.8.1",
         "@typescript-eslint/parser": "^5.8.1",
+        "better-sqlite3": "8.x",
         "dotenv": "^16.0.3",
         "eslint": "^8.5.0",
         "eslint-config-prettier": "^8.3.0",
         "jest": "^29.3.1",
+        "mongoose": "7.x",
+        "mysql2": "3.x",
+        "pg": "8.x",
         "prettier": "^2.5.1",
         "ts-jest": "^29.0.3",
         "typedoc": "^0.24.0",
-        "typescript": "^5.0.0"
+        "typescript": "^5.0.0",
+        "write-file-atomic": "5.x"
     },
     "peerDependencies": {
         "better-sqlite3": "8.x",
@@ -31,6 +36,23 @@
         "mysql2": "3.x",
         "pg": "8.x",
         "write-file-atomic": "5.x"
+    },
+    "peerDependenciesMeta": {
+        "better-sqlite3": {
+            "optional": true
+        },
+        "mongoose": {
+            "optional": true
+        },
+        "mysql2": {
+            "optional": true
+        },
+        "pg": {
+            "optional": true
+        },
+        "write-file-atomic": {
+            "optional": true
+        }
     },
     "dependencies": {
         "lodash": "^4.17.21"
@@ -49,12 +71,12 @@
         "test:all": "jest --roots tests",
         "test:integration": "jest --roots tests/integration",
         "test:unit": "jest --roots tests/unit",
-        "test": "npm run test:unit",
+        "test": "yarn run test:unit",
         "build": "tsc",
         "lint": "eslint --ext \".ts\" ./src",
         "prettier": "prettier --write ./src",
-        "prepublishOnly": "npm run build",
-        "prepare": "npm run build",
+        "prepublishOnly": "yarn run build",
+        "prepare": "yarn run build",
         "docgen": "typedoc"
     },
     "lint-staged": {
@@ -79,5 +101,6 @@
     "bugs": {
         "url": "https://github.com/TrueXPixels/quick.db/issues"
     },
-    "homepage": "https://quickdb.js.org"
+    "homepage": "https://quickdb.js.org",
+    "packageManager": "yarn@3.5.0"
 }

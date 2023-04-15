@@ -7,7 +7,7 @@ export { IDriver } from "./interfaces/IDriver";
 export { IRemoteDriver } from "./interfaces/IRemoteDriver";
 export { IPipeline } from "./interfaces/IPipeline";
 export { PipeLiner } from "./pipeline/pipeliner";
-export * as CryptoPipeline from "./pipeline/crypto/crypt"
+export * as CryptoPipeline from "./pipeline/crypto/crypt";
 
 /**
  * Options for the QuickDB class
@@ -76,7 +76,7 @@ export class QuickDB<D = any> {
         if (!options.driver) {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const { SqliteDriver } = require("./drivers/SqliteDriver");
-            options.driver = SqliteDriver.createSingleton(options.filePath);
+            options.driver = new SqliteDriver(options.filePath);
         }
 
         this.options = options;

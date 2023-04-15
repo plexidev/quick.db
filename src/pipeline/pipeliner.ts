@@ -32,14 +32,16 @@ export class PipeLiner<R> implements IDriver {
 		if (!rawData[0]) return rawData;
 
 		const deserializedData = await this.pipeline.deserialize<T>(JSON.stringify(rawData[0]));
-		return deserializedData ? [deserializedData, true] : [null, false];
+		return (typeof deserializedData !== undefined) ? [deserializedData, true] : [null, false];
 	}
 	
 	async setRowByKey<T>(table: string, key: string, value: any, update: boolean): Promise<T> {
 		const serializedData = await this.pipeline.serialize(value);
 
-		const ret = await this.driver.setRowByKey<T>(table, key, serializedData, update);
-		return ret;
+		const ret: T = await this.driver.setRowByKey<T>(table, key, serializedData, update);
+		
+		if (typeof ret === "string") return await this.pipeline.deserialize<T>(ret);
+		else return ret;
 	}
 	
 	async deleteAllRows(table: string): Promise<number> {

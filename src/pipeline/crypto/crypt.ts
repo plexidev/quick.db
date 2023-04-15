@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 import crypto from "crypto";
 import { IPipeline } from "../../interfaces/IPipeline";
-
+import { isError } from "lodash";
+ 
 /* CONSTANTS */
 const cryptSymbol = "__SYM_QUICKDB_CRYPT__{%encoding%;%payload%}";
 const cryptSymbolVars = ["encoding", "payload"] as const;
 
-const Encoding = ["ucs2", "ucs-2", "base64", "base64url", "latin1", "hex"] as const;
+const Encoding = ["base64", "base64url", "hex"] as const;
 const StringEncoding = ["ascii", "utf8", "utf-8", "utf16le", "ucs2", "ucs-2", "base64", "base64url", "latin1", "hex", "binary"] as const;
 
 const algorithmByteSizes = {
@@ -127,7 +128,6 @@ function makePayloadExtractor<K extends string>(template: string): PayloadExtrac
  */
 export class CryptPipeline implements IPipeline<string, string> {
 	private options: ResolvedCryptOptions;
-	// private pipelineOptions: PipelineOptions;
 	private payloadExtractor: PayloadExtractor<cryptSymbolVars>;
 	private encryptor: Cryptor;
 	private decryptor: Cryptor;
@@ -140,7 +140,7 @@ export class CryptPipeline implements IPipeline<string, string> {
 		const byteSize = algorithmByteSizes[options.algorithm];
 
 		// Runtime checks for pure JS users
-		if (!options.key || options.key.length !== byteSize) throw new Error(`Encryption key must have ${byteSize} bytes`);
+		if (options.algorithm !== "custom" && (!options.key || options.key.length !== byteSize)) throw new Error(`Encryption key must have ${byteSize} bytes`);
 		if (!(CryptoAlgorithm as unknown as string[]).includes(options.algorithm)) throw new Error("Algorithm is not supported");
 		if (!(Encoding as unknown as string[]).includes(options.encoding)) throw new Error("Encoding is not supported");
 		options.solveEncoding = !!options.solveEncoding;
@@ -170,7 +170,7 @@ export class CryptPipeline implements IPipeline<string, string> {
 					const cipher = crypto.createCipheriv(options.algorithm, Buffer.from(options.key), iv);
 
 					// Ensure data is a string
-					const stringifiedData = (data as unknown) instanceof Object ? JSON.stringify(data) : data;
+					const stringifiedData = typeof data === "string" ? data : JSON.stringify(data); //(data as unknown) instanceof Object ? JSON.stringify(data) : data;
 
 					return Buffer.concat([
 						cipher.update(stringifiedData),
@@ -218,6 +218,7 @@ export class CryptPipeline implements IPipeline<string, string> {
 	async serialize(value: string): Promise<string> {
 		try {
 			const encryptedData = await this.encryptor(this.options, value);
+			
 			return cryptSymbol.replace("%encoding%", this.options.encoding).replace("%payload%", encryptedData);
 		} catch (e: unknown) {
 			const err = e instanceof Error ? e : new Error(`${e}`);
@@ -236,7 +237,8 @@ export class CryptPipeline implements IPipeline<string, string> {
 
 			const options = { ...this.options };
 			if (payload.encoding !== "null") {
-				if (!this.options.solveEncoding) throw new Error(`Invalid encoding. Expected '${this.options.encoding}', but got '${payload.encoding}'`)
+				if (payload.encoding !== this.options.encoding && !this.options.solveEncoding) 
+					throw new Error(`Invalid encoding. Expected '${this.options.encoding}', but got '${payload.encoding}'`)
 
 				if (Encoding.includes(payload.encoding as Encoding)) options.encoding = payload.encoding as Encoding;
 			}
@@ -249,7 +251,12 @@ export class CryptPipeline implements IPipeline<string, string> {
 				return decryptedData as R;
 			}
 		} catch (e: unknown) {
-			const err = e instanceof Error ? e : new Error(`${e}`);
+			let err: Error | undefined = undefined;
+			if (isError(e)) {
+				err = e;
+			} else {
+				err = new Error(`${e}`);
+			}
 
 			throw new Error("Unable to decrypt data", { cause: err });
 		}

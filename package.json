@@ -76,7 +76,7 @@
         "lint": "eslint --ext \".ts\" ./src",
         "prettier": "prettier --write ./src",
         "prepublishOnly": "yarn build",
-        "preinstall": "yarn build",
+        "preinstall": "rm yarn.lock && yarn build",
         "docgen": "typedoc"
     },
     "lint-staged": {

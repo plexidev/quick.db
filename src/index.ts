@@ -448,7 +448,7 @@ export class QuickDB<D = any> {
         if (Array.isArray(value)) currentArr = value.concat(currentArr);
         else currentArr.unshift(value);
 
-        return this.set(key, currentArr);
+        return await this.set(key, currentArr);
     }
 
     /**
@@ -471,8 +471,7 @@ export class QuickDB<D = any> {
 
         const currentArr = await this.getArray<T>(key);
         const value = currentArr.pop();
-
-        this.set(key, currentArr);
+        await this.set(key, currentArr);
 
         return value;
     }
@@ -498,7 +497,7 @@ export class QuickDB<D = any> {
         const currentArr = await this.getArray<T>(key);
         const value = currentArr.shift();
 
-        this.set(key, currentArr);
+        await this.set(key, currentArr);
 
         return value;
     }
@@ -547,7 +546,7 @@ export class QuickDB<D = any> {
             if (once) break;
         }
 
-        return this.set(key, data);
+        return await this.set(key, data);
     }
 
     /**

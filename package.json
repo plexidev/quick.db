@@ -75,8 +75,8 @@
         "build": "tsc",
         "lint": "eslint --ext \".ts\" ./src",
         "prettier": "prettier --write ./src",
-        "prepublishOnly": "yarn run build",
-        "prepack": "yarn run build",
+        "prepublishOnly": "yarn build",
+        "postinstall": "yarn build",
         "docgen": "typedoc"
     },
     "lint-staged": {

@@ -77,8 +77,7 @@
         "docgen": "typedoc",
         "build": "tsc",
         "clean": "rm -rf ./out",
-        "prepack": "yarn build",
-        "prepublish": "yarn lint && yarn test",
+        "prepack": "yarn lint && yarn test && yarn build",
         "prepare": "if [ \"$npm_execpath\" != \"\" ] ; then npm run build ; else yarn build ; fi"
     },
     "lint-staged": {

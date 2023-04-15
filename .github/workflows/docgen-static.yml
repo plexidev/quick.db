@@ -26,7 +26,7 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: "yarn"
             - run: yarn install --immutable
-            - run: yarn run docgen
+            - run: yarn docgen
 
             - name: Setup Pages
               id: pages

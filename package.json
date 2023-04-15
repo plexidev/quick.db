@@ -71,13 +71,15 @@
         "test:all": "jest --roots tests",
         "test:integration": "jest --roots tests/integration",
         "test:unit": "jest --roots tests/unit",
-        "test": "yarn run test:unit",
-        "build": "tsc",
+        "test": "yarn test:unit",
         "lint": "eslint --ext \".ts\" ./src",
         "prettier": "prettier --write ./src",
-        "prepublishOnly": "yarn build",
-        "prepare": "if [ \"$npm_execpath\" != \"\" ] ; then npm run build ; else yarn build ; fi",
-        "docgen": "typedoc"
+        "docgen": "typedoc",
+        "build": "tsc",
+        "clean": "rm -rf ./out",
+        "prepack": "yarn build",
+        "prepublish": "yarn lint && yarn test",
+        "prepare": "if [ \"$npm_execpath\" != \"\" ] ; then npm run build ; else yarn build ; fi"
     },
     "lint-staged": {
         "*.{ts}": "eslint"

@@ -1,4 +1,5 @@
 import { IDriver } from "../interfaces/IDriver";
+import { isConnectable } from "../utilities";
 
 /**
  * DriverUnion - Union of Drivers
@@ -37,6 +38,12 @@ export class DriverUnion implements IDriver {
         this.drivers = [main, ...mirrors];
         this._main = 0;
     }
+
+	public async init(): Promise<void> {
+		for (const driver of this.drivers) {
+			if (isConnectable(driver)) await driver.connect();
+		}
+	}
 
     public async prepare(table: string): Promise<void> {
         for (const driver of this.drivers) await driver.prepare(table);

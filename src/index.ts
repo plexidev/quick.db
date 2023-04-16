@@ -401,7 +401,7 @@ export class QuickDB<D = any> {
      * console.log(await db.get("test"));
      * ```
      **/
-    async push<T = D>(key: string, value: T): Promise<T[]> {
+    async push<T = D>(key: string, ...values: T[]): Promise<T[]> {
         if (typeof key != "string") {
             throw new QuickError(
                 `First argument (key) needs to be a string received "${typeof key}"`,
@@ -409,7 +409,7 @@ export class QuickDB<D = any> {
             );
         }
 
-        if (value == null) {
+        if (values.length === 0) {
             throw new QuickError(
                 "Missing second argument (value)",
                 ErrorKind.MissingValue
@@ -417,7 +417,7 @@ export class QuickDB<D = any> {
         }
 
         const currentArr = await this.getArray<T>(key);
-        currentArr.push(value);
+        currentArr.push(...values);
 
         return this.set(key, currentArr);
     }

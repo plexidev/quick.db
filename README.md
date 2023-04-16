@@ -15,6 +15,10 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 -   **Beginner Friendly** - Originally created for use in tutorials, the documentation is straightforward and jargon-free
 -   & more...
 
+**If you want to support me**
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/zelak)
+
 ## Installation
 
 ```bash

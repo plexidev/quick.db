@@ -8,6 +8,7 @@ on:
         paths:
             - "src/**"
             - "tests/**"
+            - "yarn.lock"
             - "package.json"
             - "tsconfig.json"
 jobs:

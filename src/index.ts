@@ -49,7 +49,7 @@ export interface IQuickDBOptions {
  * ```
  */
 export class QuickDB<D = any> {
-    private static instance?: QuickDB;
+    private static instances: Map<string, QuickDB> = new Map();
     private _driver: IDriver;
     private tableName: string;
     private normalKeys: boolean;
@@ -151,13 +151,14 @@ export class QuickDB<D = any> {
      * Set a singleton instance of QuickDB
      * @example
      * ```ts
-     * const db = QuickDB.getSingletion();
+     * const db = QuickDB.registerSingleton("quickdb");
      * await db.init();
      * ```
      **/
-    static setSingleton<T>(options: IQuickDBOptions = {}): QuickDB<T> {
-        this.instance = new QuickDB(options);
-        return this.instance;
+    static registerSingleton<T>(name: string, options: IQuickDBOptions = {}): QuickDB<T> {
+        const instance = new QuickDB(options);
+        this.instances.set(name, instance);
+        return instance;
     }
 
     /**
@@ -166,12 +167,12 @@ export class QuickDB<D = any> {
      * ```ts
      * // If you have set a singleton instance
      * // Otherwise it will return undefined
-     * const db = QuickDB.getSingletion();
+     * const db = QuickDB.getSingletion("quickdb");
      * await db.init();
      * ```
      **/
-    static getSingletion<T>(): QuickDB<T> | undefined {
-        return this.instance;
+    static getSingletion<T>(name: string): QuickDB<T> | undefined {
+        return this.instances.get(name);
     }
 
     /**

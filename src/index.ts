@@ -151,11 +151,11 @@ export class QuickDB<D = any> {
      * Set a singleton instance of QuickDB
      * @example
      * ```ts
-     * const db = QuickDB.createSingleton("quickdb");
+     * const db = QuickDB.registerSingleton("quickdb");
      * await db.init();
      * ```
      **/
-    static createSingleton<T>(name: string, options: IQuickDBOptions = {}): QuickDB<T> {
+    static registerSingleton<T>(name: string, options: IQuickDBOptions = {}): QuickDB<T> {
         const instance = new QuickDB(options);
         this.instances.set(name, instance);
         return instance;

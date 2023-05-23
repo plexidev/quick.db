@@ -59,16 +59,16 @@
     },
     "exports": {
         ".": {
-            "require": "./out/index.js",
-            "types": "./out/index.d.ts",
+            "require": "./out-cjs/index.js",
+            "types": "./out-cjs/index.d.ts",
             "import": "./out-esm/index.js",
-            "default": "./out/index.js"
+            "default": "./out-cjs/index.js"
         },
         "./*": {
-            "require": "./out/drivers/*.js",
-            "types": "./out/drivers/*.d.ts",
+            "require": "./out-cjs/drivers/*.js",
+            "types": "./out-cjs/drivers/*.d.ts",
             "import": "./out-esm/drivers/*.js",
-            "default": "./out/drivers/*.js"
+            "default": "./out-cjs/drivers/*.js"
         }
     },
     "scripts": {

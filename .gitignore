@@ -134,7 +134,8 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/node
-out
+out-cjs
+out-esm
 .tool-versions
 integration-database
 docs

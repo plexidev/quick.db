@@ -60,11 +60,15 @@
     "exports": {
         ".": {
             "require": "./out/index.js",
-            "types": "./out/index.d.ts"
+            "types": "./out/index.d.ts",
+            "import": "./out-esm/index.js",
+            "default": "./out/index.js"
         },
         "./*": {
             "require": "./out/drivers/*.js",
-            "types": "./out/drivers/*.d.ts"
+            "types": "./out/drivers/*.d.ts",
+            "import": "./out-esm/drivers/*.js",
+            "default": "./out/drivers/*.js"
         }
     },
     "scripts": {
@@ -75,7 +79,9 @@
         "lint": "eslint --ext \".ts\" ./src",
         "prettier": "prettier --write ./src",
         "docgen": "typedoc",
-        "build": "tsc",
+        "build:esm": "tsc -p tsconfig.esm.json",
+        "build:cjs": "tsc -p tsconfig.cjs.json",
+        "build": "yarn build:esm && yarn build:cjs",
         "clean": "rm -rf ./out",
         "prepack": "yarn lint && yarn test && yarn build",
         "prepare": "if [ \"$npm_execpath\" != \"\" ] ; then npm run build ; else yarn build ; fi"

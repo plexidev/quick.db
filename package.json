@@ -80,7 +80,7 @@
         "prettier": "prettier --write ./src",
         "docgen": "typedoc",
         "build:esm": "tsc -p tsconfig.esm.json",
-        "build:cjs": "tsc -p tsconfig.cjs.json",
+        "build:cjs": "tsc -p tsconfig.json",
         "build": "yarn build:esm && yarn build:cjs",
         "clean": "rm -rf ./out",
         "prepack": "yarn lint && yarn test && yarn build",

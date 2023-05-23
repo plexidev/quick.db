@@ -10,6 +10,6 @@
         "skipLibCheck": true /* Skip type checking all .d.ts files. */,
         "declaration": true
     },
-    "include": ["src", "tests", ".eslintrc.js"],
+    "include": ["src", "tests", ".eslintrc.js", "jest.config.js"],
     "exclude": ["out"]
 }

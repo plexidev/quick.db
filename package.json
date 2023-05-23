@@ -81,7 +81,8 @@
         "docgen": "typedoc",
         "build:esm": "tsc -p tsconfig.esm.json",
         "build:cjs": "tsc -p tsconfig.json",
-        "build": "yarn build:esm && yarn build:cjs",
+        "build:yarn": "yarn build:esm && yarn build:cjs",
+        "build:npm": "npm run build:esm && npm run build:cjs",
         "clean": "rm -rf ./out",
         "prepack": "yarn lint && yarn test && yarn build",
         "prepare": "if [ \"$npm_execpath\" != \"\" ] ; then npm run build ; else yarn build ; fi"

@@ -83,9 +83,10 @@
         "build:cjs": "tsc -p tsconfig.json",
         "build:yarn": "yarn build:esm && yarn build:cjs",
         "build:npm": "npm run build:esm && npm run build:cjs",
+        "build": "if [ \"$npm_execpath\" != \"\" ] ; then npm run build:npm ; else yarn build:yarn ; fi",
         "clean": "rm -rf ./out",
         "prepack": "yarn lint && yarn test && yarn build",
-        "prepare": "if [ \"$npm_execpath\" != \"\" ] ; then npm run build ; else yarn build ; fi"
+        "prepare": "if [ \"$npm_execpath\" != \"\" ] ; then npm run build:npm ; else yarn build:yarn ; fi"
     },
     "lint-staged": {
         "*.{ts}": "eslint"

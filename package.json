@@ -85,7 +85,7 @@
         "build:npm": "npm run build:esm && npm run build:cjs",
         "build": "if [ \"$npm_execpath\" != \"\" ] ; then npm run build:npm ; else yarn build:yarn ; fi",
         "clean": "rm -rf ./out",
-        "prepack": "yarn lint && yarn test && yarn build",
+        "prepack": "yarn lint && yarn test && yarn build:yarn",
         "prepare": "if [ \"$npm_execpath\" != \"\" ] ; then npm run build:npm ; else yarn build:yarn ; fi"
     },
     "lint-staged": {

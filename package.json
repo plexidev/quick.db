@@ -59,11 +59,11 @@
     },
     "exports": {
         ".": {
-            "require": "./out/index.js",
+            "default": "./out/index.js",
             "types": "./out/index.d.ts"
         },
         "./*": {
-            "require": "./out/drivers/*.js",
+            "default": "./out/drivers/*.js",
             "types": "./out/drivers/*.d.ts"
         }
     },

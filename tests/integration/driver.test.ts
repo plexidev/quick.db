@@ -82,6 +82,7 @@ describe("drivers integration tests", () => {
                 }
 
                 expect(status).toBe(true);
+                return true;
             },
             1000 * maxTime
         );

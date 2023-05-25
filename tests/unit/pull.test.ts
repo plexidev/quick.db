@@ -8,7 +8,6 @@ const db = new QuickDB({
 });
 db.init();
 
-
 describe("pull", () => {
     afterEach(async () => {
         SqliteDriverMock.mockClear();

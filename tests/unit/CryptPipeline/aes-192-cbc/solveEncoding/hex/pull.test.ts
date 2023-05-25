@@ -6,12 +6,12 @@ import { CryptPipeline } from "../../../../../../src/pipeline/crypto/crypt";
 import { randomBytes } from "crypto";
 
 const SQLiteInstance = new SqliteDriverMock("test.sqlite");
-const key = randomBytes(12).toString('hex');
+const key = randomBytes(12).toString("hex");
 const crypt = new CryptPipeline({
-	algorithm: "aes-192-cbc",
-	key: key,
-	encoding: "hex",
-	solveEncoding: true
+    algorithm: "aes-192-cbc",
+    key: key,
+    encoding: "hex",
+    solveEncoding: true,
 });
 
 const pipeline = new PipeLiner(SQLiteInstance, crypt);
@@ -19,7 +19,6 @@ const db = new QuickDB({
     driver: pipeline,
 });
 db.init();
-
 
 describe("pull", () => {
     afterEach(async () => {

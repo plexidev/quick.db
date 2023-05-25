@@ -4,7 +4,7 @@ import { PostgresDriver } from "../../src/drivers/PostgresDriver";
 import { JSONDriver } from "../../src/drivers/JSONDriver";
 import { SqliteDriver } from "../../src/drivers/SqliteDriver";
 import { MemoryDriver } from "../../src/drivers/MemoryDriver";
-import { isConnectable, isDisconnectable } from "../../src/utilities"
+import { isConnectable, isDisconnectable } from "../../src/utilities";
 import * as dotenv from "dotenv";
 import { resolve } from "path";
 import fs from "fs";

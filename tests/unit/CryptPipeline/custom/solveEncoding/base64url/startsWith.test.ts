@@ -4,15 +4,18 @@ import { faker } from "@faker-js/faker";
 import { SqliteDriverMock } from "../../../../../mocks/SqliteDriver";
 import { CryptPipeline } from "../../../../../../src/pipeline/crypto/crypt";
 import { randomBytes } from "crypto";
-import { encryptor, decryptor } from "../../../../../algorithms/CryptPipeline/cryptor";
+import {
+    encryptor,
+    decryptor,
+} from "../../../../../algorithms/CryptPipeline/cryptor";
 
 const SQLiteInstance = new SqliteDriverMock("test.sqlite");
-const key = randomBytes(8).toString('hex');
+const key = randomBytes(8).toString("hex");
 const crypt = new CryptPipeline({
-	algorithm: "custom",
-	key: key,
-	encryptor: encryptor,
-	decryptor: decryptor
+    algorithm: "custom",
+    key: key,
+    encryptor: encryptor,
+    decryptor: decryptor,
 });
 
 const pipeline = new PipeLiner(SQLiteInstance, crypt);
@@ -44,7 +47,7 @@ describe("startsWith", () => {
 
     describe("with initial data", () => {
         beforeEach(async () => {
-			await db.set("test_1", true);
+            await db.set("test_1", true);
             await db.set("test_2", true);
             await db.set("test_3", true);
             await db.set("nope_1", true);

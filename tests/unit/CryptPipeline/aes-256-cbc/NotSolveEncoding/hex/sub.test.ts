@@ -6,12 +6,12 @@ import { CryptPipeline } from "../../../../../../src/pipeline/crypto/crypt";
 import { randomBytes } from "crypto";
 
 const SQLiteInstance = new SqliteDriverMock("test.sqlite");
-const key = randomBytes(16).toString('hex');
+const key = randomBytes(16).toString("hex");
 const crypt = new CryptPipeline({
-	algorithm: "aes-256-cbc",
-	key: key,
-	encoding: "hex",
-	solveEncoding: false
+    algorithm: "aes-256-cbc",
+    key: key,
+    encoding: "hex",
+    solveEncoding: false,
 });
 
 const pipeline = new PipeLiner(SQLiteInstance, crypt);

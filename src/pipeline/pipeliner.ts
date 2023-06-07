@@ -2,53 +2,73 @@ import { IDriver } from "../interfaces/IDriver";
 import { IPipeline } from "../interfaces/IPipeline";
 
 export class PipeLiner<R> implements IDriver {
-	public driver: IDriver;
-	public pipeline: IPipeline<R, string>;
+    public driver: IDriver;
+    public pipeline: IPipeline<R, string>;
 
-	constructor(driver: IDriver, pipeline: IPipeline<R, string>) {
-		this.driver = driver;
-		this.pipeline = pipeline
-	}
+    constructor(driver: IDriver, pipeline: IPipeline<R, string>) {
+        this.driver = driver;
+        this.pipeline = pipeline;
+    }
 
-	async prepare(table: string): Promise<void> {
-		return await this.driver.prepare(table);
-	}
+    async prepare(table: string): Promise<void> {
+        return await this.driver.prepare(table);
+    }
 
-	async getAllRows(table: string): Promise<{ id: string; value: any; }[]> {
-		const rawData = await this.driver.getAllRows(table);
+    async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
+        const rawData = await this.driver.getAllRows(table);
 
-		const deserializedData = [];
-		for (const entry of rawData) {
-			const deserialized = await this.pipeline.deserialize(JSON.stringify(entry.value));
-			deserializedData.push({ id: entry.id, value: deserialized });
-		}
+        const deserializedData = [];
+        for (const entry of rawData) {
+            const deserialized = await this.pipeline.deserialize(
+                JSON.stringify(entry.value)
+            );
+            deserializedData.push({ id: entry.id, value: deserialized });
+        }
 
-		return deserializedData;
-	}
-	
-	async getRowByKey<T>(table: string, key: string): Promise<[T | null, boolean]> {
-		const rawData = await this.driver.getRowByKey<T>(table, key);
+        return deserializedData;
+    }
 
-		if (!rawData[0]) return rawData;
+    async getRowByKey<T>(
+        table: string,
+        key: string
+    ): Promise<[T | null, boolean]> {
+        const rawData = await this.driver.getRowByKey<T>(table, key);
 
-		const deserializedData = await this.pipeline.deserialize<T>(JSON.stringify(rawData[0]));
-		return (typeof deserializedData !== undefined) ? [deserializedData, true] : [null, false];
-	}
-	
-	async setRowByKey<T>(table: string, key: string, value: any, update: boolean): Promise<T> {
-		const serializedData = await this.pipeline.serialize(value);
+        if (!rawData[0]) return rawData;
 
-		const ret: T = await this.driver.setRowByKey<T>(table, key, serializedData, update);
-		
-		if (typeof ret === "string") return await this.pipeline.deserialize<T>(ret);
-		else return ret;
-	}
-	
-	async deleteAllRows(table: string): Promise<number> {
-		return await this.driver.deleteAllRows(table);
-	}
-	
-	async deleteRowByKey(table: string, key: string): Promise<number> {
-		return await this.driver.deleteRowByKey(table, key);
-	}
+        const deserializedData = await this.pipeline.deserialize<T>(
+            JSON.stringify(rawData[0])
+        );
+        return typeof deserializedData !== undefined
+            ? [deserializedData, true]
+            : [null, false];
+    }
+
+    async setRowByKey<T>(
+        table: string,
+        key: string,
+        value: any,
+        update: boolean
+    ): Promise<T> {
+        const serializedData = await this.pipeline.serialize(value);
+
+        const ret: T = await this.driver.setRowByKey<T>(
+            table,
+            key,
+            serializedData,
+            update
+        );
+
+        if (typeof ret === "string")
+            return await this.pipeline.deserialize<T>(ret);
+        else return ret;
+    }
+
+    async deleteAllRows(table: string): Promise<number> {
+        return await this.driver.deleteAllRows(table);
+    }
+
+    async deleteRowByKey(table: string, key: string): Promise<number> {
+        return await this.driver.deleteRowByKey(table, key);
+    }
 }

@@ -67,19 +67,22 @@ export class JSONDriver extends MemoryDriver {
         await writeFile(this.path, JSON.stringify(data));
     }
 
-    public async deleteAllRows(table: string): Promise<number> {
+    public override async deleteAllRows(table: string): Promise<number> {
         const val = super.deleteAllRows(table);
         await this.snapshot();
         return val;
     }
 
-    public async deleteRowByKey(table: string, key: string): Promise<number> {
+    public override async deleteRowByKey(
+        table: string,
+        key: string
+    ): Promise<number> {
         const val = super.deleteRowByKey(table, key);
         await this.snapshot();
         return val;
     }
 
-    public async setRowByKey<T>(
+    public override async setRowByKey<T>(
         table: string,
         key: string,
         value: any,

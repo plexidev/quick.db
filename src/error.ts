@@ -7,7 +7,7 @@ export enum ErrorKind {
 }
 
 export class CustomError extends Error {
-    public message: string;
+    public override message: string;
     public kind: ErrorKind;
 
     public constructor(message: string, kind: ErrorKind) {

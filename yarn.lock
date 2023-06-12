@@ -3727,8 +3727,8 @@ __metadata:
   linkType: hard
 
 "mongoose@npm:7.x":
-  version: 7.2.3
-  resolution: "mongoose@npm:7.2.3"
+  version: 7.2.4
+  resolution: "mongoose@npm:7.2.4"
   dependencies:
     bson: ^5.3.0
     kareem: 2.5.1
@@ -3737,7 +3737,7 @@ __metadata:
     mquery: 5.0.0
     ms: 2.1.3
     sift: 16.0.1
-  checksum: 17c8c14481af2570d078a44f5c87385b896f13bc6a13b6c9e9c1b7f0403198cb0624ff35fcb451f58a3a024e082cfa3d51a4d4430f5cb431364bbc72a1469a38
+  checksum: b19a64f0d93944f2c38de3d769b00a3849cc60418bd42c0690e6701304dd76b8e8e523b6ecb88641b598054cc8787ee92f25d78d3ce51a2ba41803285a980173
   languageName: node
   linkType: hard
 

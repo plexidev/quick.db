@@ -3700,9 +3700,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mongodb@npm:5.5.0":
-  version: 5.5.0
-  resolution: "mongodb@npm:5.5.0"
+"mongodb@npm:5.6.0":
+  version: 5.6.0
+  resolution: "mongodb@npm:5.6.0"
   dependencies:
     bson: ^5.3.0
     mongodb-connection-string-url: ^2.6.0
@@ -3722,22 +3722,22 @@ __metadata:
       optional: true
     snappy:
       optional: true
-  checksum: fafb75195d605767cf7269aa82a1f4704c3357240d0fef7296d55e83eab592158844988af3b94165769459ff1b2a0af2fc49bc44c9bbabd10d6ddc319668a0e0
+  checksum: 5b1594b24795b2a7824095a917ede2fc37aaef31e60320c833ee9b11cc2f3de9dd87d5afacea2e41eb5eb579ac9780f5bc4b0bb11d3b1be78e8bf0014528192a
   languageName: node
   linkType: hard
 
 "mongoose@npm:7.x":
-  version: 7.2.4
-  resolution: "mongoose@npm:7.2.4"
+  version: 7.3.0
+  resolution: "mongoose@npm:7.3.0"
   dependencies:
     bson: ^5.3.0
     kareem: 2.5.1
-    mongodb: 5.5.0
+    mongodb: 5.6.0
     mpath: 0.9.0
     mquery: 5.0.0
     ms: 2.1.3
     sift: 16.0.1
-  checksum: b19a64f0d93944f2c38de3d769b00a3849cc60418bd42c0690e6701304dd76b8e8e523b6ecb88641b598054cc8787ee92f25d78d3ce51a2ba41803285a980173
+  checksum: 188877cfa5937529ef4fbbf4e3ad52df3f6884bf85c921cd603b44cd154262865846504de4f41802d0f5f5eb87dfdac16ed5016642e367442f24f7c7375194eb
   languageName: node
   linkType: hard
 

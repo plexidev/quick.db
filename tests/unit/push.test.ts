@@ -22,7 +22,7 @@ describe("push", () => {
 
         it("should push string", async () => {
             const entry = EntryGenerator.generateEntry<string>(
-                faker.datatype.string
+                faker.string.sample
             );
             const returned = await db.push(entry.id, entry.value);
             const result = await db.get(entry.id);
@@ -32,7 +32,7 @@ describe("push", () => {
 
         it("should push number", async () => {
             const entry = EntryGenerator.generateEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             const returned = await db.push(entry.id, entry.value);
             const result = await db.get(entry.id);
@@ -52,7 +52,7 @@ describe("push", () => {
 
         it("should push object of string", async () => {
             const entry = EntryGenerator.generateComplexEntry<string>(
-                faker.datatype.string
+                faker.string.sample
             );
             const returned = await db.push(entry.id, entry.value);
             const result = await db.get(entry.id);
@@ -65,7 +65,7 @@ describe("push", () => {
 
         it("should push array of string", async () => {
             const entry = EntryGenerator.generateEntry<string>(
-                faker.datatype.string
+                faker.string.sample
             );
             entry.value = [entry.value] as any;
             const returned = await db.push(entry.id, entry.value);
@@ -89,7 +89,7 @@ describe("push", () => {
 
         it("should push entry", async () => {
             const entry = EntryGenerator.generateEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             const returned = await db.push("test", entry.value);
             const result = await db.get("test");
@@ -99,7 +99,7 @@ describe("push", () => {
 
         it("should push object in array", async () => {
             const entry = EntryGenerator.generateEntry<string>(
-                faker.datatype.string
+                faker.string.sample
             );
             entry.value = { test: entry.value } as any;
             const returned = await db.push("object", entry.value);
@@ -110,7 +110,7 @@ describe("push", () => {
 
         it("should push object in object", async () => {
             const entry = EntryGenerator.generateEntry<string>(
-                faker.datatype.string
+                faker.string.sample
             );
             entry.value = { test: entry.value } as any;
             const returned = await db.push("objectProp.test", entry.value);

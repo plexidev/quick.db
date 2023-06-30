@@ -38,7 +38,7 @@ describe("pull", () => {
 
         it("should pull empty array", async () => {
             const entry = EntryGenerator.generateEntry<string>(
-                faker.datatype.string
+                faker.string.sample
             );
             const returned = await db.pull(entry.id, entry.value);
             expect(returned).toEqual([]);
@@ -46,7 +46,7 @@ describe("pull", () => {
 
         it("should pull empty array - array", async () => {
             const entry = EntryGenerator.generateEntry<string>(
-                faker.datatype.string
+                faker.string.sample
             );
             const returned = await db.pull(entry.id, [entry.value]);
             expect(returned).toEqual([]);
@@ -54,7 +54,7 @@ describe("pull", () => {
 
         it("should pull empty array - function", async () => {
             const entry = EntryGenerator.generateEntry<string>(
-                faker.datatype.string
+                faker.string.sample
             );
             const returned = await db.pull(
                 entry.id,

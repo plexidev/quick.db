@@ -38,7 +38,7 @@ describe("pop", () => {
 
         it("should pop entry no data return undefined", async () => {
             const entry = EntryGenerator.generateEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             const returned = await db.pop(entry.id);
             expect(returned).toEqual(undefined);

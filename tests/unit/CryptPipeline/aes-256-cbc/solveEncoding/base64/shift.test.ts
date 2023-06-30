@@ -34,7 +34,7 @@ describe("shift", () => {
 
         it("should shift entry no data return undefined", async () => {
             const entry = EntryGenerator.generateEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             const returned = await db.shift(entry.id);
             expect(returned).toEqual(undefined);

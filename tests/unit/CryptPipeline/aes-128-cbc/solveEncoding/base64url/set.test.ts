@@ -34,7 +34,7 @@ describe("set", () => {
 
         it("should set string", async () => {
             const entry = EntryGenerator.generateEntry<string>(
-                faker.datatype.string
+                faker.string.sample
             );
             const returned = await db.set(entry.id, entry.value);
             const result = await db.get(entry.id);
@@ -44,7 +44,7 @@ describe("set", () => {
 
         it("should set number", async () => {
             const entry = EntryGenerator.generateEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             const returned = await db.set(entry.id, entry.value);
             const result = await db.get(entry.id);
@@ -64,7 +64,7 @@ describe("set", () => {
 
         it("should set object of string", async () => {
             const entry = EntryGenerator.generateComplexEntry<string>(
-                faker.datatype.string
+                faker.string.sample
             );
             const returned = (await db.set(entry.id, entry.value)) as any;
             const result = (await db.get(entry.id)) as any;
@@ -80,7 +80,7 @@ describe("set", () => {
 
         it("should set array of string", async () => {
             const entry = EntryGenerator.generateEntry<string>(
-                faker.datatype.string
+                faker.string.sample
             );
             const returned = await db.set(entry.id, [entry.value]);
             const result = await db.get(entry.id);

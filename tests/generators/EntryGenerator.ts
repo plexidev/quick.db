@@ -12,7 +12,7 @@ export class Entry<T> {
 
 export class EntryGenerator {
     public static generateEntry<T>(fakerF: () => unknown): Entry<T> {
-        return new Entry<T>(faker.datatype.uuid(), fakerF() as unknown as T);
+        return new Entry<T>(faker.string.uuid(), fakerF() as unknown as T);
     }
 
     public static generateEntries<T>(
@@ -29,7 +29,7 @@ export class EntryGenerator {
 
     public static generateComplexEntry<T>(fakerF: () => unknown): Entry<T> {
         const generated = this.generateEntry<T>(fakerF);
-        generated.id += "." + faker.datatype.uuid();
+        generated.id += "." + faker.string.uuid();
         return generated;
     }
 
@@ -53,7 +53,7 @@ export class EntryGenerator {
         const generated = this.generateEntries<T>(fakerF, genNumber);
         return generated.map((entry) => {
             for (let i = 0; i < pass; i++) {
-                entry.id += "." + faker.datatype.uuid();
+                entry.id += "." + faker.string.uuid();
             }
             return entry;
         });

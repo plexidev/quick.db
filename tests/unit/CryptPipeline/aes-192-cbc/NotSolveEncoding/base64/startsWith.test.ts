@@ -34,7 +34,7 @@ describe("startsWith", () => {
 
         it("should return empty array", async () => {
             const entry = EntryGenerator.generateEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             const returned = await db.startsWith(entry.id);
             expect(returned).toEqual([]);

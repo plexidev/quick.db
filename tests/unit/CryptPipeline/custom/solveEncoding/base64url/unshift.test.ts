@@ -38,7 +38,7 @@ describe("unshift", () => {
 
         it("should unshift entry", async () => {
             const entry = EntryGenerator.generateEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             const returned = await db.unshift(entry.id, entry.value);
             const result = await db.get(entry.id);
@@ -48,7 +48,7 @@ describe("unshift", () => {
 
         it("should unshift from object property", async () => {
             const entry = EntryGenerator.generateComplexEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             const returned = await db.unshift(entry.id, entry.value);
             const result = await db.get(entry.id);

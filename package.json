@@ -27,7 +27,7 @@
         "prettier": "^2.5.1",
         "ts-jest": "^29.0.3",
         "typedoc": "^0.24.0",
-        "typescript": "^5.0.0",
+        "typescript": "^5.1.6",
         "write-file-atomic": "5.x"
     },
     "peerDependencies": {

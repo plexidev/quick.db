@@ -38,7 +38,7 @@ describe("add", () => {
 
         it("should add entry", async () => {
             const entry = EntryGenerator.generateEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             const returned = await db.add(entry.id, entry.value);
             const result = await db.get(entry.id);
@@ -48,7 +48,7 @@ describe("add", () => {
 
         it("should add entry convert string to number", async () => {
             const entry = EntryGenerator.generateEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             entry.value = entry.value.toString() as any;
             const returned = await db.add(entry.id, entry.value);
@@ -59,7 +59,7 @@ describe("add", () => {
 
         it("should add from object property", async () => {
             const entry = EntryGenerator.generateComplexEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             const returned = await db.add(entry.id, entry.value);
             const result = await db.get(entry.id);

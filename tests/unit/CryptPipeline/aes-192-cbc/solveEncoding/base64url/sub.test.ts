@@ -34,7 +34,7 @@ describe("sub", () => {
 
         it("should subtract entry", async () => {
             const entry = EntryGenerator.generateEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             const returned = await db.sub(entry.id, entry.value);
             const result = await db.get(entry.id);
@@ -44,7 +44,7 @@ describe("sub", () => {
 
         it("should subtract entry convert string to number", async () => {
             const entry = EntryGenerator.generateEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             entry.value = entry.value.toString() as any;
             const returned = await db.sub(entry.id, entry.value);
@@ -55,7 +55,7 @@ describe("sub", () => {
 
         it("should subtract from object property", async () => {
             const entry = EntryGenerator.generateComplexEntry<number>(
-                faker.datatype.number
+                faker.number.int
             );
             const returned = await db.sub(entry.id, entry.value);
             const result = await db.get(entry.id);

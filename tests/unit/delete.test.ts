@@ -22,7 +22,7 @@ describe("delete", () => {
 
         it("should delete entry", async () => {
             const entry = EntryGenerator.generateEntry<string>(
-                faker.datatype.string
+                faker.string.sample
             );
             await db.set(entry.id, entry.value);
             await db.delete(entry.id);

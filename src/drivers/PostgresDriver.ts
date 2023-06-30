@@ -1,23 +1,25 @@
-import { Client, ClientConfig } from "pg";
+import { Pool, PoolConfig } from "pg";
 import { IRemoteDriver } from "../interfaces/IRemoteDriver";
 
 export class PostgresDriver implements IRemoteDriver {
     private static instance: PostgresDriver;
-    private config: ClientConfig;
-    private conn: Client | undefined;
+    private config: PoolConfig;
+    private conn: Pool | undefined;
 
-    constructor(config: ClientConfig) {
+    constructor(config: PoolConfig) {
         this.config = config;
     }
 
-    static createSingleton(config: ClientConfig): PostgresDriver {
+    static createSingleton(config: PoolConfig): PostgresDriver {
         if (!this.instance) this.instance = new PostgresDriver(config);
         return this.instance;
     }
 
     async connect(): Promise<void> {
-        this.conn = new Client(this.config);
-        await this.conn.connect();
+        this.conn = new Pool(this.config);
+        // No need to connect with pool
+        // They are lazy loaded
+        // await this.conn.connect();
     }
 
     async disconnect(): Promise<void> {

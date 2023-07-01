@@ -618,7 +618,7 @@ export class QuickDB<D = any> {
         options.table = table;
         options.driver = this.driver;
         const instance = new QuickDB(options);
-        await instance.init();
+        await instance.driver.prepare(options.table);
 
         return instance;
     }

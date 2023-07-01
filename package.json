@@ -104,5 +104,5 @@
         "url": "https://github.com/TrueXPixels/quick.db/issues"
     },
     "homepage": "https://quickdb.js.org",
-    "packageManager": "yarn@3.6.0"
+    "packageManager": "yarn@3.6.1"
 }

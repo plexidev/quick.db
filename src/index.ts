@@ -1,29 +1,70 @@
 import { set, get, unset } from "lodash";
-import { IDriver } from "./drivers/IDriver";
-import { SqliteDriver } from "./drivers/SqliteDriver";
+import { IDriver } from "./interfaces/IDriver";
+import { isConnectable, isDisconnectable } from "./utilities";
+import { CustomError as QuickError, ErrorKind } from "./error";
 
-export { IDriver } from "./drivers/IDriver";
-export { MongoDriver, CollectionInterface } from "./drivers/MongoDriver";
-export { SqliteDriver } from "./drivers/SqliteDriver";
-export { MySQLDriver, Config } from "./drivers/MySQLDriver";
-export { MemoryDriver, Table } from "./drivers/MemoryDriver";
-export { JSONDriver, DataLike } from "./drivers/JSONDriver";
+export { IDriver } from "./interfaces/IDriver";
+export { IRemoteDriver } from "./interfaces/IRemoteDriver";
+export { IPipeline } from "./interfaces/IPipeline";
+export { PipeLiner } from "./pipeline/pipeliner";
+export * as CryptoPipeline from "./pipeline/crypto/crypt";
 
+/**
+ * Options for the QuickDB class
+ */
 export interface IQuickDBOptions {
+    /**
+     * The table name to use
+     * @default json
+     */
     table?: string;
+
+    /**
+     * The file path to use
+     * @default json.sqlite
+     */
     filePath?: string;
+
+    /**
+     * The driver to use
+     * @default SqliteDriver
+     **/
     driver?: IDriver;
+
+    /**
+     * If the keys should be treated as normal keys
+     * @default false
+     **/
     normalKeys?: boolean;
 }
 
+/**
+ * The main class for QuickDB
+ * @example
+ * ```ts
+ * const db = new QuickDB();
+ * await db.init(); // Always needed!!!
+ * await db.set("test", "Hello World");
+ * console.log(await db.get("test"));
+ * ```
+ */
 export class QuickDB<D = any> {
-    private static instance: QuickDB;
-    private prepared!: Promise<unknown>;
+    private static instances: Map<string, QuickDB> = new Map();
     private _driver: IDriver;
     private tableName: string;
     private normalKeys: boolean;
     private options: IQuickDBOptions;
 
+    /**
+     * The driver used by QuickDB
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * console.log(db.driver);
+     * ```
+     * @readonly
+     **/
     get driver(): IDriver {
         return this._driver;
     }
@@ -31,15 +72,17 @@ export class QuickDB<D = any> {
     constructor(options: IQuickDBOptions = {}) {
         options.table ??= "json";
         options.filePath ??= "json.sqlite";
-        options.driver ??= new SqliteDriver(options.filePath);
         options.normalKeys ??= false;
+        if (!options.driver) {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const { SqliteDriver } = require("./drivers/SqliteDriver");
+            options.driver = new SqliteDriver(options.filePath);
+        }
 
         this.options = options;
-        this._driver = options.driver;
+        this._driver = options.driver!;
         this.tableName = options.table;
         this.normalKeys = options.normalKeys;
-
-        this.prepared = this.driver.prepare(this.tableName);
     }
 
     private async addSubtract(
@@ -47,10 +90,19 @@ export class QuickDB<D = any> {
         value: number,
         sub = false
     ): Promise<number> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
+        if (typeof key != "string") {
+            throw new QuickError(
+                `First argument (key) needs to be a string received "${typeof key}"`,
+                ErrorKind.InvalidType
+            );
+        }
 
-        if (value == null) throw new Error("Missing second argument (value)");
+        if (value == null) {
+            throw new QuickError(
+                "Missing second argument (value)",
+                ErrorKind.MissingValue
+            );
+        }
 
         let currentNumber = await this.get<number>(key);
 
@@ -59,8 +111,9 @@ export class QuickDB<D = any> {
             try {
                 currentNumber = parseFloat(currentNumber as string);
             } catch (_) {
-                throw new Error(
-                    `Current value with key: (${key}) is not a number and couldn't be parsed to a number`
+                throw new QuickError(
+                    `Current value with key: (${key}) is not a number and couldn't be parsed to a number`,
+                    ErrorKind.InvalidType
                 );
             }
         }
@@ -69,8 +122,9 @@ export class QuickDB<D = any> {
             try {
                 value = parseFloat(value as string);
             } catch (_) {
-                throw new Error(
-                    `Value to add/subtract with key: (${key}) is not a number and couldn't be parsed to a number`
+                throw new QuickError(
+                    `Value to add/subtract with key: (${key}) is not a number and couldn't be parsed to a number`,
+                    ErrorKind.InvalidType
                 );
             }
         }
@@ -83,30 +137,108 @@ export class QuickDB<D = any> {
     private async getArray<T = D>(key: string): Promise<T[]> {
         const currentArr = (await this.get<T[]>(key)) ?? [];
 
-        if (!Array.isArray(currentArr))
-            throw new Error(`Current value with key: (${key}) is not an array`);
+        if (!Array.isArray(currentArr)) {
+            throw new QuickError(
+                `Current value with key: (${key}) is not an array`,
+                ErrorKind.InvalidType
+            );
+        }
 
         return currentArr;
     }
 
-    static createSingleton<T>(options: IQuickDBOptions = {}): QuickDB<T> {
-        if (!this.instance && !options.driver) throw Error("No instance and driver provided");
-        if (!this.instance) this.instance = new QuickDB(options);
-        return this.instance;
+    /**
+     * Set a singleton instance of QuickDB
+     * @example
+     * ```ts
+     * const db = QuickDB.registerSingleton("quickdb");
+     * await db.init();
+     * ```
+     **/
+    static registerSingleton<T>(
+        name: string,
+        options: IQuickDBOptions = {}
+    ): QuickDB<T> {
+        const instance = new QuickDB(options);
+        this.instances.set(name, instance);
+        return instance;
     }
 
+    /**
+     * Get the singleton instance of QuickDB
+     * @example
+     * ```ts
+     * // If you have set a singleton instance
+     * // Otherwise it will return undefined
+     * const db = QuickDB.getSingletion("quickdb");
+     * await db.init();
+     * ```
+     **/
+    static getSingletion<T>(name: string): QuickDB<T> | undefined {
+        return this.instances.get(name);
+    }
+
+    /**
+     * Initialize the database
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * ```
+     **/
     async init(): Promise<void> {
-        // TODO: change this to remove prepared and call prepare here instead
-        await this.prepared;
+        if (isConnectable(this.driver)) {
+            await this.driver.connect();
+        }
+        await this.driver.prepare(this.tableName);
     }
 
+    /**
+     * Closes the connection to the database
+     * @example
+     * ```ts
+     *  const db = new QuickDB();
+     * await db.init();
+     * await db.close();
+     * ```
+     **/
+    async close(): Promise<void> {
+        if (isDisconnectable(this.driver)) {
+            await this.driver.disconnect();
+        }
+    }
+
+    /**
+     * Return all the elements in the database
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", "Hello World");
+     * console.log(await db.all());
+     * ```
+     **/
     async all<T = D>(): Promise<{ id: string; value: T }[]> {
         return this.driver.getAllRows(this.tableName);
     }
 
+    /**
+     * Get a value from the database
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", "Hello World");
+     * console.log(await db.get("test"));
+     * ```
+     **/
     async get<T = D>(key: string): Promise<T | null> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
+        if (typeof key != "string") {
+            throw new QuickError(
+                `First argument (key) needs to be a string received "${typeof key}"`,
+                ErrorKind.InvalidType
+            );
+        }
 
         if (key.includes(".") && !this.normalKeys) {
             const keySplit = key.split(".");
@@ -121,10 +253,29 @@ export class QuickDB<D = any> {
         return result;
     }
 
+    /**
+     * Set a value in the database
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", "Hello World");
+     * ```
+     **/
     async set<T = D>(key: string, value: T): Promise<T> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
-        if (value == null) throw new Error("Missing second argument (value)");
+        if (typeof key != "string") {
+            throw new QuickError(
+                `First argument (key) needs to be a string received "${typeof key}"`,
+                ErrorKind.InvalidType
+            );
+        }
+
+        if (value == null) {
+            throw new QuickError(
+                "Missing second argument (value)",
+                ErrorKind.MissingValue
+            );
+        }
 
         if (key.includes(".") && !this.normalKeys) {
             const keySplit = key.split(".");
@@ -157,13 +308,37 @@ export class QuickDB<D = any> {
         return this.driver.setRowByKey(this.tableName, key, value, exist);
     }
 
+    /**
+     * Check if a key exists in the database
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", "Hello World");
+     * console.log(await db.has("test"));
+     * ```
+     **/
     async has(key: string): Promise<boolean> {
         return (await this.get(key)) != null;
     }
 
+    /**
+     * Delete a key from the database
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", "Hello World");
+     * await db.delete("test");
+     * ```
+     **/
     async delete(key: string): Promise<number> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
+        if (typeof key != "string") {
+            throw new QuickError(
+                `First argument (key) needs to be a string received "${typeof key}"`,
+                ErrorKind.InvalidType
+            );
+        }
 
         if (key.includes(".")) {
             const keySplit = key.split(".");
@@ -175,22 +350,75 @@ export class QuickDB<D = any> {
         return this.driver.deleteRowByKey(this.tableName, key);
     }
 
+    /**
+     * Delete all the keys from the database
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", "Hello World");
+     * await db.deleteAll();
+     * ```
+     **/
     async deleteAll(): Promise<number> {
         return this.driver.deleteAllRows(this.tableName);
     }
 
+    /**
+     * Add a number to a key
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", 10);
+     * await db.add("test", 5);
+     * console.log(await db.get("test"));
+     * ```
+     **/
     async add(key: string, value: number): Promise<number> {
         return this.addSubtract(key, value);
     }
 
+    /**
+     * Subtract a number from a key
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", 10);
+     * await db.sub("test", 5);
+     * console.log(await db.get("test"));
+     * ```
+     **/
     async sub(key: string, value: number): Promise<number> {
         return this.addSubtract(key, value, true);
     }
 
+    /**
+     * Push a value to an array
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", []);
+     * await db.push("test", "Hello World");
+     * console.log(await db.get("test"));
+     * ```
+     **/
     async push<T = D>(key: string, ...values: T[]): Promise<T[]> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
-        if (values.length === 0) throw new Error("Missing second argument (value)");
+        if (typeof key != "string") {
+            throw new QuickError(
+                `First argument (key) needs to be a string received "${typeof key}"`,
+                ErrorKind.InvalidType
+            );
+        }
+
+        if (values.length === 0) {
+            throw new QuickError(
+                "Missing second argument (value)",
+                ErrorKind.MissingValue
+            );
+        }
 
         const currentArr = await this.getArray<T>(key);
         currentArr.push(...values);
@@ -198,50 +426,116 @@ export class QuickDB<D = any> {
         return this.set(key, currentArr);
     }
 
+    /**
+     * Unshift a value from an array
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", []);
+     * await db.unshift("test", "Hello World");
+     * console.log(await db.get("test"));
+     * ```
+     **/
     async unshift<T = D>(key: string, value: T | T[]): Promise<T[]> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
-        if (value == null) throw new Error("Missing second argument (value)");
+        if (typeof key != "string") {
+            throw new QuickError(
+                `First argument (key) needs to be a string received "${typeof key}"`,
+                ErrorKind.InvalidType
+            );
+        }
+        if (value == null) {
+            throw new QuickError(
+                "Missing second argument (value)",
+                ErrorKind.InvalidType
+            );
+        }
 
         let currentArr = await this.getArray<T>(key);
         if (Array.isArray(value)) currentArr = value.concat(currentArr);
         else currentArr.unshift(value);
 
-        return this.set(key, currentArr);
+        return await this.set(key, currentArr);
     }
 
+    /**
+     * Pop a value from an array
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", ["Hello World"]);
+     * console.log(await db.pop("test"));
+     * ```
+     **/
     async pop<T = D>(key: string): Promise<T | undefined> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
+        if (typeof key != "string") {
+            throw new QuickError(
+                `First argument (key) needs to be a string received "${typeof key}"`,
+                ErrorKind.InvalidType
+            );
+        }
 
         const currentArr = await this.getArray<T>(key);
         const value = currentArr.pop();
-
-        this.set(key, currentArr);
+        await this.set(key, currentArr);
 
         return value;
     }
 
+    /**
+     * Shift a value from an array
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", ["Hello World"]);
+     * console.log(await db.shift("test"));
+     * ```
+     **/
     async shift<T = D>(key: string): Promise<T | undefined> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
+        if (typeof key != "string") {
+            throw new QuickError(
+                `First argument (key) needs to be a string received "${typeof key}"`,
+                ErrorKind.InvalidType
+            );
+        }
 
         const currentArr = await this.getArray<T>(key);
         const value = currentArr.shift();
 
-        this.set(key, currentArr);
+        await this.set(key, currentArr);
 
         return value;
     }
 
+    /**
+     * Pull a value from an array
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", ["Hello World"]);
+     * console.log(await db.pull("test", "Hello World"));
+     * ```
+     **/
     async pull<T = D>(
         key: string,
         value: T | T[] | ((data: T, index: string) => boolean),
         once = false
     ): Promise<T[]> {
-        if (typeof key != "string")
-            throw new Error("First argument (key) needs to be a string");
-        if (value == null) throw new Error("Missing second argument (value)");
+        if (typeof key != "string") {
+            throw new QuickError(
+                `First argument (key) needs to be a string received "${typeof key}"`,
+                ErrorKind.InvalidType
+            );
+        }
+        if (value == null) {
+            throw new QuickError(
+                "Missing second argument (value)",
+                ErrorKind.MissingValue
+            );
+        }
 
         const currentArr = await this.getArray<T>(key);
         if (!Array.isArray(value) && typeof value != "function")
@@ -249,24 +543,46 @@ export class QuickDB<D = any> {
 
         const data = [];
         for (const i in currentArr) {
-            if (Array.isArray(value) ? value.includes(currentArr[i])
-                : (value as any)(currentArr[i], i))
+            if (
+                Array.isArray(value)
+                    ? value.includes(currentArr[i])
+                    : (value as any)(currentArr[i], i)
+            )
                 continue;
             data.push(currentArr[i]);
             if (once) break;
         }
 
-        return this.set(key, data);
+        return await this.set(key, data);
     }
 
+    /**
+     * Get all keys that start with the string
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", "Hello World");
+     * await db.set("test2", "Hello World");
+     * console.log(await db.startsWith("test"));
+     * ```
+     **/
     async startsWith<T = D>(
         query: string,
         key = ""
     ): Promise<{ id: string; value: T }[]> {
-        if (typeof query != "string")
-            throw new Error("First argument (query) needs to be a string");
-        if (typeof key != "string")
-            throw new Error("Second argument (key) needs to be a string");
+        if (typeof query != "string") {
+            throw new QuickError(
+                `First argument (query) needs to be a string received "${typeof query}"`,
+                ErrorKind.InvalidType
+            );
+        }
+        if (typeof key != "string") {
+            throw new QuickError(
+                `Second argument (key) needs to be a string received "${typeof key}"`,
+                ErrorKind.InvalidType
+            );
+        }
 
         // Get either the whole db or the rows from the provided key
         // -> Filter the result if the id starts with the provided query
@@ -279,25 +595,47 @@ export class QuickDB<D = any> {
         ).filter((v) => v.id.startsWith(query));
     }
 
-    table<T = D>(table: string): QuickDB<T> {
-        if (typeof table != "string")
-            throw new Error("First argument (table) needs to be a string");
+    /**
+     * Change the table
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * const table = await db.table("test");
+     * await table.set("test", "Hello World");
+     * console.log(await table.get("test"));
+     * ```
+     **/
+    async table<T = D>(table: string): Promise<QuickDB<T>> {
+        if (typeof table != "string") {
+            throw new QuickError(
+                `First argument (table) needs to be a string received "${typeof table}"`,
+                ErrorKind.InvalidType
+            );
+        }
 
         const options = { ...this.options };
-
         options.table = table;
         options.driver = this.driver;
-        return new QuickDB(options);
+        const instance = new QuickDB(options);
+        await instance.driver.prepare(options.table);
+
+        return instance;
     }
 
-    // Here for temporary backwards compatibility fix
-    async tableAsync(table: string): Promise<QuickDB> {
-        const db = this.table(table);
-        await db.prepared;
-
-        return db;
-    }
-
+    /**
+     * Use normal keys
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test.nice", "Hello World");
+     * console.log(await db.get("test"));
+     * await db.useNormalKeys(true);
+     * await db.set("test.nice", "Hello World");
+     * console.log(await db.get("test"));
+     * ```
+     **/
     useNormalKeys(activate: boolean): void {
         this.normalKeys = activate;
     }

@@ -1,21 +1,20 @@
-import { IDriver } from "./IDriver";
-import MySQLModule from "mysql2/promise";
-export type Config = string | MySQLModule.PoolOptions;
+import {
+    OkPacket,
+    Pool,
+    PoolOptions,
+    RowDataPacket,
+    createPool,
+} from "mysql2/promise";
+import { IRemoteDriver } from "../interfaces/IRemoteDriver";
+export type Config = string | PoolOptions;
 
-export class MySQLDriver implements IDriver {
+export class MySQLDriver implements IRemoteDriver {
     private static instance: MySQLDriver;
-    private readonly _mysql: typeof MySQLModule;
-    private conn?: MySQLModule.Pool;
+    private conn?: Pool;
     private config: Config;
-
-    get mysql(): typeof MySQLModule {
-        return this._mysql;
-    }
 
     constructor(config: Config) {
         this.config = config;
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        this._mysql = require("mysql2/promise");
     }
 
     static createSingleton(config: string | Config): MySQLDriver {
@@ -33,10 +32,15 @@ export class MySQLDriver implements IDriver {
         // This is needed for typescript typecheking
         // For some reason, it doesn't work even if createPool needs a string and in an overload a PoolOptions
         if (typeof this.config == "string") {
-            this.conn = await this._mysql.createPool(this.config);
+            this.conn = createPool(this.config);
         } else {
-            this.conn = await this._mysql.createPool(this.config);
+            this.conn = createPool(this.config);
         }
+    }
+
+    async disconnect(): Promise<void> {
+        this.checkConnection();
+        await this.conn!.end();
     }
 
     async prepare(table: string): Promise<void> {
@@ -50,7 +54,7 @@ export class MySQLDriver implements IDriver {
     async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
         this.checkConnection();
 
-        const [rows] = await this.conn!.query<MySQLModule.RowDataPacket[]>(
+        const [rows] = await this.conn!.query<RowDataPacket[]>(
             `SELECT * FROM ${table}`
         );
         return rows.map((row: any) => ({
@@ -65,7 +69,7 @@ export class MySQLDriver implements IDriver {
     ): Promise<[T | null, boolean]> {
         this.checkConnection();
 
-        const [rows] = await this.conn!.query<MySQLModule.RowDataPacket[]>(
+        const [rows] = await this.conn!.query<RowDataPacket[]>(
             `SELECT json FROM ${table} WHERE ID = ?`,
             [key]
         );
@@ -101,16 +105,14 @@ export class MySQLDriver implements IDriver {
     async deleteAllRows(table: string): Promise<number> {
         this.checkConnection();
 
-        const [rows] = await this.conn!.query<MySQLModule.OkPacket>(
-            `DELETE FROM ${table}`
-        );
+        const [rows] = await this.conn!.query<OkPacket>(`DELETE FROM ${table}`);
         return rows.affectedRows;
     }
 
     async deleteRowByKey(table: string, key: string): Promise<number> {
         this.checkConnection();
 
-        const [rows] = await this.conn!.query<MySQLModule.OkPacket>(
+        const [rows] = await this.conn!.query<OkPacket>(
             `DELETE FROM ${table} WHERE ID=?`,
             [key]
         );

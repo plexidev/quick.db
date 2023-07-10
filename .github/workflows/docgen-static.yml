@@ -2,11 +2,8 @@
 # Modified to build with node
 name: Deploy built static content to Pages
 on:
-    # Runs on pushes targeting the default branch
-    push:
-        branches: ["master"]
-    # Allows you to run this workflow manually from the Actions tab
-    workflow_dispatch:
+    release:
+        types: [created]
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
     contents: read
@@ -27,15 +24,15 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: "npm"
-            - run: npm ci
-            - run: npm run docgen
+                  cache: "yarn"
+            - run: yarn install --immutable
+            - run: yarn docgen
 
             - name: Setup Pages
               id: pages
               uses: actions/configure-pages@v3
             - name: Upload artifact
-              uses: actions/upload-pages-artifact@v1
+              uses: actions/upload-pages-artifact@v2
               with:
                   path: ./docs
 
@@ -49,4 +46,4 @@ jobs:
         steps:
             - name: Deploy to GitHub Pages
               id: deployment
-              uses: actions/deploy-pages@v1
+              uses: actions/deploy-pages@v2

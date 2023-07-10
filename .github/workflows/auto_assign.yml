@@ -1,0 +1,12 @@
+name: "auto assign"
+on:
+    pull_request_target:
+        branches: ["dev"]
+        types: [opened, ready_for_review]
+jobs:
+    auto-assign:
+        name: auto-assign
+        runs-on: ubuntu-latest
+        steps:
+            - name: Automatically assign reviewers
+              uses: kentaro-m/auto-assign-action@v1.2.5

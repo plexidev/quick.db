@@ -1,5 +1,5 @@
-import { IDriver } from "./IDriver";
-import { Database } from "better-sqlite3";
+import sqlite3, { Database } from "better-sqlite3";
+import { IDriver } from "../interfaces/IDriver";
 
 export class SqliteDriver implements IDriver {
     private static instance: SqliteDriver | null = null;
@@ -10,8 +10,6 @@ export class SqliteDriver implements IDriver {
     }
 
     constructor(path: string) {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const sqlite3 = require("better-sqlite3");
         this._database = sqlite3(path);
     }
 
@@ -23,17 +21,23 @@ export class SqliteDriver implements IDriver {
     }
 
     public async prepare(table: string): Promise<void> {
-        await this._database.exec(`CREATE TABLE IF NOT EXISTS ${table} (ID TEXT PRIMARY KEY, json TEXT)`);
+        this._database.exec(
+            `CREATE TABLE IF NOT EXISTS ${table} (ID TEXT PRIMARY KEY, json TEXT)`
+        );
     }
 
-    public async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
-        const prep = this._database.prepare(`SELECT * FROM ${table}`);
+    public async getAllRows(
+        table: string
+    ): Promise<{ id: string; value: any }[]> {
+        const prep = this._database.prepare<{ ID: string; json: string }[]>(
+            `SELECT * FROM ${table}`
+        );
         const data = [];
 
         for (const row of prep.iterate()) {
             data.push({
-                id: row.ID,
-                value: JSON.parse(row.json),
+                id: (row as { ID: string; json: string }).ID,
+                value: JSON.parse((row as { ID: string; json: string }).json),
             });
         }
 
@@ -44,9 +48,9 @@ export class SqliteDriver implements IDriver {
         table: string,
         key: string
     ): Promise<[T | null, boolean]> {
-        const value = await this._database
+        const value = (await this._database
             .prepare(`SELECT json FROM ${table} WHERE ID = @key`)
-            .get({ key });
+            .get({ key })) as { ID: string; json: string };
 
         return value != null ? [JSON.parse(value.json), true] : [null, false];
     }
@@ -59,11 +63,11 @@ export class SqliteDriver implements IDriver {
     ): Promise<T> {
         const stringifiedJson = JSON.stringify(value);
         if (update) {
-            await this._database
+            this._database
                 .prepare(`UPDATE ${table} SET json = (?) WHERE ID = (?)`)
                 .run(stringifiedJson, key);
         } else {
-            await this._database
+            this._database
                 .prepare(`INSERT INTO ${table} (ID,json) VALUES (?,?)`)
                 .run(key, stringifiedJson);
         }
@@ -72,12 +76,14 @@ export class SqliteDriver implements IDriver {
     }
 
     public async deleteAllRows(table: string): Promise<number> {
-        const result = await this._database.prepare(`DELETE FROM ${table}`).run();
+        const result = this._database.prepare(`DELETE FROM ${table}`).run();
         return result.changes;
     }
 
     public async deleteRowByKey(table: string, key: string): Promise<number> {
-        const result = await this._database.prepare(`DELETE FROM ${table} WHERE ID=@key`).run({ key });
+        const result = this._database
+            .prepare(`DELETE FROM ${table} WHERE ID=@key`)
+            .run({ key });
         return result.changes;
     }
 }

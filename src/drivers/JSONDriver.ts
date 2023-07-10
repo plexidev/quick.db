@@ -1,15 +1,13 @@
 import { MemoryDriver } from "./MemoryDriver";
 import { existsSync, readFileSync } from "fs";
 import { readFile } from "fs/promises";
+import writeFile from "write-file-atomic";
 
 export type DataLike<T = any> = { id: string; value: T };
 
 export class JSONDriver extends MemoryDriver {
-    private writeFile: typeof import("write-file-atomic");
-
     public constructor(public path = "./quickdb.json") {
         super();
-        this.writeFile = require("write-file-atomic");
         // synchronously load contents before initializing
         this.loadContentSync();
     }
@@ -30,7 +28,7 @@ export class JSONDriver extends MemoryDriver {
                 throw new Error("Database malformed");
             }
         } else {
-            this.writeFile.sync(this.path, "{}");
+            writeFile.sync(this.path, "{}");
         }
     }
 
@@ -50,7 +48,7 @@ export class JSONDriver extends MemoryDriver {
                 throw new Error("Database malformed");
             }
         } else {
-            await this.writeFile(this.path, "{}");
+            await writeFile(this.path, "{}");
         }
     }
 
@@ -66,22 +64,25 @@ export class JSONDriver extends MemoryDriver {
 
     public async snapshot(): Promise<void> {
         const data = await this.export();
-        await this.writeFile(this.path, JSON.stringify(data));
+        await writeFile(this.path, JSON.stringify(data));
     }
 
-    public async deleteAllRows(table: string): Promise<number> {
+    public override async deleteAllRows(table: string): Promise<number> {
         const val = super.deleteAllRows(table);
         await this.snapshot();
         return val;
     }
 
-    public async deleteRowByKey(table: string, key: string): Promise<number> {
+    public override async deleteRowByKey(
+        table: string,
+        key: string
+    ): Promise<number> {
         const val = super.deleteRowByKey(table, key);
         await this.snapshot();
         return val;
     }
 
-    public async setRowByKey<T>(
+    public override async setRowByKey<T>(
         table: string,
         key: string,
         value: any,

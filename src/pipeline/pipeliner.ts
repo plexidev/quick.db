@@ -39,7 +39,7 @@ export class PipeLiner<R> implements IDriver {
         const deserializedData = await this.pipeline.deserialize<T>(
             JSON.stringify(rawData[0])
         );
-        return typeof deserializedData !== undefined
+        return typeof deserializedData !== "undefined"
             ? [deserializedData, true]
             : [null, false];
     }

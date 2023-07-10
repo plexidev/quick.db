@@ -90,7 +90,8 @@ export class QuickDB<D = any> {
     }
 
     static createSingleton<T>(options: IQuickDBOptions = {}): QuickDB<T> {
-        if (!this.instance && !options.driver) throw Error("No instance and driver provided");
+        if (!this.instance && !options.driver)
+            throw Error("No instance and driver provided");
         if (!this.instance) this.instance = new QuickDB(options);
         return this.instance;
     }
@@ -190,7 +191,8 @@ export class QuickDB<D = any> {
     async push<T = D>(key: string, ...values: T[]): Promise<T[]> {
         if (typeof key != "string")
             throw new Error("First argument (key) needs to be a string");
-        if (values.length === 0) throw new Error("Missing second argument (value)");
+        if (values.length === 0)
+            throw new Error("Missing second argument (value)");
 
         const currentArr = await this.getArray<T>(key);
         currentArr.push(...values);
@@ -249,8 +251,11 @@ export class QuickDB<D = any> {
 
         const data = [];
         for (const i in currentArr) {
-            if (Array.isArray(value) ? value.includes(currentArr[i])
-                : (value as any)(currentArr[i], i))
+            if (
+                Array.isArray(value)
+                    ? value.includes(currentArr[i])
+                    : (value as any)(currentArr[i], i)
+            )
                 continue;
             data.push(currentArr[i]);
             if (once) break;

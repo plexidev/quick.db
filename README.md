@@ -52,6 +52,9 @@ const db = new QuickDB(); // will make a json.sqlite in the root folder
 // const db = new QuickDB({ filePath: "source/to/path/test.sqlite" });
 
 (async () => {
+    // Init the database, this is always needed!
+    await db.init();
+
     // self calling async function just to get async
     // Setting an object in the database:
     await db.set("userInfo", { difficulty: "Easy" });
@@ -165,6 +168,8 @@ const { QuickDB, JSONDriver } = require("quick.db");
 const jsonDriver = new JSONDriver();
 const db = new QuickDB({ driver: jsonDriver });
 
+// Init the database, this is always needed!
+await db.init();
 await db.set("userInfo", { difficulty: "Easy" });
 ```
 
@@ -177,5 +182,7 @@ const { QuickDB, MemoryDriver } = require("quick.db");
 const memoryDriver = new MemoryDriver();
 const db = new QuickDB({ driver: memoryDriver });
 
+// Init the database, this is always needed!
+await db.init();
 await db.set("userInfo", { difficulty: "Easy" });
 ```

@@ -157,6 +157,13 @@ export class QuickDB<D = any> {
         name: string,
         options: IQuickDBOptions = {}
     ): QuickDB<T> {
+        if (typeof name != "string") {
+            throw new QuickError(
+                `First argument (name) needs to be a string received "${typeof name}"`,
+                ErrorKind.InvalidType
+            );
+        }
+
         const instance = new QuickDB(options);
         this.instances.set(name, instance);
         return instance;
@@ -173,6 +180,13 @@ export class QuickDB<D = any> {
      * ```
      **/
     static getSingletion<T>(name: string): QuickDB<T> | undefined {
+        if (typeof name != "string") {
+            throw new QuickError(
+                `First argument (name) needs to be a string received "${typeof name}"`,
+                ErrorKind.InvalidType
+            );
+        }
+
         return this.instances.get(name);
     }
 

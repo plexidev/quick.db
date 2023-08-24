@@ -1,13 +1,11 @@
-import { set, get, unset } from "lodash";
-import { IDriver } from "./interfaces/IDriver";
-import { isConnectable, isDisconnectable } from "./utilities";
-import { CustomError as QuickError, ErrorKind } from "./error";
+import { get, set, unset } from 'lodash';
+
+import { CustomError as QuickError, ErrorKind } from './error';
+import { IDriver } from './interfaces/IDriver';
+import { isConnectable, isDisconnectable } from './utilities';
 
 export { IDriver } from "./interfaces/IDriver";
 export { IRemoteDriver } from "./interfaces/IRemoteDriver";
-export { IPipeline } from "./interfaces/IPipeline";
-export { PipeLiner } from "./pipeline/pipeliner";
-export * as CryptoPipeline from "./pipeline/crypto/crypt";
 
 /**
  * Options for the QuickDB class

@@ -321,6 +321,47 @@ export class QuickDB<D = any> {
     }
 
     /**
+     * Save multiple keys from an object without affecting the other keys
+     * @example
+     * ```ts
+     * const db = new QuickDB();
+     * await db.init();
+     * await db.set("test", {"nice": 1, "other": 2, "neat": 3});
+     * await db.update("test", {other: 3, neat: 4, newProp: "oof"});
+     * console.log(await db.get("test"));
+     * ```
+     **/
+    async update<T = D>(key: string, object: object): Promise<T> {
+        if (typeof key != "string") {
+            throw new QuickError(
+                `First argument (key) needs to be a string received "${typeof key}"`,
+                ErrorKind.InvalidType
+            );
+        }
+
+        if (typeof object != "object" || object == null) {
+            throw new QuickError(
+                `Second argument (object) needs to be an object received "${typeof object}"`,
+                ErrorKind.InvalidType
+            );
+        }
+
+        const data = (await this.get<any>(key)) ?? {};
+        if (typeof data != "object" || Array.isArray(data)) {
+            throw new QuickError(
+                `The current data is not an object, update only works on objects`,
+                ErrorKind.InvalidType
+            );
+        }
+
+        for (const [k, v] of Object.entries(object)) {
+            data[k] = v;
+        }
+
+        return await this.set(key, data);
+    }
+
+    /**
      * Check if a key exists in the database
      * @example
      * ```ts

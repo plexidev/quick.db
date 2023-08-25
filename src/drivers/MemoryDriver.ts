@@ -1,7 +1,22 @@
-import { IDriver } from "../interfaces/IDriver";
+import { IDriver } from '../interfaces/IDriver';
 
 export type Table = Map<string, any>;
 
+/**
+ * MemoryDriver
+ * @example
+ * ```ts
+ * const { MemoryDriver } = require("quick.db/MemoryDriver");
+ * const memoryDriver = new MemoryDriver();
+ *
+ * const db = new QuickDB({
+ *  driver: memoryDriver
+ * });
+ * await db.init(); // Always needed!!!
+ * await db.set("test", "Hello World");
+ * console.log(await db.get("test"));
+ * ```
+ **/
 export class MemoryDriver implements IDriver {
     public store = new Map<string, Table>();
 

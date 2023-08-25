@@ -1,5 +1,5 @@
-import { IDriver } from "../interfaces/IDriver";
-import { isConnectable } from "../utilities";
+import { IDriver } from '../interfaces/IDriver';
+import { isConnectable } from '../utilities';
 
 /**
  * DriverUnion - Union of Drivers

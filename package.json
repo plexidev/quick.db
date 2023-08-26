@@ -26,7 +26,7 @@
         "pg": "8.x",
         "prettier": "^3.0.0",
         "ts-jest": "^29.0.3",
-        "typedoc": "^0.24.0",
+        "typedoc": "^0.25.0",
         "typescript": "^5.1.6",
         "write-file-atomic": "5.x"
     },

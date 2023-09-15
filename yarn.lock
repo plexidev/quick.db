@@ -973,11 +973,11 @@ __metadata:
   linkType: hard
 
 "@types/better-sqlite3@npm:^7.4.2":
-  version: 7.6.4
-  resolution: "@types/better-sqlite3@npm:7.6.4"
+  version: 7.6.5
+  resolution: "@types/better-sqlite3@npm:7.6.5"
   dependencies:
     "@types/node": "*"
-  checksum: 75ab00d31b56437cc65fe15ff673cf8d1609edca52628083921bcbab1cbd828d135a2859fb4e68af8ef5a4801705ba99d54b96499f997bce65dd306ade3dbe58
+  checksum: 3999d79378b35f793b89d089b18866922dcc225a24c7218caf3d81ab0b3510cf2a9b88782c6aee8c9c98690e1c5fe72047752172bcb8db1361bb0eb0399ff59f
   languageName: node
   linkType: hard
 

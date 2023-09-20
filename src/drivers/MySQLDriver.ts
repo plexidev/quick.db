@@ -1,13 +1,29 @@
-import {
-    OkPacket,
-    Pool,
-    PoolOptions,
-    RowDataPacket,
-    createPool,
-} from "mysql2/promise";
-import { IRemoteDriver } from "../interfaces/IRemoteDriver";
+import { createPool, OkPacket, Pool, PoolOptions, RowDataPacket } from 'mysql2/promise';
+
+import { IRemoteDriver } from '../interfaces/IRemoteDriver';
+
 export type Config = string | PoolOptions;
 
+/**
+ * MySQLDriver
+ * @example
+ * ```ts
+ * const { MySQLDriver } = require("quick.db/MySQLDriver");
+ * const mysqlDriver = new MySQLDriver({
+ *       host: "localhost",
+ *       user: "me",
+ *       password: "secret",
+ *       database: "my_db",
+ *   });
+ *
+ * const db = new QuickDB({
+ *  driver: mysqlDriver
+ * });
+ * await db.init(); // Always needed!!!
+ * await db.set("test", "Hello World");
+ * console.log(await db.get("test"));
+ * ```
+ */
 export class MySQLDriver implements IRemoteDriver {
     private static instance: MySQLDriver;
     private conn?: Pool;

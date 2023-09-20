@@ -52,6 +52,9 @@ const db = new QuickDB(); // will make a json.sqlite in the root folder
 // const db = new QuickDB({ filePath: "source/to/path/test.sqlite" });
 
 (async () => {
+    // Init the database, this is always needed!
+    await db.init();
+
     // self calling async function just to get async
     // Setting an object in the database:
     await db.set("userInfo", { difficulty: "Easy" });
@@ -94,7 +97,8 @@ const db = new QuickDB(); // will make a json.sqlite in the root folder
 > **NOTE:** In order to use this driver, install `npm i mysql2` separately.
 
 ```js
-const { QuickDB, MySQLDriver } = require("quick.db");
+const { QuickDB } = require("quick.db");
+const { MySQLDriver } = require("quick.db/MySQLDriver");
 (async () => {
     const mysqlDriver = new MySQLDriver({
         host: "localhost",
@@ -117,7 +121,8 @@ const { QuickDB, MySQLDriver } = require("quick.db");
 > **NOTE:** In order to use this driver, install `npm i pg` separately.
 
 ```js
-const { QuickDB, PostgresDriver } = require("quick.db");
+const { QuickDB } = require("quick.db");
+const { PostgresDriver } = require("quick.db/PostgresDriver");
 (async () => {
     const postgresDriver = new PostgresDriver({
         host: "localhost",
@@ -140,7 +145,8 @@ const { QuickDB, PostgresDriver } = require("quick.db");
 > **NOTE:** In order to use this driver, install `npm i mongoose` separately.
 
 ```js
-const { QuickDB, MongoDriver } = require("quick.db");
+const { QuickDB } = require("quick.db");
+const { MongoDriver } = require("quick.db/MongoDriver");
 (async () => {
     const mongoDriver = new MongoDriver("mongodb://localhost/quickdb");
 
@@ -161,10 +167,13 @@ const { QuickDB, MongoDriver } = require("quick.db");
 > **NOTE:** In order to use this driver, install `npm i write-file-atomic` separately.
 
 ```js
-const { QuickDB, JSONDriver } = require("quick.db");
+const { QuickDB } = require("quick.db");
+const { JSONDriver } = require("quick.db/JSONDriver");
 const jsonDriver = new JSONDriver();
 const db = new QuickDB({ driver: jsonDriver });
 
+// Init the database, this is always needed!
+await db.init();
 await db.set("userInfo", { difficulty: "Easy" });
 ```
 
@@ -173,9 +182,12 @@ await db.set("userInfo", { difficulty: "Easy" });
 > **Note:** In-memory database is not persistent and is suitable for temporary caching.
 
 ```js
-const { QuickDB, MemoryDriver } = require("quick.db");
+const { QuickDB } = require("quick.db");
+const { MemoryDriver } = require("quick.db/MemoryDriver");
 const memoryDriver = new MemoryDriver();
 const db = new QuickDB({ driver: memoryDriver });
 
+// Init the database, this is always needed!
+await db.init();
 await db.set("userInfo", { difficulty: "Easy" });
 ```

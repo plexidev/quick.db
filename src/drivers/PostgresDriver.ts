@@ -1,6 +1,27 @@
-import { Pool, PoolConfig } from "pg";
-import { IRemoteDriver } from "../interfaces/IRemoteDriver";
+import { Pool, PoolConfig } from 'pg';
 
+import { IRemoteDriver } from '../interfaces/IRemoteDriver';
+
+/**
+ * PostgresDriver
+ * @example
+ * ```ts
+ * const { PostgresDriver } = require("quick.db/PostgresDriver");
+ * const postgresDriver = new PostgresDriver({
+ *      host: "localhost",
+ *      user: "me",
+ *       password: "secret",
+ *      database: "my_db",
+ * });
+ *
+ * const db = new QuickDB({
+ *  driver: postgresDriver
+ * });
+ * await db.init(); // Always needed!!!
+ * await db.set("test", "Hello World");
+ * console.log(await db.get("test"));
+ * ```
+ */
 export class PostgresDriver implements IRemoteDriver {
     private static instance: PostgresDriver;
     private config: PoolConfig;

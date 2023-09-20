@@ -1,6 +1,17 @@
-import sqlite3, { Database } from "better-sqlite3";
-import { IDriver } from "../interfaces/IDriver";
+import sqlite3, { Database } from 'better-sqlite3';
 
+import { IDriver } from '../interfaces/IDriver';
+
+/**
+ * SqliteDriver
+ * @example
+ * ```ts
+ * const db = new QuickDB();
+ * await db.init(); // Always needed!!!
+ * await db.set("test", "Hello World");
+ * console.log(await db.get("test"));
+ * ```
+ */
 export class SqliteDriver implements IDriver {
     private static instance: SqliteDriver | null = null;
     private readonly _database: Database;

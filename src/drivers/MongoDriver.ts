@@ -1,13 +1,8 @@
 import {
-    ConnectOptions,
-    Connection,
-    Model,
-    Schema,
-    SchemaTypes,
-    createConnection,
-    pluralize,
-} from "mongoose";
-import { IRemoteDriver } from "../interfaces/IRemoteDriver";
+    Connection, ConnectOptions, createConnection, Model, pluralize, Schema, SchemaTypes
+} from 'mongoose';
+
+import { IRemoteDriver } from '../interfaces/IRemoteDriver';
 
 export interface CollectionInterface<T = unknown> {
     ID: string;
@@ -18,26 +13,20 @@ export interface CollectionInterface<T = unknown> {
 }
 
 /**
- * Quick.db compatible mongo driver
- * @example // require quickdb
- * const { QuickDB } = require("quick.db");
- * // require mongo driver from quickmongo
- * const { MongoDriver } = require("quickmongo");
- * // create mongo driver
- * const driver = new MongoDriver("mongodb://localhost/quickdb");
+ * MongoDriver
+ * @example
+ * ```ts
+ * const { MongoDriver } = require("quick.db/MongoDriver");
+ * const mongoDriver = new MongoDriver("mongodb://localhost/quickdb");
  *
- * // connect to mongodb
- * await driver.connect();
- *
- * // create quickdb instance with mongo driver
- * const db = new QuickDB({ driver });
- *
- * // set something
- * await db.set("foo", "bar");
- *
- * // get something
- * console.log(await db.get("foo")); // -> foo
- */
+ * const db = new QuickDB({
+ *  driver: mongoDriver
+ * });
+ * await db.init(); // Always needed!!!
+ * await db.set("test", "Hello World");
+ * console.log(await db.get("test"));
+ * ```
+ **/
 export class MongoDriver implements IRemoteDriver {
     public conn?: Connection;
     private models = new Map<string, ReturnType<typeof this.modelSchema>>();

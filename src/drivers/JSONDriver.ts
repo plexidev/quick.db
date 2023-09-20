@@ -1,10 +1,26 @@
-import { MemoryDriver } from "./MemoryDriver";
-import { existsSync, readFileSync } from "fs";
-import { readFile } from "fs/promises";
-import writeFile from "write-file-atomic";
+import { existsSync, readFileSync } from 'fs';
+import { readFile } from 'fs/promises';
+import writeFile from 'write-file-atomic';
+
+import { MemoryDriver } from './MemoryDriver';
 
 export type DataLike<T = any> = { id: string; value: T };
 
+/**
+ * JSONDriver
+ * @example
+ * ```ts
+ * const { JSONDriver } = require("quick.db/JSONDriver");
+ * const jsonDriver = new JSONDriver();
+ *
+ * const db = new QuickDB({
+ *  driver: jsonDriver
+ * });
+ * await db.init(); // Always needed!!!
+ * await db.set("test", "Hello World");
+ * console.log(await db.get("test"));
+ * ```
+ **/
 export class JSONDriver extends MemoryDriver {
     public constructor(public path = "./quickdb.json") {
         super();

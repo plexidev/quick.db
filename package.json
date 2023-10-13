@@ -71,15 +71,15 @@
         "test:all": "jest --roots tests",
         "test:integration": "jest --roots tests/integration",
         "test:unit": "jest --roots tests/unit",
-        "test": "yarn test:unit",
+        "test": "npm run test:unit",
         "lint": "eslint --ext \".ts\" ./src",
         "prettier": "prettier --write ./src",
         "prettier:all": "prettier --write ./",
         "docgen": "typedoc",
         "build": "tsc",
         "clean": "rm -rf ./out",
-        "prepack": "yarn lint && yarn build",
-        "prepare": "if [ \"$npm_execpath\" != \"\" ] ; then npm run build ; else yarn build ; fi"
+        "prepublishOnly": "npm run lint && npm run build",
+        "prepare": "npm run build"
     },
     "lint-staged": {
         "*.{ts}": "eslint"
@@ -103,6 +103,5 @@
     "bugs": {
         "url": "https://github.com/TrueXPixels/quick.db/issues"
     },
-    "homepage": "https://quickdb.js.org",
-    "packageManager": "yarn@3.6.3"
+    "homepage": "https://quickdb.js.org"
 }

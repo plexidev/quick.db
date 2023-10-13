@@ -8,8 +8,8 @@ on:
         paths:
             - "src/**"
             - "tests/**"
-            - "yarn.lock"
             - "package.json"
+            - "ppackage-lock.json"
             - "tsconfig.json"
 jobs:
     build:
@@ -25,7 +25,7 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: "yarn"
-            - run: yarn install --immutable
-            - run: yarn lint
-            - run: yarn test:all
+                  cache: "npm"
+            - run: npm ci
+            - run: npm run lint
+            - run: npm run test:all

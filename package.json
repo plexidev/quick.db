@@ -16,7 +16,7 @@
         "@types/write-file-atomic": "^4.0.0",
         "@typescript-eslint/eslint-plugin": "^6.0.0",
         "@typescript-eslint/parser": "^6.0.0",
-        "better-sqlite3": "8.x",
+        "better-sqlite3": "9.x",
         "dotenv": "^16.0.3",
         "eslint": "^8.5.0",
         "eslint-config-prettier": "^9.0.0",

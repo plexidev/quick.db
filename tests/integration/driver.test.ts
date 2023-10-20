@@ -1,14 +1,16 @@
 import { MySQLDriver } from "../../src/drivers/MySQLDriver";
 import { MongoDriver } from "../../src/drivers/MongoDriver";
 import { PostgresDriver } from "../../src/drivers/PostgresDriver";
+import { CassandraDriver } from "../../src/drivers/CassandraDriver";
 import { JSONDriver } from "../../src/drivers/JSONDriver";
 import { SqliteDriver } from "../../src/drivers/SqliteDriver";
 import { MemoryDriver } from "../../src/drivers/MemoryDriver";
 import { isConnectable, isDisconnectable } from "../../src/utilities";
-import * as dotenv from "dotenv";
-import { resolve } from "path";
-import fs from "fs";
 import { IDriver } from "../../src/interfaces/IDriver";
+import { resolve } from "path";
+import * as dotenv from "dotenv";
+import fs from "fs";
+
 dotenv.config({ path: resolve(process.cwd(), ".env.dev") });
 
 if (!fs.existsSync("./integration-database")) {
@@ -33,6 +35,14 @@ const drivers = [
         password: process.env.POSTGRES_PASSWORD,
         port: Number(process.env.POSTGRES_PORT),
         database: process.env.POSTGRES_DB,
+    }),
+    new CassandraDriver({
+        contactPoints: ["127.0.0.1"],
+        localDataCenter: "dc1",
+        credentials: {
+            username: process.env.CASSANDRA_USERNAME!,
+            password: process.env.CASSANDRA_PASSWORD!,
+        },
     }),
     new JSONDriver("./integration-database/test-driver.json"),
     new SqliteDriver("./integration-database/test-driver.sqlite"),

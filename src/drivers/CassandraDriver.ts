@@ -59,10 +59,9 @@ export class CassandraDriver implements IRemoteDriver {
         this.checkConnection();
 
         const queryResult = await this._client!.execute(
-            `
-            SELET * FROM ${table} WHERE id LIKE ?
-        `,
-            [`${query}%`]
+            `SELECT * FROM ${table} WHERE id LIKE ?`,
+            [`${query}%`],
+            { prepare: true }
         );
 
         return queryResult.rows.map((row) => ({
@@ -78,7 +77,7 @@ export class CassandraDriver implements IRemoteDriver {
         this.checkConnection();
 
         const queryResult = await this._client!.execute(
-            `SELET value FROM ${table} WHERE id = ?`,
+            `SELECT value FROM ${table} WHERE id = ?`,
             [key],
             { prepare: true }
         );

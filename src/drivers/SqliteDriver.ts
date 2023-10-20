@@ -1,6 +1,6 @@
-import sqlite3, { Database } from 'better-sqlite3';
+import sqlite3, { Database } from "better-sqlite3";
 
-import { IDriver } from '../interfaces/IDriver';
+import { IDriver } from "../interfaces/IDriver";
 
 /**
  * SqliteDriver
@@ -64,6 +64,26 @@ export class SqliteDriver implements IDriver {
             .get({ key })) as { ID: string; json: string };
 
         return value != null ? [JSON.parse(value.json), true] : [null, false];
+    }
+
+    public async getStartsWith(
+        table: string,
+        query: string
+    ): Promise<{ id: string; value: any }[]> {
+        const prep = this._database.prepare(
+            `SELECT json FROM ${table} WHERE ID LIKE '${query}%'`
+        );
+
+        const data = [];
+
+        for (const row of prep.iterate()) {
+            data.push({
+                id: (row as { id: string; json: string }).id,
+                value: JSON.parse((row as { id: string; json: string }).json),
+            });
+        }
+
+        return data;
     }
 
     public async setRowByKey<T>(

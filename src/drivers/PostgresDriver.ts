@@ -1,6 +1,6 @@
-import { Pool, PoolConfig } from 'pg';
+import { Pool, PoolConfig } from "pg";
 
-import { IRemoteDriver } from '../interfaces/IRemoteDriver';
+import { IRemoteDriver } from "../interfaces/IRemoteDriver";
 
 /**
  * PostgresDriver
@@ -36,14 +36,14 @@ export class PostgresDriver implements IRemoteDriver {
         return this.instance;
     }
 
-    async connect(): Promise<void> {
+    public async connect(): Promise<void> {
         this.conn = new Pool(this.config);
         // No need to connect with pool
         // They are lazy loaded
         // await this.conn.connect();
     }
 
-    async disconnect(): Promise<void> {
+    public async disconnect(): Promise<void> {
         this.checkConnection();
         await this.conn!.end();
     }
@@ -54,15 +54,19 @@ export class PostgresDriver implements IRemoteDriver {
         }
     }
 
-    async prepare(table: string): Promise<void> {
+    public async prepare(table: string): Promise<void> {
         this.checkConnection();
+
         await this.conn!.query(
             `CREATE TABLE IF NOT EXISTS ${table} (id VARCHAR(255), value TEXT)`
         );
     }
 
-    async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
+    public async getAllRows(
+        table: string
+    ): Promise<{ id: string; value: any }[]> {
         this.checkConnection();
+
         const queryResult = await this.conn!.query(`SELECT * FROM ${table}`);
         return queryResult.rows.map((row) => ({
             id: row.id,
@@ -70,11 +74,29 @@ export class PostgresDriver implements IRemoteDriver {
         }));
     }
 
-    async getRowByKey<T>(
+    public async getStartsWith(
+        table: string,
+        query: string
+    ): Promise<{ id: string; value: any }[]> {
+        this.checkConnection();
+
+        const queryResult = await this.conn!.query(
+            `SELECT * FROM ${table} WHERE ID LIKE '$1%'`,
+            [query]
+        );
+
+        return queryResult.rows.map((row) => ({
+            id: row.id,
+            value: JSON.parse(row.value),
+        }));
+    }
+
+    public async getRowByKey<T>(
         table: string,
         key: string
     ): Promise<[T | null, boolean]> {
         this.checkConnection();
+
         const queryResult = await this.conn!.query(
             `SELECT value FROM ${table} WHERE id = $1`,
             [key]
@@ -84,7 +106,7 @@ export class PostgresDriver implements IRemoteDriver {
         return [JSON.parse(queryResult.rows[0].value), true];
     }
 
-    async setRowByKey<T>(
+    public async setRowByKey<T>(
         table: string,
         key: string,
         value: any,
@@ -109,14 +131,16 @@ export class PostgresDriver implements IRemoteDriver {
         return value;
     }
 
-    async deleteAllRows(table: string): Promise<number> {
+    public async deleteAllRows(table: string): Promise<number> {
         this.checkConnection();
+
         const queryResult = await this.conn!.query(`DELETE FROM ${table}`);
         return queryResult.rowCount;
     }
 
-    async deleteRowByKey(table: string, key: string): Promise<number> {
+    public async deleteRowByKey(table: string, key: string): Promise<number> {
         this.checkConnection();
+
         const queryResult = await this.conn!.query(
             `DELETE FROM ${table} WHERE id = $1`,
             [key]

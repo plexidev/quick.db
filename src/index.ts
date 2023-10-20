@@ -1,8 +1,8 @@
-import { get, set, unset } from 'lodash';
+import { get, set, unset } from "lodash";
 
-import { CustomError as QuickError, ErrorKind } from './error';
-import { IDriver } from './interfaces/IDriver';
-import { isConnectable, isDisconnectable } from './utilities';
+import { CustomError as QuickError, ErrorKind } from "./error";
+import { IDriver } from "./interfaces/IDriver";
+import { isConnectable, isDisconnectable } from "./utilities";
 
 export { IDriver } from "./interfaces/IDriver";
 export { IRemoteDriver } from "./interfaces/IRemoteDriver";
@@ -630,6 +630,7 @@ export class QuickDB<D = any> {
                 ErrorKind.InvalidType
             );
         }
+
         if (typeof key != "string") {
             throw new QuickError(
                 `Second argument (key) needs to be a string received "${typeof key}"`,
@@ -640,12 +641,17 @@ export class QuickDB<D = any> {
         // Get either the whole db or the rows from the provided key
         // -> Filter the result if the id starts with the provided query
         // -> Return the filtered result
-        return (
-            (key === "" ? await this.all() : (await this.get(key)) ?? []) as {
-                id: string;
-                value: T;
-            }[]
-        ).filter((v) => v.id.startsWith(query));
+
+        if (key !== "") {
+            const results = await this.driver.getStartsWith(
+                this.tableName,
+                query
+            );
+            return results;
+        }
+
+        const allResults = (await this.all()) as { id: string; value: T }[];
+        return allResults.filter((v) => v.id.startsWith(query));
     }
 
     /**

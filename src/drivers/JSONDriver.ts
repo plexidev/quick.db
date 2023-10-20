@@ -1,8 +1,8 @@
-import { existsSync, readFileSync } from 'fs';
-import { readFile } from 'fs/promises';
-import writeFile from 'write-file-atomic';
+import { existsSync, readFileSync } from "fs";
+import { readFile } from "fs/promises";
+import writeFile from "write-file-atomic";
 
-import { MemoryDriver } from './MemoryDriver';
+import { MemoryDriver } from "./MemoryDriver";
 
 export type DataLike<T = any> = { id: string; value: T };
 

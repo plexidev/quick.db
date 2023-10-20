@@ -39,7 +39,8 @@
         "mongoose": "7.x",
         "mysql2": "3.x",
         "pg": "8.x",
-        "write-file-atomic": "5.x"
+        "write-file-atomic": "5.x",
+        "cassandra-driver": "^4.7.2"
     },
     "peerDependenciesMeta": {
         "better-sqlite3": {
@@ -59,7 +60,6 @@
         }
     },
     "dependencies": {
-        "cassandra-driver": "^4.7.2",
         "lodash": "^4.17.21"
     },
     "exports": {

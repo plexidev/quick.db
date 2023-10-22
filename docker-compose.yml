@@ -2,7 +2,6 @@ version: "3.9"
 services:
     mysql:
         image: mysql
-        container_name: mysql
         ports:
             - "${MYSQL_PORT}:${MYSQL_PORT}"
         networks:
@@ -14,7 +13,6 @@ services:
             MYSQL_RANDOM_ROOT_PASSWORD: true
     mongo:
         image: mongo
-        container_name: mongo
         ports:
             - "${MONGO_PORT}:${MONGO_PORT}"
         networks:
@@ -25,7 +23,6 @@ services:
             MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     pg:
         image: postgres
-        container_name: pg
         ports:
             - "${POSTGRESS_PORT}:${POSTGRESS_PORT}"
         networks:
@@ -38,10 +35,13 @@ services:
     cassandra:
         image: cassandra:4.0
         ports:
-            - 9042:9042
+            - ${CASSANDRA_PORT}:${CASSANDRA_PORT}
+        networks:
+            - testing-network
         environment:
-            - CASSANDRA_CLUSTER_NAME=dc1
             - CASSANDRA_USER=${CASSANDRA_USERNAME}
             - CASSANDRA_PASSWORD=${CASSANDRA_PASSWORD}
+            - MAX_HEAP_SIZE=256M
+            - HEAP_NEWSIZE=100M
 networks:
     testing-network:

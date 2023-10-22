@@ -40,7 +40,7 @@ export class CassandraDriver implements IRemoteDriver {
         await this._client!.execute("USE quickdb");
 
         await this._client!.execute(
-            `CREATE TABLE IF NOT EXISTS ${table} (id varchar(255), value TEXT)`
+            `CREATE TABLE IF NOT EXISTS ${table} (id varchar PRIMARY KEY, value TEXT)`
         );
     }
 
@@ -124,7 +124,7 @@ export class CassandraDriver implements IRemoteDriver {
     public async deleteAllRows(table: string): Promise<number> {
         this.checkConnection();
 
-        const queryResult = await this._client!.execute(`DELETE FROM ${table}`);
+        const queryResult = await this._client!.execute(`TRUNCATE ${table}`);
         return queryResult.rowLength;
     }
 

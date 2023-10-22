@@ -38,10 +38,13 @@ const drivers = [
     }),
     new CassandraDriver({
         contactPoints: ["127.0.0.1"],
-        localDataCenter: "dc1",
+        localDataCenter: "datacenter1",
         credentials: {
             username: process.env.CASSANDRA_USERNAME!,
             password: process.env.CASSANDRA_PASSWORD!,
+        },
+        protocolOptions: {
+            port: Number(process.env.CASSANDRA_PORT!),
         },
     }),
     new JSONDriver("./integration-database/test-driver.json"),
@@ -64,7 +67,7 @@ describe("drivers integration tests", () => {
         }
     });
 
-    describe("should connect to database", () => {
+    describe("should connect to database and prepare", () => {
         test.each(driversWithNames)(
             "connects to database using %s",
             async (_, driver) => {
@@ -84,7 +87,7 @@ describe("drivers integration tests", () => {
                         await driver.prepare(process.env.MYSQL_DATABASE!);
                         status = true;
                         break;
-                    } catch (_) {
+                    } catch (err) {
                         await sleep(1000);
                     }
 
@@ -99,92 +102,116 @@ describe("drivers integration tests", () => {
     });
 
     describe("integration tests", () => {
-        afterEach(async () => {
+        afterAll(async () => {
+            // Run cleanup for each driver
             for (const driver of drivers) {
                 await driver.deleteAllRows(process.env.MYSQL_DATABASE!);
             }
         });
 
-        test.each(driversWithNames)(
-            "should set and get data using %s",
-            async (_, driver) => {
-                const key = "foo";
-                const value = "bar";
-                await driver.setRowByKey(
-                    process.env.MYSQL_DATABASE!,
-                    key,
-                    value,
-                    false
-                );
-                let result = await driver.getRowByKey(
-                    process.env.MYSQL_DATABASE!,
-                    key
-                );
-                expect(result).toEqual([value, true]);
+        type TestCase = [string, (_: any, driver: any) => Promise<void>];
+        const testCases: TestCase[] = [
+            [
+                "should set and get data using %s",
+                async (_, driver): Promise<void> => {
+                    const key = "foo";
+                    const value = "bar";
+                    await driver.setRowByKey(
+                        process.env.MYSQL_DATABASE!,
+                        key,
+                        value,
+                        false
+                    );
+                    let result = await driver.getRowByKey(
+                        process.env.MYSQL_DATABASE!,
+                        key
+                    );
+                    expect(result).toEqual([value, true]);
 
-                result = await driver.getRowByKey(
-                    process.env.MYSQL_DATABASE!,
-                    "not-exists"
-                );
-                expect(result).toEqual([null, false]);
-            }
-        );
+                    result = await driver.getRowByKey(
+                        process.env.MYSQL_DATABASE!,
+                        "not-exists"
+                    );
+                    expect(result).toEqual([null, false]);
+                },
+            ],
+            [
+                "should delete data using %s",
+                async (_, driver): Promise<void> => {
+                    const key = "foobar";
+                    const value = "bar";
+                    await driver.setRowByKey(
+                        process.env.MYSQL_DATABASE!,
+                        key,
+                        value,
+                        false
+                    );
+                    let result = await driver.getRowByKey(
+                        process.env.MYSQL_DATABASE!,
+                        key
+                    );
+                    expect(result).toEqual([value, true]);
 
-        test.each(driversWithNames)(
-            "should delete data using %s",
-            async (_, driver) => {
-                const key = "foobar";
-                const value = "bar";
-                await driver.setRowByKey(
-                    process.env.MYSQL_DATABASE!,
-                    key,
-                    value,
-                    false
-                );
-                let result = await driver.getRowByKey(
-                    process.env.MYSQL_DATABASE!,
-                    key
-                );
-                expect(result).toEqual([value, true]);
+                    await driver.deleteRowByKey(
+                        process.env.MYSQL_DATABASE!,
+                        key
+                    );
+                    result = await driver.getRowByKey(
+                        process.env.MYSQL_DATABASE!,
+                        key
+                    );
+                    expect(result).toEqual([null, false]);
+                },
+            ],
+            [
+                "should get all data using %s",
+                async (_, driver): Promise<void> => {
+                    const key = "foobarbar";
+                    const value = "bar";
+                    await driver.setRowByKey(
+                        process.env.MYSQL_DATABASE!,
+                        key,
+                        value,
+                        false
+                    );
+                    const result = await driver.getAllRows(
+                        process.env.MYSQL_DATABASE!
+                    );
+                    expect(result.length).toBe(1);
+                    expect(result[0]).toEqual({ id: key, value });
+                },
+            ],
+            [
+                "should delete all data using %s",
+                async (_, driver): Promise<void> => {
+                    await driver.deleteAllRows(process.env.MYSQL_DATABASE!);
+                    const result = await driver.getAllRows(
+                        process.env.MYSQL_DATABASE!
+                    );
+                    expect(result.length).toBe(0);
+                },
+            ],
+        ];
 
-                await driver.deleteRowByKey(process.env.MYSQL_DATABASE!, key);
-                result = await driver.getRowByKey(
-                    process.env.MYSQL_DATABASE!,
-                    key
-                );
-                expect(result).toEqual([null, false]);
-            }
-        );
+        testCases.forEach(async ([desc, testFn]) => {
+            afterEach(async () => {
+                for (const driver of drivers) {
+                    try {
+                        await driver.deleteAllRows(process.env.MYSQL_DATABASE!);
+                    } catch (_) {
+                        // eslint-disable-next-line no-console
+                        // console.error(
+                        // `Cleanup failed for driver: ${driver}`,
+                        // error
+                        // );
+                    }
+                }
+            });
 
-        test.each(driversWithNames)(
-            "should get all data using %s",
-            async (_, driver) => {
-                const key = "foobarbar";
-                const value = "bar";
-                await driver.setRowByKey(
-                    process.env.MYSQL_DATABASE!,
-                    key,
-                    value,
-                    false
-                );
-                const result = await driver.getAllRows(
-                    process.env.MYSQL_DATABASE!
-                );
-                expect(result.length).toBe(1);
-                expect(result[0]).toEqual({ id: key, value });
-            }
-        );
-
-        test.each(driversWithNames)(
-            "should delete all data using %s",
-            async (_, driver) => {
-                await driver.deleteAllRows(process.env.MYSQL_DATABASE!);
-                const result = await driver.getAllRows(
-                    process.env.MYSQL_DATABASE!
-                );
-                expect(result.length).toBe(0);
-            }
-        );
+            test.each(driversWithNames)(desc, async (_, driver) => {
+                await testFn(_, driver);
+            });
+        });
     });
 
     describe("should disconnect to database", () => {

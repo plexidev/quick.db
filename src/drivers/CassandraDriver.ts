@@ -32,6 +32,11 @@ export class CassandraDriver implements IRemoteDriver {
 
     public async prepare(table: string): Promise<void> {
         this.checkConnection();
+
+        await this._client!.execute(
+            "CREATE KEYSPACE IF NOT EXISTS quickdb WITH replication = {'class': 'NetworkTopologyStrategy', 'replication_factor': '1' }"
+        );
+
         await this._client!.execute(
             `CREATE TABLE IF NOT EXISTS ${table} (id varchar(255), value TEXT)`
         );

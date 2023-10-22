@@ -650,7 +650,7 @@ export class QuickDB<D = any> {
             return results;
         }
 
-        const allResults = (await this.all()) as { id: string; value: T }[];
+        const allResults = (await this.get(key)) as { id: string; value: T }[];
         return allResults.filter((v) => v.id.startsWith(query));
     }
 

@@ -2,7 +2,6 @@
     "recommendations": [
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
-        "Gruntfuggly.todo-tree",
-        "mike-co.import-sorter"
+        "Gruntfuggly.todo-tree"
     ]
 }

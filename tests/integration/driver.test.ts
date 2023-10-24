@@ -10,6 +10,8 @@ import { IDriver } from "../../src/interfaces/IDriver";
 import { resolve } from "path";
 import * as dotenv from "dotenv";
 import fs from "fs";
+import { EntryGenerator } from "../generators/EntryGenerator";
+import { faker } from "@faker-js/faker";
 
 dotenv.config({ path: resolve(process.cwd(), ".env.dev") });
 
@@ -113,7 +115,7 @@ describe("drivers integration tests", () => {
         const testCases: TestCase[] = [
             [
                 "should set and get data using %s",
-                async (_, driver): Promise<void> => {
+                async (_, driver: IDriver): Promise<void> => {
                     const key = "foo";
                     const value = "bar";
                     await driver.setRowByKey(
@@ -137,7 +139,7 @@ describe("drivers integration tests", () => {
             ],
             [
                 "should delete data using %s",
-                async (_, driver): Promise<void> => {
+                async (_, driver: IDriver): Promise<void> => {
                     const key = "foobar";
                     const value = "bar";
                     await driver.setRowByKey(
@@ -165,7 +167,7 @@ describe("drivers integration tests", () => {
             ],
             [
                 "should get all data using %s",
-                async (_, driver): Promise<void> => {
+                async (_, driver: IDriver): Promise<void> => {
                     const key = "foobarbar";
                     const value = "bar";
                     await driver.setRowByKey(
@@ -182,8 +184,54 @@ describe("drivers integration tests", () => {
                 },
             ],
             [
+                "should get starts with return empty array (no data) using %s",
+                async (_, driver: IDriver): Promise<void> => {
+                    const result = await driver.getStartsWith(
+                        process.env.MYSQL_DATABASE!,
+                        "uwhd232n"
+                    );
+                    expect(Array.isArray(result)).toBeTruthy();
+                    expect(result.length).toBe(0);
+                },
+            ],
+            [
+                "should get starts with reutrn all elements with test_ prefix using %s",
+                async (_, driver: IDriver): Promise<void> => {
+                    const prefix = "test_";
+                    const elements = EntryGenerator.generateEntries<number>(
+                        faker.number.int,
+                        10
+                    );
+
+                    for (const e of elements) {
+                        e.id = `${prefix}${e.id}`;
+                        await driver.setRowByKey(
+                            process.env.MYSQL_DATABASE!,
+                            e.id,
+                            e.value,
+                            false
+                        );
+                    }
+
+                    await driver.setRowByKey(
+                        process.env.MYSQL_DATABASE!,
+                        "nope_1",
+                        true,
+                        false
+                    );
+
+                    const result = await driver.getStartsWith(
+                        process.env.MYSQL_DATABASE!,
+                        prefix
+                    );
+                    expect(Array.isArray(result)).toBeTruthy();
+                    expect(result.length).toBe(elements.length);
+                    expect(result).toEqual(elements);
+                },
+            ],
+            [
                 "should delete all data using %s",
-                async (_, driver): Promise<void> => {
+                async (_, driver: IDriver): Promise<void> => {
                     await driver.deleteAllRows(process.env.MYSQL_DATABASE!);
                     const result = await driver.getAllRows(
                         process.env.MYSQL_DATABASE!

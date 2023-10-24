@@ -621,8 +621,7 @@ export class QuickDB<D = any> {
      * ```
      **/
     async startsWith<T = D>(
-        query: string,
-        key = ""
+        query: string
     ): Promise<{ id: string; value: T }[]> {
         if (typeof query != "string") {
             throw new QuickError(
@@ -631,27 +630,12 @@ export class QuickDB<D = any> {
             );
         }
 
-        if (typeof key != "string") {
-            throw new QuickError(
-                `Second argument (key) needs to be a string received "${typeof key}"`,
-                ErrorKind.InvalidType
-            );
-        }
-
         // Get either the whole db or the rows from the provided key
         // -> Filter the result if the id starts with the provided query
         // -> Return the filtered result
 
-        if (key !== "") {
-            const results = await this.driver.getStartsWith(
-                this.tableName,
-                query
-            );
-            return results;
-        }
-
-        const allResults = (await this.get(key)) as { id: string; value: T }[];
-        return allResults.filter((v) => v.id.startsWith(query));
+        const results = await this.driver.getStartsWith(this.tableName, query);
+        return results;
     }
 
     /**

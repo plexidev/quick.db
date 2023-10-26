@@ -66,15 +66,24 @@ export class CassandraDriver implements IRemoteDriver {
         this.checkConnection();
 
         const queryResult = await this._client!.execute(
-            `SELECT * FROM ${table} WHERE id LIKE ?`,
-            [`${query}%`],
+            `SELECT * FROM ${table}`,
             { prepare: true }
         );
 
-        return queryResult.rows.map((row) => ({
-            id: row.id,
-            value: JSON.parse(row.value),
-        }));
+        const result = [];
+
+        for (const row of queryResult.rows) {
+            if (!row.id.startsWith(query)) {
+                continue;
+            }
+
+            result.push({
+                id: row.id,
+                value: JSON.parse(row.value),
+            });
+        }
+
+        return result;
     }
 
     public async getRowByKey<T>(

@@ -71,7 +71,7 @@ export class SqliteDriver implements IDriver {
         query: string
     ): Promise<{ id: string; value: any }[]> {
         const prep = this._database.prepare(
-            `SELECT json FROM ${table} WHERE ID LIKE '${query}%'`
+            `SELECT * FROM ${table} WHERE id LIKE '${query}%'`
         );
 
         const data = [];

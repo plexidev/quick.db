@@ -81,8 +81,8 @@ export class PostgresDriver implements IRemoteDriver {
         this.checkConnection();
 
         const queryResult = await this.conn!.query(
-            `SELECT * FROM ${table} WHERE ID LIKE '$1%'`,
-            [query]
+            `SELECT * FROM ${table} WHERE ID LIKE $1`,
+            [`${query}%`]
         );
 
         return queryResult.rows.map((row) => ({

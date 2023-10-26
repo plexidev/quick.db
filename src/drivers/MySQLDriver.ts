@@ -94,8 +94,8 @@ export class MySQLDriver implements IRemoteDriver {
         this.checkConnection();
 
         const [rows] = await this.conn!.query<RowDataPacket[]>(
-            `SELECT * FROM ${table} where ID LIKE '?%'`,
-            [query]
+            `SELECT * FROM ${table} where ID LIKE ?`,
+            [`${query}%`]
         );
 
         return rows.map((row) => ({

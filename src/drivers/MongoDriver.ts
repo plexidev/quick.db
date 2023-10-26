@@ -134,7 +134,9 @@ export class MongoDriver implements IRemoteDriver {
 
         const model = await this.getModel(table);
         const res = await model!.find({
-            ID: `/^${query}/i`,
+            ID: {
+                $regex: `/^${query}/i`,
+            },
         });
 
         return res.map((row) => ({

@@ -70,15 +70,15 @@ export class SqliteDriver implements IDriver {
         table: string,
         query: string
     ): Promise<{ id: string; value: any }[]> {
-        const prep = this._database.prepare(
-            `SELECT * FROM ${table} WHERE id LIKE '${query}%'`
+        const prep = this._database.prepare<{ ID: string; json: string }[]>(
+            `SELECT * FROM ${table} WHERE ID LIKE '${query}%'`
         );
 
         const data = [];
 
         for (const row of prep.iterate()) {
             data.push({
-                id: (row as { id: string; json: string }).id,
+                id: (row as { ID: string; json: string }).ID,
                 value: JSON.parse((row as { id: string; json: string }).json),
             });
         }

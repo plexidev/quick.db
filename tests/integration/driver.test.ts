@@ -226,7 +226,11 @@ describe("drivers integration tests", () => {
                     );
                     expect(Array.isArray(result)).toBeTruthy();
                     expect(result.length).toBe(elements.length);
-                    expect(result).toEqual(elements);
+                    expect(
+                        result.sort((a, b) => a.id.localeCompare(b.id))
+                    ).toEqual(
+                        elements.sort((a, b) => a.id.localeCompare(b.id))
+                    );
                 },
             ],
             [

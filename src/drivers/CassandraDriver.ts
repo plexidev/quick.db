@@ -47,8 +47,7 @@ export class CassandraDriver implements IRemoteDriver {
             .execute(`CREATE CUSTOM INDEX IF NOT EXISTS key_index ON ${table} (key)
                 USING 'org.apache.cassandra.index.sasi.SASIIndex'
                 WITH OPTIONS = {
-                    'mode': 'CONTAINS',
-                    'analyzer_class': 'org.apache.cassandra.index.sasi.analyzer.NonTokenizingAnalyzer',
+                    'mode': 'PREFIX',
                     'case_sensitive': 'false'
                 }
         `);

@@ -40,8 +40,10 @@ export class CassandraDriver implements IRemoteDriver {
         await this._client!.execute("USE quickdb");
 
         await this._client!.execute(
-            `CREATE TABLE IF NOT EXISTS ${table} (id varchar PRIMARY KEY, value TEXT)`
+            `CREATE TABLE IF NOT EXISTS ${table} (id varchar, key varchar, value TEXT, PRIMARY KEY(id))`
         );
+
+        await this._client!.execute(`CREATE INDEX key_index ON ${table} (key)`);
     }
 
     public async getAllRows(
@@ -54,7 +56,7 @@ export class CassandraDriver implements IRemoteDriver {
         );
 
         return queryResult.rows.map((row) => ({
-            id: row.id,
+            id: row.key,
             value: JSON.parse(row.value),
         }));
     }
@@ -66,24 +68,15 @@ export class CassandraDriver implements IRemoteDriver {
         this.checkConnection();
 
         const queryResult = await this._client!.execute(
-            `SELECT * FROM ${table}`,
+            `SELECT * FROM ${table} WHERE key LIKE ?`,
+            [`${query}%`],
             { prepare: true }
         );
 
-        const result = [];
-
-        for (const row of queryResult.rows) {
-            if (!row.id.startsWith(query)) {
-                continue;
-            }
-
-            result.push({
-                id: row.id,
-                value: JSON.parse(row.value),
-            });
-        }
-
-        return result;
+        return queryResult.rows.map((row) => ({
+            id: row.key,
+            value: JSON.parse(row.value),
+        }));
     }
 
     public async getRowByKey<T>(
@@ -115,14 +108,14 @@ export class CassandraDriver implements IRemoteDriver {
 
         if (update) {
             await this._client!.execute(
-                `UPDATE ${table} SET value = ? WHERE id = ?`,
+                `UPDATE ${table} SET value = ? WHERE key = ?`,
                 [stringifiedValue, key],
                 { prepare: true }
             );
         } else {
             await this._client!.execute(
-                `INSERT INTO ${table} (id, value) VALUES (?, ?)`,
-                [key, stringifiedValue],
+                `INSERT INTO ${table} (id, key, value) VALUES (?, ?, ?)`,
+                [key, key, stringifiedValue],
                 { prepare: true }
             );
         }

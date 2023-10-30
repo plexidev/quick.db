@@ -43,7 +43,15 @@ export class CassandraDriver implements IRemoteDriver {
             `CREATE TABLE IF NOT EXISTS ${table} (id varchar, key varchar, value TEXT, PRIMARY KEY(id))`
         );
 
-        await this._client!.execute(`CREATE INDEX key_index ON ${table} (key)`);
+        await this._client!
+            .execute(`CREATE CUSTOM INDEX IF NOT EXISTS key_index ON ${table} (key)
+                USING 'org.apache.cassandra.index.sasi.SASIIndex'
+                WITH OPTIONS = {
+                    'mode': 'CONTAINS',
+                    'analyzer_class': 'org.apache.cassandra.index.sasi.analyzer.NonTokenizingAnalyzer',
+                    'case_sensitive': 'false'
+                }
+        `);
     }
 
     public async getAllRows(

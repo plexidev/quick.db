@@ -33,7 +33,7 @@ services:
             POSTGRES_DB: ${POSTGRES_DB}
 
     cassandra:
-        image: cassandra:4.1
+        image: cassandra:5.0
         ports:
             - ${CASSANDRA_PORT}:${CASSANDRA_PORT}
         networks:

@@ -31,7 +31,7 @@
     },
     "peerDependencies": {
         "better-sqlite3": "8.x || 9.x",
-        "mongoose": "7.x",
+        "mongoose": "7.x || 8.x",
         "mysql2": "3.x",
         "pg": "8.x",
         "write-file-atomic": "5.x",

@@ -43,5 +43,7 @@ services:
             - CASSANDRA_PASSWORD=${CASSANDRA_PASSWORD}
             - MAX_HEAP_SIZE=256M
             - HEAP_NEWSIZE=100M
+        volumes:
+            - ./tests/cassandra.yaml:/etc/cassandra/cassandra.yaml
 networks:
     testing-network:

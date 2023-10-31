@@ -9,7 +9,7 @@ on:
             - "src/**"
             - "tests/**"
             - "package.json"
-            - "ppackage-lock.json"
+            - "package-lock.json"
             - "tsconfig.json"
 jobs:
     build:

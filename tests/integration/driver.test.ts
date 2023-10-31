@@ -86,7 +86,21 @@ describe("drivers integration tests", () => {
                 while (now - start < maxTime * 1000) {
                     try {
                         await driver.connect();
-                        await driver.prepare(process.env.MYSQL_DATABASE!);
+                        const err = await driver
+                            .prepare(process.env.MYSQL_DATABASE!)
+                            .catch((e) => e);
+                        if (err != null) {
+                            if (err.name && err.name == "NoHostAvailableError")
+                                continue;
+                            if (
+                                err.code &&
+                                err.code == "PROTOCOL_CONNECTION_LOST"
+                            )
+                                continue;
+                            // eslint-disable-next-line no-console
+                            console.error(err);
+                            break;
+                        }
                         status = true;
                         break;
                     } catch (err) {

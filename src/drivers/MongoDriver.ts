@@ -1,8 +1,14 @@
 import {
-    Connection, ConnectOptions, createConnection, Model, pluralize, Schema, SchemaTypes
-} from 'mongoose';
+    Connection,
+    ConnectOptions,
+    createConnection,
+    Model,
+    pluralize,
+    Schema,
+    SchemaTypes,
+} from "mongoose";
 
-import { IRemoteDriver } from '../interfaces/IRemoteDriver';
+import { IRemoteDriver } from "../interfaces/IRemoteDriver";
 
 export interface CollectionInterface<T = unknown> {
     ID: string;
@@ -95,8 +101,11 @@ export class MongoDriver implements IRemoteDriver {
             | undefined;
     }
 
-    async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
+    public async getAllRows(
+        table: string
+    ): Promise<{ id: string; value: any }[]> {
         this.checkConnection();
+
         const model = await this.getModel(table);
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return (await model!.find()).map((row: any) => ({
@@ -105,18 +114,38 @@ export class MongoDriver implements IRemoteDriver {
         }));
     }
 
-    async getRowByKey<T>(
+    public async getRowByKey<T>(
         table: string,
         key: string
     ): Promise<[T | null, boolean]> {
         this.checkConnection();
+
         const model = await this.getModel(table);
         const res = await model!.findOne({ ID: key });
-        if (!res) return [null, false];
-        return [res.data as T | null, true];
+
+        return res ? [res.data as T | null, true] : [null, false];
     }
 
-    async setRowByKey<T>(
+    public async getStartsWith(
+        table: string,
+        query: string
+    ): Promise<{ id: string; value: any }[]> {
+        this.checkConnection();
+
+        const model = await this.getModel(table);
+        const res = await model!.find({
+            ID: {
+                $regex: new RegExp(query, "i"),
+            },
+        });
+
+        return res.map((row) => ({
+            id: row.ID,
+            value: row.data,
+        }));
+    }
+
+    public async setRowByKey<T>(
         table: string,
         key: string,
         value: any,
@@ -124,6 +153,7 @@ export class MongoDriver implements IRemoteDriver {
         _update: boolean
     ): Promise<T> {
         this.checkConnection();
+
         const model = await this.getModel(table);
         await model?.findOneAndUpdate(
             {
@@ -138,18 +168,19 @@ export class MongoDriver implements IRemoteDriver {
         return value;
     }
 
-    async deleteAllRows(table: string): Promise<number> {
+    public async deleteAllRows(table: string): Promise<number> {
         this.checkConnection();
+
         const model = await this.getModel(table);
         const res = await model?.deleteMany();
 
         return res!.deletedCount!;
     }
 
-    async deleteRowByKey(table: string, key: string): Promise<number> {
+    public async deleteRowByKey(table: string, key: string): Promise<number> {
         this.checkConnection();
-        const model = await this.getModel(table);
 
+        const model = await this.getModel(table);
         const res = await model?.deleteMany({
             ID: key,
         });
@@ -162,12 +193,14 @@ export class MongoDriver implements IRemoteDriver {
         modelName = "JSON"
     ): Model<CollectionInterface<T>> {
         this.checkConnection();
+
         const model = this.conn!.model(modelName, this.docSchema);
         model.collection
             .createIndex({ expireAt: 1 }, { expireAfterSeconds: 0 })
             .catch(() => {
                 /* void */
             });
+
         return model as Model<CollectionInterface<T>>;
     }
 }

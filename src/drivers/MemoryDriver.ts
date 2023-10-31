@@ -1,4 +1,4 @@
-import { IDriver } from '../interfaces/IDriver';
+import { IDriver } from "../interfaces/IDriver";
 
 export type Table = Map<string, any>;
 
@@ -59,6 +59,16 @@ export class MemoryDriver implements IDriver {
         const store = this.getOrCreateTable(table);
         const val = store.get(key) as T;
         return [val == null ? null : val, val == null ? false : true];
+    }
+
+    public async getStartsWith(
+        table: string,
+        query: string
+    ): Promise<{ id: string; value: any }[]> {
+        const store = this.getOrCreateTable(table);
+        return [...store.entries()]
+            .filter(([k]) => k.startsWith(query))
+            .map(([k, v]) => ({ id: k, value: v }));
     }
 
     public async setRowByKey<T>(

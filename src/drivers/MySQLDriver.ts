@@ -1,6 +1,12 @@
-import { createPool, OkPacket, Pool, PoolOptions, RowDataPacket } from 'mysql2/promise';
+import {
+    createPool,
+    OkPacket,
+    Pool,
+    PoolOptions,
+    RowDataPacket,
+} from "mysql2/promise";
 
-import { IRemoteDriver } from '../interfaces/IRemoteDriver';
+import { IRemoteDriver } from "../interfaces/IRemoteDriver";
 
 export type Config = string | PoolOptions;
 
@@ -44,7 +50,7 @@ export class MySQLDriver implements IRemoteDriver {
         }
     }
 
-    async connect(): Promise<void> {
+    public async connect(): Promise<void> {
         // This is needed for typescript typecheking
         // For some reason, it doesn't work even if createPool needs a string and in an overload a PoolOptions
         if (typeof this.config == "string") {
@@ -54,12 +60,12 @@ export class MySQLDriver implements IRemoteDriver {
         }
     }
 
-    async disconnect(): Promise<void> {
+    public async disconnect(): Promise<void> {
         this.checkConnection();
         await this.conn!.end();
     }
 
-    async prepare(table: string): Promise<void> {
+    public async prepare(table: string): Promise<void> {
         this.checkConnection();
 
         await this.conn!.query(
@@ -67,7 +73,9 @@ export class MySQLDriver implements IRemoteDriver {
         );
     }
 
-    async getAllRows(table: string): Promise<{ id: string; value: any }[]> {
+    public async getAllRows(
+        table: string
+    ): Promise<{ id: string; value: any }[]> {
         this.checkConnection();
 
         const [rows] = await this.conn!.query<RowDataPacket[]>(
@@ -79,7 +87,24 @@ export class MySQLDriver implements IRemoteDriver {
         }));
     }
 
-    async getRowByKey<T>(
+    public async getStartsWith(
+        table: string,
+        query: string
+    ): Promise<{ id: string; value: any }[]> {
+        this.checkConnection();
+
+        const [rows] = await this.conn!.query<RowDataPacket[]>(
+            `SELECT * FROM ${table} where ID LIKE ?`,
+            [`${query}%`]
+        );
+
+        return rows.map((row) => ({
+            id: row.ID,
+            value: JSON.parse(row.json),
+        }));
+    }
+
+    public async getRowByKey<T>(
         table: string,
         key: string
     ): Promise<[T | null, boolean]> {
@@ -94,7 +119,7 @@ export class MySQLDriver implements IRemoteDriver {
         return [JSON.parse(rows[0].json), true];
     }
 
-    async setRowByKey<T>(
+    public async setRowByKey<T>(
         table: string,
         key: string,
         value: any,
@@ -118,14 +143,14 @@ export class MySQLDriver implements IRemoteDriver {
         return value;
     }
 
-    async deleteAllRows(table: string): Promise<number> {
+    public async deleteAllRows(table: string): Promise<number> {
         this.checkConnection();
 
         const [rows] = await this.conn!.query<OkPacket>(`DELETE FROM ${table}`);
         return rows.affectedRows;
     }
 
-    async deleteRowByKey(table: string, key: string): Promise<number> {
+    public async deleteRowByKey(table: string, key: string): Promise<number> {
         this.checkConnection();
 
         const [rows] = await this.conn!.query<OkPacket>(

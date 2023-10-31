@@ -1,5 +1,5 @@
-import { IDriver } from '../interfaces/IDriver';
-import { isConnectable } from '../utilities';
+import { IDriver } from "../interfaces/IDriver";
+import { isConnectable } from "../utilities";
 
 /**
  * DriverUnion - Union of Drivers
@@ -28,6 +28,7 @@ export class DriverUnion implements IDriver {
     public get main(): number {
         return this._main;
     }
+
     public set main(value: number) {
         if (!(value in this.drivers)) return;
 
@@ -54,6 +55,14 @@ export class DriverUnion implements IDriver {
     ): Promise<{ id: string; value: any }[]> {
         const main = this.drivers[this._main];
         return await main.getAllRows(table);
+    }
+
+    public async getStartsWith(
+        table: string,
+        query: string
+    ): Promise<{ id: string; value: any }[]> {
+        const main = this.drivers[this._main];
+        return await main.getStartsWith(table, query);
     }
 
     public async getRowByKey<T>(

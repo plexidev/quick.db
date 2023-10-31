@@ -8,8 +8,8 @@
         "node": ">=14.0.0"
     },
     "devDependencies": {
-        "@commitlint/cli": "^17.7.2",
-        "@commitlint/config-conventional": "^17.7.0",
+        "@commitlint/cli": "^18.0.0",
+        "@commitlint/config-conventional": "^18.0.0",
         "@faker-js/faker": "^8.0.0",
         "@types/better-sqlite3": "^7.4.2",
         "@types/jest": "^29.0.0",

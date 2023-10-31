@@ -31,11 +31,11 @@
     },
     "peerDependencies": {
         "better-sqlite3": "8.x || 9.x",
-        "mongoose": "7.x",
+        "cassandra-driver": "4.x",
+        "mongoose": "7.x || 8.x",
         "mysql2": "3.x",
         "pg": "8.x",
-        "write-file-atomic": "5.x",
-        "cassandra-driver": "4.x"
+        "write-file-atomic": "5.x"
     },
     "peerDependenciesMeta": {
         "better-sqlite3": {

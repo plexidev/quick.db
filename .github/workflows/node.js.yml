@@ -22,7 +22,7 @@ jobs:
             - name: Setup environment
               run: docker compose -f docker-compose.yml --env-file .env.dev up -d
             - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"

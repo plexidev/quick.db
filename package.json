@@ -82,7 +82,7 @@
         "build": "tsc",
         "clean": "rm -rf ./out",
         "prepublishOnly": "npm run lint && npm run build",
-        "prepare": "lefthook install && npm run build"
+        "prepare": "npm run build"
     },
     "lint-staged": {
         "*.{ts}": "eslint"

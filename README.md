@@ -157,7 +157,7 @@ const { MongoDriver } = require("quick.db/MongoDriver");
     await db.set("userInfo", { difficulty: "Easy" });
     // -> { difficulty: 'Easy' }
 
-    await driver.close();
+    await mongoDriver.close();
     // disconnect from the database
 })();
 ```

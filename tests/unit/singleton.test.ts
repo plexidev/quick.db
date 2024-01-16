@@ -13,7 +13,7 @@ describe("singleton", () => {
             driver: new SqliteDriverMock("nice.sqlite"),
         });
 
-        const result = QuickDB.getSingletion("test");
+        const result = QuickDB.getSingleton("test");
         expect(result).toBeDefined();
         expect(result).toBeInstanceOf(QuickDB);
     });
@@ -25,7 +25,7 @@ describe("singleton", () => {
     });
 
     it("should error when getting singleton without name", () => {
-        expect(QuickDB.getSingletion).toThrow(
+        expect(QuickDB.getSingleton).toThrow(
             expect.objectContaining({ kind: ErrorKind.InvalidType })
         );
     });

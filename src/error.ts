@@ -4,6 +4,7 @@ export enum ErrorKind {
     MissingDriver = "MISSING_DRIVER",
     ParseException = "PARSE_EXCEPTION",
     InvalidType = "INVALID_TYPE",
+    InstanceNotFound = "INSTANCE_NOT_FOUND",
 }
 
 export class CustomError extends Error {

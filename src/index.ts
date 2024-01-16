@@ -175,19 +175,27 @@ export class QuickDB<D = any> {
      * ```ts
      * // If you have set a singleton instance
      * // Otherwise it will return undefined
-     * const db = QuickDB.getSingletion("quickdb");
+     * const db = QuickDB.getSingleton("quickdb");
      * await db.init();
      * ```
      **/
-    static getSingletion<T>(name: string): QuickDB<T> | undefined {
+    static getSingleton<T>(name: string): QuickDB<T> {
         if (typeof name != "string") {
             throw new QuickError(
                 `First argument (name) needs to be a string received "${typeof name}"`,
                 ErrorKind.InvalidType
             );
         }
-
-        return this.instances.get(name);
+    
+        const instance = this.instances.get(name);
+        if (!instance) {
+            throw new QuickError(
+                `No singleton instance registered with the name "${name}"`,
+                ErrorKind.InstanceNotFound
+            );
+        }
+    
+        return instance;
     }
 
     /**

@@ -102,7 +102,7 @@ export class PostgresDriver implements IRemoteDriver {
             [key]
         );
 
-        if (queryResult.rowCount < 1) return [null, false];
+        if (Number(queryResult.rowCount) < 1) return [null, false];
         return [JSON.parse(queryResult.rows[0].value), true];
     }
 
@@ -135,7 +135,7 @@ export class PostgresDriver implements IRemoteDriver {
         this.checkConnection();
 
         const queryResult = await this.conn!.query(`DELETE FROM ${table}`);
-        return queryResult.rowCount;
+        return queryResult.rowCount as number;
     }
 
     public async deleteRowByKey(table: string, key: string): Promise<number> {
@@ -145,6 +145,6 @@ export class PostgresDriver implements IRemoteDriver {
             `DELETE FROM ${table} WHERE id = $1`,
             [key]
         );
-        return queryResult.rowCount;
+        return queryResult.rowCount as number;
     }
 }

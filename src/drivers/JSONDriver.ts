@@ -33,6 +33,7 @@ export class JSONDriver extends MemoryDriver {
             const contents = readFileSync(this.path, { encoding: "utf-8" });
 
             try {
+                
                 const data = JSON.parse(contents);
                 for (const table in data) {
                     const store = this.getOrCreateTable(table);

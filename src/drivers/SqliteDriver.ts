@@ -43,16 +43,12 @@ export class SqliteDriver implements IDriver {
         const prep = this._database.prepare<{ ID: string; json: string }[]>(
             `SELECT * FROM ${table}`
         );
-        const data = [];
-
-        for (const row of prep.iterate()) {
-            data.push({
-                id: (row as { ID: string; json: string }).ID,
-                value: JSON.parse((row as { ID: string; json: string }).json),
-            });
-        }
-
-        return data;
+        return (prep.all() as { ID: string, json: string }[])
+            .map(row  => ({
+                id: row.ID,
+                value: JSON.parse(row.json),
+            })
+        );
     }
 
     public async getRowByKey<T>(
@@ -73,17 +69,13 @@ export class SqliteDriver implements IDriver {
         const prep = this._database.prepare<{ ID: string; json: string }[]>(
             `SELECT * FROM ${table} WHERE ID LIKE '${query}%'`
         );
-
-        const data = [];
-
-        for (const row of prep.iterate()) {
-            data.push({
-                id: (row as { ID: string; json: string }).ID,
-                value: JSON.parse((row as { id: string; json: string }).json),
-            });
-        }
-
-        return data;
+        
+        return (prep.all() as { ID: string, json: string }[])
+            .map(row  => ({
+                id: row.ID,
+                value: JSON.parse(row.json),
+            })
+        );
     }
 
     public async setRowByKey<T>(

@@ -30,7 +30,7 @@
         "typescript": "^5.1.6"
     },
     "peerDependencies": {
-        "better-sqlite3": "8.x || 9.x",
+        "better-sqlite3": "8.x || 9.x || 11.x",
         "cassandra-driver": "4.x",
         "mongoose": "7.x || 8.x",
         "mysql2": "3.x",

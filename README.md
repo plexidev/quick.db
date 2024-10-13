@@ -19,11 +19,25 @@ Quick.db is an open-source package meant to provide an easy way for beginners an
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/zelak)
 
-## Installation
+## Prerequisites
+Before you get started, ensure you have the following installed:
+- **Node.js** (Version 12 or higher): [Download here](https://nodejs.org/)
+- **NPM**: Comes pre-installed with Node.js
 
+You can check if Node.js and NPM are installed by running the following commands in your terminal:
 ```bash
-npm i quick.db
+node -v
+npm -v
 ```
+
+## Installation
+To install Quick.db and its dependencies, run the following command in your Node.js project:
+```bash
+npm install quick.db
+```
+
+By default, Quick.db uses SQLite for storage, so no additional configuration is required for basic setups.
+
 
 <br>
 <details>
@@ -40,6 +54,47 @@ npm i quick.db
 
 > If you're having troubles installing, please follow [this troubleshooting guide](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).
 > Windows users may need to do additional steps listed [here](https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/troubleshooting.md).
+
+## Multiple Database Drivers
+
+Quick.db supports various database drivers. By default, it uses SQLite, but you can also configure it to use MySQL, PostgreSQL, or Mongoose.
+
+**Driver Setup**:
+To switch to a different database driver, follow these steps:
+
+1. **For MySQL**:
+   Install MySQL driver:
+   ```bash
+   npm install mysql2
+   ```
+   Modify your code to use MySQL:
+   ```javascript
+   const { QuickDB } = require("quick.db");
+   const db = new QuickDB({ driver: "mysql", user: "root", password: "", database: "quickdb" });
+   ```
+
+2. **For PostgreSQL**:
+   Install PostgreSQL driver:
+   ```bash
+   npm install pg
+   ```
+   Modify your code to use PostgreSQL:
+   ```javascript
+   const { QuickDB } = require("quick.db");
+   const db = new QuickDB({ driver: "pg", user: "postgres", password: "", database: "quickdb" });
+   ```
+
+3. **For Mongoose**:
+   Install Mongoose driver:
+   ```bash
+   npm install mongoose
+   ```
+   Modify your code to use Mongoose:
+   ```javascript
+   const mongoose = require('mongoose');
+   mongoose.connect('mongodb://localhost/quickdb', { useNewUrlParser: true, useUnifiedTopology: true });
+   const db = require('quick.db');
+   ```
 
 ## Example With Sqlite (Default driver)
 
